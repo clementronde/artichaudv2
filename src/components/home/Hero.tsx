@@ -2,7 +2,6 @@
 import { useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import Image from 'next/image'
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null)
@@ -10,14 +9,9 @@ export default function Hero() {
   const smokeLayerRef = useRef<HTMLDivElement>(null)
   const ashLayerRef = useRef<HTMLDivElement>(null)
   const fireLayerRef = useRef<HTMLDivElement>(null)
-  const leftEyeRef = useRef<HTMLDivElement>(null)
-  const rightEyeRef = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const logoWrapperRef = useRef<HTMLDivElement>(null)
   const currentIndexRef = useRef(0)
   const isAnimatingRef = useRef(false)
   const isInViewRef = useRef(true)
-  const eyesReadyRef = useRef(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   
@@ -33,7 +27,6 @@ export default function Hero() {
         entries.forEach((entry) => {
           isInViewRef.current = entry.isIntersecting
           
-          // Si on quitte le hero, on nettoie les particules
           if (!entry.isIntersecting) {
             if (smokeLayerRef.current) smokeLayerRef.current.innerHTML = ''
             if (ashLayerRef.current) ashLayerRef.current.innerHTML = ''
@@ -41,63 +34,18 @@ export default function Hero() {
           }
         })
       },
-      {
-        threshold: 0.3 // 30% du hero doit être visible
-      }
+      { threshold: 0.3 }
     )
 
     observer.observe(heroSection)
     return () => observer.disconnect()
   }, [])
 
-  // Effet des yeux qui suivent la souris
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!eyesReadyRef.current) return
-      
-      const leftEye = leftEyeRef.current
-      const rightEye = rightEyeRef.current
-      const logo = logoWrapperRef.current
-      
-      if (!leftEye || !rightEye || !logo) return
-
-      const logoRect = logo.getBoundingClientRect()
-      const logoCenterX = logoRect.left + logoRect.width / 2
-      const logoCenterY = logoRect.top + logoRect.height * 0.38
-
-      const deltaX = e.clientX - logoCenterX
-      const deltaY = e.clientY - logoCenterY
-      const angle = Math.atan2(deltaY, deltaX)
-      
-      const distance = Math.min(Math.hypot(deltaX, deltaY) / 15, 12)
-
-      const eyeX = Math.cos(angle) * distance
-      const eyeY = Math.sin(angle) * distance
-
-      gsap.to([leftEye, rightEye], {
-        x: eyeX,
-        y: eyeY,
-        duration: 0.12,
-        ease: "power2.out",
-        overwrite: 'auto'
-      })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
-
   // Nettoyer toutes les particules
   const clearAllParticles = useCallback(() => {
-    if (smokeLayerRef.current) {
-      smokeLayerRef.current.innerHTML = ''
-    }
-    if (ashLayerRef.current) {
-      ashLayerRef.current.innerHTML = ''
-    }
-    if (fireLayerRef.current) {
-      fireLayerRef.current.innerHTML = ''
-    }
+    if (smokeLayerRef.current) smokeLayerRef.current.innerHTML = ''
+    if (ashLayerRef.current) ashLayerRef.current.innerHTML = ''
+    if (fireLayerRef.current) fireLayerRef.current.innerHTML = ''
   }, [])
 
   // Reset complet de l'état
@@ -368,8 +316,6 @@ export default function Hero() {
   // Animation d'entrée
   useGSAP(() => {
     const tl = gsap.timeline()
-    const leftEye = leftEyeRef.current
-    const rightEye = rightEyeRef.current
 
     tl.from(".hero-line", {
       y: 150,
@@ -384,64 +330,6 @@ export default function Hero() {
       duration: 1,
     }, "-=1.0")
 
-    tl.fromTo(".hero-logo", 
-      {
-        opacity: 0,
-        x: 100,
-        scale: 0.9,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        duration: 1.2,
-        ease: "power3.out"
-      }, 
-      "-=1.4"
-    )
-
-    if (leftEye && rightEye) {
-      tl.to([leftEye, rightEye], {
-        x: -8,
-        y: -5,
-        duration: 0.25,
-        ease: "power2.inOut"
-      }, "-=0.5")
-      .to([leftEye, rightEye], {
-        x: 10,
-        y: 3,
-        duration: 0.35,
-        ease: "power2.inOut"
-      })
-      .to([leftEye, rightEye], {
-        x: -6,
-        y: 6,
-        duration: 0.28,
-        ease: "power2.inOut"
-      })
-      .to([leftEye, rightEye], {
-        x: 8,
-        y: -4,
-        duration: 0.32,
-        ease: "power2.inOut"
-      })
-      .to([leftEye, rightEye], {
-        x: -4,
-        y: 0,
-        duration: 0.2,
-        ease: "power2.inOut"
-      })
-      .to([leftEye, rightEye], {
-        x: 0,
-        y: 0,
-        duration: 0.35,
-        ease: "elastic.out(1, 0.5)",
-        onComplete: () => {
-          eyesReadyRef.current = true
-        }
-      })
-    }
-
   }, { scope: container })
 
   // Cycle des mots
@@ -450,7 +338,6 @@ export default function Hero() {
     if (!wordsContainer) return
 
     const cycleWords = () => {
-      // Ne pas animer si hors vue
       if (isAnimatingRef.current || !document.hasFocus() || !isInViewRef.current) return
       
       isAnimatingRef.current = true
@@ -533,7 +420,7 @@ export default function Hero() {
   return (
     <section 
       ref={container} 
-      className="relative h-screen w-full flex flex-col md:flex-row justify-center px-6 md:px-10 bg-white text-arti-black overflow-hidden"
+      className="relative h-screen w-full flex flex-col justify-center px-6 md:px-10 bg-white text-arti-black overflow-hidden"
     >
       {/* Layer des cendres */}
       <div 
@@ -553,8 +440,8 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none z-50"
       />
 
-      {/* CONTENU GAUCHE */}
-      <div className="flex flex-col justify-center z-10 md:flex-1 pt-20">
+      {/* CONTENU */}
+      <div className="flex flex-col z-10">
         
         <div className="overflow-hidden pb-2">
           <h1 className="hero-line block text-display font-light text-[11vw] md:text-[80px] lg:text-[100px] leading-[0.9] whitespace-nowrap">
@@ -597,55 +484,6 @@ export default function Hero() {
             Let&apos;s be honest. You&apos;ve built something great. But lately, 
             it&apos;s been harder to capture attention, or even - the right kind.
           </p>
-        </div>
-      </div>
-
-      {/* LOGO ARTICHAUD - RÉDUIT ET PLUS À DROITE */}
-      <div 
-        ref={logoRef}
-        className="hero-logo hidden md:flex items-end justify-end md:w-[40%] lg:w-[35%] z-10 pr-4 lg:pr-8"
-      >
-        <div 
-          ref={logoWrapperRef}
-          className="relative w-[200px] lg:w-[280px] xl:w-[320px]"
-        >
-          {/* Image PNG du logo */}
-          <Image
-            src="/logonoirhero.png"
-            alt="Artichaud Studio"
-            width={320}
-            height={400}
-            className="w-full h-auto"
-            priority
-          />
-
-          {/* Œil gauche */}
-          <div 
-            ref={leftEyeRef}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: '5.5%',
-              paddingBottom: '5.5%',
-              left: '40%',
-              top: '35%',
-              transform: 'translate(-50%, -50%)',
-              willChange: 'transform'
-            }}
-          />
-
-          {/* Œil droit */}
-          <div 
-            ref={rightEyeRef}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: '5.5%',
-              paddingBottom: '5.5%',
-              left: '60%',
-              top: '35%',
-              transform: 'translate(-50%, -50%)',
-              willChange: 'transform'
-            }}
-          />
         </div>
       </div>
     </section>

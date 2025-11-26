@@ -1,7 +1,9 @@
 import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/home/Hero';
 import Intro from '@/components/home/Intro';
-import Services from '@/components/home/Services'; // <--- Import
+import Services from '@/components/home/Services';
+import Highlight from '@/components/home/Highlight'; // <--- Import
+import Testimonials from '@/components/home/Testimonials';
 
 export default function Home() {
   return (
@@ -9,12 +11,11 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Intro />
-      <Services /> {/* <--- Ajouté ici */}
-      
-      {/* Footer Temporaire */}
-      <div className="h-[50vh] bg-black text-white flex items-center justify-center">
-        <p>Next: Works & Footer</p>
-      </div>
+      <Services />
+      <Highlight />
+      <Testimonials />
+
+      <div className="h-[20vh] bg-white"></div>
     </main>
   );
 }

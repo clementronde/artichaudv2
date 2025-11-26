@@ -50,13 +50,19 @@ export default function Services() {
   const container = useRef(null)
 
   return (
-    <section ref={container} className="relative w-full">
+    <section ref={container} className="relative w-full z-10 bg-white">
       
       {servicesData.map((service, index) => (
         <div 
           key={service.id} 
           className={`sticky top-0 h-screen flex flex-col justify-center bg-white text-arti-black overflow-hidden border-t border-black/5
-            ${index > 0 ? 'shadow-[0_-10px_30px_rgba(0,0,0,0.08)]' : 'shadow-none'} 
+            ${
+              // RETOUR DE L'OMBRE TOP :
+              // Appliquée sur toutes les cartes sauf la toute première (index 0)
+              index > 0 
+                ? 'shadow-[0_-10px_30px_rgba(0,0,0,0.08)]' 
+                : 'shadow-none'
+            } 
           `} 
           style={{ zIndex: index + 1 }}
         >
@@ -72,13 +78,12 @@ export default function Services() {
                 </span>
               </div>
 
-              {/* COL 2-5: Titre + Liste Focus */}
+              {/* COL 2-5: Titre + Liste */}
               <div className="col-span-12 md:col-span-5 flex flex-col gap-8 md:pr-12">
                 <h2 className="text-[40px] md:text-[60px] leading-[1] font-normal tracking-tight">
                   {service.title}
                 </h2>
 
-                {/* LISTE */}
                 <ul className="group flex flex-col gap-3">
                   {service.items.map((item, i) => (
                     <li 
@@ -86,22 +91,16 @@ export default function Services() {
                       className="group/item flex items-center cursor-pointer -ml-4 pl-4 transition-all duration-300
                       group-hover:opacity-30 hover:!opacity-100"
                     >
-                      
-                      {/* LE POINT */}
                       <span className="w-1.5 h-1.5 rounded-full bg-arti-black mr-3 opacity-0 -translate-x-2 transition-all duration-300 ease-out 
                         group-hover/item:opacity-100 group-hover/item:translate-x-0">
                       </span>
-                      
-                      {/* LE TEXTE */}
                       <span className="text-lg md:text-xl font-light">
                         {item}
                       </span>
-
                     </li>
                   ))}
                 </ul>
 
-                {/* Bouton CTA */}
                 <div className="pt-4">
                   <Link 
                     href="/contact"
@@ -115,18 +114,17 @@ export default function Services() {
 
               {/* COL 6-12: Description + Image */}
               <div className="col-span-12 md:col-span-6 flex flex-col gap-8 h-full justify-between md:justify-center">
-                
                 <p className="text-lg md:text-xl font-light leading-relaxed opacity-60 max-w-lg md:ml-auto">
                   {service.description}
                 </p>
 
-                {/* CONTAINER IMAGE : J'ai retiré "grayscale hover:grayscale-0" */}
-                <div className="relative w-full aspect-[16/9] md:aspect-[4/3] overflow-hidden rounded-lg mt-auto md:mt-8 transition-all duration-700 ease-out">
+                {/* IMAGE SANS BORDURE */}
+                <div className="relative w-full aspect-[16/9] md:aspect-[4/3] overflow-hidden mt-auto md:mt-8">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    className="object-cover"
                   />
                 </div>
               </div>
