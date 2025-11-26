@@ -1,13 +1,8 @@
 'use client'
 import { ReactLenis } from '@studio-freight/react-lenis'
-// @ts-ignore  <-- Ajoute ça juste pour faire taire l'erreur rouge si elle persiste
-import React from 'react'
 
-interface SmoothScrollProps {
-  children: React.ReactNode
-}
-
-export default function SmoothScroll({ children }: SmoothScrollProps) {
+// On utilise 'any' pour contourner le conflit de version React 18/19
+export default function SmoothScroll({ children }: { children: any }) {
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
       {children}
