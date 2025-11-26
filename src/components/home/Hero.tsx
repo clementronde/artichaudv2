@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -8,12 +8,63 @@ export default function Hero() {
   const wordsContainerRef = useRef<HTMLDivElement>(null)
   const smokeLayerRef = useRef<HTMLDivElement>(null)
   const ashLayerRef = useRef<HTMLDivElement>(null)
+  const fireLayerRef = useRef<HTMLDivElement>(null) // Nouveau layer pour le feu
   const currentIndexRef = useRef(0)
+  const isAnimatingRef = useRef(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
   
   const words = ['projets', 'idées', 'envies', 'ambitions']
 
-  // Fonction pour créer une particule de feu/braise
-  const createFireParticle = (x: number, y: number, container: HTMLElement) => {
+  // Nettoyer toutes les particules
+  const clearAllParticles = useCallback(() => {
+    if (smokeLayerRef.current) {
+      smokeLayerRef.current.innerHTML = ''
+    }
+    if (ashLayerRef.current) {
+      ashLayerRef.current.innerHTML = ''
+    }
+    if (fireLayerRef.current) {
+      fireLayerRef.current.innerHTML = ''
+    }
+  }, [])
+
+  // Reset complet de l'état
+  const resetState = useCallback(() => {
+    isAnimatingRef.current = false
+    clearAllParticles()
+    
+    if (wordsContainerRef.current) {
+      const allLetters = wordsContainerRef.current.querySelectorAll('.letter')
+      gsap.killTweensOf(allLetters)
+      
+      const wordElements = wordsContainerRef.current.querySelectorAll('.word-item')
+      wordElements.forEach((word, index) => {
+        const el = word as HTMLElement
+        gsap.set(el, { display: index === currentIndexRef.current ? 'block' : 'none' })
+        
+        const letters = el.querySelectorAll('.letter')
+        letters.forEach(letter => {
+          gsap.set(letter, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            filter: 'none',
+            color: 'inherit',
+            textShadow: 'none'
+          })
+        })
+      })
+    }
+  }, [clearAllParticles])
+
+  // Fonction pour créer une particule de feu/braise (maintenant dans le layer global)
+  const createFireParticle = useCallback((x: number, y: number) => {
+    if (!document.hasFocus()) return
+    
+    const fireLayer = fireLayerRef.current
+    if (!fireLayer) return
+    
     const particle = document.createElement('div')
     const isEmber = Math.random() > 0.3
     const size = isEmber ? Math.random() * 6 + 2 : Math.random() * 4 + 1
@@ -32,7 +83,7 @@ export default function Hero() {
       };
       box-shadow: ${isEmber ? `0 0 ${size * 2}px #ff4400, 0 0 ${size * 4}px #ff6600` : 'none'};
     `
-    container.appendChild(particle)
+    fireLayer.appendChild(particle)
 
     const angle = Math.random() * Math.PI * 2
     const velocity = Math.random() * 60 + 20
@@ -50,10 +101,12 @@ export default function Hero() {
       ease: isEmber ? "power2.out" : "power1.out",
       onComplete: () => particle.remove()
     })
-  }
+  }, [])
 
-  // Fonction pour créer la fumée (dans le layer au-dessus de tout)
-  const createSmoke = (x: number, y: number) => {
+  // Fonction pour créer la fumée
+  const createSmoke = useCallback((x: number, y: number) => {
+    if (!document.hasFocus()) return
+    
     const smokeLayer = smokeLayerRef.current
     if (!smokeLayer) return
 
@@ -82,10 +135,12 @@ export default function Hero() {
       ease: "power1.out",
       onComplete: () => smoke.remove()
     })
-  }
+  }, [])
 
-  // Fonction pour créer des cendres qui tombent
-  const createAsh = (x: number, y: number) => {
+  // Fonction pour créer des cendres
+  const createAsh = useCallback((x: number, y: number) => {
+    if (!document.hasFocus()) return
+    
     const ashLayer = ashLayerRef.current
     if (!ashLayer) return
 
@@ -109,7 +164,6 @@ export default function Hero() {
     `
     ashLayer.appendChild(ash)
 
-    // Animation de chute avec oscillation
     const fallDuration = Math.random() * 3 + 2
     const swayAmount = Math.random() * 100 + 50
     const swayFrequency = Math.random() * 3 + 2
@@ -121,13 +175,11 @@ export default function Hero() {
       duration: fallDuration,
       ease: "none",
       onUpdate: function() {
-        // Oscillation pendant la chute
         const progress = this.progress()
         const sway = Math.sin(progress * Math.PI * swayFrequency) * 30
         gsap.set(ash, { x: `+=${sway * 0.02}` })
       },
       onComplete: () => {
-        // Petite animation d'atterrissage
         gsap.to(ash, {
           opacity: 0,
           scale: 0.5,
@@ -138,27 +190,32 @@ export default function Hero() {
         })
       }
     })
-  }
+  }, [])
 
   // Fonction pour brûler une lettre
-  const burnLetter = (letter: HTMLElement, index: number, container: HTMLElement, onComplete?: () => void) => {
+  const burnLetter = useCallback((
+    letter: HTMLElement, 
+    index: number, 
+    onComplete?: () => void
+  ) => {
+    if (!document.hasFocus()) {
+      onComplete?.()
+      return
+    }
+
     const rect = letter.getBoundingClientRect()
-    const containerRect = container.getBoundingClientRect()
-    const sectionRect = container.closest('section')?.getBoundingClientRect() || containerRect
+    const sectionRect = container.current?.getBoundingClientRect()
+    if (!sectionRect) {
+      onComplete?.()
+      return
+    }
     
-    const centerX = rect.left - containerRect.left + rect.width / 2
-    const centerY = rect.top - containerRect.top + rect.height / 2
-    
-    // Position absolue pour la fumée (par rapport à la section)
+    // Position absolue par rapport à la section (pour tous les layers)
     const absoluteX = rect.left - sectionRect.left + rect.width / 2
     const absoluteY = rect.top - sectionRect.top + rect.height / 2
 
-    // Timeline pour la combustion de la lettre
-    const tl = gsap.timeline({
-      onComplete: onComplete
-    })
+    const tl = gsap.timeline({ onComplete })
 
-    // La lettre devient orange/rouge puis disparaît
     tl.to(letter, {
       color: '#ff6600',
       textShadow: '0 0 10px #ff4400, 0 0 20px #ff6600, 0 0 30px #ff8800',
@@ -180,23 +237,25 @@ export default function Hero() {
       ease: "power2.in"
     })
 
-    // Particules de feu pendant la combustion
     const particleDelay = index * 80
-    setTimeout(() => {
-      // Particules de feu (dans le container local)
+    const particleTimeout = setTimeout(() => {
+      if (!document.hasFocus()) return
+      
+      // Particules de feu (dans le layer global)
       for (let i = 0; i < 15; i++) {
         setTimeout(() => {
+          if (!document.hasFocus()) return
           createFireParticle(
-            centerX + (Math.random() - 0.5) * rect.width,
-            centerY + (Math.random() - 0.5) * rect.height,
-            container
+            absoluteX + (Math.random() - 0.5) * rect.width,
+            absoluteY + (Math.random() - 0.5) * rect.height
           )
         }, i * 20)
       }
       
-      // Fumée (dans le layer global au-dessus de tout)
+      // Fumée
       for (let i = 0; i < 8; i++) {
         setTimeout(() => {
+          if (!document.hasFocus()) return
           createSmoke(
             absoluteX + (Math.random() - 0.5) * rect.width * 2,
             absoluteY
@@ -204,9 +263,10 @@ export default function Hero() {
         }, i * 40 + 50)
       }
 
-      // Cendres qui tombent
+      // Cendres
       for (let i = 0; i < 6; i++) {
         setTimeout(() => {
+          if (!document.hasFocus()) return
           createAsh(
             absoluteX + (Math.random() - 0.5) * rect.width * 3,
             absoluteY + Math.random() * 20
@@ -214,10 +274,12 @@ export default function Hero() {
         }, i * 60 + 200)
       }
     }, particleDelay)
-  }
 
-  // Fonction pour faire apparaître une lettre depuis la fumée
-  const revealLetter = (letter: HTMLElement, index: number) => {
+    return () => clearTimeout(particleTimeout)
+  }, [createFireParticle, createSmoke, createAsh])
+
+  // Fonction pour révéler une lettre
+  const revealLetter = useCallback((letter: HTMLElement, index: number) => {
     gsap.set(letter, {
       opacity: 0,
       y: 20,
@@ -234,12 +296,12 @@ export default function Hero() {
       delay: index * 0.06,
       ease: "power3.out"
     })
-  }
+  }, [])
 
+  // Animation d'entrée
   useGSAP(() => {
     const tl = gsap.timeline()
 
-    // Animation d'entrée
     tl.from(".hero-line", {
       y: 150,
       duration: 1.5,
@@ -255,35 +317,38 @@ export default function Hero() {
 
   }, { scope: container })
 
-  // Cycle des mots avec effet de feu
+  // Cycle des mots
   useEffect(() => {
     const wordsContainer = wordsContainerRef.current
     if (!wordsContainer) return
 
     const cycleWords = () => {
+      if (isAnimatingRef.current || !document.hasFocus()) return
+      
+      isAnimatingRef.current = true
+
       const wordElements = wordsContainer.querySelectorAll('.word-item')
       const currentWord = wordElements[currentIndexRef.current] as HTMLElement
       const nextIndex = (currentIndexRef.current + 1) % words.length
       const nextWord = wordElements[nextIndex] as HTMLElement
 
-      if (!currentWord || !nextWord) return
+      if (!currentWord || !nextWord) {
+        isAnimatingRef.current = false
+        return
+      }
 
       const currentLetters = currentWord.querySelectorAll('.letter') as NodeListOf<HTMLElement>
       const nextLetters = nextWord.querySelectorAll('.letter') as NodeListOf<HTMLElement>
 
-      // Brûler chaque lettre du mot actuel
       let completedCount = 0
       currentLetters.forEach((letter, index) => {
-        burnLetter(letter, index, wordsContainer, () => {
+        burnLetter(letter, index, () => {
           completedCount++
           
-          // Quand toutes les lettres sont brûlées
           if (completedCount === currentLetters.length) {
-            // Cacher le mot actuel, afficher le suivant
             gsap.set(currentWord, { display: 'none' })
             gsap.set(nextWord, { display: 'block' })
             
-            // Reset du mot qu'on vient de brûler pour le prochain cycle
             currentLetters.forEach(l => {
               gsap.set(l, {
                 opacity: 1,
@@ -295,46 +360,66 @@ export default function Hero() {
               })
             })
             
-            // Révéler les lettres du nouveau mot
             nextLetters.forEach((letter, idx) => {
               revealLetter(letter, idx)
             })
             
             currentIndexRef.current = nextIndex
+            isAnimatingRef.current = false
           }
         })
       })
     }
 
-    // Premier cycle après l'animation d'entrée
-    const initialDelay = setTimeout(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        if (intervalRef.current) clearInterval(intervalRef.current)
+        resetState()
+      } else {
+        clearAllParticles()
+        isAnimatingRef.current = false
+        
+        timeoutRef.current = setTimeout(() => {
+          cycleWords()
+          intervalRef.current = setInterval(cycleWords, 4500)
+        }, 2000)
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    timeoutRef.current = setTimeout(() => {
       cycleWords()
+      intervalRef.current = setInterval(cycleWords, 4500)
     }, 3000)
 
-    // Cycles suivants
-    const interval = setInterval(() => {
-      cycleWords()
-    }, 4500)
-
     return () => {
-      clearTimeout(initialDelay)
-      clearInterval(interval)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      resetState()
     }
-  }, [])
+  }, [burnLetter, revealLetter, resetState, clearAllParticles, words.length])
 
   return (
     <section 
       ref={container} 
       className="relative h-screen w-full flex flex-col justify-center px-6 md:px-10 pt-20 bg-white text-arti-black overflow-hidden"
     >
-      {/* Layer des cendres (derrière le contenu mais visible) */}
+      {/* Layer des cendres */}
       <div 
         ref={ashLayerRef}
         className="absolute inset-0 pointer-events-none z-20"
-        style={{ overflow: 'hidden' }}
       />
 
-      {/* Layer de fumée (AU-DESSUS de tout) */}
+      {/* Layer du feu/braises (NOUVEAU - entre le texte et la fumée) */}
+      <div 
+        ref={fireLayerRef}
+        className="absolute inset-0 pointer-events-none z-30"
+      />
+
+      {/* Layer de fumée (au-dessus de tout) */}
       <div 
         ref={smokeLayerRef}
         className="absolute inset-0 pointer-events-none z-50"
@@ -343,15 +428,14 @@ export default function Hero() {
       {/* GROS TITRE */}
       <div className="flex flex-col z-10">
         
-        {/* Ligne 1 */}
         <div className="overflow-hidden pb-2">
           <h1 className="hero-line block text-display font-light text-[11vw] md:text-[100px] leading-[0.9] whitespace-nowrap">
             Mettez le feu à vos
           </h1>
         </div>
         
-        {/* Ligne 2 : Mots qui brûlent */}
-        <div className="overflow-hidden pb-6 -mt-2 md:-mt-4">
+        {/* PLUS D'OVERFLOW HIDDEN ICI - les particules peuvent déborder */}
+        <div className="pb-6 -mt-2 md:-mt-4">
           <h1 className="hero-line block text-display font-extrabold text-[11vw] md:text-[100px] leading-[1.1]">
             <span 
               ref={wordsContainerRef}
@@ -375,7 +459,6 @@ export default function Hero() {
                   ))}
                 </span>
               ))}
-              {/* Placeholder pour la largeur */}
               <span className="invisible">ambitions</span>
             </span>
           </h1>
