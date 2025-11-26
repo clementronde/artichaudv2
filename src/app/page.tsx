@@ -4,6 +4,7 @@ import Intro from '@/components/home/Intro';
 import Services from '@/components/home/Services';
 import Highlight from '@/components/home/Highlight'; // <--- Import
 import Testimonials from '@/components/home/Testimonials';
+import BlogSection from '@/components/home/BlogSection';
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <Services />
       <Highlight />
       <Testimonials />
-
+      <BlogSection />
       <div className="h-[20vh] bg-white"></div>
     </main>
   );
