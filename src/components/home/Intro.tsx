@@ -56,7 +56,7 @@ export default function Intro() {
     // Le but : Laisser le CTA visible, puis ralentir l'Intro pour qu'elle se fasse recouvrir.
     gsap.to(blackBox.current, {
       y: '20%', // On la déplace vers le bas (elle suit le scroll un peu)
-      scale: 0.95, // Petit effet visuel bonus : elle recule légèrement
+      scale: 1, // Petit effet visuel bonus : elle recule légèrement
       opacity: 1, // Elle s'assombrit
       ease: "none",
       scrollTrigger: {

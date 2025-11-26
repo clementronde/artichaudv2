@@ -1,7 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll"; // On importe notre wrapper ici
+import SmoothScroll from "@/components/SmoothScroll";
+import Footer from "@/components/layout/Footer";
 
 // CHARGEMENT DES POLICES
 const helvetica = localFont({
@@ -29,10 +31,16 @@ export default function RootLayout({
   return (
     <html lang="fr" className={helvetica.variable}>
       <body className="bg-white text-arti-black font-sans antialiased">
-        {/* On enveloppe tout le contenu dans notre composant Client */}
+        
+        {/* L'élément qui contient tout le contenu de la page (le contenu défilant) */}
         <SmoothScroll>
           {children}
         </SmoothScroll>
+
+        {/* 👈 2. Placez le Footer en dehors du SmoothScroll */}
+        {/* Le Footer utilise 'position: fixed' et se place au-dessus du SmoothScroll */}
+        <Footer />
+        
       </body>
     </html>
   );
