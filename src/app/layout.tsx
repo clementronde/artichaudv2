@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   description: "Branding and design agency.",
 };
 
+// ... imports
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,15 +34,17 @@ export default function RootLayout({
   return (
     <html lang="fr" className={helvetica.variable}>
       <body className="bg-white text-arti-black font-sans antialiased">
+        
+        {/* ✅ Navbar isolée (Règle les bugs GSAP) */}
         <Navbar />
-        {/* L'élément qui contient tout le contenu de la page (le contenu défilant) */}
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
 
-        {/* 👈 2. Placez le Footer en dehors du SmoothScroll */}
-        {/* Le Footer utilise 'position: fixed' et se place au-dessus du SmoothScroll */}
-        <Footer />
+        <SmoothScroll>
+          {/* Contenu de la page */}
+          {children}
+          
+          {/* ✅ Footer scrolle normalement avec la page */}
+          <Footer />
+        </SmoothScroll>
         
       </body>
     </html>
