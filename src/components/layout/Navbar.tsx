@@ -1,12 +1,11 @@
 'use client'
 
-import { useRef, useCallback, useEffect } from 'react'
+import { useRef, useCallback, useEffect, useLayoutEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Link from 'next/link'
 
-// --- 1. COMPOSANT MAGNETIC AVEC DESACTIVATION ---
-// Ajout de la prop 'disabled' pour couper l'effet quand on navigue
+// --- COMPOSANT MAGNETIC (Inchangé) ---
 const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?: boolean }) => {
   const magneticRef = useRef<HTMLDivElement>(null)
   const xTo = useRef<gsap.QuickToFunc | null>(null)
@@ -34,7 +33,6 @@ const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?
     yTo.current(0)
   }
 
-  // Si disabled (navigation en cours), on force le reset de la position
   useEffect(() => {
     if (disabled && xTo.current && yTo.current) {
         xTo.current(0)
@@ -49,7 +47,7 @@ const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?
   )
 }
 
-// --- 2. COMPOSANT NAVBAR ---
+// --- COMPOSANT NAVBAR ---
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
@@ -65,41 +63,45 @@ export default function Navbar() {
   
   const isCollapsedRef = useRef(false)
   const isHoveringRef = useRef(false)
-  // Utilisation d'un State pour déclencher le re-render du Magnetic (prop disabled)
   const isNavigatingRef = useRef(false) 
 
   const EXPANDED_WIDTH = 620
   const COLLAPSED_WIDTH = 150
   const MOBILE_WIDTH = 340
 
-  // --- CONFIGURATION DES LIENS (STATIQUE) ---
-  // Plus sûr que le .map dynamique pour éviter les erreurs de routing
   const navLinks = [
     { label: 'Projets', href: '/projets' },
     { label: 'Services', href: '/services' },
-    { label: 'À propos', href: '/a-propos' }, // Vérifie bien que ta page s'appelle 'a-propos'
+    { label: 'À propos', href: '/a-propos' },
   ]
 
-  // --- RESET TOTAL ---
+  // --- 1. LE NETTOYAGE RADICAL (FIX DU FANTÔME) ---
   const hardReset = useCallback(() => {
+    // 1. On tue toutes les animations
     gsap.killTweensOf([navRef.current, innerRef.current, linksRef.current, ctaRef.current])
     if (linksRef.current?.children) gsap.killTweensOf(linksRef.current.children)
 
     const isMobile = window.innerWidth < 768
     const initialWidth = isMobile ? MOBILE_WIDTH : EXPANDED_WIDTH
 
-    // État initial : Invisible et bloqué
+    // 2. IMPORTANT : On nettoie d'abord TOUS les styles inline laissés par GSAP
+    // C'est ça qui enlève le "fantôme" (l'ancien transform/width qui traine)
+    gsap.set([navRef.current, innerRef.current, linksRef.current, ctaRef.current], {
+        clearProps: "all"
+    })
+
+    // 3. On réapplique proprement les états de départ
+    // Note : opacity-0 est dans le className CSS, donc clearProps remet l'opacité à 0 par défaut
     gsap.set(navRef.current, { 
         width: initialWidth, 
-        y: -100, 
-        autoAlpha: 0, 
-        pointerEvents: 'none' 
+        y: -100, // Position de départ (haut)
+        autoAlpha: 0, // Force invisible
+        pointerEvents: 'none',
     })
     gsap.set(innerRef.current, { width: initialWidth })
     
-    // Liens visibles par défaut (pour quand la navbar apparaitra)
+    // On prépare les enfants à être visibles
     gsap.set([linksRef.current, ctaRef.current], { 
-      clearProps: 'all', 
       autoAlpha: 1, 
     })
 
@@ -108,13 +110,13 @@ export default function Navbar() {
     isHoveringRef.current = false 
   }, [])
 
-  // --- ANIMATION D'ENTRÉE ---
+  // --- 2. ANIMATION D'ENTRÉE ---
   const animateIn = useCallback(() => {
-    hardReset() 
-
+    // Note : hardReset est déjà appelé par useLayoutEffect, 
+    // mais on s'assure que la timeline est propre
+    
     const tl = gsap.timeline({
       onComplete: () => {
-        // On débloque la navbar seulement à la toute fin
         if (!isNavigatingRef.current && navRef.current) {
             gsap.set(navRef.current, { pointerEvents: 'auto' })
         }
@@ -148,9 +150,9 @@ export default function Navbar() {
     }
     
     tlRef.current = tl
-  }, [hardReset])
+  }, [])
 
-  // --- GESTION DU CLIC (Navigation) ---
+  // --- 3. NAVIGATION (CLIC) ---
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
     if (href === pathname) {
       e.preventDefault()
@@ -159,18 +161,13 @@ export default function Navbar() {
 
     e.preventDefault()
     
-    // 🔒 1. Verrouillage Logique
     isNavigatingRef.current = true 
     isHoveringRef.current = false
     
-    // 🛑 2. Arrêt immédiat de GSAP
+    // Stop tout mouvement
     if (tlRef.current) tlRef.current.kill()
-    
-    // 🔒 3. Verrouillage Physique (CSS)
-    // Cela empêche le navigateur de détecter un "hover" si la souris bouge
     gsap.set(navRef.current, { pointerEvents: 'none' }) 
     
-    // Animation de sortie
     gsap.to(navRef.current, {
       y: -100,
       autoAlpha: 0,
@@ -182,14 +179,21 @@ export default function Navbar() {
     })
   }
 
-  // --- EFFET DE ROUTE ---
+  // --- 4. CHANGEMENT DE PAGE (CRUCIAL) ---
+  
+  // S'exécute AVANT que le navigateur ne peigne la nouvelle page
+  useLayoutEffect(() => {
+    hardReset()
+  }, [pathname, hardReset])
+
+  // Lance l'animation après le chargement
   useEffect(() => {
-    const t = setTimeout(() => animateIn(), 50)
+    const t = setTimeout(() => animateIn(), 100)
     return () => clearTimeout(t)
   }, [pathname, animateIn])
 
 
-  // --- ANIMATIONS INTERACTION ---
+  // --- 5. ANIMATIONS INTERACTION ---
   const animateCollapse = useCallback(() => {
     if (isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = true
@@ -232,7 +236,7 @@ export default function Navbar() {
     }, 0.3)
   }, [])
 
-  // --- SCROLL ---
+  // --- 6. SCROLL ---
   useEffect(() => {
     let lastScrollY = window.scrollY
     
@@ -284,6 +288,9 @@ export default function Navbar() {
         ref={navRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        // ✅ OPACITY-0 + POINTER-EVENTS-AUTO (Important)
+        // L'opacity-0 cache la navbar par défaut (fix FOUC)
+        // clearProps remettra l'élément à cet état avant de l'animer
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 
                    h-[60px]
                    opacity-0 
@@ -309,15 +316,13 @@ export default function Navbar() {
               <span className="font-display">Artichaud</span>
             </Link>
 
-            {/* NAVIGATION LINKS (STATIQUES) */}
+            {/* NAVIGATION LINKS */}
             <div 
               ref={linksRef}
               className="hidden md:flex items-center gap-2"
             >
               {navLinks.map((item) => {
                 return (
-                  // On passe 'isNavigatingRef.current' (via une petite astuce de re-render ou simplement disabled si on utilisait un state)
-                  // Ici le pointer-events: none sur le parent suffit généralement, mais Magnetic est robuste
                   <Magnetic key={item.label} disabled={isNavigatingRef.current}>
                     <Link
                       href={item.href}

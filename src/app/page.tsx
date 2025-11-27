@@ -9,7 +9,7 @@ import BlogSection from '@/components/home/BlogSection';
 export default function Home() {
   return (
     <main className="w-full bg-white min-h-screen">
-      <Navbar />
+     
       <Hero />
       <Intro />
       <Services />
