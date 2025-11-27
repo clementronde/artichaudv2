@@ -1,8 +1,55 @@
 'use client'
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, ReactNode } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import Link from 'next/link' 
 
+// --- COMPOSANT MAGNETIC (Interne) ---
+// Il capture les mouvements de souris et déplace son contenu
+const Magnetic = ({ children }: { children: ReactNode }) => {
+  const magneticRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e
+    const { height, width, left, top } = magneticRef.current!.getBoundingClientRect()
+    
+    // Calcul de la distance souris-centre
+    const x = clientX - (left + width / 2)
+    const y = clientY - (top + height / 2)
+    
+    // Déplacement élastique (x * 0.35 pour doser la puissance)
+    gsap.to(magneticRef.current, { 
+      x: x * 0.35, 
+      y: y * 0.35, 
+      duration: 1, 
+      ease: "power3.out" 
+    })
+  }
+
+  const handleMouseLeave = () => {
+    // Retour à la position 0 avec un effet élastique
+    gsap.to(magneticRef.current, { 
+      x: 0, 
+      y: 0, 
+      duration: 1, 
+      ease: "elastic.out(1, 0.3)" 
+    })
+  }
+
+  return (
+    <div 
+      ref={magneticRef} 
+      onMouseMove={handleMouseMove} 
+      onMouseLeave={handleMouseLeave}
+      // Important : fit-content pour ne pas prendre toute la largeur
+      className="w-fit h-fit" 
+    >
+      {children}
+    </div>
+  )
+}
+
+// --- COMPOSANT PRINCIPAL HERO ---
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null)
   const wordsContainerRef = useRef<HTMLDivElement>(null)
@@ -117,7 +164,7 @@ export default function Hero() {
       opacity: 0,
       scale: isEmber ? 0 : Math.random() * 3 + 1,
       duration: isEmber ? Math.random() * 0.8 + 0.4 : Math.random() * 1.2 + 0.8,
-      ease: isEmber ? "power2.out" : "power1.out",
+      ease: "power2.out",
       onComplete: () => particle.remove()
     })
   }, [])
@@ -329,6 +376,21 @@ export default function Hero() {
       y: 20,
       duration: 1,
     }, "-=1.0")
+    // ✅ Animation d'apparition des boutons (fromTo pour éviter le FOUC)
+    .fromTo(".hero-button", 
+      { 
+        autoAlpha: 0,  // Départ : invisible
+        y: 20          // Départ : décalé
+      },
+      { 
+        autoAlpha: 1,  // Arrivée : visible
+        y: 0,          // Arrivée : en place
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.2
+      }, 
+      "-=0.5"
+    )
 
   }, { scope: container })
 
@@ -422,25 +484,12 @@ export default function Hero() {
       ref={container} 
       className="relative h-screen w-full flex flex-col justify-center px-6 md:px-10 bg-white text-arti-black overflow-hidden"
     >
-      {/* Layer des cendres */}
-      <div 
-        ref={ashLayerRef}
-        className="absolute inset-0 pointer-events-none z-20"
-      />
+      {/* Layers d'ambiance */}
+      <div ref={ashLayerRef} className="absolute inset-0 pointer-events-none z-20" />
+      <div ref={fireLayerRef} className="absolute inset-0 pointer-events-none z-30" />
+      <div ref={smokeLayerRef} className="absolute inset-0 pointer-events-none z-50" />
 
-      {/* Layer du feu/braises */}
-      <div 
-        ref={fireLayerRef}
-        className="absolute inset-0 pointer-events-none z-30"
-      />
-
-      {/* Layer de fumée */}
-      <div 
-        ref={smokeLayerRef}
-        className="absolute inset-0 pointer-events-none z-50"
-      />
-
-      {/* CONTENU */}
+      {/* CONTENU PRINCIPAL */}
       <div className="flex flex-col z-10">
         
         <div className="overflow-hidden pb-2">
@@ -483,8 +532,71 @@ export default function Hero() {
           <p className="hero-text text-lead font-light text-arti-black/80">
             Let&apos;s be honest. You&apos;ve built something great. But lately, 
             it&apos;s been harder to capture attention, or even - the right kind.
+            Maybe your brand feels a little out of step with where your business is heading.
           </p>
         </div>
+
+        {/* 🚀 BOUTONS MAGNETIQUES */}
+        <div className="mt-12 flex flex-col sm:flex-row gap-4">
+          
+          {/* Bouton 1 : Magnetic + Rolling Text */}
+          <Magnetic>
+            <Link 
+              href="/projets" 
+              className="hero-button 
+                        opacity-0 translate-y-4 
+                        group relative overflow-hidden
+                        inline-flex items-center justify-center 
+                        px-8 py-3 
+                        bg-white text-arti-black 
+                        border border-arti-black 
+                        rounded-full 
+                        text-base font-medium 
+                        transition-colors duration-300 ease-in-out
+                        hover:border-orange-500
+                        focus:outline-none focus:ring-2 focus:ring-arti-black focus:ring-offset-2"
+            >
+               {/* Texte Rolling */}
+              <span className="absolute block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-[150%]">
+                The projets
+              </span>
+              <span className="block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] translate-y-[150%] group-hover:translate-y-0">
+                The projets
+              </span>
+            </Link>
+          </Magnetic>
+
+          {/* Bouton 2 : Magnetic + Arrow Slide */}
+          <Magnetic>
+            <Link 
+              href="/contact" 
+              className="hero-button 
+                        opacity-0 translate-y-4
+                        group relative overflow-hidden
+                        inline-flex items-center justify-center 
+                        px-8 py-3 
+                        bg-arti-black text-white 
+                        border border-arti-black 
+                        rounded-full 
+                        text-base font-medium 
+                        transition-all duration-300 ease-in-out
+                        hover:bg-orange-600 hover:border-orange-600
+                        focus:outline-none focus:ring-2 focus:ring-arti-black focus:ring-offset-2"
+            >
+              <span className="relative overflow-hidden mr-2 w-5 h-5 flex items-center justify-center">
+                <span className="absolute transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-x-full group-hover:opacity-0">
+                  →
+                </span>
+                <span className="absolute transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] -translate-x-full opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
+                  →
+                </span>
+              </span>
+              <span>Let&apos;s talk</span>
+            </Link>
+          </Magnetic>
+
+        </div>
+
       </div>
     </section>
   )

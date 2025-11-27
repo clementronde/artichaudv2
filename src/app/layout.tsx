@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 
 // CHARGEMENT DES POLICES
 const helvetica = localFont({
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={helvetica.variable}>
       <body className="bg-white text-arti-black font-sans antialiased">
-        
+        <Navbar />
         {/* L'élément qui contient tout le contenu de la page (le contenu défilant) */}
         <SmoothScroll>
           {children}

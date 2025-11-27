@@ -169,7 +169,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       </Link>
 
       {/* INFO BAS */}
-      <div className="flex items-center justify-between border-t border-black/10 pt-4">
+      <div className="flex items-center justify-between">
         <div className="flex items-baseline gap-2">
             <span className="text-lg font-medium text-arti-black">{project.category}</span>
             <span className="text-sm font-light italic text-arti-black/60">for</span>
@@ -191,17 +191,17 @@ export default function Highlight() {
   return (
     <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-12">
       
-      <div className="flex justify-between items-end mb-16 border-b border-black/10 pb-6">
+      <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
           Highlight
         </h2>
-        <Link href="/works" className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
+        <Link href="/works" className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
           <span className="text-sm font-bold">View projects</span>
           <span>→</span>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
           // On appelle le sous-composant ici
           <ProjectCard key={project.id} project={project} />

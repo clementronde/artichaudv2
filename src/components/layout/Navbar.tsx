@@ -1,73 +1,311 @@
 'use client'
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { useRef, useState, useEffect, useCallback } from 'react'
+import gsap from 'gsap'
+import Link from 'next/link'
 
-export default function Navbar() {
-  const container = useRef(null);
-  const pathname = usePathname();
+// --- COMPOSANT MAGNETIC ---
+const Magnetic = ({ children }: { children: React.ReactNode }) => {
+  const magneticRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(() => {
-    gsap.from(".nav-island", {
-      y: -100,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power4.out", // Plus doux, moins "rebondissant", plus premium
-      stagger: 0.1,
-      delay: 0.2
-    });
-  }, { scope: container });
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!magneticRef.current) return
+    const { clientX, clientY } = e
+    const { height, width, left, top } = magneticRef.current.getBoundingClientRect()
+    
+    const x = clientX - (left + width / 2)
+    const y = clientY - (top + height / 2)
+    
+    gsap.to(magneticRef.current, { 
+      x: x * 0.2, 
+      y: y * 0.2, 
+      duration: 0.8, 
+      ease: "power3.out" 
+    })
+  }
 
-  const isActive = (path: string) => pathname === path;
+  const handleMouseLeave = () => {
+    if (!magneticRef.current) return
+    gsap.to(magneticRef.current, { 
+      x: 0, 
+      y: 0, 
+      duration: 0.8, 
+      ease: "elastic.out(1, 0.5)" 
+    })
+  }
 
   return (
-    <nav ref={container} className="fixed top-6 left-0 w-full z-50 pointer-events-none">
+    <div 
+      ref={magneticRef} 
+      onMouseMove={handleMouseMove} 
+      onMouseLeave={handleMouseLeave}
+      className="w-fit h-fit" 
+    >
+      {children}
+    </div>
+  )
+}
+
+// --- COMPOSANT NAVBAR DYNAMIC ISLAND ---
+export default function Navbar() {
+  const navRef = useRef<HTMLDivElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
+  const linksRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const animationRef = useRef<gsap.core.Timeline | null>(null)
+  
+  const [isHovering, setIsHovering] = useState(false)
+  const isCollapsedRef = useRef(false)
+  const hasAnimatedRef = useRef(false)
+
+  // Fonction d'animation collapse
+  const animateCollapse = useCallback(() => {
+    const nav = navRef.current
+    const inner = innerRef.current
+    const links = linksRef.current
+    const cta = ctaRef.current
+    
+    if (!nav || !inner || !links || !cta || !hasAnimatedRef.current) return
+    if (isCollapsedRef.current) return
+    
+    isCollapsedRef.current = true
+    
+    // Kill animation précédente
+    if (animationRef.current) {
+      animationRef.current.kill()
+    }
+    
+    gsap.set([links, cta], {
+      opacity: 0,
+      visibility: 'hidden',
+      pointerEvents: 'none'
+    })
+    
+    animationRef.current = gsap.timeline()
+    animationRef.current.to([nav, inner], {
+      width: 180,
+      duration: 0.5,
+      ease: "power3.inOut"
+    })
+  }, [])
+
+  // Fonction d'animation expand
+  const animateExpand = useCallback(() => {
+    const nav = navRef.current
+    const inner = innerRef.current
+    const links = linksRef.current
+    const cta = ctaRef.current
+    
+    if (!nav || !inner || !links || !cta || !hasAnimatedRef.current) return
+    if (!isCollapsedRef.current) return
+    
+    isCollapsedRef.current = false
+    
+    // Kill animation précédente
+    if (animationRef.current) {
+      animationRef.current.kill()
+    }
+    
+    animationRef.current = gsap.timeline()
+    
+    animationRef.current.to([nav, inner], {
+      width: 620,
+      duration: 0.5,
+      ease: "power3.inOut"
+    }, 0)
+    
+    animationRef.current.set([links, cta], {
+      visibility: 'visible'
+    }, 0.4)
+    
+    animationRef.current.to([links, cta], {
+      opacity: 1,
+      pointerEvents: 'auto',
+      duration: 0.3,
+      ease: "power2.out",
+      stagger: 0.05
+    }, 0.4)
+  }, [])
+
+  // Détection du scroll
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
       
-      {/* Container principal centré */}
-      <div className="w-full flex justify-center items-start px-6">
-        
-        {/* ÎLOT CENTRAL (Navigation) */}
-        <div className="nav-island pointer-events-auto">
-          <div className="bg-black/90 backdrop-blur-md border border-white/10 h-[54px] px-2 rounded-full flex items-center gap-1 shadow-2xl">
-            
-            {[
-              { name: 'Works', path: '/works' },
-              { name: 'Services', path: '/services' },
-              { name: 'About', path: '/about' },
-              { name: 'Blog', path: '/blog' },
-            ].map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.path}
-                className={`
-                  relative px-6 py-2.5 rounded-full text-[14px] font-medium transition-all duration-300
-                  ${isActive(link.path) 
-                    ? 'text-white bg-white/10' // État Actif : fond léger gris
-                    : 'text-white/60 hover:text-white hover:bg-white/5' // État Inactif : gris, devient blanc au survol
-                  }
-                `}
-              >
-                {link.name}
-              </Link>
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+      
+      if (currentScrollY > 100 && currentScrollY > lastScrollY && !isHovering) {
+        animateCollapse()
+      } 
+      else if (currentScrollY < 50) {
+        animateExpand()
+      }
+      
+      // Réouvrir après 1 seconde d'arrêt
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (!isHovering) {
+          animateExpand()
+        }
+      }, 1000)
+      
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [isHovering, animateCollapse, animateExpand])
+
+  // Animation d'entrée initiale (une seule fois)
+  useEffect(() => {
+    const nav = navRef.current
+    const inner = innerRef.current
+    const links = linksRef.current
+    const cta = ctaRef.current
+    
+    if (!nav || !inner) return
+    
+    gsap.set(nav, { width: 620 })
+    gsap.set(inner, { width: 620 })
+    
+    const tl = gsap.timeline({ 
+      delay: 0.5,
+      onComplete: () => {
+        hasAnimatedRef.current = true
+      }
+    })
+    
+    tl.from(nav, {
+      y: -100,
+      opacity: 0,
+      duration: 1,
+      ease: "elastic.out(1, 0.6)"
+    })
+    
+    if (links?.children) {
+      tl.from(links.children, {
+        opacity: 0,
+        y: -20,
+        stagger: 0.08,
+        duration: 0.6,
+        ease: "power3.out"
+      }, "-=0.4")
+    }
+    
+    if (cta) {
+      tl.from(cta, {
+        opacity: 0,
+        y: -20,
+        duration: 0.6,
+        ease: "power3.out"
+      }, "-=0.3")
+    }
+  }, [])
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true)
+    animateExpand()
+  }, [animateExpand])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false)
+    if (window.scrollY > 100) {
+      animateCollapse()
+    }
+  }, [animateCollapse])
+
+  return (
+    <nav 
+      ref={navRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="fixed top-6 left-1/2 -translate-x-1/2 z-50 
+                 h-[60px]
+                 bg-black/95 backdrop-blur-md 
+                 shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+                 border border-white/10
+                 rounded-full
+                 transition-shadow duration-300
+                 hover:shadow-[0_12px_48px_rgba(0,0,0,0.4)]
+                 overflow-hidden"
+      style={{ willChange: 'width' }}
+    >
+      <div 
+        ref={innerRef}
+        className="flex items-center justify-center h-full mx-auto"
+      >
+        <div className="flex items-center justify-between h-full w-full px-8">
+          
+          {/* LOGO */}
+          <Link 
+            href="/" 
+            className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
+          >
+            <span className="font-display">Artichaud</span>
+          </Link>
+
+          {/* NAVIGATION LINKS */}
+          <div 
+            ref={linksRef}
+            className="hidden md:flex items-center gap-2"
+          >
+            {['Projets', 'Services', 'À propos'].map((item) => (
+              <Magnetic key={item}>
+                <Link
+                  href={`/${item.toLowerCase().replace('à ', '')}`}
+                  className="group relative px-4 py-2 text-sm font-medium text-white/70 
+                           hover:text-white transition-colors duration-300
+                           overflow-hidden rounded-full whitespace-nowrap"
+                >
+                  <span className="absolute inset-0 rounded-full bg-white/10 
+                                 scale-0 opacity-0 transition-all duration-500 
+                                 group-hover:scale-100 group-hover:opacity-100 -z-10" />
+                  
+                  <span className="relative">{item}</span>
+                  
+                  <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0.5 
+                                 bg-orange-500 transition-all duration-500 ease-out
+                                 group-hover:w-1/2 rounded-full" />
+                </Link>
+              </Magnetic>
             ))}
           </div>
-        </div>
 
-        {/* ÎLOT DROITE (CTA) - Positionné en absolu à droite pour ne pas décentrer le menu */}
-        <div className="nav-island pointer-events-auto absolute right-6 md:right-10 top-0">
-          <Link 
-            href="/contact" 
-            className="group bg-black text-white h-[54px] px-6 rounded-full flex items-center gap-3 transition-transform duration-300 hover:scale-105 shadow-xl border border-white/10"
-          >
-             {/* Flèche animée */}
-            <span className="text-white/50 group-hover:text-white transition-colors text-lg duration-300 group-hover:translate-x-1 inline-block">→</span>
-            <span className="text-[14px] font-medium">Let's talk</span>
-          </Link>
+          {/* CTA BUTTON */}
+          <div ref={ctaRef} className="flex-shrink-0">
+            <Magnetic>
+              <Link
+                href="/contact"
+                className="group relative overflow-hidden
+                         inline-flex items-center justify-center
+                         px-6 py-2.5
+                         bg-white text-black
+                         rounded-full
+                         text-sm font-semibold
+                         transition-all duration-500 ease-out
+                         hover:bg-orange-500 hover:text-white
+                         hover:shadow-lg hover:shadow-orange-500/30
+                         whitespace-nowrap"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>Let's talk</span>
+                  <span className="transition-transform duration-500 ease-out group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </Link>
+            </Magnetic>
+          </div>
         </div>
-
       </div>
     </nav>
-  );
+  )
 }
