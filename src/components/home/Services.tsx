@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,79 +60,86 @@ export default function Services() {
           style={{ zIndex: index + 1 }}
         >
           
-          <div className="w-full max-w-[1500px] mx-auto px-6 md:px-12 py-12 flex flex-col justify-center">
+          <div className="w-full max-w-[1600px] mx-auto px-6 md:px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
             
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
+            {/* GRID : 8 Colonnes */}
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-8 md:gap-[20px] w-full h-full items-stretch">
               
               {/* --- COLONNE 1 : Numéro --- */}
-              <div className="hidden md:block col-span-1 pt-2">
+              <div className="hidden md:block col-span-1 pt-3">
                  <span className="text-sm font-medium opacity-100 block">
                   {service.id}
                 </span>
               </div>
 
-              {/* --- COLONNE 2 : Titre + Liste --- */}
-              <div className="col-span-12 md:col-span-5 flex flex-col h-full relative">
+              {/* --- COLONNES 2 à 4 : Titre + Liste + Bouton --- */}
+              <div className="col-span-1 md:col-span-3 flex flex-col relative z-20">
                 <span className="md:hidden text-sm font-medium opacity-60 mb-4 block">
                   {service.id}
                 </span>
 
-                <div className="flex flex-col gap-10">
-                  <h2 className="text-[48px] md:text-[60px] lg:text-[72px] leading-[1] font-normal tracking-tight">
-                    {service.title}
-                  </h2>
+                <div className="flex flex-col">
+                  
+                  {/* TITRE */}
+                  <div className="mb-12">
+                    <h2 className="text-[42px] md:text-[52px] lg:text-[72px] leading-[1] font-normal tracking-tight whitespace-nowrap">
+                      {service.title}
+                    </h2>
+                  </div>
 
-                  <ul className="group flex flex-col gap-3">
+                  {/* LISTE */}
+                  <ul className="group flex flex-col gap-2.5">
                     {service.items.map((item, i) => (
                       <li 
                         key={i} 
-                        className="group/item flex items-center cursor-pointer -ml-4 pl-4 transition-all duration-300 hover:!opacity-100 group-hover:opacity-30"
+                        className="group/item relative flex items-center cursor-pointer transition-all duration-300 hover:!opacity-100 group-hover:opacity-30"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-arti-black mr-3 opacity-0 -translate-x-2 transition-all duration-300 ease-out 
-                          group-hover/item:opacity-100 group-hover/item:translate-x-0">
+                        <span className="absolute right-full mr-6 w-1.5 h-1.5 rounded-full bg-arti-black opacity-0 transition-all duration-300 ease-out 
+                          group-hover/item:opacity-100 group-hover/item:translate-x-2">
                         </span>
-                        <span className="text-lg md:text-xl font-light text-arti-black/90">
+                        <span className="text-lg md:text-[22px] font-light text-arti-black leading-normal">
                           {item}
                         </span>
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                <div className="mt-12">
-                  <Link 
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-black/20 hover:bg-black hover:text-white hover:border-black transition-all duration-300"
-                  >
-                    <span>→</span>
-                    Let's Begin
-                  </Link>
+                  {/* BOUTON "Let's Begin" */}
+                  <div className="mt-12">
+                    <Link 
+                      href="/contact"
+                      className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium border border-black/10 hover:border-black transition-all duration-300 group/btn"
+                    >
+                      <span className="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
+                      <span>Let's Begin</span>
+                    </Link>
+                  </div>
+
                 </div>
               </div>
 
-              {/* --- COLONNE 3 : Description + Image --- */}
-              <div className="col-span-12 md:col-span-6 flex flex-col justify-between h-full pl-0 md:pl-12 lg:pl-16">
+              {/* --- COLONNES 5 à 8 : Description (Haut) + Image (Bas) --- */}
+              <div className="col-span-1 md:col-span-4 flex flex-col justify-between h-full pl-0 md:pl-12 lg:pl-16 z-10">
                 
-                {/* Texte description */}
-                <p className="text-lg font-light leading-relaxed max-w-md md:pt-2">
-                  {service.description}
-                </p>
+                {/* 1. DESCRIPTION (Haut) */}
+                <div className="pt-2 md:pt-3">
+                  <p className="text-base md:text-lg text-arti-black/80 font-normal leading-relaxed max-w-md">
+                    {service.description}
+                  </p>
+                </div>
 
-                {/* --- IMAGE MODIFIÉE --- */}
+                {/* 2. IMAGE (Bas) */}
+                {/* MODIFICATION ICI : Changement de w-full à md:w-1/2 */}
                 <div className={`
-                  relative overflow-hidden shadow-2xl shadow-black/5 bg-black
-                  
-                  /* Mobile: Pleine largeur, ratio 16/9 standard, marge top pour séparer du texte */
-                  w-full aspect-[16/9] mt-12
-                  
-                  /* Desktop: Hauteur fixée à 320px, Largeur ~430px (ratio ~4/3), Collé à gauche (mr-auto) */
-                  md:aspect-auto md:h-[320px] md:w-[430px] md:mr-auto md:mt-auto
+                  relative overflow-hidden bg-black/5 rounded-sm
+                  w-full md:w-3/4 aspect-[16/10] 
+                  shadow-sm
                 `}>
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-700 hover:scale-105 opacity-90"
+                    className="object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>
 

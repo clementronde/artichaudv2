@@ -1,10 +1,11 @@
 'use client'
 
-import { useRef, useState, useLayoutEffect, useCallback, useEffect } from 'react'
+import { useRef, useLayoutEffect, useCallback, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Link from 'next/link'
 
-// --- COMPOSANT MAGNETIC (Inchangé car il fonctionne bien) ---
+// --- COMPOSANT MAGNETIC ---
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
   const magneticRef = useRef<HTMLDivElement>(null)
   const xTo = useRef<gsap.QuickToFunc | null>(null)
@@ -39,8 +40,12 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-// --- COMPOSANT NAVBAR CORRIGÉ ---
+// --- COMPOSANT NAVBAR ---
 export default function Navbar() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const previousPathnameRef = useRef(pathname)
+  
   const containerRef = useRef<HTMLElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
@@ -48,57 +53,122 @@ export default function Navbar() {
   const ctaRef = useRef<HTMLDivElement>(null)
   
   const tlRef = useRef<gsap.core.Timeline | null>(null)
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null) // Ref pour le timer d'arrêt
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
   const isCollapsedRef = useRef(false)
   const isHoveringRef = useRef(false)
+  const isNavigatingRef = useRef(false)
 
-  // Configuration des largeurs
   const EXPANDED_WIDTH = 620
-  const COLLAPSED_WIDTH = 150 // Augmenté pour voir "Artichaud" (était ~60px avant)
+  const COLLAPSED_WIDTH = 150
   const MOBILE_WIDTH = 340
 
+  // Animation d'entrée de la navbar
+  const animateIn = useCallback(() => {
+    const targetWidth = window.innerWidth < 768 ? MOBILE_WIDTH : EXPANDED_WIDTH
+    
+    if (tlRef.current) tlRef.current.kill()
+    
+    isCollapsedRef.current = false
+    isHoveringRef.current = false
+    isNavigatingRef.current = false
+    
+    gsap.set(navRef.current, { width: targetWidth, y: -100, opacity: 0 })
+    gsap.set(innerRef.current, { width: targetWidth })
+    gsap.set([linksRef.current, ctaRef.current], { 
+      opacity: 1, 
+      visibility: 'visible',
+      pointerEvents: 'auto'
+    })
+    
+    tlRef.current = gsap.timeline()
+    
+    tlRef.current.to(navRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: "elastic.out(1, 0.7)"
+    })
+    
+    if (linksRef.current?.children) {
+      tlRef.current.from(linksRef.current.children, {
+        opacity: 0,
+        y: -15,
+        stagger: 0.05,
+        duration: 0.4,
+        ease: "power3.out"
+      }, "-=0.5")
+    }
+    
+    if (ctaRef.current) {
+      tlRef.current.from(ctaRef.current, {
+        opacity: 0,
+        y: -15,
+        duration: 0.4,
+        ease: "power3.out"
+      }, "-=0.3")
+    }
+  }, [])
+
+  // Animation de sortie puis navigation
+  const navigateTo = useCallback((href: string) => {
+    if (isNavigatingRef.current) return
+    if (href === pathname) return
+    
+    isNavigatingRef.current = true
+    isHoveringRef.current = false
+    
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+    if (tlRef.current) {
+      tlRef.current.kill()
+    }
+    
+    // Animation de sortie PUIS navigation
+    gsap.to(navRef.current, {
+      y: -100,
+      opacity: 0,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        router.push(href)
+      }
+    })
+  }, [pathname, router])
+
+  // Handler pour les clics sur les liens
+  const handleLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault() // TOUJOURS bloquer la navigation par défaut
+    navigateTo(href)
+  }, [navigateTo])
+
+  // Détecter le changement de route et animer l'entrée
+  useEffect(() => {
+    if (pathname !== previousPathnameRef.current) {
+      previousPathnameRef.current = pathname
+      window.scrollTo(0, 0)
+      
+      // Délai pour laisser le DOM se mettre à jour
+      const timer = setTimeout(() => {
+        animateIn()
+      }, 50)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [pathname, animateIn])
+
+  // Animation initiale au premier mount
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const initialWidth = window.innerWidth < 768 ? MOBILE_WIDTH : EXPANDED_WIDTH
-      
-      gsap.set(navRef.current, { width: initialWidth, y: -100, opacity: 0 })
-      gsap.set(innerRef.current, { width: initialWidth })
-      
-      const introTl = gsap.timeline({ delay: 0.5 })
-      
-      introTl.to(navRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "elastic.out(1, 0.6)"
-      })
-      
-      if (linksRef.current?.children) {
-        introTl.from(linksRef.current.children, {
-          opacity: 0,
-          y: -20,
-          stagger: 0.08,
-          duration: 0.6,
-          ease: "power3.out"
-        }, "-=0.6")
-      }
-      
-      if (ctaRef.current) {
-        introTl.from(ctaRef.current, {
-          opacity: 0,
-          y: -20,
-          duration: 0.6,
-          ease: "power3.out"
-        }, "-=0.5")
-      }
-
+      animateIn()
     }, containerRef)
+
     return () => ctx.revert()
   }, [])
 
   const animateCollapse = useCallback(() => {
-    if (isCollapsedRef.current) return
+    if (isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = true
 
     if (tlRef.current) tlRef.current.kill()
@@ -113,14 +183,14 @@ export default function Navbar() {
         }
       })
       .to([navRef.current, innerRef.current], {
-        width: COLLAPSED_WIDTH, // Utilisation de la nouvelle largeur (150px)
+        width: COLLAPSED_WIDTH,
         duration: 0.5,
         ease: "power3.inOut"
       }, 0)
   }, [])
 
   const animateExpand = useCallback(() => {
-    if (!isCollapsedRef.current) return
+    if (!isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = false
 
     const targetWidth = window.innerWidth < 768 ? MOBILE_WIDTH : EXPANDED_WIDTH
@@ -147,35 +217,32 @@ export default function Navbar() {
     }, 0.3)
   }, [])
 
-  // --- GESTION DU SCROLL ---
+  // Gestion du scroll
   useEffect(() => {
     let lastScrollY = window.scrollY
     
     const handleScroll = () => {
+      if (isNavigatingRef.current) return
+      
       const currentScrollY = window.scrollY
       const isScrollingDown = currentScrollY > lastScrollY
-      const isScrollingUp = currentScrollY < lastScrollY
 
-      // 1. Nettoyage du timer précédent à chaque mouvement de scroll
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current)
       }
 
-      // 2. Logique de direction (Collapse / Expand)
       if (currentScrollY > 100 && isScrollingDown && !isHoveringRef.current) {
         animateCollapse()
       } 
-      else if (isScrollingUp || currentScrollY < 50) {
+      else if (currentScrollY < 50) {
         animateExpand()
       }
 
-      // 3. Logique d'arrêt du scroll (Réouverture)
-      // Si on ne scrolle plus pendant 800ms, on réouvre
       scrollTimeoutRef.current = setTimeout(() => {
-        if (!isHoveringRef.current && currentScrollY > 50) {
+        if (!isHoveringRef.current && currentScrollY > 50 && !isNavigatingRef.current) {
           animateExpand()
         }
-      }, 800) // 800ms est un bon équilibre (ni trop nerveux, ni trop lent)
+      }, 800)
       
       lastScrollY = currentScrollY
     }
@@ -189,17 +256,21 @@ export default function Navbar() {
   }, [animateCollapse, animateExpand])
 
   const handleMouseEnter = () => {
+    if (isNavigatingRef.current) return
     isHoveringRef.current = true
-    // Si l'utilisateur survole pendant que le timer d'arrêt tourne, on l'annule pour éviter un glitch
     if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
     animateExpand()
   }
 
   const handleMouseLeave = () => {
     isHoveringRef.current = false
-    // Optionnel : Si on sort de la souris et qu'on est bas dans la page, on peut vouloir refermer immédiatement
-    // Mais pour l'instant on laisse la logique de scroll gérer
   }
+
+  const navLinks = [
+    { label: 'Projets', href: '/projets' },
+    { label: 'Services', href: '/services' },
+    { label: 'À propos', href: '/a-propos' }
+  ]
 
   return (
     <div ref={containerRef as any}>
@@ -222,9 +293,10 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-between h-full w-full px-6 md:px-8">
             
-            {/* LOGO - Ajout de 'mx-auto' conditionnel ou centrage flex pour le mode fermé */}
+            {/* LOGO */}
             <Link 
-              href="/" 
+              href="/"
+              onClick={(e) => handleLinkClick(e, '/')}
               className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
             >
               <span className="font-display">Artichaud</span>
@@ -235,24 +307,31 @@ export default function Navbar() {
               ref={linksRef}
               className="hidden md:flex items-center gap-2"
             >
-              {['Projets', 'Services', 'À propos'].map((item) => (
-                <Magnetic key={item}>
-                  <Link
-                    href={`/${item.toLowerCase().replace('à ', '')}`}
-                    className="group relative px-4 py-2 text-sm font-medium text-white/70 
-                               hover:text-white transition-colors duration-300
-                               overflow-hidden rounded-full whitespace-nowrap"
-                  >
-                    <span className="absolute inset-0 rounded-full bg-white/10 
-                                     scale-0 opacity-0 transition-all duration-500 
-                                     group-hover:scale-100 group-hover:opacity-100 -z-10" />
-                    <span className="relative">{item}</span>
-                    <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0.5 
-                                     bg-orange-500 transition-all duration-500 ease-out
-                                     group-hover:w-1/2 rounded-full" />
-                  </Link>
-                </Magnetic>
-              ))}
+              {navLinks.map((item) => {
+                const isActive = pathname === item.href
+                
+                return (
+                  <Magnetic key={item.label}>
+                    <Link
+                      href={item.href}
+                      onClick={(e) => handleLinkClick(e, item.href)}
+                      className={`group relative px-4 py-2 text-sm font-medium 
+                                 transition-colors duration-300
+                                 overflow-hidden rounded-full whitespace-nowrap
+                                 ${isActive ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                    >
+                      <span className="absolute inset-0 rounded-full bg-white/10 
+                                       scale-0 opacity-0 transition-all duration-500 
+                                       group-hover:scale-100 group-hover:opacity-100 -z-10" />
+                      <span className="relative">{item.label}</span>
+                      <span className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 h-0.5 
+                                       bg-orange-500 transition-all duration-500 ease-out
+                                       rounded-full
+                                       ${isActive ? 'w-1/2' : 'w-0 group-hover:w-1/2'}`} />
+                    </Link>
+                  </Magnetic>
+                )
+              })}
             </div>
 
             {/* CTA BUTTON */}
@@ -260,15 +339,17 @@ export default function Navbar() {
               <Magnetic>
                 <Link
                   href="/contact"
-                  className="group relative overflow-hidden
+                  onClick={(e) => handleLinkClick(e, '/contact')}
+                  className={`group relative overflow-hidden
                              inline-flex items-center justify-center
                              px-6 py-2.5
-                             bg-white text-black
                              rounded-full
                              text-sm font-semibold
                              transition-all duration-500 ease-out
-                             hover:bg-orange-500 hover:text-white
-                             whitespace-nowrap"
+                             whitespace-nowrap
+                             ${pathname === '/contact' 
+                               ? 'bg-orange-500 text-white' 
+                               : 'bg-white text-black hover:bg-orange-500 hover:text-white'}`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <span>Let's talk</span>
