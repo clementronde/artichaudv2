@@ -14,7 +14,7 @@ const servicesData = [
     title: "Brand Strategy",
     description: "Your brand's compass. It defines purpose, sharpens positioning, and ensures every decision you make resonates with your audience while driving business growth.",
     items: ["Research & Insight", "Go-to-Market Strategy", "Brand Architecture", "Purpose, Mission, Vision", "Communication Strategy"],
-    image: " /services/projetkeletitautuservices.png",
+    image: "/services/projetkeletitautuservices.png",
   },
   {
     id: "002",
