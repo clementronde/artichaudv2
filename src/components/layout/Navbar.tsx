@@ -1,11 +1,11 @@
 'use client'
 
-import { useRef, useLayoutEffect, useCallback, useEffect } from 'react'
+import { useRef, useCallback, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Link from 'next/link'
 
-// --- COMPOSANT MAGNETIC ---
+// --- COMPOSANT MAGNETIC (Inchangé) ---
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
   const magneticRef = useRef<HTMLDivElement>(null)
   const xTo = useRef<gsap.QuickToFunc | null>(null)
@@ -15,14 +15,14 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
     if (!magneticRef.current) return
     xTo.current = gsap.quickTo(magneticRef.current, "x", { duration: 0.8, ease: "power3.out" })
     yTo.current = gsap.quickTo(magneticRef.current, "y", { duration: 0.8, ease: "power3.out" })
+    return () => { xTo.current = null; yTo.current = null }
   }, [])
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!magneticRef.current || !xTo.current || !yTo.current) return
-    const { clientX, clientY } = e
     const { height, width, left, top } = magneticRef.current.getBoundingClientRect()
-    const x = clientX - (left + width / 2)
-    const y = clientY - (top + height / 2)
+    const x = e.clientX - (left + width / 2)
+    const y = e.clientY - (top + height / 2)
     xTo.current(x * 0.3)
     yTo.current(y * 0.3)
   }
@@ -44,9 +44,8 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
-  const previousPathnameRef = useRef(pathname)
-  
-  const containerRef = useRef<HTMLElement>(null)
+
+  const containerRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
   const linksRef = useRef<HTMLDivElement>(null)
@@ -57,116 +56,104 @@ export default function Navbar() {
   
   const isCollapsedRef = useRef(false)
   const isHoveringRef = useRef(false)
-  const isNavigatingRef = useRef(false)
+  const isNavigatingRef = useRef(false) // EMPÊCHE LES CONFLITS
 
   const EXPANDED_WIDTH = 620
   const COLLAPSED_WIDTH = 150
   const MOBILE_WIDTH = 340
 
-  // Animation d'entrée de la navbar
-  const animateIn = useCallback(() => {
-    const targetWidth = window.innerWidth < 768 ? MOBILE_WIDTH : EXPANDED_WIDTH
+  // --- 1. FONCTION DE RESET TOTAL (LE FIX MAGIQUE) ---
+  const hardReset = useCallback(() => {
+    // On tue toutes les animations en cours
+    gsap.killTweensOf([navRef.current, innerRef.current, linksRef.current, ctaRef.current])
+    if (linksRef.current?.children) gsap.killTweensOf(linksRef.current.children)
+
+    const isMobile = window.innerWidth < 768
+    const initialWidth = isMobile ? MOBILE_WIDTH : EXPANDED_WIDTH
+
+    // On force les valeurs par défaut
+    gsap.set(navRef.current, { width: initialWidth, y: -100, opacity: 0, pointerEvents: 'none' })
+    gsap.set(innerRef.current, { width: initialWidth })
     
-    if (tlRef.current) tlRef.current.kill()
-    
-    isCollapsedRef.current = false
-    isHoveringRef.current = false
-    isNavigatingRef.current = false
-    
-    gsap.set(navRef.current, { width: targetWidth, y: -100, opacity: 0 })
-    gsap.set(innerRef.current, { width: targetWidth })
+    // IMPORTANT: On force la visibilité des liens (pour corriger le bug des liens invisibles)
     gsap.set([linksRef.current, ctaRef.current], { 
+      clearProps: 'all', // Nettoie les styles inline résiduels
       opacity: 1, 
-      visibility: 'visible',
-      pointerEvents: 'auto'
+      visibility: 'visible' 
+    })
+
+    // Reset des états
+    isCollapsedRef.current = false
+    isNavigatingRef.current = false
+  }, [])
+
+  // --- 2. ANIMATION D'ENTRÉE ---
+  const animateIn = useCallback(() => {
+    hardReset() // On nettoie d'abord
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(navRef.current, { pointerEvents: 'auto' }) // On réactive les clics
+      }
     })
     
-    tlRef.current = gsap.timeline()
-    
-    tlRef.current.to(navRef.current, {
+    tl.to(navRef.current, {
       y: 0,
       opacity: 1,
-      duration: 0.8,
-      ease: "elastic.out(1, 0.7)"
+      duration: 1,
+      ease: "elastic.out(1, 0.6)"
     })
     
     if (linksRef.current?.children) {
-      tlRef.current.from(linksRef.current.children, {
+      tl.from(linksRef.current.children, {
         opacity: 0,
-        y: -15,
-        stagger: 0.05,
-        duration: 0.4,
+        y: -20,
+        stagger: 0.08,
+        duration: 0.6,
+        ease: "power3.out"
+      }, "-=0.6")
+    }
+    
+    if (ctaRef.current) {
+      tl.from(ctaRef.current, {
+        opacity: 0,
+        y: -20,
+        duration: 0.6,
         ease: "power3.out"
       }, "-=0.5")
     }
     
-    if (ctaRef.current) {
-      tlRef.current.from(ctaRef.current, {
-        opacity: 0,
-        y: -15,
-        duration: 0.4,
-        ease: "power3.out"
-      }, "-=0.3")
-    }
-  }, [])
+    tlRef.current = tl
+  }, [hardReset])
 
-  // Animation de sortie puis navigation
-  const navigateTo = useCallback((href: string) => {
-    if (isNavigatingRef.current) return
-    if (href === pathname) return
-    
-    isNavigatingRef.current = true
-    isHoveringRef.current = false
-    
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current)
-    }
-    if (tlRef.current) {
-      tlRef.current.kill()
+  // --- 3. GESTION DU CLIC (NAVIGATION) ---
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    if (href === pathname) {
+      e.preventDefault()
+      return
     }
     
-    // Animation de sortie PUIS navigation
+    e.preventDefault()
+    isNavigatingRef.current = true // On verrouille le scroll
+    
+    // Animation de sortie
     gsap.to(navRef.current, {
       y: -100,
       opacity: 0,
-      duration: 0.25,
-      ease: "power2.in",
-      onComplete: () => {
-        router.push(href)
-      }
+      duration: 0.3,
+      onComplete: () => router.push(href)
     })
-  }, [pathname, router])
+  }
 
-  // Handler pour les clics sur les liens
-  const handleLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault() // TOUJOURS bloquer la navigation par défaut
-    navigateTo(href)
-  }, [navigateTo])
-
-  // Détecter le changement de route et animer l'entrée
+  // Déclencheur au changement de page
   useEffect(() => {
-    if (pathname !== previousPathnameRef.current) {
-      previousPathnameRef.current = pathname
-      window.scrollTo(0, 0)
-      
-      // Délai pour laisser le DOM se mettre à jour
-      const timer = setTimeout(() => {
-        animateIn()
-      }, 50)
-      
-      return () => clearTimeout(timer)
-    }
+    // Petit délai pour laisser Next.js faire son rendu
+    const t = setTimeout(() => animateIn(), 50)
+    return () => clearTimeout(t)
   }, [pathname, animateIn])
 
-  // Animation initiale au premier mount
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      animateIn()
-    }, containerRef)
 
-    return () => ctx.revert()
-  }, [])
-
+  // --- 4. ANIMATIONS INTERACTION ---
   const animateCollapse = useCallback(() => {
     if (isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = true
@@ -217,19 +204,17 @@ export default function Navbar() {
     }, 0.3)
   }, [])
 
-  // Gestion du scroll
+  // --- 5. SCROLL ---
   useEffect(() => {
     let lastScrollY = window.scrollY
     
     const handleScroll = () => {
-      if (isNavigatingRef.current) return
+      if (isNavigatingRef.current) return // Stop tout si on navigue
       
       const currentScrollY = window.scrollY
       const isScrollingDown = currentScrollY > lastScrollY
 
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current)
-      }
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
 
       if (currentScrollY > 100 && isScrollingDown && !isHoveringRef.current) {
         animateCollapse()
@@ -248,7 +233,6 @@ export default function Navbar() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    
     return () => {
       window.removeEventListener('scroll', handleScroll)
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
@@ -265,12 +249,6 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     isHoveringRef.current = false
   }
-
-  const navLinks = [
-    { label: 'Projets', href: '/projets' },
-    { label: 'Services', href: '/services' },
-    { label: 'À propos', href: '/a-propos' }
-  ]
 
   return (
     <div ref={containerRef as any}>
@@ -295,7 +273,7 @@ export default function Navbar() {
             
             {/* LOGO */}
             <Link 
-              href="/"
+              href="/" 
               onClick={(e) => handleLinkClick(e, '/')}
               className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
             >
@@ -307,27 +285,24 @@ export default function Navbar() {
               ref={linksRef}
               className="hidden md:flex items-center gap-2"
             >
-              {navLinks.map((item) => {
-                const isActive = pathname === item.href
-                
+              {['Projets', 'Services', 'À propos'].map((item) => {
+                const href = `/${item.toLowerCase().replace('à ', '')}`
                 return (
-                  <Magnetic key={item.label}>
+                  <Magnetic key={item}>
                     <Link
-                      href={item.href}
-                      onClick={(e) => handleLinkClick(e, item.href)}
-                      className={`group relative px-4 py-2 text-sm font-medium 
-                                 transition-colors duration-300
-                                 overflow-hidden rounded-full whitespace-nowrap
-                                 ${isActive ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                      href={href}
+                      onClick={(e) => handleLinkClick(e, href)}
+                      className="group relative px-4 py-2 text-sm font-medium text-white/70 
+                                 hover:text-white transition-colors duration-300
+                                 overflow-hidden rounded-full whitespace-nowrap"
                     >
                       <span className="absolute inset-0 rounded-full bg-white/10 
                                        scale-0 opacity-0 transition-all duration-500 
                                        group-hover:scale-100 group-hover:opacity-100 -z-10" />
-                      <span className="relative">{item.label}</span>
-                      <span className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 h-0.5 
+                      <span className="relative">{item}</span>
+                      <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0.5 
                                        bg-orange-500 transition-all duration-500 ease-out
-                                       rounded-full
-                                       ${isActive ? 'w-1/2' : 'w-0 group-hover:w-1/2'}`} />
+                                       group-hover:w-1/2 rounded-full" />
                     </Link>
                   </Magnetic>
                 )
@@ -340,16 +315,15 @@ export default function Navbar() {
                 <Link
                   href="/contact"
                   onClick={(e) => handleLinkClick(e, '/contact')}
-                  className={`group relative overflow-hidden
+                  className="group relative overflow-hidden
                              inline-flex items-center justify-center
                              px-6 py-2.5
+                             bg-white text-black
                              rounded-full
                              text-sm font-semibold
                              transition-all duration-500 ease-out
-                             whitespace-nowrap
-                             ${pathname === '/contact' 
-                               ? 'bg-orange-500 text-white' 
-                               : 'bg-white text-black hover:bg-orange-500 hover:text-white'}`}
+                             hover:bg-orange-500 hover:text-white
+                             whitespace-nowrap"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <span>Let's talk</span>
