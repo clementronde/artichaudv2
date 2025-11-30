@@ -55,6 +55,9 @@ export default function Navbar() {
   const containerRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
+  
+  // Refs pour les éléments
+  const logoRef = useRef<HTMLAnchorElement>(null)
   const linksRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   
@@ -65,9 +68,11 @@ export default function Navbar() {
   const isHoveringRef = useRef(false)
   const isNavigatingRef = useRef(false) 
 
-  const EXPANDED_WIDTH = 620
-  const COLLAPSED_WIDTH = 150
-  const MOBILE_WIDTH = 340
+  // --- CONFIGURATION TAILLES ---
+  const DESKTOP_OPEN_WIDTH = 620
+  const DESKTOP_COLLAPSED_WIDTH = 150
+  const MOBILE_OPEN_WIDTH = 320 
+  const MOBILE_COLLAPSED_WIDTH = 240 
 
   const navLinks = [
     { label: 'Projets', href: '/projets' },
@@ -75,35 +80,29 @@ export default function Navbar() {
     { label: 'À propos', href: '/a-propos' },
   ]
 
-  // --- 1. LE NETTOYAGE RADICAL (FIX DU FANTÔME) ---
+  // --- 1. RESET ---
   const hardReset = useCallback(() => {
-    // 1. On tue toutes les animations
-    gsap.killTweensOf([navRef.current, innerRef.current, linksRef.current, ctaRef.current])
+    gsap.killTweensOf([navRef.current, innerRef.current, linksRef.current, ctaRef.current, logoRef.current])
     if (linksRef.current?.children) gsap.killTweensOf(linksRef.current.children)
 
     const isMobile = window.innerWidth < 768
-    const initialWidth = isMobile ? MOBILE_WIDTH : EXPANDED_WIDTH
+    const initialWidth = isMobile ? MOBILE_OPEN_WIDTH : DESKTOP_OPEN_WIDTH
 
-    // 2. IMPORTANT : On nettoie d'abord TOUS les styles inline laissés par GSAP
-    // C'est ça qui enlève le "fantôme" (l'ancien transform/width qui traine)
-    gsap.set([navRef.current, innerRef.current, linksRef.current, ctaRef.current], {
-        clearProps: "all"
-    })
-
-    // 3. On réapplique proprement les états de départ
-    // Note : opacity-0 est dans le className CSS, donc clearProps remet l'opacité à 0 par défaut
     gsap.set(navRef.current, { 
         width: initialWidth, 
-        y: -100, // Position de départ (haut)
-        autoAlpha: 0, // Force invisible
+        y: -100, 
+        autoAlpha: 0, 
         pointerEvents: 'none',
+        overwrite: 'auto'
     })
     gsap.set(innerRef.current, { width: initialWidth })
     
-    // On prépare les enfants à être visibles
-    gsap.set([linksRef.current, ctaRef.current], { 
-      autoAlpha: 1, 
-    })
+    if (isMobile) {
+      gsap.set([logoRef.current, ctaRef.current], { autoAlpha: 0, display: 'none' })
+      gsap.set(linksRef.current, { autoAlpha: 1, display: 'flex' })
+    } else {
+      gsap.set([logoRef.current, ctaRef.current, linksRef.current], { autoAlpha: 1, display: 'flex' })
+    }
 
     isCollapsedRef.current = false
     isNavigatingRef.current = false
@@ -112,9 +111,6 @@ export default function Navbar() {
 
   // --- 2. ANIMATION D'ENTRÉE ---
   const animateIn = useCallback(() => {
-    // Note : hardReset est déjà appelé par useLayoutEffect, 
-    // mais on s'assure que la timeline est propre
-    
     const tl = gsap.timeline({
       onComplete: () => {
         if (!isNavigatingRef.current && navRef.current) {
@@ -139,32 +135,25 @@ export default function Navbar() {
         ease: "power3.out"
       }, "-=0.6")
     }
-    
-    if (ctaRef.current) {
-      tl.from(ctaRef.current, {
-        autoAlpha: 0,
-        y: -20,
-        duration: 0.6,
-        ease: "power3.out"
-      }, "-=0.5")
+
+    if (window.innerWidth >= 768 && ctaRef.current) {
+         tl.from(ctaRef.current, { autoAlpha: 0, y: -20, duration: 0.6 }, "-=0.5")
     }
     
     tlRef.current = tl
   }, [])
 
-  // --- 3. NAVIGATION (CLIC) ---
+  // --- 3. NAVIGATION CLICK ---
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
     if (href === pathname) {
       e.preventDefault()
       return
     }
-
     e.preventDefault()
     
     isNavigatingRef.current = true 
     isHoveringRef.current = false
     
-    // Stop tout mouvement
     if (tlRef.current) tlRef.current.kill()
     gsap.set(navRef.current, { pointerEvents: 'none' }) 
     
@@ -173,70 +162,128 @@ export default function Navbar() {
       autoAlpha: 0,
       duration: 0.3,
       ease: "power2.in",
-      onComplete: () => {
-        router.push(href)
-      }
+      onComplete: () => router.push(href)
     })
   }
 
-  // --- 4. CHANGEMENT DE PAGE (CRUCIAL) ---
-  
-  // S'exécute AVANT que le navigateur ne peigne la nouvelle page
+  // --- 4. HOOKS CYCLE DE VIE ---
   useLayoutEffect(() => {
     hardReset()
   }, [pathname, hardReset])
 
-  // Lance l'animation après le chargement
   useEffect(() => {
     const t = setTimeout(() => animateIn(), 100)
     return () => clearTimeout(t)
   }, [pathname, animateIn])
 
 
-  // --- 5. ANIMATIONS INTERACTION ---
+  // --- 5. ANIMATION COLLAPSE (FERMETURE) ---
   const animateCollapse = useCallback(() => {
     if (isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = true
+    
+    const isMobile = window.innerWidth < 768
 
     if (tlRef.current) tlRef.current.kill()
-
     tlRef.current = gsap.timeline()
-      .to([linksRef.current, ctaRef.current], {
+
+    // 1. Cacher les liens
+    tlRef.current.to(linksRef.current, {
         autoAlpha: 0,
         duration: 0.2,
         pointerEvents: 'none',
-      })
-      .to([navRef.current, innerRef.current], {
-        width: COLLAPSED_WIDTH,
-        duration: 0.5,
-        ease: "power3.inOut"
-      }, 0)
+        onComplete: () => {
+             if (isMobile) gsap.set(linksRef.current, { display: 'none' })
+        }
+    })
+    
+    // Sur Desktop, on cache aussi le CTA
+    if (!isMobile) {
+        tlRef.current.to(ctaRef.current, { autoAlpha: 0, duration: 0.2 }, 0)
+    }
+
+    // 2. Réduire la largeur
+    tlRef.current.to([navRef.current, innerRef.current], {
+      width: isMobile ? MOBILE_COLLAPSED_WIDTH : DESKTOP_COLLAPSED_WIDTH,
+      duration: 0.5,
+      ease: "power3.inOut"
+    }, 0)
+
+    // 3. MOBILE SPÉCIFIQUE : Afficher Logo + CTA
+    if (isMobile) {
+        tlRef.current.set([logoRef.current, ctaRef.current], { display: 'flex' }, 0.2)
+        tlRef.current.to([logoRef.current, ctaRef.current], { 
+            autoAlpha: 1, 
+            duration: 0.3 
+        }, 0.3)
+    }
+
   }, [])
 
+  // --- 6. ANIMATION EXPAND (OUVERTURE) ---
   const animateExpand = useCallback(() => {
     if (!isCollapsedRef.current || isNavigatingRef.current) return
     isCollapsedRef.current = false
 
-    const targetWidth = window.innerWidth < 768 ? MOBILE_WIDTH : EXPANDED_WIDTH
+    const isMobile = window.innerWidth < 768
+    const targetWidth = isMobile ? MOBILE_OPEN_WIDTH : DESKTOP_OPEN_WIDTH
 
     if (tlRef.current) tlRef.current.kill()
-
     tlRef.current = gsap.timeline()
-    
+
+    // -------------------------------------------------------
+    // LE FIX EST ICI : SÉCURITÉ POUR LE LAYOUT DESKTOP
+    // -------------------------------------------------------
+    if (!isMobile) {
+      // Avant toute animation, on s'assure que TOUS les éléments desktop 
+      // ont le bon 'display' pour que Flexbox calcule l'espace correctement.
+      gsap.set([logoRef.current, ctaRef.current, linksRef.current], { display: 'flex' })
+    }
+    // -------------------------------------------------------
+
+
+    // 1. MOBILE SPÉCIFIQUE : Cacher Logo + CTA d'abord
+
+if (isMobile) {
+  // 1. On anime l'opacité
+  tlRef.current.to([logoRef.current, ctaRef.current], {
+    autoAlpha: 0,
+    duration: 0.2,
+  })
+  // 2. On change le display IMMÉDIATEMENT après (séquentiel)
+  .set([logoRef.current, ctaRef.current], { display: 'none' })
+}
+
+    // 2. Agrandir la navbar
     tlRef.current.to([navRef.current, innerRef.current], {
       width: targetWidth,
       duration: 0.5,
       ease: "power3.inOut"
-    }, 0)
-    .set([linksRef.current, ctaRef.current], { pointerEvents: 'auto' }, 0.2)
-    .to([linksRef.current, ctaRef.current], {
+    }, isMobile ? ">" : 0) 
+
+    // 3. Afficher les liens
+    // Note: Sur desktop, le 'set display: flex' est déjà fait par la sécurité au début de la fonction
+    if (isMobile) {
+      tlRef.current.set(linksRef.current, { display: 'flex', pointerEvents: 'auto' }, "-=0.2")
+    } else {
+      tlRef.current.set(linksRef.current, { pointerEvents: 'auto' }, "-=0.2")
+    }
+    
+    tlRef.current.to(linksRef.current, {
       autoAlpha: 1,
       duration: 0.3,
       ease: "power2.out"
-    }, 0.3)
+    }, "-=0.1")
+
+    // 4. Desktop : Réafficher le CTA
+    if (!isMobile) {
+         // L'autoAlpha suffit ici car le display est déjà forcé au début
+         tlRef.current.to(ctaRef.current, { autoAlpha: 1, duration: 0.3 }, "-=0.1")
+    }
+
   }, [])
 
-  // --- 6. SCROLL ---
+  // --- 7. SCROLL HANDLER ---
   useEffect(() => {
     let lastScrollY = window.scrollY
     
@@ -283,14 +330,11 @@ export default function Navbar() {
   }
 
   return (
-    <div ref={containerRef as any}>
+    <div ref={containerRef as any} id="navbar-wrapper">
       <nav 
         ref={navRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        // ✅ OPACITY-0 + POINTER-EVENTS-AUTO (Important)
-        // L'opacity-0 cache la navbar par défaut (fix FOUC)
-        // clearProps remettra l'élément à cet état avant de l'animer
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 
                    h-[60px]
                    opacity-0 
@@ -305,10 +349,11 @@ export default function Navbar() {
           ref={innerRef}
           className="flex items-center justify-center h-full mx-auto"
         >
-          <div className="flex items-center justify-between h-full w-full px-6 md:px-8">
+          <div className="flex items-center justify-center md:justify-between w-full px-6 md:px-8 relative">
             
             {/* LOGO */}
             <Link 
+              ref={logoRef}
               href="/" 
               onClick={(e) => handleLinkClick(e, '/')}
               className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
@@ -319,7 +364,7 @@ export default function Navbar() {
             {/* NAVIGATION LINKS */}
             <div 
               ref={linksRef}
-              className="hidden md:flex items-center gap-2"
+              className="flex items-center gap-2"
             >
               {navLinks.map((item) => {
                 return (
@@ -345,20 +390,20 @@ export default function Navbar() {
             </div>
 
             {/* CTA BUTTON */}
-            <div ref={ctaRef} className="flex-shrink-0 hidden md:block">
+            <div ref={ctaRef} className="flex-shrink-0">
               <Magnetic disabled={isNavigatingRef.current}>
                 <Link
                   href="/contact"
                   onClick={(e) => handleLinkClick(e, '/contact')}
                   className="group relative overflow-hidden
                              inline-flex items-center justify-center
-                             px-6 py-2.5
+                             px-5 py-2
                              bg-white text-black
                              rounded-full
                              text-sm font-semibold
                              transition-all duration-500 ease-out
                              hover:bg-orange-500 hover:text-white
-                             whitespace-nowrap"
+                             whitespace-nowrap ml-4 md:ml-0"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <span>Let's talk</span>
@@ -369,6 +414,7 @@ export default function Navbar() {
                 </Link>
               </Magnetic>
             </div>
+            
           </div>
         </div>
       </nav>
