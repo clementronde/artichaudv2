@@ -542,7 +542,7 @@ export default function Hero() {
           {/* Bouton 1 : Magnetic + Rolling Text */}
           <Magnetic>
             <Link 
-              href="/projets" 
+              href="/works" 
               className="hero-button 
                         opacity-0 translate-y-4 
                         group relative overflow-hidden
