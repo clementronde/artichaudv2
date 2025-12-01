@@ -75,7 +75,7 @@ export default function Navbar() {
   const MOBILE_COLLAPSED_WIDTH = 240 
 
   const navLinks = [
-    { label: 'Projets', href: '/projets' },
+    { label: 'Projets', href: '/works' },
     { label: 'Services', href: '/services' },
     { label: 'À propos', href: '/a-propos' },
   ]
