@@ -170,3 +170,61 @@ html.lenis, html.lenis body {
   padding: 0; 
   z-index: -1;
 }
+
+
+/* Footer - Variante sombre (page claire → footer noir) */
+.footer-container.footer-dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.footer-dark .background-text {
+  color: rgba(255, 255, 255, 0.05);
+}
+
+.footer-dark .link {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-dark .link:hover {
+  color: #fff;
+}
+
+.footer-dark .contact-button {
+  border-color: #fff;
+  color: #fff;
+}
+
+/* Footer - Variante claire (page sombre → footer blanc) */
+.footer-container.footer-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.footer-light .background-text {
+  color: rgba(0, 0, 0, 0.05);
+}
+
+.footer-light .link {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.footer-light .link:hover {
+  color: #000;
+}
+
+.footer-light .contact-button {
+  border-color: #000;
+  color: #000;
+}
+
+/* Transition fluide entre les thèmes */
+.footer-container {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.footer-container .link,
+.footer-container .contact-button,
+.footer-container .background-text {
+  transition: color 0.4s ease, border-color 0.4s ease;
+}

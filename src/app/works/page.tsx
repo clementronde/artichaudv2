@@ -181,7 +181,7 @@ export default function WorkPage() {
             </motion.h2>
 
             <Link 
-                href="/works" 
+                href="/works/all" 
                 className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300" 
             >
                 <span className="relative z-10 font-medium text-sm">All projects</span>
