@@ -17,10 +17,21 @@ const projects = [
       "/projects/Tautu2.png",
       "/projects/Charitio1.png"
     ],
-    fullWidth: true
+    fullWidth: false 
+  },{
+    id: 2,
+    client: "Tautu",
+    category: "Brand Identity",
+    cover: "/projects/Tautu1.png",
+    gallery: [
+      "/projects/Tautu1.png",
+      "/projects/Tautu2.png",
+      "/projects/Charitio1.png"
+    ],
+    fullWidth: false 
   },
   {
-    id: 2,
+    id: 3,
     client: "Charit.io",
     category: "Web Design",
     cover: "/projects/Charitio1.png",
@@ -34,7 +45,7 @@ const projects = [
     fullWidth: false
   },
   {
-    id: 3,
+    id: 4,
     client: "Keleti",
     category: "Art Direction",
     cover: "/projects/Tautu2.png",
@@ -123,7 +134,8 @@ const ProjectCard = ({ project }: { project: any }) => {
       <Link 
         href={`/works/${project.id}`}
         ref={containerRef} 
-        className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-gray-100 cursor-none block"
+        // MODIFICATION ICI : Remplacement des classes 'aspect-...' par 'h-[500px]'
+        className="relative w-full h-[500px] overflow-hidden bg-gray-100 cursor-none block"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

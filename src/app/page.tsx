@@ -12,7 +12,7 @@ export default function Home() {
     <main className="w-full bg-white min-h-screen ">
      
       <Herov2 />
-      
+      <div className="h-[30vh] bg-transparent" />
       <Intro />
       <Services />
       <Highlight />

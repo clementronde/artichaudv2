@@ -72,7 +72,7 @@ export default function Intro() {
     // z-10 pour être AU-DESSUS du hero (z-0)
    <section 
   ref={container} 
-  className="relative z-[70] w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none"
+  className="relative z-[70] w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none "
 >
       <div 
         ref={blackBox} 
