@@ -24,7 +24,7 @@ export default function Intro() {
   const blackBox = useRef(null)
 
   useGSAP(() => {
-    // 1. Expansion (Inchangé)
+    // 1. Expansion
     gsap.fromTo(blackBox.current, 
       { width: "85%" },
       {
@@ -39,8 +39,7 @@ export default function Intro() {
       }
     )
 
-    // 2. Animations Textes (Inchangé) ...
-    // (Je ne remets pas tout le code texte pour faire court, garde ce que tu as)
+    // 2. Animations Textes
     const titleWords = gsap.utils.toArray('.title-word');
     gsap.to(titleWords, {
       color: "#FFFFFF", opacity: 1, duration: 1.5, stagger: 0.05, ease: "power2.out",
@@ -52,18 +51,14 @@ export default function Intro() {
       scrollTrigger: { trigger: ".para-container", start: "top 70%", end: "bottom 80%", scrub: 1 }
     })
 
-    // --- 3. CORRECTION DU PARALLAXE DE SORTIE ---
-    // Le but : Laisser le CTA visible, puis ralentir l'Intro pour qu'elle se fasse recouvrir.
+    // 3. Parallaxe de sortie
     gsap.to(blackBox.current, {
-      y: '20%', // On la déplace vers le bas (elle suit le scroll un peu)
-      scale: 1, // Petit effet visuel bonus : elle recule légèrement
-      opacity: 1, // Elle s'assombrit
+      y: '20%',
+      scale: 1,
+      opacity: 1,
       ease: "none",
       scrollTrigger: {
         trigger: container.current,
-        // C'EST ICI LE SECRET :
-        // On commence l'effet SEULEMENT quand le bas de l'Intro touche le bas de l'écran.
-        // Donc on est sûr d'avoir vu le CTA.
         start: "bottom bottom", 
         end: "bottom top", 
         scrub: true,
@@ -73,11 +68,15 @@ export default function Intro() {
   }, { scope: container })
 
   return (
-    // On garde z-0
-    <section ref={container} className="relative z-0 w-full bg-white pb-32 pt-10 flex justify-center overflow-hidden"> 
+    // FOND TRANSPARENT pour voir les images du hero passer derrière
+    // z-10 pour être AU-DESSUS du hero (z-0)
+    <section 
+      ref={container} 
+      className="relative z-10 w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none"
+    > 
       <div 
         ref={blackBox} 
-        className="bg-black text-white rounded-[40px] px-6 py-12 md:p-16 mx-auto will-change-transform flex flex-col justify-between min-h-[80vh]"
+        className="bg-black text-white rounded-[40px] px-6 py-12 md:p-16 mx-auto will-change-transform flex flex-col justify-between min-h-[80vh] pointer-events-auto"
       >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 h-full">
 
@@ -97,10 +96,10 @@ export default function Intro() {
 
           <div className="para-container col-span-12 md:col-span-6 flex flex-col gap-8 mt-auto">
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Let's be honest. You’ve built something great. But lately, it’s been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading. Maybe your messaging isn’t landing quite like you want it to. Or maybe you’re just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that’s where we come in.
+              Let's be honest. You've built something great. But lately, it's been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading. Maybe your messaging isn't landing quite like you want it to. Or maybe you're just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that's where we come in.
             </p>
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Or maybe you’re just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that’s where we come in.
+              Or maybe you're just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that's where we come in.
             </p>
             <div className="mt-4 pt-4">
                <button className="group flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
