@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 
 // --- TYPES ---
 interface Project {
@@ -35,8 +36,9 @@ function Tag({ children }: { children: React.ReactNode }) {
 function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group cursor-pointer transition-transform duration-300 hover:-translate-y-4">
+      {/* Carte : z-10 pour passer DEVANT le logo */}
       <div 
-        className="bg-gray-200 shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden"
+        className="relative z-10 bg-gray-200 shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden"
         style={{ width: 310, height: 242 }}
       >
         <img 
@@ -56,19 +58,15 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function HeroSection() {
   const [rotation, setRotation] = useState(0);
-  const [isVisible, setIsVisible] = useState(true); // ← NOUVEAU : état de visibilité
-  const heroRef = useRef<HTMLDivElement>(null); // ← NOUVEAU : ref pour le hero
+  const [isVisible, setIsVisible] = useState(true);
+  const heroRef = useRef<HTMLDivElement>(null);
 
-  // NOUVEAU : Intersection Observer pour détecter si le hero est visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // On considère le hero "visible" s'il est à plus de 10% dans le viewport
         setIsVisible(entry.isIntersecting);
       },
-      { 
-        threshold: 0.1 // Déclenche quand 10% du hero est visible
-      }
+      { threshold: 0.1 }
     );
 
     if (heroRef.current) {
@@ -78,9 +76,8 @@ export default function HeroSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Animation loop - S'ARRÊTE quand le hero n'est plus visible
   useEffect(() => {
-    if (!isVisible) return; // ← NOUVEAU : Stop si pas visible
+    if (!isVisible) return;
 
     let animationId: number;
     let lastTime = Date.now();
@@ -96,7 +93,7 @@ export default function HeroSection() {
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [isVisible]); // ← NOUVEAU : dépendance sur isVisible
+  }, [isVisible]);
 
   // --- PARAMÈTRES GÉOMÉTRIQUES ---
   const angleStep = 10;
@@ -108,64 +105,89 @@ export default function HeroSection() {
   const totalCards = infiniteProjects.length;
   const totalAngle = totalCards * angleStep;
 
+  // Calcul de l'index de la carte centrale (celle qui est au sommet au chargement)
+  const centerIndex = Math.floor(totalCards / 2);
+
   return (
     <div 
-      ref={heroRef} // ← NOUVEAU : ref attachée
-      className="relative w-full h-screen bg-white font-sans selection:bg-black selection:text-white"
+      ref={heroRef} 
+      // Z-20 pour être au-dessus de la section suivante (Intro)
+      className="relative z-20 w-full h-screen bg-white font-sans selection:bg-black selection:text-white"
     >
 
-      {/* --- ZONE D'ANIMATION (EN ARRIÈRE PLAN) --- */}
-      <div className="absolute inset-0 z-0">
-          
+      {/* --- LE MASQUE MAGIQUE --- */}
+      {/* 1. w-full + overflow-hidden : Coupe la largeur (pas de scroll horizontal) */}
+      {/* 2. h-[140vh] : Laisse dépasser les cartes en bas sur l'intro */}
+      {/* 3. pointer-events-none : Laisse cliquer au travers */}
+      <div className="absolute top-0 left-0 w-full h-[140vh] overflow-hidden pointer-events-none">
         
+        <div className="relative w-full h-full pointer-events-auto">
+            
+            {/* LIGNE POINTILLÉE */}
+            <div 
+              className="absolute left-1/2 -translate-x-1/2 z-0 opacity-60" 
+              style={{ 
+                top: pivotY,
+                width: radius * 2,
+                height: radius * 2,
+                marginTop: -radius, 
+              }}
+            >
+              <div className="w-full h-full border border-dashed border-gray-300 rounded-full" />
+            </div>
 
-        {/* LIGNE POINTILLÉE */}
-        <div 
-          className="absolute left-1/2 -translate-x-1/2 z-0 pointer-events-none opacity-60" 
-          style={{ 
-            top: pivotY,
-            width: radius * 2,
-            height: radius * 2,
-            marginTop: -radius, 
-          }}
-        >
-          <div className="w-full h-full border border-dashed border-gray-300 rounded-full" />
+            {/* ROUE DES CARTES */}
+            <div 
+              className="absolute left-1/2 z-[60]"
+              style={{ 
+                top: pivotY,
+                transform: `rotate(${rotation}deg)`,
+              }}
+            >
+              {infiniteProjects.map((project, index) => {
+                const angle = (index * angleStep) - (totalAngle / 2);
+                const isCenterCard = index === centerIndex;
+
+                return (
+                  <div
+                    key={`${project.id}-${index}`}
+                    className="absolute"
+                    style={{
+                      left: 0,
+                      top: 0,
+                      transform: `rotate(${angle}deg)`,
+                      transformOrigin: '0 0',
+                    }}
+                  >
+                    <div 
+                      className="relative"
+                      style={{ 
+                        transform: `translateX(-${cardWidth / 2}px) translateY(-${radius}px) translateY(-${cardHeight / 2}px)`,
+                      }}
+                    >
+                      {/* --- LOGO ATTACHÉ ET DERRIÈRE --- */}
+                      {/* Il est attaché à la carte centrale, donc il tourne avec elle. */}
+                      {/* z-0 pour être derrière la carte (qui est z-10) */}
+                      {isCenterCard && (
+                        <div 
+                            className="absolute left-1/2 -translate-x-1/2 w-24 h-auto z-0"
+                            style={{ top: '-110px' }} // Positionné au-dessus de la carte (Y)
+                        >
+                            <img 
+                              src="/hero/logonoirhero.png" 
+                              alt="Mascotte Artichaud"
+                              className="w-full h-full object-contain drop-shadow-2xl"
+                            />
+                        </div>
+                      )}
+
+                      <ProjectCard project={project} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
         </div>
-
-        {/* ROUE DES CARTES */}
-        <div 
-          className="absolute left-1/2 z-[60]" // ← Z-INDEX AUGMENTÉ
-          style={{ 
-            top: pivotY,
-            transform: `rotate(${rotation}deg)`,
-          }}
-        >
-          {infiniteProjects.map((project, index) => {
-            const angle = (index * angleStep) - (totalAngle / 2);
-
-            return (
-              <div
-                key={`${project.id}-${index}`}
-                className="absolute"
-                style={{
-                  left: 0,
-                  top: 0,
-                  transform: `rotate(${angle}deg)`,
-                  transformOrigin: '0 0',
-                }}
-              >
-                <div 
-                  style={{ 
-                    transform: `translateX(-${cardWidth / 2}px) translateY(-${radius}px) translateY(-${cardHeight / 2}px)`,
-                  }}
-                >
-                  <ProjectCard project={project} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
       </div>
 
       {/* --- TEXTE (AU PREMIER PLAN) --- */}
