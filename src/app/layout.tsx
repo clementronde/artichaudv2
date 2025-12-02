@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={helvetica.variable}>
-      <body className="bg-white text-arti-black font-sans antialiased">
+      <body className="bg-white text-arti-black font-sans antialiased overflow-x-hidden">
         
         {/* ✅ Navbar isolée (Règle les bugs GSAP) */}
         <Navbar />

@@ -70,10 +70,10 @@ export default function Intro() {
   return (
     // FOND TRANSPARENT pour voir les images du hero passer derrière
     // z-10 pour être AU-DESSUS du hero (z-0)
-    <section 
-      ref={container} 
-      className="relative z-10 w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none"
-    > 
+   <section 
+  ref={container} 
+  className="relative z-[70] w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none"
+>
       <div 
         ref={blackBox} 
         className="bg-black text-white rounded-[40px] px-6 py-12 md:p-16 mx-auto will-change-transform flex flex-col justify-between min-h-[80vh] pointer-events-auto"

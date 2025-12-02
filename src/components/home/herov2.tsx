@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 // --- TYPES ---
 interface Project {
@@ -21,11 +21,9 @@ const projects: Project[] = [
   { id: 8, title: "Nature", img: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" },
 ];
 
-// Dupliquer pour boucle infinie
 const infiniteProjects = [...projects, ...projects, ...projects];
 
 // --- COMPOSANTS ---
-
 function Tag({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center justify-center px-4 py-1.5 border border-gray-200 rounded-full text-base font-medium text-gray-600 bg-white mx-1 whitespace-nowrap align-middle transform -translate-y-1 shadow-sm">
@@ -58,9 +56,32 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function HeroSection() {
   const [rotation, setRotation] = useState(0);
+  const [isVisible, setIsVisible] = useState(true); // ← NOUVEAU : état de visibilité
+  const heroRef = useRef<HTMLDivElement>(null); // ← NOUVEAU : ref pour le hero
 
-  // Animation loop
+  // NOUVEAU : Intersection Observer pour détecter si le hero est visible
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // On considère le hero "visible" s'il est à plus de 10% dans le viewport
+        setIsVisible(entry.isIntersecting);
+      },
+      { 
+        threshold: 0.1 // Déclenche quand 10% du hero est visible
+      }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Animation loop - S'ARRÊTE quand le hero n'est plus visible
+  useEffect(() => {
+    if (!isVisible) return; // ← NOUVEAU : Stop si pas visible
+
     let animationId: number;
     let lastTime = Date.now();
 
@@ -75,40 +96,28 @@ export default function HeroSection() {
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [isVisible]); // ← NOUVEAU : dépendance sur isVisible
 
   // --- PARAMÈTRES GÉOMÉTRIQUES ---
   const angleStep = 10;
   const radius = 2000;
-  
-  // MODIFICATION ICI : Passé de 400 à 550 pour descendre l'arc
   const arcApexPosition = 500; 
-  
-  const logoPosition = -200; 
   const pivotY = arcApexPosition + radius;
-
   const cardWidth = 310;
   const cardHeight = 242;
   const totalCards = infiniteProjects.length;
   const totalAngle = totalCards * angleStep;
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-white font-sans selection:bg-black selection:text-white">
+    <div 
+      ref={heroRef} // ← NOUVEAU : ref attachée
+      className="relative w-full h-screen bg-white font-sans selection:bg-black selection:text-white"
+    >
 
       {/* --- ZONE D'ANIMATION (EN ARRIÈRE PLAN) --- */}
       <div className="absolute inset-0 z-0">
           
-        {/* LOGO ARTICHAUD */}
-        <div 
-          className="absolute left-1/2 -translate-x-1/2 z-10"
-          style={{ top: arcApexPosition + logoPosition }}
-        >
-          <img 
-            src="/hero/logonoirhero.png" 
-            alt="Mascotte Artichaud"
-            className="w-24 h-auto drop-shadow-2xl"
-          />
-        </div>
+        
 
         {/* LIGNE POINTILLÉE */}
         <div 
@@ -125,7 +134,7 @@ export default function HeroSection() {
 
         {/* ROUE DES CARTES */}
         <div 
-          className="absolute left-1/2 z-20"
+          className="absolute left-1/2 z-[60]" // ← Z-INDEX AUGMENTÉ
           style={{ 
             top: pivotY,
             transform: `rotate(${rotation}deg)`,

@@ -197,7 +197,7 @@ export default function BlogSection() {
   }
 
   return (
-    <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden">
+    <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden mt-12">
       
       {/* HEADER */}
       <div className="container mx-auto px-6 md:px-12 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">

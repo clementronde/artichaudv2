@@ -9,9 +9,10 @@ import Herov2 from '@/components/home/herov2';
 
 export default function Home() {
   return (
-    <main className="w-full bg-white min-h-screen">
+    <main className="w-full bg-white min-h-screen ">
      
       <Herov2 />
+      
       <Intro />
       <Services />
       <Highlight />
