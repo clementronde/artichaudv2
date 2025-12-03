@@ -14,14 +14,14 @@ interface Project {
 
 // --- DONNÉES ---
 const projects: Project[] = [
-  { id: 1, title: "Fashion", img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" },
-  { id: 2, title: "Keleti", img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=600&q=80" },
+  { id: 1, title: "Fashion", img: "/projects/Disobey.avif" },
+  { id: 2, title: "Keleti", img: "/projects/Keleti.avif" },
   { id: 3, title: "Architecture", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&q=80" },
-  { id: 4, title: "Lumyn", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" },
-  { id: 5, title: "Chair", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=600&q=80" },
-  { id: 6, title: "Interior", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&w=600&q=80" },
-  { id: 7, title: "Design", img: "https://images.unsplash.com/photo-1534349762913-961123f16adc?auto=format&fit=crop&w=600&q=80" },
-  { id: 8, title: "Nature", img: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" },
+  { id: 4, title: "Lumyn", img: "/projects/Com'on.avif" },
+  { id: 5, title: "Chair", img: "/projects/Lumyn.avif" },
+  { id: 6, title: "Interior", img: "/projects/Jobmi.avif" },
+  { id: 7, title: "Design", img: "/projects/Charit.avif" },
+  { id: 8, title: "Nature", img: "/projects/Multiface.avif" },
 ];
 
 const infiniteProjects = [...projects, ...projects, ...projects];
@@ -46,7 +46,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group cursor-pointer transition-transform duration-500 hover:-translate-y-6 hover:rotate-2">
       <div 
-        className="relative z-10 bg-gray-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden rounded-xl transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.3)] border-4 border-white"
+        className="relative z-10 bg-gray-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden  transition-all duration-500 group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.3)] "
         style={{ width: 310, height: 242 }}
       >
         <img 

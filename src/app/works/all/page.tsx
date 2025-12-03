@@ -13,7 +13,7 @@ const allProjects = [
     client: "Charit.IO",
     slogan: "Soutenons la culture ensemble !",
     category: "Brand Identity, Webdesign, UX",
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
+    image: "@/public/assets/projects/Charit.avif",
     slug: "/works/charitio"
   },
   {
@@ -21,7 +21,7 @@ const allProjects = [
     client: "Keleti Agency",
     slogan: "Lorem ipsum dolor sit amet",
     category: "Brand Identity, Brand strategy",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2864&auto=format&fit=crop",
+    image: "@public/assets/projects/Keleti.avif",
     slug: "/works/keleti"
   },
   {
@@ -29,7 +29,7 @@ const allProjects = [
     client: "Disobey",
     slogan: "Consectetur adipiscing elit",
     category: "Brand Identity, Webdesign",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+    image: "@public/assets/projects/Disobey.avif",
     slug: "/works/disobey"
   },
   {
@@ -37,7 +37,7 @@ const allProjects = [
     client: "Lumyn",
     slogan: "Ut labore et dolore magna aliqua",
     category: "Brand Identity, Webdesign, Brand strategy",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    image: "@public/assets/projects/Lumyn.avif",
     slug: "/works/lumyn"
   },
   {
@@ -45,7 +45,7 @@ const allProjects = [
     client: "Com'on",
     slogan: "Duis aute irure",
     category: "Brand Identity, Webdesign, UX",
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2940&auto=format&fit=crop",
+    image: "@public/assets/projects/Com'on.avif",
     slug: "/works/comon"
   },
   {
@@ -53,7 +53,7 @@ const allProjects = [
     client: "Jobmi",
     slogan: "Excepteur sint occaecat",
     category: "Brand Identity, Webdesign, UX",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop",
+    image: "@public/assets/projects/Jobmi.avif",
     slug: "/works/jobmi"
   },
   {
@@ -61,7 +61,7 @@ const allProjects = [
     client: "Multiface",
     slogan: "Quis nostrud exercitation ullamco laboris",
     category: "Brand Identity, Webdesign, Web Marketing",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop",
+    image: "@public/assets/projects/Multiface.avif",
     slug: "/works/multiface"
   },
   {
@@ -69,7 +69,7 @@ const allProjects = [
     client: "Utopia",
     slogan: "Quis nostrud exercitation ullamco laboris",
     category: "Brand Identity, Webdesign, Web Marketing",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+    image: "@public/assets/projects/Utopia.avif",
     slug: "/works/utopia"
   }
 ]

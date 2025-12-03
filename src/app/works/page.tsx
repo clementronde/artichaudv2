@@ -11,7 +11,7 @@ const projects = [
     id: 1,
     client: "Charitio",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
+    image: "/projects/Charit.avif",
     slug: "/works/charitio",
     format: "aspect-[16/10]"
   },
@@ -19,7 +19,7 @@ const projects = [
     id: 2,
     client: "Keleti Design",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2864&auto=format&fit=crop",
+    image: "/projects/Keleti.avif",
     slug: "/works/keleti",
     format: "aspect-[16/10]"
   },
@@ -27,7 +27,7 @@ const projects = [
     id: 3,
     client: "Disobey",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+    image: "/projects/Disobey.avif",
     slug: "/works/disobey",
     format: "aspect-[16/10]"
   },
@@ -35,7 +35,7 @@ const projects = [
     id: 4,
     client: "Lumyn",
     category: "Web Design & Dev",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    image: "/projects/Lumyn.avif",
     slug: "/works/lumyn",
     format: "aspect-[16/10]"
   },
@@ -43,7 +43,7 @@ const projects = [
     id: 5,
     client: "Comon",
     category: "Brand Strategy",
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2940&auto=format&fit=crop",
+    image: "/projects/Com'on.avif",
     slug: "/works/jobmi",
     format: "aspect-[16/10]"
   },
@@ -51,7 +51,7 @@ const projects = [
     id: 6,
     client: "Jobmi",
     category: "Brand identity ",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop",
+    image: "/projects/Jobmi.avif",
     slug: "/works/multiface",
     format: "aspect-[16/10]"
   },
@@ -59,7 +59,7 @@ const projects = [
     id: 7,
     client: "Multiface",
     category: "Brand identity",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop",
+    image: "/projects/Multiface.avif",
     slug: "/works/multiface",
     format: "aspect-[16/10]"
   }
