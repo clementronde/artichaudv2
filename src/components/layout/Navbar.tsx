@@ -352,12 +352,14 @@ if (isMobile) {
           <div className="flex items-center justify-center md:justify-between w-full px-6 md:px-8 relative">
             
             {/* LOGO */}
-            <Link 
-              ref={logoRef}
-              href="/" 
-              onClick={(e) => handleLinkClick(e, '/')}
-              className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
-            >
+          
+          <Link 
+            ref={logoRef}
+            href="/" 
+           suppressHydrationWarning={true}  // <--- LIGNE À AJOUTER
+            onClick={(e) => handleLinkClick(e, '/')}
+            className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
+>
               <span className="font-display">Artichaud</span>
             </Link>
 
@@ -371,6 +373,7 @@ if (isMobile) {
                   <Magnetic key={item.label} disabled={isNavigatingRef.current}>
                     <Link
                       href={item.href}
+                      suppressHydrationWarning={true}
                       onClick={(e) => handleLinkClick(e, item.href)}
                       className="group relative px-4 py-2 text-sm font-medium text-white/70 
                                  hover:text-white transition-colors duration-300
@@ -394,6 +397,7 @@ if (isMobile) {
               <Magnetic disabled={isNavigatingRef.current}>
                 <Link
                   href="/contact"
+                  suppressHydrationWarning={true}
                   onClick={(e) => handleLinkClick(e, '/contact')}
                   className="group relative overflow-hidden
                              inline-flex items-center justify-center

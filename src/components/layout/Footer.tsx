@@ -153,9 +153,10 @@ const Footer: React.FC = () => {
         <div className="content-wrapper">
           <div className="column">
             <h2 className="title">Let's talk</h2>
-            <Link href="/contact">
+            <Link href="/contact" suppressHydrationWarning={true}> 
               <motion.span 
                 className="contact-button"
+                
                 style={{
                   borderColor: isDarkFooter ? '#fff' : '#000',
                   color: isDarkFooter ? '#fff' : '#000',
@@ -172,14 +173,14 @@ const Footer: React.FC = () => {
             <h3 className="subtitle">Contact Me</h3>
             <a 
               href="mailto:artichaud.studio@gmail.com" 
-              className="link"
+              className="link" suppressHydrationWarning={true}
               style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
             >
               artichaud.studio@gmail.com
             </a>
             <a 
               href="tel:0697538017" 
-              className="link"
+              className="link" 
               style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
             >
               06 97 53 80 17
@@ -192,6 +193,7 @@ const Footer: React.FC = () => {
               <Link 
                 key={social}
                 href={`https://${social.toLowerCase()}.com`} 
+                suppressHydrationWarning={true}
                 target="_blank" 
                 className="link"
                 style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
@@ -207,6 +209,7 @@ const Footer: React.FC = () => {
               <Link 
                 key={index} 
                 href={`/${item.toLowerCase().replace("'", "").replace(/\s+/g, "-")}`}
+                suppressHydrationWarning={true}
                 className="link"
                 style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
               >

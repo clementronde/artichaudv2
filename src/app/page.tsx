@@ -34,7 +34,7 @@ export default function Home() {
       
       {/* Le reste du contenu */}
       <div className="relative z-10">
-        <div className="h-[30vh] bg-transparent" />
+        <div className="h-[20vh] bg-transparent" />
         <Intro />
         <Services />
         <Highlight />

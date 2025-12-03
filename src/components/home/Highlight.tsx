@@ -134,6 +134,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       <Link 
         href={`/works/${project.id}`}
         ref={containerRef} 
+        suppressHydrationWarning={true}
         // MODIFICATION ICI : Remplacement des classes 'aspect-...' par 'h-[500px]'
         className="relative w-full h-[500px] overflow-hidden bg-gray-100 cursor-none block"
         onMouseMove={handleMouseMove}
@@ -207,7 +208,7 @@ export default function Highlight() {
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
           Highlight
         </h2>
-        <Link href="/works" className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
+        <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
           <span className="text-sm font-bold">View projects</span>
           <span>→</span>
         </Link>

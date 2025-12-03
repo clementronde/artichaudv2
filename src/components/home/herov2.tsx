@@ -15,7 +15,7 @@ interface Project {
 // --- DONNÉES ---
 const projects: Project[] = [
   { id: 1, title: "Fashion", img: "/projects/Disobey.avif" },
-  { id: 2, title: "Keleti", img: "/projects/Keleti.avif" },
+  { id: 2, title: "Keleti", img: "/projects/Keleti (1).avif" },
   { id: 3, title: "Architecture", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&q=80" },
   { id: 4, title: "Lumyn", img: "/projects/Com'on.avif" },
   { id: 5, title: "Chair", img: "/projects/Lumyn.avif" },
@@ -73,7 +73,7 @@ export default function HeroSection({ isLoaded = true }: { isLoaded?: boolean })
 
   const angleStep = 12;
   const radius = 2000;
-  const arcApexPosition = 600; 
+  const arcApexPosition = 700; 
   const pivotY = arcApexPosition + radius;
   const cardWidth = 310;
   const cardHeight = 242;

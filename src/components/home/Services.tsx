@@ -114,6 +114,7 @@ export default function Services() {
                     <div className="mt-8 md:mt-12">
                       <Link 
                         href="/contact"
+                        suppressHydrationWarning={true}
                         className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium border border-black/10 hover:border-black transition-all duration-300 group/btn"
                       >
                         <span className="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
