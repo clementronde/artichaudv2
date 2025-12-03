@@ -4,50 +4,10 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
+import { blogPosts } from '@/data/posts';
 
 // --- DONNÉES BLOG ---
-const blogPosts = [
-  {
-    id: 1,
-    title: "How Much Does an Agency Charge for Branding?",
-    excerpt: "Budgeting for branding can be tricky. Here is a transparent breakdown.",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
-    tags: ["Branding", "Cost"],
-    readTime: "10 min read",
-    slug: "/blog/branding-cost",
-    date: "Oct 24, 2024"
-  },
-  {
-    id: 2,
-    title: "What is Personal Branding and Do We Offer It?",
-    excerpt: "Personal branding is rising. Find out if it's the right strategy.",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
-    tags: ["Personal Branding", "Tips"],
-    readTime: "8 min read",
-    slug: "/blog/personal-branding",
-    date: "Oct 18, 2024"
-  },
-  {
-    id: 3,
-    title: "Reasons We Build in Craft CMS",
-    excerpt: "Why we chose Craft CMS over WordPress for robust websites.",
-    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop",
-    tags: ["Tech", "CMS"],
-    readTime: "6 min read",
-    slug: "/blog/craft-cms",
-    date: "Oct 10, 2024"
-  },
-  {
-    id: 4,
-    title: "SEO in 2025: Content Quality Trumps Keywords",
-    excerpt: "Google's latest updates focus on helpful content.",
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop",
-    tags: ["SEO", "Strategy"],
-    readTime: "5 min read",
-    slug: "/blog/seo-2025",
-    date: "Sep 28, 2024"
-  }
-]
+
 
 // --- COMPOSANT CURSEUR PERSONNALISÉ ---
 const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
