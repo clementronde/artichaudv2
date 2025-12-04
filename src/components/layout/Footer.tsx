@@ -152,7 +152,10 @@ const Footer: React.FC = () => {
         
         <div className="content-wrapper">
           <div className="column">
-            <h2 className="title">Let's talk</h2>
+           {/* Modification : Taille responsive + Suppression de text-white pour gérer le thème */}
+<h2 className="text-[12vw] md:text-[8vw] lg:text-[7vw] leading-[0.9] tracking-tighter font-medium mb-8 md:mb-12">
+  Let's work<br />together
+</h2>
             <Link href="/contact" suppressHydrationWarning={true}> 
               <motion.span 
                 className="contact-button"

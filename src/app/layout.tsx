@@ -7,6 +7,8 @@ import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import JsonLd from "@/components/seo/JsonLD"; // Assure-toi que le fichier est bien JsonLd.tsx ou JsonLD.tsx
 
+
+
 // CHARGEMENT DES POLICES
 const helvetica = localFont({
   src: [
@@ -82,6 +84,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={helvetica.variable}>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="icon" href="/icon.png" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <body className="bg-white text-arti-black font-sans antialiased overflow-x-hidden">
         {/* Composant JSON-LD pour les données structurées */}
         <JsonLd />
