@@ -335,7 +335,7 @@ if (isMobile) {
         ref={navRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-[5000] 
                    h-[60px]
                    opacity-0 
                    bg-black/95 backdrop-blur-md 

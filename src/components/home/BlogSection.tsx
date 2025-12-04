@@ -4,12 +4,9 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
-import { blogPosts } from '@/data/posts';
+import { blogPosts } from '@/data/posts'
 
-// --- DONNÉES BLOG ---
-
-
-// --- COMPOSANT CURSEUR PERSONNALISÉ ---
+// --- 1. CURSEUR DRAG ---
 const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
   const [isVisible, setIsVisible] = useState(false)
   const x = useSpring(0, { stiffness: 300, damping: 20 })
@@ -27,12 +24,12 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
     const handleMouseEnter = () => setIsVisible(true)
     const handleMouseLeave = () => setIsVisible(false)
 
-    container.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove)
     container.addEventListener("mouseenter", handleMouseEnter)
     container.addEventListener("mouseleave", handleMouseLeave)
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mousemove", handleMouseMove)
       container.removeEventListener("mouseenter", handleMouseEnter)
       container.removeEventListener("mouseleave", handleMouseLeave)
     }
@@ -40,7 +37,7 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
 
   return (
     <motion.div
-      className="fixed top-0 left-0 z-[60] pointer-events-none flex items-center justify-center w-[90px] h-[90px]"
+      className="fixed top-0 left-0 z-[9999] pointer-events-none flex items-center justify-center w-[90px] h-[90px]"
       style={{ x, y, opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0 }}
     >
       <div className="absolute inset-0 bg-[#FF6F00] rounded-full blur-md opacity-90" />
@@ -51,44 +48,42 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
   )
 }
 
-// --- COMPOSANT CARTE BLOG ---
+// --- 2. CARTE BLOG ---
 interface BlogCardProps {
   post: typeof blogPosts[0]
   index: number
-  isDragging: boolean // Prop pour savoir si on drag ou pas
+  isDragging: boolean
+  pixelWidth?: number // Modification : on accepte une largeur précise en pixels
 }
 
-const BlogCard = ({ post, index, isDragging }: BlogCardProps) => {
-  
+const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
   const heights = ['h-[448px]', 'h-[329px]', 'h-[398px]']
   const currentHeight = heights[index % 3]
 
-  // Fonction pour gérer le clic sur le lien
   const handleClick = (e: React.MouseEvent) => {
     if (isDragging) {
-      e.preventDefault() // ⛔️ Si on drag, on bloque le lien
+      e.preventDefault()
       e.stopPropagation()
     }
   }
 
   return (
     <motion.article 
-      className="relative flex-shrink-0 w-[350px] md:w-[450px] group select-none"
+      className="relative flex-shrink-0 group select-none flex flex-col justify-between !cursor-none"
+      // Application de la largeur calculée ou fallback mobile
+      style={{ width: pixelWidth ? `${pixelWidth}px` : '85vw' }} 
     >
       <Link 
-        href={post.slug} 
-        onClick={handleClick} // <-- Interception du clic
-        className="block w-full h-full cursor-none" 
+        href={`/blog/${post.slug}`} 
+        onClick={handleClick}
+        className="block w-full h-full !cursor-none" 
         suppressHydrationWarning
-        onDragStart={(e) => e.preventDefault()}
+        draggable={false}
       >
-        
-        {/* IMAGE CONTAINER */}
-        {/* Correction 1 : rounded-none par défaut, rounded-[50px] au hover */}
+        {/* IMAGE */}
         <div className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
                         rounded-none transition-all duration-500 ease-out 
                         group-hover:rounded-[120px]`}> 
-          
           <Image
             src={post.image}
             alt={post.title}
@@ -96,133 +91,164 @@ const BlogCard = ({ post, index, isDragging }: BlogCardProps) => {
             draggable={false} 
             className="object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
           />
-          
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         </div>
 
-        {/* METADATA */}
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-           <span className="text-xs font-bold uppercase tracking-wider text-gray-400 border border-black/10 px-3 py-1 rounded-full">
-             {post.readTime}
-           </span>
-           <div className="flex gap-1">
-             {post.tags.map(tag => (
-               <span key={tag} className="px-3 py-1 rounded-full bg-gray-100 text-[10px] font-medium text-gray-500 uppercase">
-                 {tag}
-               </span>
-             ))}
-           </div>
-        </div>
+        {/* INFO */}
+        <div className="flex flex-col gap-4 pr-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-400 border border-black/10 px-3 py-1 rounded-full whitespace-nowrap">
+                {post.readTime}
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {post.tags.slice(0, 2).map(tag => (
+                  <span key={tag} className="px-3 py-1 rounded-full bg-gray-100 text-[10px] font-medium text-gray-500 uppercase whitespace-nowrap">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-        {/* TITRE & EXCERPT */}
-        <div className="flex flex-col gap-2 pr-4">
             <h3 className="text-2xl font-normal leading-tight text-[#1a1a1a] group-hover:text-amber-600 transition-colors duration-300">
               {post.title}
             </h3>
-            <p className="text-gray-500 text-sm font-light line-clamp-2 leading-relaxed mt-2">
-              {post.excerpt}
-            </p>
         </div>
-        
       </Link>
     </motion.article>
   )
 }
 
-// --- COMPOSANT PRINCIPAL ---
+// --- 3. COMPOSANT PRINCIPAL ---
 export default function BlogSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
-  const [sliderWidth, setSliderWidth] = useState(0)
   
-  // Nouvel état pour suivre le drag
+  const [sliderWidth, setSliderWidth] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [containerWidth, setContainerWidth] = useState(0) // Nouvel état pour la largeur du conteneur
+
+  const visiblePosts = blogPosts.slice(0, 3)
 
   useEffect(() => {
-    if (sliderRef.current && containerRef.current) {
-      setSliderWidth(sliderRef.current.scrollWidth - containerRef.current.offsetWidth + 100)
+    const calculateMetrics = () => {
+      if (sliderRef.current && containerRef.current) {
+        // 1. Calculer la largeur visible pour dimensionner les cartes
+        const visibleW = containerRef.current.offsetWidth
+        setContainerWidth(visibleW)
+
+        // 2. Calculer la limite de scroll
+        const totalW = sliderRef.current.scrollWidth
+        setSliderWidth(totalW - visibleW + 50)
+      }
+    }
+
+    calculateMetrics()
+    
+    // Délai pour laisser le temps au rendu
+    const timer = setTimeout(calculateMetrics, 500)
+    
+    window.addEventListener('resize', calculateMetrics)
+    return () => {
+      window.removeEventListener('resize', calculateMetrics)
+      clearTimeout(timer)
     }
   }, [])
 
-  // Handlers pour Framer Motion
-  const handleDragStart = () => {
-    setIsDragging(true)
-  }
-
-  const handleDragEnd = () => {
-    // Petit délai pour laisser le temps au clic de se faire intercepter
-    setTimeout(() => {
-      setIsDragging(false)
-    }, 150)
-  }
+  const onDragStart = () => setIsDragging(true)
+  const onDragEnd = () => setTimeout(() => setIsDragging(false), 150)
 
   return (
     <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden mt-12">
       
       {/* HEADER */}
-      <div className="container mx-auto px-6 md:px-12 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
-        <div className="max-w-2xl">
-          <span className="text-sm font-medium uppercase tracking-wide text-gray-500 mb-6 block">
-            Blog
-          </span>
-          <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-[#1a1a1a] tracking-tight">
-            Get the lo-down with <br />
-            the latest news and views
-          </h2>
+      <div className="container mx-auto px-6 md:px-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
+          <div className="hidden md:block col-span-1 pt-2">
+            <span className="text-sm font-medium uppercase tracking-wide text-gray-500 block">
+              Blog
+            </span>
+          </div>
+          <div className="col-span-1 md:col-span-7 flex flex-col items-start gap-8">
+            <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-[#1a1a1a] tracking-tight">
+              Get the lo-down with <br />
+              the latest news and views
+            </h2>
+            <Link 
+              href="/blog"
+              className="group flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
+              suppressHydrationWarning
+            >
+              <span className="text-sm font-medium">Discover all articles</span>
+              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </Link>
+          </div>
         </div>
-        
-        <Link 
-          href="/blog"
-          className="group flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
-          suppressHydrationWarning
-        >
-          <span className="text-sm font-medium">Discover all articles</span>
-          <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-        </Link>
       </div>
 
-      {/* SLIDER ZONE */}
-      <div ref={containerRef} className="relative w-full pl-6 md:pl-12 cursor-none">
-        
-        <DragCursor containerRef={containerRef} />
+      {/* ZONE SLIDER */}
+      <div className="container mx-auto px-6 md:px-12">
+        <div ref={containerRef} className="relative w-full !cursor-none">
+          <DragCursor containerRef={containerRef} />
 
-        <motion.div 
-          ref={sliderRef}
-          className="flex items-start gap-8 md:gap-12 cursor-none active:cursor-none pb-12"
-          drag="x"
-          dragConstraints={{ right: 0, left: -sliderWidth }} 
-          whileTap={{ cursor: "none" }}
-          
-          // Events pour gérer le conflit Drag vs Click
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          {blogPosts.map((post, index) => (
-            <BlogCard 
-                key={post.id} 
-                post={post} 
-                index={index} 
-                isDragging={isDragging} // On passe l'état à l'enfant
-            />
-          ))}
-          
-          {/* Carte "Voir plus" à la fin */}
-          <div className="flex-shrink-0 w-[200px] md:w-[300px] h-[329px] flex items-center justify-center">
-             <Link 
-                href="/blog" 
-                // Même logique pour ce lien aussi
-                onClick={(e) => { if(isDragging) { e.preventDefault(); e.stopPropagation(); } }}
-                className="group flex flex-col items-center gap-4 opacity-50 hover:opacity-100 transition-opacity cursor-none"
-                suppressHydrationWarning
-                onDragStart={(e) => e.preventDefault()}
-             >
-                <div className="w-20 h-20 rounded-full border border-black/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-black group-hover:text-white transition-all duration-300">
-                   <span className="text-2xl">→</span>
-                </div>
-                <span className="font-medium text-lg">View all articles</span>
-             </Link>
-          </div>
-        </motion.div>
+          <motion.div 
+            ref={sliderRef}
+            className="flex w-max items-start gap-5 !cursor-none active:!cursor-none pb-12 touch-pan-y"
+            drag="x"
+            dragConstraints={{ right: 0, left: -sliderWidth }} 
+            whileTap={{ cursor: "none" }}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+          >
+            
+            {visiblePosts.map((post, index) => {
+              // --- CALCUL PRÉCIS EN PIXELS ---
+              // On utilise containerWidth (la largeur réelle visible) pour les calculs
+              let cardPixelWidth = 0;
+
+              // Gap = 20px. 
+              if (containerWidth > 768) { // Si Desktop
+                if (index === 0) {
+                  // Grid 1-4 : (Largeur totale / 2) - moitié du gap (10px)
+                  cardPixelWidth = (containerWidth / 2) - 10
+                } else if (index === 1) {
+                  // Grid 5-7 : (Largeur totale * 3/8) - ajustement gap (~12px)
+                  cardPixelWidth = (containerWidth * 0.375) - 12
+                } else {
+                  // Grid 8+ : Fixe large pour déborder
+                  cardPixelWidth = 450
+                }
+              }
+
+              return (
+                <BlogCard 
+                    key={post.id} 
+                    post={post} 
+                    index={index} 
+                    isDragging={isDragging}
+                    // Si on est sur mobile (width 0 ou petit), on passe undefined pour laisser le style par défaut (85vw)
+                    pixelWidth={containerWidth > 768 ? cardPixelWidth : undefined}
+                />
+              )
+            })}
+
+            {/* BOUTON "VIEW ALL" */}
+            <div className="flex-shrink-0 w-[200px] h-[320px] flex items-center justify-center !cursor-none">
+               <Link 
+                  href="/blog" 
+                  onClick={(e) => { if(isDragging) { e.preventDefault(); e.stopPropagation(); } }}
+                  className="group flex flex-col items-center gap-4 opacity-50 hover:opacity-100 transition-opacity !cursor-none"
+                  suppressHydrationWarning
+                  onDragStart={(e) => e.preventDefault()}
+               >
+                  <div className="w-20 h-20 rounded-full border border-black/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-black group-hover:text-white transition-all duration-300">
+                     <span className="text-2xl">→</span>
+                  </div>
+                  <span className="font-medium text-lg">View all</span>
+               </Link>
+            </div>
+
+          </motion.div>
+        </div>
       </div>
 
     </section>

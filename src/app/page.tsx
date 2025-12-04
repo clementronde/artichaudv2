@@ -1,44 +1,35 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Navbar from '@/components/layout/Navbar';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Intro from '@/components/home/Intro';
 import Services from '@/components/home/Services';
 import Highlight from '@/components/home/Highlight';
 import Testimonials from '@/components/home/Testimonials';
 import BlogSection from '@/components/home/BlogSection';
 import Herov2 from '@/components/home/herov2';
-import Preloader from '@/components/Preloader';
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-
-  // Fallback de sécurité
-  useEffect(() => {
-    // Si jamais le preloader ne finit pas (cas rare), on force l'affichage après 5s
-    const timer = setTimeout(() => setLoading(false), 5500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <main className="w-full bg-white min-h-screen">
       
-      {/* Le Preloader est toujours rendu tant que loading est vrai, 
-          mais AnimatePresence à l'intérieur gère sa disparition en douceur */}
-      {loading && (
-        <Preloader onComplete={() => setLoading(false)} />
-      )}
-
-      {/* Le Hero reçoit l'état de chargement pour lancer ses anims */}
-      <Herov2 isLoaded={!loading} />
+      <Herov2 />
       
-      {/* Le reste du contenu */}
-      <div className="relative z-10">
-        <div className="h-[20vh] bg-transparent" />
-        <Intro />
+      {/* MOBILE : -mt-[30vh] pour remonter l'intro et coller aux images qui sont plus hautes.
+         DESKTOP : md:-mt-4 (quasi zéro) pour descendre l'intro et ne plus couper les cartes.
+      */}
+      <div className="relative z-50 -mt-[30vh] md:-mt-4">
+        
+        <div className="bg-white pt-10 rounded-t-[2rem] md:rounded-t-[3rem]">
+          <Intro />
+        </div>
+
         <Services />
         <Highlight />
         <Testimonials />
+        
+       
+
         <BlogSection />
         <div className="h-[20vh] bg-white"></div>
       </div>
