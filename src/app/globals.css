@@ -228,3 +228,28 @@ html.lenis, html.lenis body {
 .footer-container .background-text {
   transition: color 0.4s ease, border-color 0.4s ease;
 }
+
+
+/* blog*/
+@layer components {
+  /* Style de l'encadré "Bon à savoir" */
+  .callout-box {
+    @apply bg-gray-50 border-l-4 border-amber-600 p-6 my-8 rounded-r-xl relative overflow-hidden;
+  }
+  
+  /* Titre de l'encadré */
+  .callout-box h3 {
+    @apply text-lg font-bold text-arti-black mb-3 flex items-center gap-2 !mt-0;
+  }
+  
+  /* Texte de l'encadré */
+  .callout-box p {
+    @apply text-gray-600 text-base leading-relaxed !mb-0;
+  }
+
+  /* Petit background décoratif optionnel */
+  .callout-box::before {
+    content: "";
+    @apply absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none;
+  }
+}
