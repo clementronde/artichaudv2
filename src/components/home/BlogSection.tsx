@@ -4,10 +4,11 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
-import { blogPosts } from '@/data/posts'
+// SUPPRIMER CETTE LIGNE : import { blogPosts } from '@/data/posts'
 
-// --- 1. CURSEUR DRAG ---
+// --- 1. CURSEUR DRAG (Inchangé) ---
 const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
+  // ... (Garde le code du curseur tel quel)
   const [isVisible, setIsVisible] = useState(false)
   const x = useSpring(0, { stiffness: 300, damping: 20 })
   const y = useSpring(0, { stiffness: 300, damping: 20 })
@@ -49,14 +50,25 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
 }
 
 // --- 2. CARTE BLOG ---
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  readTime: string;
+  tags: string[];
+}
+
 interface BlogCardProps {
-  post: typeof blogPosts[0]
+  post: BlogPost // On utilise notre nouvelle interface
   index: number
   isDragging: boolean
-  pixelWidth?: number // Modification : on accepte une largeur précise en pixels
+  pixelWidth?: number
 }
 
 const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
+  // ... (Garde le code de la carte tel quel, rien ne change ici)
   const heights = ['h-[448px]', 'h-[329px]', 'h-[398px]']
   const currentHeight = heights[index % 3]
 
@@ -70,7 +82,6 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
   return (
     <motion.article 
       className="relative flex-shrink-0 group select-none flex flex-col justify-between !cursor-none"
-      // Application de la largeur calculée ou fallback mobile
       style={{ width: pixelWidth ? `${pixelWidth}px` : '85vw' }} 
     >
       <Link 
@@ -80,7 +91,6 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
         suppressHydrationWarning
         draggable={false}
       >
-        {/* IMAGE */}
         <div className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
                         rounded-none transition-all duration-500 ease-out 
                         group-hover:rounded-[120px]`}> 
@@ -94,14 +104,13 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         </div>
 
-        {/* INFO */}
         <div className="flex flex-col gap-4 pr-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-gray-400 border border-black/10 px-3 py-1 rounded-full whitespace-nowrap">
                 {post.readTime}
               </span>
               <div className="flex flex-wrap gap-1">
-                {post.tags.slice(0, 2).map(tag => (
+                {post.tags?.slice(0, 2).map(tag => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-gray-100 text-[10px] font-medium text-gray-500 uppercase whitespace-nowrap">
                     {tag}
                   </span>
@@ -119,40 +128,36 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
 }
 
 // --- 3. COMPOSANT PRINCIPAL ---
-export default function BlogSection() {
+// On accepte maintenant les posts en props
+export default function BlogSection({ posts }: { posts: BlogPost[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
   
   const [sliderWidth, setSliderWidth] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
-  const [containerWidth, setContainerWidth] = useState(0) // Nouvel état pour la largeur du conteneur
+  const [containerWidth, setContainerWidth] = useState(0)
 
-  const visiblePosts = blogPosts.slice(0, 3)
+  // On utilise les posts passés en props (avec une sécurité si vide)
+  const visiblePosts = posts ? posts.slice(0, 3) : []
 
   useEffect(() => {
     const calculateMetrics = () => {
       if (sliderRef.current && containerRef.current) {
-        // 1. Calculer la largeur visible pour dimensionner les cartes
         const visibleW = containerRef.current.offsetWidth
         setContainerWidth(visibleW)
-
-        // 2. Calculer la limite de scroll
         const totalW = sliderRef.current.scrollWidth
         setSliderWidth(totalW - visibleW + 50)
       }
     }
 
     calculateMetrics()
-    
-    // Délai pour laisser le temps au rendu
     const timer = setTimeout(calculateMetrics, 500)
-    
     window.addEventListener('resize', calculateMetrics)
     return () => {
       window.removeEventListener('resize', calculateMetrics)
       clearTimeout(timer)
     }
-  }, [])
+  }, [posts]) // Recalculer si les posts changent
 
   const onDragStart = () => setIsDragging(true)
   const onDragEnd = () => setTimeout(() => setIsDragging(false), 150)
@@ -160,7 +165,7 @@ export default function BlogSection() {
   return (
     <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden mt-12">
       
-      {/* HEADER */}
+      {/* ... (HEADER inchangé) ... */}
       <div className="container mx-auto px-6 md:px-12 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
           <div className="hidden md:block col-span-1 pt-2">
@@ -201,20 +206,13 @@ export default function BlogSection() {
           >
             
             {visiblePosts.map((post, index) => {
-              // --- CALCUL PRÉCIS EN PIXELS ---
-              // On utilise containerWidth (la largeur réelle visible) pour les calculs
               let cardPixelWidth = 0;
-
-              // Gap = 20px. 
-              if (containerWidth > 768) { // Si Desktop
+              if (containerWidth > 768) { 
                 if (index === 0) {
-                  // Grid 1-4 : (Largeur totale / 2) - moitié du gap (10px)
                   cardPixelWidth = (containerWidth / 2) - 10
                 } else if (index === 1) {
-                  // Grid 5-7 : (Largeur totale * 3/8) - ajustement gap (~12px)
                   cardPixelWidth = (containerWidth * 0.375) - 12
                 } else {
-                  // Grid 8+ : Fixe large pour déborder
                   cardPixelWidth = 450
                 }
               }
@@ -225,13 +223,12 @@ export default function BlogSection() {
                     post={post} 
                     index={index} 
                     isDragging={isDragging}
-                    // Si on est sur mobile (width 0 ou petit), on passe undefined pour laisser le style par défaut (85vw)
                     pixelWidth={containerWidth > 768 ? cardPixelWidth : undefined}
                 />
               )
             })}
 
-            {/* BOUTON "VIEW ALL" */}
+            {/* BOUTON "VIEW ALL" (Inchangé) */}
             <div className="flex-shrink-0 w-[200px] h-[320px] flex items-center justify-center !cursor-none">
                <Link 
                   href="/blog" 
