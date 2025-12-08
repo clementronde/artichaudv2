@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     template: "%s | Artichaud Studio" // C'est ici que la magie opère pour les autres pages
   },
   description: "Artichaud est une agence de design et création de sites web basée à Paris. Nous transformons vos ambitions en marques fortes.",
+  icons: {
+    icon: '/favicon.ico', // Ou '/icon.png' si vous préférez une image PNG
+    shortcut: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png',
+  },
   keywords: ["Agence web Paris", "Création site internet", "Branding studio", "Direction artistique", "Développeur React Paris", "Next.js expert"],
   authors: [{ name: "Clément Ronde", url: "https://artichaud.studio" }],
   creator: "Artichaud Studio",
