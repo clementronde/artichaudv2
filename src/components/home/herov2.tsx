@@ -89,7 +89,7 @@ export default function HeroSection({ isLoaded = true }: { isLoaded?: boolean })
   } : {
     angleStep: 12,
     radius: 2000,
-    arcApexPosition: 550,
+    arcApexPosition: 650,
     cardWidth: 310,
     cardHeight: 242
   };

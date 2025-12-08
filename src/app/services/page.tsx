@@ -268,9 +268,9 @@ export default function ServicesPage() {
 
         </div>
       </section>
-      <div className="border-t border-black/10">
+     
         <BlogSection />
-      </div>
+      
 
     </main>
   )
