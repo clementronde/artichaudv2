@@ -2,52 +2,63 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-// Chemin vers le dossier content/blog
 const root = process.cwd();
 const POSTS_PATH = path.join(root, 'content/blog');
 
-// Type pour tes articles
 export interface Post {
   slug: string;
   meta: {
     title: string;
     date: string;
+    modifiedDate?: string; // Utile pour Google (fraîcheur du contenu)
     excerpt: string;
     image: string;
-    readTime: string;
+    readingTime: string; // On force ce champ calculé
     tags: string[];
     [key: string]: any;
   };
-  content: string; // Le contenu brut MDX
+  content: string;
 }
 
-// 1. Récupérer tous les slugs (noms de fichiers)
+// Utilitaire de calcul du temps de lecture
+const calculateReadingTime = (content: string): string => {
+  const wordsPerMinute = 225; // Moyenne standard
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+};
+
 export const getPostSlugs = (): string[] => {
+  if (!fs.existsSync(POSTS_PATH)) return [];
   return fs.readdirSync(POSTS_PATH).filter((path) => /\.mdx?$/.test(path));
 };
 
-// 2. Récupérer un article par son slug
 export const getPostBySlug = (slug: string): Post => {
   const realSlug = slug.replace(/\.mdx?$/, '');
   const fullPath = path.join(POSTS_PATH, `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   
-  // "gray-matter" sépare les métadonnées (data) du contenu (content)
   const { data, content } = matter(fileContents);
+
+  // On calcule le temps de lecture dynamiquement
+  const readingTime = calculateReadingTime(content);
 
   return {
     slug: realSlug,
-    meta: data as Post['meta'],
+    meta: {
+      ...data,
+      readingTime, // On écrase ou ajoute la valeur calculée
+      // Si pas de date de modif, on met la date de publi par défaut
+      modifiedDate: data.modifiedDate || data.date, 
+    } as Post['meta'],
     content,
   };
 };
 
-// 3. Récupérer tous les articles (pour la page blog)
 export const getAllPosts = (): Post[] => {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
-    // Trier par date (du plus récent au plus ancien)
     .sort((post1, post2) => (post1.meta.date > post2.meta.date ? -1 : 1));
   return posts;
 };
