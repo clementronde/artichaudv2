@@ -9,7 +9,7 @@ import CalloutBox from '@/components/mdx/CalloutBox';
 // URL de base de ton site
 const BASE_URL = 'https://artichaud-studio.com';
 
-// 1. GÉNÉRATION STATIQUE
+// 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({
@@ -139,14 +139,14 @@ export default async function BlogPost(
         />
       </span>
     ),
-    // 👇 NOUVEAU : STYLES DES TABLEAUX
+    // 👇 LE STYLE DU TABLEAU EST DÉFINI ICI
     table: (props: any) => (
-      <div className="overflow-x-auto my-8 border border-gray-100 rounded-lg shadow-sm">
-        <table {...props} className="w-full text-left text-sm border-collapse" />
+      <div className="overflow-x-auto my-8 border border-gray-200 rounded-lg shadow-sm">
+        <table {...props} className="w-full text-left text-sm border-collapse min-w-[600px]" />
       </div>
     ),
     thead: (props: any) => (
-      <thead {...props} className="bg-gray-50 text-arti-black font-semibold border-b border-gray-100" />
+      <thead {...props} className="bg-gray-50 text-arti-black font-semibold border-b border-gray-200" />
     ),
     tbody: (props: any) => (
       <tbody {...props} className="bg-white divide-y divide-gray-100" />
@@ -155,12 +155,13 @@ export default async function BlogPost(
       <tr {...props} className="hover:bg-gray-50/50 transition-colors" />
     ),
     th: (props: any) => (
-      <th {...props} className="px-6 py-4 font-medium" />
+      <th {...props} className="px-6 py-4 font-bold uppercase tracking-wider text-xs" />
     ),
     td: (props: any) => (
-      <td {...props} className="px-6 py-4 text-gray-600 align-top" />
+      <td {...props} className="px-6 py-4 text-gray-600 align-top whitespace-nowrap md:whitespace-normal" />
     ),
   };
+
   return (
     <main className="bg-white min-h-screen pt-32 pb-20">
       <script
@@ -170,33 +171,17 @@ export default async function BlogPost(
 
       <article className="container mx-auto px-6 md:px-12 max-w-4xl">
         
-        {/* Fil d'Ariane avec Correction Hydration */}
+        {/* Fil d'Ariane */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
-          <Link 
-            href="/" 
-            suppressHydrationWarning 
-            className="hover:text-black transition-colors"
-          >
-            Home
-          </Link>
+          <Link href="/" suppressHydrationWarning className="hover:text-black transition-colors">Home</Link>
           <span>/</span>
-          <Link 
-            href="/blog" 
-            suppressHydrationWarning 
-            className="hover:text-black transition-colors"
-          >
-            Blog
-          </Link>
+          <Link href="/blog" suppressHydrationWarning className="hover:text-black transition-colors">Blog</Link>
           <span>/</span>
           <span className="text-arti-black line-clamp-1">{post.meta.title}</span>
         </nav>
 
-        {/* Bouton Retour avec Correction Hydration */}
-        <Link 
-          href="/blog" 
-          suppressHydrationWarning
-          className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-black mb-8 transition-colors"
-        >
+        {/* Bouton Retour */}
+        <Link href="/blog" suppressHydrationWarning className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-black mb-8 transition-colors">
           ← Retour au blog
         </Link>
 
@@ -241,6 +226,7 @@ export default async function BlogPost(
           />
         </div>
 
+        {/* CONTENU MDX */}
         <div className="prose prose-lg max-w-none 
           prose-headings:font-normal prose-headings:text-arti-black prose-headings:mt-12 prose-headings:mb-6
           prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
@@ -254,7 +240,7 @@ export default async function BlogPost(
           />
         </div>
 
-        {/* CTA Fin avec Correction Hydration */}
+        {/* CTA Fin */}
         <div className="mt-24 bg-[#0a0a0a] text-white rounded-3xl p-8 md:p-12 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <h3 className="text-2xl font-bold mb-2">Besoin d'aller plus loin ?</h3>

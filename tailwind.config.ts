@@ -18,6 +18,7 @@ const config: Config = {
         'arti-light': '#F2F2F2',
         'white': '#FFFFFF',
       },
+      // Vos tailles de police
       fontSize: {
         'display': ['100px', { lineHeight: '1.0', letterSpacing: '-0.02em' }],
         'giant': ['312px', { lineHeight: '1.0' }],
@@ -32,6 +33,9 @@ const config: Config = {
       }
     },
   },
-  plugins: [require('@tailwindcss/typography'),],
+  // 👇 LE PLUGIN QUI GÈRE LES TABLEAUX
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
 export default config;
