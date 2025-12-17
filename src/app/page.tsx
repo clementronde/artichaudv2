@@ -7,17 +7,8 @@ export default async function Home() {
   
   // A. Récupération des données
   const mdxPosts = getAllPosts();
-  
-  // --- AJOUTER CECI POUR DEBUGGER ---
-  console.log("📂 Chemin racine du projet :", process.cwd());
-  console.log("📝 Articles trouvés :", mdxPosts.length);
-  if (mdxPosts.length > 0) {
-    console.log("🔍 Premier article :", mdxPosts[0]);
-  }
-  // ----------------------------------
 
   const posts = mdxPosts.map((post) => ({
-    // ... votre code e
     id: post.slug,
     slug: post.slug,
     title: post.meta.title,

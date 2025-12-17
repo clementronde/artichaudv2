@@ -67,6 +67,7 @@ export default function Navbar() {
   const isCollapsedRef = useRef(false)
   const isHoveringRef = useRef(false)
   const isNavigatingRef = useRef(false) 
+  const isAnimatingInRef = useRef(false) // NOUVEAU: Flag pour l'animation d'entrée
 
   // --- CONFIGURATION TAILLES ---
   const DESKTOP_OPEN_WIDTH = 620
@@ -79,6 +80,21 @@ export default function Navbar() {
     { label: 'Services', href: '/services' },
     { label: 'À propos', href: '/a-propos' },
   ]
+
+  // --- FONCTION UTILITAIRE: Forcer l'état visible des éléments ---
+  const forceElementsVisible = useCallback(() => {
+    const isMobile = window.innerWidth < 768
+    
+    // Forcer tous les éléments à leur état final visible
+    if (linksRef.current?.children) {
+      gsap.set(linksRef.current.children, { autoAlpha: 1, y: 0 })
+    }
+    gsap.set(linksRef.current, { autoAlpha: 1, display: 'flex' })
+    
+    if (!isMobile && ctaRef.current) {
+      gsap.set(ctaRef.current, { autoAlpha: 1, y: 0, display: 'flex' })
+    }
+  }, [])
 
   // --- 1. RESET ---
   const hardReset = useCallback(() => {
@@ -107,12 +123,16 @@ export default function Navbar() {
     isCollapsedRef.current = false
     isNavigatingRef.current = false
     isHoveringRef.current = false 
+    isAnimatingInRef.current = false
   }, [])
 
   // --- 2. ANIMATION D'ENTRÉE ---
   const animateIn = useCallback(() => {
+    isAnimatingInRef.current = true // Début de l'animation d'entrée
+    
     const tl = gsap.timeline({
       onComplete: () => {
+        isAnimatingInRef.current = false // Fin de l'animation d'entrée
         if (!isNavigatingRef.current && navRef.current) {
             gsap.set(navRef.current, { pointerEvents: 'auto' })
         }
@@ -153,6 +173,7 @@ export default function Navbar() {
     
     isNavigatingRef.current = true 
     isHoveringRef.current = false
+    isAnimatingInRef.current = false
     
     if (tlRef.current) tlRef.current.kill()
     gsap.set(navRef.current, { pointerEvents: 'none' }) 
@@ -172,14 +193,35 @@ export default function Navbar() {
   }, [pathname, hardReset])
 
   useEffect(() => {
-    const t = setTimeout(() => animateIn(), 100)
-    return () => clearTimeout(t)
+    const isHomePage = pathname === '/'
+    
+    if (isHomePage) {
+      // Sur la home, attendre l'événement du préloader
+      const handlePreloaderComplete = () => {
+        setTimeout(() => animateIn(), 100)
+      }
+      
+      window.addEventListener('preloaderComplete', handlePreloaderComplete)
+      return () => window.removeEventListener('preloaderComplete', handlePreloaderComplete)
+    } else {
+      // Sur les autres pages, animer directement
+      const t = setTimeout(() => animateIn(), 100)
+      return () => clearTimeout(t)
+    }
   }, [pathname, animateIn])
 
 
   // --- 5. ANIMATION COLLAPSE (FERMETURE) ---
   const animateCollapse = useCallback(() => {
     if (isCollapsedRef.current || isNavigatingRef.current) return
+    
+    // NOUVEAU: Si l'animation d'entrée est en cours, forcer l'état final avant de collapse
+    if (isAnimatingInRef.current) {
+      if (tlRef.current) tlRef.current.kill()
+      forceElementsVisible()
+      isAnimatingInRef.current = false
+    }
+    
     isCollapsedRef.current = true
     
     const isMobile = window.innerWidth < 768
@@ -218,7 +260,7 @@ export default function Navbar() {
         }, 0.3)
     }
 
-  }, [])
+  }, [forceElementsVisible])
 
   // --- 6. ANIMATION EXPAND (OUVERTURE) ---
   const animateExpand = useCallback(() => {
@@ -356,7 +398,7 @@ if (isMobile) {
           <Link 
             ref={logoRef}
             href="/" 
-           suppressHydrationWarning={true}  // <--- LIGNE À AJOUTER
+           suppressHydrationWarning={true}
             onClick={(e) => handleLinkClick(e, '/')}
             className="flex-shrink-0 text-xl font-bold text-white hover:text-orange-500 transition-colors duration-300 whitespace-nowrap"
 >

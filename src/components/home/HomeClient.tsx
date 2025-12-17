@@ -25,15 +25,25 @@ export default function HomeClient({ posts }: { posts: BlogPost[] }) {
 
   // Fallback de sécurité pour le loader
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5500);
+    const timer = setTimeout(() => {
+      setLoading(false);
+      window.dispatchEvent(new Event('preloaderComplete'));
+    }, 5500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Dispatcher l'événement quand le préloader est terminé
+  const handlePreloaderComplete = () => {
+    setLoading(false);
+    // Signal pour la navbar
+    window.dispatchEvent(new Event('preloaderComplete'));
+  };
 
   return (
     <main className="w-full bg-white min-h-screen">
       
       {loading && (
-        <Preloader onComplete={() => setLoading(false)} />
+        <Preloader onComplete={handlePreloaderComplete} />
       )}
 
       {/* Le Hero reçoit l'état de chargement */}

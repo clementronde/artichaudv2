@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -272,93 +272,72 @@ const Step2Budget = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-      className="flex flex-col gap-16"
+      className="flex flex-col gap-12"
     >
-      {/* Budget */}
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4 max-w-xl">
-          <span className="text-sm font-medium text-arti-black/40 uppercase tracking-wider">
-            Étape 02
-          </span>
-          <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-            Quel est votre budget ?
-          </h2>
-          <p className="text-lg text-arti-black/50 font-light">
-            Cela nous aide à dimensionner notre proposition.
+      <div className="flex flex-col gap-4 max-w-xl">
+        <span className="text-sm font-medium text-arti-black/40 uppercase tracking-wider">
+          Étape 02
+        </span>
+        <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
+          Quel est votre budget ?
+        </h2>
+        <p className="text-lg text-arti-black/50 font-light">
+          Cette indication nous aide à vous proposer des solutions adaptées.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {budgets.map((budget, index) => (
+          <SelectCard
+            key={budget.id}
+            selected={formData.budget === budget.id}
+            onClick={() => setFormData(prev => ({ ...prev, budget: budget.id }))}
+            className="p-6"
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              className="flex flex-col gap-2 pr-8"
+            >
+              <span className="text-lg font-medium">{budget.label}</span>
+              <span className={`text-sm font-light transition-colors duration-300 ${
+                formData.budget === budget.id ? 'text-white/60' : 'text-arti-black/40'
+              }`}>
+                {budget.hint}
+              </span>
+            </motion.div>
+          </SelectCard>
+        ))}
+      </div>
+
+      {/* Délai */}
+      <div className="flex flex-col gap-6 pt-8 border-t border-black/5">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-xl font-medium text-arti-black">
+            Et côté délai ?
+          </h3>
+          <p className="text-arti-black/50 font-light">
+            Quand souhaitez-vous lancer le projet ?
           </p>
         </div>
 
-        <div className="flex flex-col gap-3">
-          {budgets.map((budget, index) => (
-            <motion.button
-              key={budget.id}
-              type="button"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-              onClick={() => setFormData(prev => ({ ...prev, budget: budget.id }))}
-              className={`
-                group flex items-center justify-between p-5 md:p-6 rounded-xl border
-                transition-all duration-300
-                ${formData.budget === budget.id 
-                  ? 'border-arti-black bg-arti-black text-white' 
-                  : 'border-black/10 hover:border-black/30'
-                }
-              `}
-            >
-              <div className="flex items-baseline gap-4">
-                <span className="text-lg md:text-xl font-medium">{budget.label}</span>
-                <span className={`text-sm font-light transition-colors ${
-                  formData.budget === budget.id ? 'text-white/50' : 'text-arti-black/40'
-                }`}>
-                  {budget.hint}
-                </span>
-              </div>
-              <div className={`
-                w-5 h-5 rounded-full border-2 flex items-center justify-center
-                transition-all duration-300
-                ${formData.budget === budget.id ? 'border-white' : 'border-black/20'}
-              `}>
-                <motion.div 
-                  initial={false}
-                  animate={{ scale: formData.budget === budget.id ? 1 : 0 }}
-                  className={`w-2.5 h-2.5 rounded-full ${
-                    formData.budget === budget.id ? 'bg-white' : 'bg-arti-black'
-                  }`}
-                />
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
-      {/* Timeline */}
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-2xl font-normal text-arti-black">
-            Quand souhaitez-vous démarrer ?
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {timelines.map((timeline, index) => (
-            <motion.button
+        <div className="flex flex-wrap gap-3">
+          {timelines.map((timeline) => (
+            <button
               key={timeline.id}
               type="button"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.05 }}
               onClick={() => setFormData(prev => ({ ...prev, timeline: timeline.id }))}
               className={`
-                p-5 rounded-xl border text-center transition-all duration-300
+                px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
                 ${formData.timeline === timeline.id 
-                  ? 'border-arti-black bg-arti-black text-white' 
-                  : 'border-black/10 hover:border-black/30'
+                  ? 'bg-arti-black text-white' 
+                  : 'bg-black/5 text-arti-black/60 hover:bg-black/10'
                 }
               `}
             >
-              <span className="text-base font-medium">{timeline.label}</span>
-            </motion.button>
+              {timeline.label}
+            </button>
           ))}
         </div>
       </div>
@@ -388,32 +367,35 @@ const Step3Contact = ({
           Étape 03
         </span>
         <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-          Parlez-nous de vous
+          Comment vous contacter ?
         </h2>
         <p className="text-lg text-arti-black/50 font-light">
-          Ces informations nous permettront de revenir vers vous rapidement.
+          Dernière étape, promis. On reviendra vers vous rapidement.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
-          label="Nom complet *"
+          label="Votre nom *"
           placeholder="Jean Dupont"
           value={formData.name}
           onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
           error={errors.name}
         />
         <Input
-          label="Email professionnel *"
+          label="Email *"
           type="email"
           placeholder="jean@entreprise.com"
           value={formData.email}
           onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
           error={errors.email}
         />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
           label="Entreprise"
-          placeholder="Nom de votre société"
+          placeholder="Nom de votre entreprise"
           value={formData.company}
           onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
         />
@@ -470,7 +452,7 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-      className="flex flex-col items-center text-center gap-12 py-12"
+      className="flex flex-col items-center text-center gap-12 py-12 md:py-24"
     >
       {/* Checkmark animé */}
       <div className="relative">
@@ -539,7 +521,7 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
           <div className="flex justify-between">
             <span className="text-arti-black/50 text-sm">Budget</span>
             <span className="text-arti-black text-sm font-medium">
-              {selectedBudget?.label}
+              {selectedBudget?.label || 'Non spécifié'}
             </span>
           </div>
           <div className="w-full h-px bg-black/5" />
@@ -547,7 +529,7 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
           <div className="flex justify-between">
             <span className="text-arti-black/50 text-sm">Délai</span>
             <span className="text-arti-black text-sm font-medium">
-              {selectedTimeline?.label}
+              {selectedTimeline?.label || 'Non spécifié'}
             </span>
           </div>
         </div>
@@ -567,7 +549,8 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
 
 // --- PAGE PRINCIPALE ---
 export default function ContactPage() {
-  const containerRef = useRef(null)
+  const containerRef = useRef<HTMLElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -587,6 +570,25 @@ export default function ContactPage() {
   })
 
   const totalSteps = 3
+  const prevStepRef = useRef<number | null>(null)
+
+  // Scroll vers le haut du formulaire uniquement lors des vrais changements d'étape
+  useEffect(() => {
+    // Ne pas scroller si c'est le montage initial (prevStep est null)
+    // ou si on vient de soumettre le formulaire
+    if (prevStepRef.current === null) {
+      prevStepRef.current = currentStep
+      return
+    }
+    
+    // Ne scroller que si l'étape a vraiment changé
+    if (prevStepRef.current !== currentStep && formRef.current && !isSubmitted) {
+      const offsetTop = formRef.current.getBoundingClientRect().top + window.scrollY - 120
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+    }
+    
+    prevStepRef.current = currentStep
+  }, [currentStep, isSubmitted])
 
   // Animation d'entrée GSAP
   useGSAP(() => {
@@ -635,7 +637,6 @@ export default function ContactPage() {
     if (validateStep(currentStep)) {
       if (currentStep < totalSteps - 1) {
         setCurrentStep(prev => prev + 1)
-        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
         handleSubmit()
       }
@@ -646,7 +647,6 @@ export default function ContactPage() {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1)
       setErrors({})
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
@@ -669,6 +669,8 @@ export default function ContactPage() {
       }
 
       setIsSubmitted(true)
+      // Scroll vers le haut pour la confirmation
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
       setSubmitError('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.')
     } finally {
@@ -689,7 +691,7 @@ export default function ContactPage() {
         
         {/* Header */}
         {!isSubmitted && (
-          <div className="max-w-4xl mb-16">
+          <div className="max-w-4xl mx-auto mb-16">
             <div className="overflow-hidden mb-6">
               <h1 className="contact-header-line text-[40px] md:text-[56px] lg:text-[72px] font-normal text-arti-black leading-[1] tracking-tight">
                 Démarrons un projet
@@ -703,7 +705,8 @@ export default function ContactPage() {
           </div>
         )}
 
-        <div className="max-w-4xl">
+        {/* Conteneur principal centré */}
+        <div ref={formRef} className="max-w-4xl mx-auto">
           {/* Progress */}
           {!isSubmitted && (
             <div className="mb-12">
@@ -808,7 +811,7 @@ export default function ContactPage() {
 
         {/* Contact alternatif */}
         {!isSubmitted && (
-          <div className="max-w-4xl mt-24 pt-12 border-t border-black/10">
+          <div className="max-w-4xl mx-auto mt-24 pt-12 border-t border-black/10">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
               <div className="flex flex-col gap-1">
                 <span className="text-xl font-medium text-arti-black">
