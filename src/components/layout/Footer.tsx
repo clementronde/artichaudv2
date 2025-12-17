@@ -4,7 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-const navItems = ['Work', 'Services', 'About', "Let's talk"];
+const navItems = [
+  { label: 'Work', href: '/works' },
+  { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
+  { label: "Let's talk", href: '/contact' },
+];
+
+const socialLinks = [
+  { label: 'Instagram', href: 'https://www.instagram.com/artichaud.studio/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/artichaud-studio' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@artichaud.studio' },
+];
 
 // Fonction pour déterminer si une couleur est "sombre"
 const isColorDark = (color: string): boolean => {
@@ -192,31 +203,31 @@ const Footer: React.FC = () => {
 
           <div className="column">
             <h3 className="subtitle">Follow Me</h3>
-            {['Instagram', 'Linkedin', 'Tiktok'].map((social) => (
-              <Link 
-                key={social}
-                href={`https://${social.toLowerCase()}.com`} 
+            {socialLinks.map((social) => (
+              <Link
+                key={social.label}
+                href={social.href}
                 suppressHydrationWarning={true}
-                target="_blank" 
+                target="_blank"
                 className="link"
                 style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
               >
-                {social}
+                {social.label}
               </Link>
             ))}
           </div>
 
           <div className="column">
             <h3 className="subtitle">Overview</h3>
-            {navItems.map((item, index) => (
-              <Link 
-                key={index} 
-                href={`/${item.toLowerCase().replace("'", "").replace(/\s+/g, "-")}`}
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
                 suppressHydrationWarning={true}
                 className="link"
                 style={{ color: isDarkFooter ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)' }}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
