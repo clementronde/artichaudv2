@@ -5,20 +5,21 @@ import matter from 'gray-matter';
 const root = process.cwd();
 const POSTS_PATH = path.join(root, 'content/blog');
 
-// Interface identique à celle attendue par BlogSection
-export interface BlogPost {
-  id: string;
+export interface Post {
   slug: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  readTime: string; 
-  tags: string[];
-  date: string;
+  meta: {
+    title: string;
+    date: string;
+    modifiedDate?: string;
+    excerpt: string;
+    image: string;
+    readingTime: string;
+    tags: string[];
+    [key: string]: any;
+  };
   content: string;
 }
 
-// Calcul du temps de lecture
 const calculateReadingTime = (content: string): string => {
   const wordsPerMinute = 225;
   const words = content.trim().split(/\s+/).length;
@@ -31,32 +32,53 @@ export const getPostSlugs = (): string[] => {
   return fs.readdirSync(POSTS_PATH).filter((path) => /\.mdx?$/.test(path));
 };
 
-export const getPostBySlug = (slug: string): BlogPost => {
+export const getPostBySlug = (slug: string): Post => {
   const realSlug = slug.replace(/\.mdx?$/, '');
   const fullPath = path.join(POSTS_PATH, `${realSlug}.mdx`);
+  
+  // Safety check if file exists
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Post not found: ${fullPath}`);
+  }
+
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   
+  // Parse frontmatter
   const { data, content } = matter(fileContents);
-  const readTime = calculateReadingTime(content);
 
-  // On retourne un objet "plat" facile à utiliser
+  const readingTime = calculateReadingTime(content);
+
+  // Default meta to prevent 'undefined' errors
+  const meta = {
+    title: 'Untitled Post',
+    date: new Date().toISOString(),
+    excerpt: '',
+    image: '',
+    tags: [],
+    ...data, // Overwrite with actual data if it exists
+    readingTime,
+    modifiedDate: data.modifiedDate || data.date || new Date().toISOString(),
+  };
+
   return {
-    id: realSlug,
     slug: realSlug,
-    title: data.title,
-    excerpt: data.excerpt,
-    image: data.image,
-    readTime: readTime,
-    tags: data.tags,
-    date: data.date,
-    content: content,
+    meta: meta as Post['meta'],
+    content,
   };
 };
 
-export const getAllPosts = (): BlogPost[] => {
+export const getAllPosts = (): Post[] => {
   const slugs = getPostSlugs();
   const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    .map((slug) => {
+      try {
+        return getPostBySlug(slug);
+      } catch (e) {
+        console.error(`Error loading post ${slug}:`, e);
+        return null;
+      }
+    })
+    .filter((post): post is Post => post !== null) // Filter out failed posts
+    .sort((post1, post2) => (post1.meta.date > post2.meta.date ? -1 : 1));
   return posts;
 };
