@@ -5,24 +5,22 @@ import matter from 'gray-matter';
 const root = process.cwd();
 const POSTS_PATH = path.join(root, 'content/blog');
 
-export interface Post {
+// Interface identique à celle attendue par BlogSection
+export interface BlogPost {
+  id: string;
   slug: string;
-  meta: {
-    title: string;
-    date: string;
-    modifiedDate?: string; // Utile pour Google (fraîcheur du contenu)
-    excerpt: string;
-    image: string;
-    readingTime: string; // On force ce champ calculé
-    tags: string[];
-    [key: string]: any;
-  };
+  title: string;
+  excerpt: string;
+  image: string;
+  readTime: string; 
+  tags: string[];
+  date: string;
   content: string;
 }
 
-// Utilitaire de calcul du temps de lecture
+// Calcul du temps de lecture
 const calculateReadingTime = (content: string): string => {
-  const wordsPerMinute = 225; // Moyenne standard
+  const wordsPerMinute = 225;
   const words = content.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);
   return `${minutes} min read`;
@@ -33,32 +31,32 @@ export const getPostSlugs = (): string[] => {
   return fs.readdirSync(POSTS_PATH).filter((path) => /\.mdx?$/.test(path));
 };
 
-export const getPostBySlug = (slug: string): Post => {
+export const getPostBySlug = (slug: string): BlogPost => {
   const realSlug = slug.replace(/\.mdx?$/, '');
   const fullPath = path.join(POSTS_PATH, `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   
   const { data, content } = matter(fileContents);
+  const readTime = calculateReadingTime(content);
 
-  // On calcule le temps de lecture dynamiquement
-  const readingTime = calculateReadingTime(content);
-
+  // On retourne un objet "plat" facile à utiliser
   return {
+    id: realSlug,
     slug: realSlug,
-    meta: {
-      ...data,
-      readingTime, // On écrase ou ajoute la valeur calculée
-      // Si pas de date de modif, on met la date de publi par défaut
-      modifiedDate: data.modifiedDate || data.date, 
-    } as Post['meta'],
-    content,
+    title: data.title,
+    excerpt: data.excerpt,
+    image: data.image,
+    readTime: readTime,
+    tags: data.tags,
+    date: data.date,
+    content: content,
   };
 };
 
-export const getAllPosts = (): Post[] => {
+export const getAllPosts = (): BlogPost[] => {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
-    .sort((post1, post2) => (post1.meta.date > post2.meta.date ? -1 : 1));
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
 };

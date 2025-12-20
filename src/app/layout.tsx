@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
+  },icons: {
+    icon: '/icon.png', // Chemin relatif qui deviendra absolu grâce à metadataBase
+    apple: '/apple-touch-icon.png',
   },
   description: "Artichaud est une agence de design et création de sites web basée à Paris.",
   // ... tes autres métadonnées restent identiques

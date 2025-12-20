@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+// On retire l'import de Link pour éviter les confusions, on utilise la balise <a> standard
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -78,9 +79,6 @@ export default function ProjectIntro({ label = "The Challenge", title, descripti
   }, { scope: container })
 
   return (
-    // MODIFICATIONS ICI :
-    // 1. 'bg-transparent' (au lieu de bg-white) pour ne pas cacher l'image du dessus
-    // 2. 'pt-0' (au lieu de pt-10) pour coller la boîte noire tout en haut du conteneur
     <section ref={container} className="relative z-0 w-full bg-transparent pb-32 pt-0 flex justify-center overflow-hidden"> 
       <div 
         ref={blackBox} 
@@ -103,11 +101,25 @@ export default function ProjectIntro({ label = "The Challenge", title, descripti
           <div className="hidden md:block md:col-span-6"></div>
 
           <div className="para-container col-span-12 md:col-span-6 flex flex-col gap-8 mt-auto">
+            {/* Les paragraphes */}
             {description.map((paragraph, i) => (
                 <p key={i} className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
                     {paragraph}
                 </p>
             ))}
+
+            {/* LE BOUTON CONTACT */}
+            {/* Correction ici : Utilisation de <a> au lieu de <Link> pour éviter l'erreur d'hydratation */}
+            <div className="mt-4 pt-4 para-block opacity-50"> 
+               <a 
+                 href="/contact"
+                 className="group inline-flex items-center gap-2 text-sm font-medium text-white hover:text-white/70 transition-colors duration-300 w-fit"
+               >
+                  <span>Start a project</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+               </a>
+            </div>
+
           </div>
         </div>
       </div>
