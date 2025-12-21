@@ -8,6 +8,7 @@ import Testimonials from '@/components/home/Testimonials';
 import BlogSection from '@/components/home/BlogSection';
 import Herov2 from '@/components/home/herov2';
 import Preloader from '@/components/Preloader';
+import HeroV3 from '@/components/home/herov3'
 
 // Définition du type pour les articles qu'on va recevoir
 interface BlogPost {
@@ -47,8 +48,8 @@ export default function HomeClient({ posts }: { posts: BlogPost[] }) {
       )}
 
       {/* Le Hero reçoit l'état de chargement */}
-      <Herov2 isLoaded={!loading} />
-      
+      {/*<Herov2 isLoaded={!loading} />*/}
+      <HeroV3 />
       <div className="relative z-10">
         <div className="h-[20vh] bg-transparent" />
         <Intro />
