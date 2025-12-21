@@ -9,6 +9,7 @@ import BlogSection from '@/components/home/BlogSection';
 import Herov2 from '@/components/home/herov2';
 import Preloader from '@/components/Preloader';
 import HeroV3 from '@/components/home/herov3'
+import Testimonials2 from '@/components/home/Testimonials2'
 
 // Définition du type pour les articles qu'on va recevoir
 interface BlogPost {
@@ -55,7 +56,7 @@ export default function HomeClient({ posts }: { posts: BlogPost[] }) {
         <Intro />
         <Services />
         <Highlight />
-        <Testimonials />
+        <Testimonials2 />
         {/* On passe les articles récupérés au composant Blog */}
         <BlogSection posts={posts} />
         <div className="h-[20vh] bg-white"></div>
