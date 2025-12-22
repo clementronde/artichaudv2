@@ -5,6 +5,8 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
+import Navbar2 from "@/components/layout/Navbarv2";
+
 import JsonLd from "@/components/seo/JsonLD";
 
 // CHARGEMENT DES POLICES
@@ -50,7 +52,7 @@ export default function RootLayout({
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
         <JsonLd />
         
-        <Navbar />
+        <Navbar2 />
 
         <SmoothScroll>
           {/* 2. LE FIX EST ICI :

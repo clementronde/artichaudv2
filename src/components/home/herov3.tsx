@@ -1,13 +1,12 @@
 'use client'
 
-import { useRef, useState } from "react" // AJOUT useState
+import { useRef, useState } from "react"
 import { ImageTrail } from "@/components/ui/image-trail"
 import Image from "next/image"
 
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
   
-  // AJOUT : État pour savoir si la souris est dans le Hero
   const [isActive, setIsActive] = useState(false)
 
   const images = [
@@ -24,16 +23,19 @@ export default function HeroV3() {
   ]
 
   return (
+    // CORRECTION : 
+    // 1. 'relative' est remis pour que le texte (absolute) reste cadré dans cette section.
+    // 2. 'z-10' pour que le halo et le trail puissent passer AU-DESSUS du fond de la section suivante.
+    // 3. PAS de 'overflow-hidden' pour laisser le halo et les images sortir.
     <section 
       ref={ref}
-      // AJOUT : Gestionnaires d'événements pour activer/désactiver le trail
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
-      className="relative w-full h-screen bg-white"
+      className="relative w-full h-screen bg-white z-10"
     >
       
-      {/* CONTENEUR DONUTS (Overflow Hidden pour protéger le site) */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* BACKGROUND (Halo / Donuts) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
           {/* DONUT Desktop Flou */}
           <div 
             className="absolute hidden md:block"
@@ -75,12 +77,15 @@ export default function HeroV3() {
       </div>
 
       {/* TRAIL CONTAINER */}
-      <div className="absolute inset-0 z-50 pointer-events-none">
+      {/* 'absolute' pour suivre le scroll. 
+         'z-[100]' pour passer devant tout.
+         'overflow-visible' pour ne pas couper les images. */}
+      <div className="absolute inset-0 z-[100] pointer-events-none overflow-visible">
         <ImageTrail 
           containerRef={ref} 
           interval={100}
           rotationRange={20}
-          active={isActive} // AJOUT : On passe l'état actif
+          active={isActive} 
         >
           {images.map((url, index) => (
             <div
@@ -100,6 +105,7 @@ export default function HeroV3() {
       </div>
 
      {/* TEXTE PRINCIPAL */}
+     {/* Grâce au 'relative' sur la section, ce texte se positionnera bien en bas de l'écran */}
       <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex flex-col justify-end items-end p-6 md:p-12 pb-32">
         <div className="text-right">
             <h1 
@@ -109,7 +115,7 @@ export default function HeroV3() {
                 fontSize: 'clamp(40px, 5.5vw, 80px)', 
               }}
             >
-              <span className="block">Artichaud, c&rsquo;est le</span>
+              <span className="block">Artichaud, c'est le</span>
               <span className="block">studio de création web qui fait</span>
               <span className="block text-left">monter la température.</span>
             </h1>

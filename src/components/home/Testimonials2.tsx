@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
-// On importe le type Variants pour corriger l'erreur TypeScript
 import { motion, Variants } from 'framer-motion'
 
 const testimonials = [
@@ -38,7 +37,6 @@ const testimonials = [
   }
 ]
 
-// Variants typés correctement
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -69,33 +67,31 @@ export default function Testimonials() {
   }, [])
 
   return (
-    // CORRECTION MAJEURE ICI :
-    // 1. On retire 'overflow-x-hidden' pour autoriser le débordement vertical (le halo qui descend).
-    // 2. On ajoute 'z-30' pour que cette section passe AU-DESSUS de la section suivante (sinon le halo passerait dessous).
     <section className="relative w-full bg-white py-24 z-30">
       
-      {/* 1. HALO JAUNE ANIMÉ */}
+      {/* 1. HALO JAUNE INTENSE */}
       <motion.div 
         animate={{ 
-          scale: [1, 1.15, 1],
-          opacity: [0.5, 0.3, 0.5]
+          scale: [1, 1.1, 1], // Mouvement de respiration
+          opacity: [0.9, 0.7, 0.9] // INTENSITÉ AUGMENTÉE : On oscille entre 0.7 et 0.9 (très visible)
         }}
         transition={{ 
-          duration: 8, 
+          duration: 6, // Un peu plus rapide pour plus de dynamisme
           repeat: Infinity, 
           ease: "easeInOut" 
         }}
-        className="absolute right-[-15%] top-[10%] w-[70vw] h-[70vw] pointer-events-none z-0"
+        // Taille augmentée à 80vw pour plus de présence
+        className="absolute right-[-35%] top-[-10%] w-[80vw] h-[80vw] pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle, rgba(208,255,0,0.5) 0%, rgba(208,255,0,0) 70%)',
-          filter: 'blur(100px)',
-          // Le halo va maintenant déborder naturellement sur la section du dessous grâce à l'absence d'overflow sur la section parente
+          // GRADIENT INTENSE : Alpha passé à 0.85 (au lieu de 0.5)
+          background: 'radial-gradient(circle, rgba(208,255,0,0.85) 0%, rgba(208,255,0,0) 70%)',
+          filter: 'blur(80px)', // Blur légèrement réduit pour concentrer la lumière
         }}
       />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
-        {/* 2. HEADER AVEC MICRO-ANIMATIONS */}
+        {/* 2. HEADER */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -154,7 +150,6 @@ export default function Testimonials() {
               >
                 
                 <div className="flex flex-col gap-6">
-                  {/* Texte et Quote Icon */}
                   <div className="relative group">
                       <p 
                           className="text-lg md:text-xl text-black leading-relaxed font-light pointer-events-none transition-colors duration-300 group-hover:text-black/70"
@@ -173,7 +168,6 @@ export default function Testimonials() {
                   </div>
                 </div>
 
-                {/* Auteur en bas */}
                 <div className="mt-8 pt-6 pointer-events-none border-t border-transparent group-hover:border-black/5 transition-colors duration-500">
                   <h4 className="text-base font-bold text-black">{item.name}</h4>
                   <p className="text-sm text-gray-500 mt-1">{item.role}</p>
