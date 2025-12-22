@@ -17,7 +17,7 @@ export default function HeroV3() {
     "/projects/disobey/disobeyprojet2.avif",
     "/projects/jobmi/jobmiprojet2.avif",
     "/projects/keleti/keletiprojet2.avif",
-    "/projects/lumyn/lumynprojet2.avif",
+    "/projects/lumyn/Lumynprojet2.avif",
     "/projects/multiface/multifaceprojet2.avif",
     "/projects/rockstar/rockstarprojet2.avif",
     "/projects/yumdeal/yumdealprojet2.avif",

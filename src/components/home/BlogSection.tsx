@@ -4,11 +4,9 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
-// SUPPRIMER CETTE LIGNE : import { blogPosts } from '@/data/posts'
 
-// --- 1. CURSEUR DRAG (Inchangé) ---
+// --- 1. CURSEUR DRAG ---
 const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
-  // ... (Garde le code du curseur tel quel)
   const [isVisible, setIsVisible] = useState(false)
   const x = useSpring(0, { stiffness: 300, damping: 20 })
   const y = useSpring(0, { stiffness: 300, damping: 20 })
@@ -50,25 +48,14 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
 }
 
 // --- 2. CARTE BLOG ---
-interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  readTime: string;
-  tags: string[];
-}
-
 interface BlogCardProps {
-  post: BlogPost // On utilise notre nouvelle interface
+  post: any // On met 'any' ici pour accepter les données brutes ou formatées
   index: number
   isDragging: boolean
   pixelWidth?: number
 }
 
 const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
-  // ... (Garde le code de la carte tel quel, rien ne change ici)
   const heights = ['h-[448px]', 'h-[329px]', 'h-[398px]']
   const currentHeight = heights[index % 3]
 
@@ -94,13 +81,21 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
         <div className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
                         rounded-none transition-all duration-500 ease-out 
                         group-hover:rounded-[120px]`}> 
-          <Image
-            src={post.image}
-            alt={post.title}
-            fill
-            draggable={false} 
-            className="object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
-          />
+          
+          {post.image ? (
+            <Image
+              src={post.image}
+              alt={post.title || "Article"}
+              fill
+              draggable={false} 
+              className="object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
+               <span className="text-sm">No Image</span>
+            </div>
+          )}
+
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         </div>
 
@@ -110,7 +105,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
                 {post.readTime}
               </span>
               <div className="flex flex-wrap gap-1">
-                {post.tags?.slice(0, 2).map(tag => (
+                {post.tags?.slice(0, 2).map((tag: string) => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-gray-100 text-[10px] font-medium text-gray-500 uppercase whitespace-nowrap">
                     {tag}
                   </span>
@@ -128,8 +123,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
 }
 
 // --- 3. COMPOSANT PRINCIPAL ---
-// On accepte maintenant les posts en props
-export default function BlogSection({ posts }: { posts: BlogPost[] }) {
+export default function BlogSection({ posts }: { posts: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
   
@@ -137,8 +131,22 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
   const [isDragging, setIsDragging] = useState(false)
   const [containerWidth, setContainerWidth] = useState(0)
 
-  // On utilise les posts passés en props (avec une sécurité si vide)
-  const visiblePosts = posts ? posts.slice(0, 3) : []
+  // --- CORRECTION CRUCIALE ICI ---
+  // On crée un adaptateur qui transforme les données pour qu'elles soient lisibles
+  // Que les données arrivent directement ou encapsulées dans 'meta', ça marchera.
+  const formattedPosts = (posts || []).map((post) => ({
+    id: post.id || post.slug,
+    slug: post.slug,
+    // On cherche d'abord 'title', sinon on va chercher dans 'meta.title'
+    title: post.title || post.meta?.title || "Sans titre",
+    excerpt: post.excerpt || post.meta?.excerpt || "",
+    image: post.image || post.meta?.image || "",
+    // Attention: mdx.ts renvoie 'readingTime' mais le composant attend 'readTime'
+    readTime: post.readTime || post.meta?.readingTime || post.readingTime || "5 min read",
+    tags: post.tags || post.meta?.tags || []
+  }));
+
+  const visiblePosts = formattedPosts.slice(0, 3)
 
   useEffect(() => {
     const calculateMetrics = () => {
@@ -157,7 +165,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
       window.removeEventListener('resize', calculateMetrics)
       clearTimeout(timer)
     }
-  }, [posts]) // Recalculer si les posts changent
+  }, [posts]) 
 
   const onDragStart = () => setIsDragging(true)
   const onDragEnd = () => setTimeout(() => setIsDragging(false), 150)
@@ -165,7 +173,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
   return (
     <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden mt-12">
       
-      {/* ... (HEADER inchangé) ... */}
+      {/* HEADER */}
       <div className="container mx-auto px-6 md:px-12 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
           <div className="hidden md:block col-span-1 pt-2">
@@ -219,7 +227,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
 
               return (
                 <BlogCard 
-                    key={post.id} 
+                    key={post.slug} 
                     post={post} 
                     index={index} 
                     isDragging={isDragging}
@@ -228,7 +236,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
               )
             })}
 
-            {/* BOUTON "VIEW ALL" (Inchangé) */}
+            {/* BOUTON "VIEW ALL" */}
             <div className="flex-shrink-0 w-[200px] h-[320px] flex items-center justify-center !cursor-none">
                <Link 
                   href="/blog" 

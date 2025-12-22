@@ -8,6 +8,7 @@ const POSTS_PATH = path.join(root, 'content/blog');
 export interface Post {
   slug: string;
   meta: {
+    id: string; // Ajout explicite de l'ID dans l'interface
     title: string;
     date: string;
     modifiedDate?: string;
@@ -50,11 +51,14 @@ export const getPostBySlug = (slug: string): Post => {
 
   // Default meta to prevent 'undefined' errors
   const meta = {
-    title: 'Untitled Post',
-    date: new Date().toISOString(),
-    excerpt: '',
-    image: '',
-    tags: [],
+    // CORRECTION : Si pas d'ID, on utilise le slug. Si pas de titre, 'Untitled'.
+    id: data.id || realSlug,
+    title: data.title || 'Untitled Post',
+    date: data.date || new Date().toISOString(),
+    excerpt: data.excerpt || '',
+    // CORRECTION : Image est une string vide par défaut, jamais undefined
+    image: data.image || '', 
+    tags: data.tags || [],
     ...data, // Overwrite with actual data if it exists
     readingTime,
     modifiedDate: data.modifiedDate || data.date || new Date().toISOString(),
