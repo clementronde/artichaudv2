@@ -6,6 +6,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Navbar2 from "@/components/layout/Navbarv2";
+import ScrollToTop from "@/components/ScrollToTop";
 
 import JsonLd from "@/components/seo/JsonLD";
 
@@ -51,7 +52,7 @@ export default function RootLayout({
       */}
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
         <JsonLd />
-        
+        <ScrollToTop />
         <Navbar2 />
 
         <SmoothScroll>

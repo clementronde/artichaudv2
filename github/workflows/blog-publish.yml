@@ -1,9 +1,9 @@
 name: Blog Publish Today
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Permet de lancer manuellement pour tester tout de suite
   schedule:
-    - cron: "20 7 * * *"  # Tous les jours 07:20 UTC
+    - cron: "20 7 * * *"  # 07:20 UTC (Quotidien)
 
 permissions:
   contents: write
@@ -13,20 +13,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Récupère l'historique pour éviter les soucis de merge
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Publish today's post(s)
+      - name: Publish eligible posts
         run: node scripts/publish-today.mjs
 
-      - name: Commit & push if changed
+      - name: Commit & push changes
         run: |
           git config user.name "artichaud-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add -A
-          git diff --staged --quiet || (git commit -m "chore(blog): publish scheduled post" && git push)
+          
+          # Vérifier s'il y a des changements avant de commit
+          if [[ -n $(git status -s) ]]; then
+            git add content/queue content/blog
+            git commit -m "chore(blog): auto-publish post [skip ci]"
+            git push
+            console.log("🚀 Changes pushed to repo.")
+          else
+            console.log("No changes to commit.")
+          fi
