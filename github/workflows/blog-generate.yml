@@ -1,0 +1,34 @@
+name: Blog Generate (2 weeks)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 7 * * 0"  # Dimanche 07:15 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Generate queue posts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate-queue.mjs
+
+      - name: Commit & push
+        run: |
+          git config user.name "artichaud-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || (git commit -m "chore(blog): generate queue" && git push)

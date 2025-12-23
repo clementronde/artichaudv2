@@ -8,13 +8,15 @@ const POSTS_PATH = path.join(root, 'content/blog');
 export interface Post {
   slug: string;
   meta: {
-    id: string; // Ajout explicite de l'ID dans l'interface
+    id: string;
     title: string;
+    slug?: string;
     date: string;
     modifiedDate?: string;
     excerpt: string;
     image: string;
-    readingTime: string;
+    readingTime: string; // utilisé dans slug/page.tsx
+    readTime?: string;   // utilisé dans blog/page.tsx
     tags: string[];
     [key: string]: any;
   };
@@ -23,66 +25,145 @@ export interface Post {
 
 const calculateReadingTime = (content: string): string => {
   const wordsPerMinute = 225;
-  const words = content.trim().split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return `${minutes} min read`;
+  const words = content.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
+  // Ton UI affiche déjà un "⏱️", donc format simple :
+  return `${minutes} min`;
+};
+
+const isMdx = (filename: string) => /\.mdx?$/.test(filename);
+
+const stripExt = (filename: string) => filename.replace(/\.mdx?$/, '');
+
+const stripDatePrefix = (nameNoExt: string) =>
+  nameNoExt.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+
+let indexBuilt = false;
+let slugToFile = new Map<string, string>();
+
+const buildIndex = () => {
+  slugToFile = new Map();
+
+  if (!fs.existsSync(POSTS_PATH)) {
+    indexBuilt = true;
+    return;
+  }
+
+  const files = fs.readdirSync(POSTS_PATH).filter(isMdx);
+
+  for (const file of files) {
+    const fullPath = path.join(POSTS_PATH, file);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data } = matter(fileContents);
+
+    const nameNoExt = stripExt(file);
+
+    // slug par défaut = filename sans date
+    const derivedSlug = stripDatePrefix(nameNoExt);
+
+    // slug explicite si frontmatter.slug existe
+    const fmSlug = typeof data.slug === 'string' ? data.slug : null;
+
+    // On indexe :
+    // 1) slug frontmatter (prioritaire)
+    // 2) slug dérivé
+    if (fmSlug) slugToFile.set(fmSlug, file);
+    slugToFile.set(derivedSlug, file);
+
+    // Bonus: si le fichier n'a pas de date prefix et s'appelle slug.mdx, on le map aussi.
+    slugToFile.set(nameNoExt, file);
+  }
+
+  indexBuilt = true;
 };
 
 export const getPostSlugs = (): string[] => {
-  if (!fs.existsSync(POSTS_PATH)) return [];
-  return fs.readdirSync(POSTS_PATH).filter((path) => /\.mdx?$/.test(path));
+  if (!indexBuilt) buildIndex();
+  return Array.from(slugToFile.keys());
 };
 
 export const getPostBySlug = (slug: string): Post => {
-  const realSlug = slug.replace(/\.mdx?$/, '');
-  const fullPath = path.join(POSTS_PATH, `${realSlug}.mdx`);
-  
-  // Safety check if file exists
+  if (!indexBuilt) buildIndex();
+
+  const realSlug = stripExt(slug);
+  const file = slugToFile.get(realSlug);
+
+  if (!file) {
+    // fallback: cas où quelqu’un appelle avec "YYYY-MM-DD-slug"
+    const fallback = slugToFile.get(stripDatePrefix(realSlug));
+    if (!fallback) {
+      throw new Error(`Post not found for slug: ${realSlug}`);
+    }
+    return getPostBySlug(stripDatePrefix(realSlug));
+  }
+
+  const fullPath = path.join(POSTS_PATH, file);
   if (!fs.existsSync(fullPath)) {
-    throw new Error(`Post not found: ${fullPath}`);
+    throw new Error(`Post file missing: ${fullPath}`);
   }
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  
-  // Parse frontmatter
   const { data, content } = matter(fileContents);
 
   const readingTime = calculateReadingTime(content);
 
-  // Default meta to prevent 'undefined' errors
+  const nameNoExt = stripExt(file);
+  const derivedSlug = stripDatePrefix(nameNoExt);
+
   const meta = {
-    // CORRECTION : Si pas d'ID, on utilise le slug. Si pas de titre, 'Untitled'.
-    id: data.id || realSlug,
+    id: data.id || data.slug || derivedSlug,
     title: data.title || 'Untitled Post',
-    date: data.date || new Date().toISOString(),
-    excerpt: data.excerpt || '',
-    // CORRECTION : Image est une string vide par défaut, jamais undefined
-    image: data.image || '', 
-    tags: data.tags || [],
-    ...data, // Overwrite with actual data if it exists
-    readingTime,
+
+    // date: on privilégie frontmatter.date, sinon si filename commence par YYYY-MM-DD, on l’utilise
+    date:
+      data.date ||
+      (nameNoExt.match(/^\d{4}-\d{2}-\d{2}/)?.[0] ?? new Date().toISOString()),
+
     modifiedDate: data.modifiedDate || data.date || new Date().toISOString(),
+
+    // excerpt: on accepte aussi description si tu changes de naming plus tard
+    excerpt: data.excerpt || data.description || '',
+
+    image: data.image || '',
+    tags: data.tags || [],
+
+    readingTime,
+    readTime: data.readTime || readingTime, // ✅ compat blog/page.tsx
+
+    ...data,
   };
 
+  // slug final = frontmatter.slug si présent, sinon dérivé du filename
+  const finalSlug = (typeof data.slug === 'string' && data.slug) ? data.slug : derivedSlug;
+
   return {
-    slug: realSlug,
+    slug: finalSlug,
     meta: meta as Post['meta'],
     content,
   };
 };
 
 export const getAllPosts = (): Post[] => {
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => {
+  if (!indexBuilt) buildIndex();
+
+  // On liste les fichiers réels du dossier (plus fiable que keys())
+  if (!fs.existsSync(POSTS_PATH)) return [];
+  const files = fs.readdirSync(POSTS_PATH).filter(isMdx);
+
+  const posts = files
+    .map((file) => {
       try {
-        return getPostBySlug(slug);
+        // slug dérivé du filename (sans date)
+        const nameNoExt = stripExt(file);
+        const derivedSlug = stripDatePrefix(nameNoExt);
+        return getPostBySlug(derivedSlug);
       } catch (e) {
-        console.error(`Error loading post ${slug}:`, e);
+        console.error(`Error loading post ${file}:`, e);
         return null;
       }
     })
-    .filter((post): post is Post => post !== null) // Filter out failed posts
-    .sort((post1, post2) => (post1.meta.date > post2.meta.date ? -1 : 1));
+    .filter((p): p is Post => p !== null)
+    .sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
+
   return posts;
 };

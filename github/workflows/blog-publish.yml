@@ -1,0 +1,32 @@
+name: Blog Publish Today
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 7 * * *"  # Tous les jours 07:20 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  pub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Publish today's post(s)
+        run: node scripts/publish-today.mjs
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "artichaud-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || (git commit -m "chore(blog): publish scheduled post" && git push)
