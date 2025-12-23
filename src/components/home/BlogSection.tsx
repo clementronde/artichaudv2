@@ -39,7 +39,7 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
       className="fixed top-0 left-0 z-[9999] pointer-events-none flex items-center justify-center w-[90px] h-[90px]"
       style={{ x, y, opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0 }}
     >
-      <div className="absolute inset-0 bg-[#FF6F00] rounded-full blur-md opacity-90" />
+      <div className="absolute inset-0 bg-[#D0FF00] rounded-full blur-md opacity-90" />
       <span className="relative z-10 text-white font-bold text-xs uppercase tracking-widest drop-shadow-md">
         Drag
       </span>

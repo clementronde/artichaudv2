@@ -4,7 +4,7 @@ import Floating, { FloatingElement } from "@/components/ui/parallax-floating"
 
 export default function VisionSection() {
   return (
-    <section className="relative w-full h-screen bg-[#FDF4E7] overflow-hidden flex items-center justify-center">
+    <section className="relative w-full h-screen bg-[#FFFFFF] overflow-hidden flex items-center justify-center">
       
       {/* 1. ÉLÉMENTS FLOTTANTS (Les rectangles gris) */}
       {/* z-0 pour être en fond. sensitivity négatif pour un effet de profondeur inversé */}

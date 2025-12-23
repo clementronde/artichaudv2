@@ -269,7 +269,7 @@ export default function Navbar() {
       <div 
         ref={logoWrapperRef}
         className="h-[60px] w-[60px] rounded-full 
-                   bg-[#261F1D] border border-white/5
+                   bg-[#000000] border border-white/5
                    shadow-[0_8px_20px_rgba(0,0,0,0.2)]
                    flex items-center justify-center
                    flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
@@ -293,7 +293,7 @@ export default function Navbar() {
       <nav 
         ref={navRef}
         className="h-[60px] rounded-full 
-                   bg-[#261F1D] border border-white/5
+                   bg-[#000000] border border-white/5
                    shadow-[0_8px_20px_rgba(0,0,0,0.2)]
                    flex items-center overflow-hidden origin-left z-10"
         style={{ width: DESKTOP_OPEN_WIDTH, marginLeft: 8 }}
