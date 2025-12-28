@@ -23,15 +23,14 @@ export default function HeroV3() {
   ]
 
   return (
-    // CORRECTION : 
-    // 1. 'relative' est remis pour que le texte (absolute) reste cadré dans cette section.
-    // 2. 'z-10' pour que le halo et le trail puissent passer AU-DESSUS du fond de la section suivante.
-    // 3. PAS de 'overflow-hidden' pour laisser le halo et les images sortir.
+    // MODIFICATION ICI : 
+    // 'overflow-hidden' pour le mobile (coupe ce qui dépasse à droite)
+    // 'md:overflow-visible' pour le desktop (laisse les halos/images déborder)
     <section 
       ref={ref}
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
-      className="relative w-full h-screen bg-white z-10"
+      className="relative w-full h-screen bg-white z-10 overflow-hidden md:overflow-visible"
     >
       
       {/* BACKGROUND (Halo / Donuts) */}
@@ -56,30 +55,30 @@ export default function HeroV3() {
               opacity: 0.6, willChange: 'transform'
             }}
           />
-          {/* DONUT Mobile Flou */}
-          <div 
-            className="absolute md:hidden"
-            style={{
-              width: '800px', height: '800px', right: '-300px', top: '-400px',
-              borderRadius: '50%', background: 'transparent',
-              border: '120px solid #D0FF00', filter: 'blur(150px)', opacity: 1
-            }}
-          />
-          {/* DONUT Mobile Net */}
-          <div 
-            className="absolute md:hidden"
-            style={{
-              width: '800px', height: '800px', right: '-300px', top: '-400px',
-              borderRadius: '50%', background: 'transparent',
-              border: '120px solid #D0FF00', filter: 'blur(15px)', opacity: 0.4
-            }}
-          />
+                      {/* DONUT Mobile Flou - Réduit et déplacé */}
+            <div 
+              className="absolute md:hidden"
+              style={{
+                width: '560px', height: '560px', // Taille réduite (était 800px)
+                right: '-300px', top: '-150px',   // Coin supérieur droit
+                borderRadius: '50%', background: 'transparent',
+                border: '100px solid #D0FF00',     // Bordure plus fine
+                filter: 'blur(80px)', opacity: 0.8
+              }}
+            />
+            {/* DONUT Mobile Net - Réduit et déplacé */}
+            <div 
+              className="absolute md:hidden"
+              style={{
+                width: '560px', height: '560px', 
+                right: '-300px', top: '-150px',
+                borderRadius: '50%', background: 'transparent',
+                border: '60px solid #D0FF00', filter: 'blur(10px)', opacity: 0.3
+              }}
+            />
       </div>
 
       {/* TRAIL CONTAINER */}
-      {/* 'absolute' pour suivre le scroll. 
-         'z-[100]' pour passer devant tout.
-         'overflow-visible' pour ne pas couper les images. */}
       <div className="absolute inset-0 z-[100] pointer-events-none overflow-visible">
         <ImageTrail 
           containerRef={ref} 
@@ -105,7 +104,6 @@ export default function HeroV3() {
       </div>
 
      {/* TEXTE PRINCIPAL */}
-     {/* Grâce au 'relative' sur la section, ce texte se positionnera bien en bas de l'écran */}
       <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex flex-col justify-end items-end p-6 md:p-12 pb-32">
         <div className="text-right">
             <h1 

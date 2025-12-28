@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: "Let's talk", href: '/contact' },
+  { label: "Création site internet Boulogne-Billancourt", href: '/creation-site-internet-boulogne-billancourt' },
 ];
 
 const socialLinks = [

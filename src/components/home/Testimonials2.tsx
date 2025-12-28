@@ -64,40 +64,53 @@ export default function Testimonials() {
     if (carouselRef.current) {
       setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth)
     }
+    
+    const handleResize = () => {
+        if (carouselRef.current) {
+            setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth)
+        }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   return (
-    <section className="relative w-full bg-white py-24 z-30">
+    // MODIFICATION ICI : 
+    // 'overflow-hidden' s'applique sur mobile (empêche le scroll horizontal)
+    // 'md:overflow-visible' s'applique à partir des tablettes/desktop (laisse le halo dépasser)
+    <section className="relative w-full bg-white py-24 z-30 overflow-hidden md:overflow-visible">
       
       {/* 1. HALO JAUNE INTENSE */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.1, 1], // Mouvement de respiration
-          opacity: [0.9, 0.7, 0.9] // INTENSITÉ AUGMENTÉE : On oscille entre 0.7 et 0.9 (très visible)
-        }}
-        transition={{ 
-          duration: 6, // Un peu plus rapide pour plus de dynamisme
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        // Taille augmentée à 80vw pour plus de présence
-        className="absolute right-[-35%] top-[-10%] w-[80vw] h-[80vw] pointer-events-none z-0"
-        style={{
-          // GRADIENT INTENSE : Alpha passé à 0.85 (au lieu de 0.5)
-          background: 'radial-gradient(circle, rgba(208,255,0,0.85) 0%, rgba(208,255,0,0) 70%)',
-          filter: 'blur(80px)', // Blur légèrement réduit pour concentrer la lumière
-        }}
-      />
-
+<motion.div 
+  animate={{ 
+    scale: [1, 1.1, 1], 
+    opacity: [0.6, 0.4, 0.6] // Opacité réduite globalement pour la lisibilité
+  }}
+  transition={{ 
+    duration: 6, 
+    repeat: Infinity, 
+    ease: "easeInOut" 
+  }}
+  // CLASSES MODIFIÉES :
+  // Mobile : bottom-[-20%] left-1/2 -translate-x-1/2 (Centré en bas)
+  // Desktop : md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 (Coin haut droit)
+  className="absolute w-[120vw] h-[120vw] md:w-[80vw] md:h-[80vw] pointer-events-none z-0
+             bottom-[-20%] left-1/2 -translate-x-1/2 
+             md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 md:bottom-auto"
+  style={{
+    background: 'radial-gradient(circle, rgba(208,255,0,0.6) 0%, rgba(208,255,0,0) 70%)', // Alpha réduit à 0.6
+    filter: 'blur(60px)', 
+  }}
+/>
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
-        {/* 2. HEADER */}
+        {/* HEADER */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-12 gap-y-8 mb-20"
+          className="grid grid-cols-1 md:grid-cols-12 gap-y-8 mb-12 md:mb-20"
         >
           <motion.div variants={fadeInUp} className="md:col-span-2 pt-2">
             <span className="text-sm font-medium text-black">Testimonials</span>
@@ -124,16 +137,15 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* 3. SLIDER DRAGGABLE */}
+        {/* SLIDER */}
         <motion.div 
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
           ref={carouselRef} 
-          className="overflow-visible cursor-grab active:cursor-grabbing"
+          className="cursor-grab active:cursor-grabbing w-full"
         >
-          
           <motion.div 
             drag="x" 
             dragConstraints={{ right: 0, left: -width }} 
@@ -148,7 +160,6 @@ export default function Testimonials() {
                   ${index !== 0 ? 'border-l border-gray-200 pl-8 md:pl-12' : ''} 
                 `}
               >
-                
                 <div className="flex flex-col gap-6">
                   <div className="relative group">
                       <p 
@@ -172,11 +183,9 @@ export default function Testimonials() {
                   <h4 className="text-base font-bold text-black">{item.name}</h4>
                   <p className="text-sm text-gray-500 mt-1">{item.role}</p>
                 </div>
-
               </div>
             ))}
           </motion.div>
-          
         </motion.div>
 
       </div>
