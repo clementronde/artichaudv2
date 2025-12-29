@@ -4,10 +4,10 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLenis } from '@studio-freight/react-lenis'
+import lenis from '@studio-freight/react-lenis'
 
 export default function ScrollToTop() {
   const pathname = usePathname()
-  const lenis = useLenis()
 
   useEffect(() => {
     // Utilise l'API Lenis pour scroller en haut instantanément
