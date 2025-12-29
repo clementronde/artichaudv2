@@ -227,12 +227,15 @@ export default async function BlogPost(
         </div>
 
         {/* CONTENU MDX */}
-        <div className="prose prose-lg max-w-none 
+        <div className="prose prose-lg max-w-none
           prose-headings:font-normal prose-headings:text-arti-black prose-headings:mt-12 prose-headings:mb-6
           prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
           prose-a:text-amber-600 prose-a:no-underline hover:prose-a:underline
           prose-ul:list-disc prose-ul:pl-6 prose-li:marker:text-amber-500
-          prose-strong:font-bold prose-strong:text-black">
+          prose-strong:font-bold prose-strong:text-black
+          prose-table:table-auto prose-table:border-collapse
+          prose-thead:bg-gray-50 prose-tbody:bg-white
+          prose-th:border-gray-200 prose-td:border-gray-100">
           
           <MDXRemote 
             source={post.content} 
