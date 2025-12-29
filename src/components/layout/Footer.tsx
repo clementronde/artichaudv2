@@ -123,10 +123,13 @@ const Footer: React.FC = () => {
         {/* BOTTOM SECTION - Giant Artichaud text */}
         <div className="relative w-full mt-auto overflow-visible">
           <div
-            className="text-[12vw] md:text-[15vw] lg:text-[18vw] font-bold leading-none tracking-tighter select-none"
+            className="font-bold leading-none select-none"
             style={{
               color: '#ffffff',
               opacity: 1,
+              fontSize: 'clamp(80px, 20vw, 400px)',
+              letterSpacing: '-0.05em',
+              width: '100%',
             }}
           >
             Artichaud
