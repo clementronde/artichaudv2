@@ -141,7 +141,7 @@ export default async function BlogPost(
     ),
     // 👇 LE STYLE DU TABLEAU EST DÉFINI ICI
     table: (props: any) => (
-      <div className="overflow-x-auto my-8 border border-gray-200 rounded-lg shadow-sm">
+      <div className="not-prose overflow-x-auto my-8 border border-gray-200 rounded-lg shadow-sm">
         <table {...props} className="w-full text-left text-sm border-collapse min-w-[600px]" />
       </div>
     ),
