@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/admin/'],
     },
-    sitemap: 'https://artichaud-studio/sitemap.xml', // Remplace par ton vrai domaine
+    sitemap: 'https://artichaud-studio.com/sitemap.xml', 
   }
 }

@@ -38,6 +38,17 @@ export const metadata: Metadata = {
   },
   description: "Artichaud est une agence de design et création de sites web basée à Paris.",
   // ... tes autres métadonnées restent identiques
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }}
 };
 
 export default function RootLayout({
@@ -50,22 +61,14 @@ export default function RootLayout({
       <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon" />
       <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-      
-      {/* 1. On enlève bg-white du body pour éviter qu'il ne cache le footer si z-index < 0.
-         On laisse le body neutre.
-      */}
+     
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
         <JsonLd />
         <ScrollToTop />
         <Navbar2 />
 
         <SmoothScroll>
-          {/* 2. LE FIX EST ICI :
-             On enveloppe le contenu dans un 'main' avec :
-             - relative : pour le placer dans le flux
-             - z-10 : pour qu'il soit AU-DESSUS du footer (qui sera z-1)
-             - bg-white : pour qu'il soit opaque et cache le footer avant le scroll
-          */}
+         
           <main className="relative z-10 bg-white min-h-screen">
             {children}
           </main>
