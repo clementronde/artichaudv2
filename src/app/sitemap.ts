@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/contact',
     '/blog',
+    "/creation-site-internet-boulogne-billancourt",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
