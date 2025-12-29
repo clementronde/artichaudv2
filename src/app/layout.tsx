@@ -28,8 +28,12 @@ export const metadata: Metadata = {
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
-  },icons: {
-    icon: '/icon.png', // Chemin relatif qui deviendra absolu grâce à metadataBase
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
     apple: '/apple-touch-icon.png',
   },
   description: "Artichaud est une agence de design et création de sites web basée à Paris.",
@@ -43,9 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={helvetica.variable}>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-      <link rel="icon" href="/icon.png" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon" />
+      <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
       
       {/* 1. On enlève bg-white du body pour éviter qu'il ne cache le footer si z-index < 0.
          On laisse le body neutre.
