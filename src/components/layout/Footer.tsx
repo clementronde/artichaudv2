@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
         className="footer-container relative"
         style={{
           zIndex: 1,
-          backgroundColor: '#1a0a0f',
+          backgroundColor: '#000000',
           color: '#fff',
           padding: '80px 40px',
           minHeight: '100vh',
@@ -121,14 +121,12 @@ const Footer: React.FC = () => {
         </div>
 
         {/* BOTTOM SECTION - Giant Artichaud text */}
-        <div className="relative w-full mt-auto">
+        <div className="relative w-full mt-auto overflow-visible">
           <div
-            className="text-[15vw] md:text-[20vw] lg:text-[25vw] font-bold leading-none tracking-tighter select-none"
+            className="text-[12vw] md:text-[15vw] lg:text-[18vw] font-bold leading-none tracking-tighter select-none"
             style={{
-              color: '#f5e6e8',
-              opacity: 0.15,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              color: '#ffffff',
+              opacity: 1,
             }}
           >
             Artichaud
