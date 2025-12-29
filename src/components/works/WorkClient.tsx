@@ -3,67 +3,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, Variants } from 'framer-motion'
-import BlogSection from '@/components/home/BlogSection' 
+import BlogSection from '@/components/home/BlogSection'
+import { projects as allProjects } from '@/data/project'
 
-// --- DONNÉES PROJETS (Déplacées ici) ---
-const projects = [
-  {
-    id: 1,
-    client: "Charitio",
-    category: "Brand Identity",
-    image: "/projects/Charit.avif",
-    slug: "/works/charitio",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 2,
-    client: "Keleti Design",
-    category: "Brand Identity",
-    image: "/projects/Keleti.avif",
-    slug: "/works/keleti",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 3,
-    client: "Disobey",
-    category: "Brand Identity",
-    image: "/projects/Disobey.avif",
-    slug: "/works/disobey",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 4,
-    client: "Lumyn",
-    category: "Web Design & Dev",
-    image: "/projects/Lumyn.avif",
-    slug: "/works/lumyn",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 5,
-    client: "Comon",
-    category: "Brand Strategy",
-    image: "/projects/Com'on.avif",
-    slug: "/works/jobmi",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 6,
-    client: "Jobmi",
-    category: "Brand identity ",
-    image: "/projects/Jobmi.avif",
-    slug: "/works/multiface",
-    format: "aspect-[16/10]"
-  },
-  {
-    id: 7,
-    client: "Multiface",
-    category: "Brand identity",
-    image: "/projects/Multiface.avif",
-    slug: "/works/multiface",
-    format: "aspect-[16/10]"
-  }
-]
+// On prend les 6 premiers projets pour la page works principale
+const projects = allProjects.slice(0, 6).map(project => ({
+  id: project.id,
+  client: project.client,
+  category: project.category,
+  image: project.cover,
+  slug: `/works/${project.slug}`,
+  format: "aspect-[16/10]"
+}))
 
 // --- ANIMATION ---
 const cardVariants: Variants = {
@@ -119,13 +70,13 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
 
         <div className="flex items-center gap-3 mt-3">
           <span className="text-base font-medium text-arti-black group-hover:text-amber-600 transition-colors">
-            Brand identity
+            {project.category}
           </span>
           <span className="text-sm font-light text-gray-400 italic">
             for
           </span>
           <div className="flex items-center gap-2">
-             <div className="w-2 h-2 bg-black rounded-full" /> 
+             <div className="w-2 h-2 bg-black rounded-full" />
              <h3 className="text-base font-bold text-arti-black">
                {project.client}
              </h3>
