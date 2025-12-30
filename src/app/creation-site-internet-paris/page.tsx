@@ -1,26 +1,35 @@
 import type { Metadata } from "next";
-import ParisClient from "../creation-site-internet-paris/ParisClient"; // On importe le composant client
+import ParisClient from "./ParisClient";
 
 export const metadata: Metadata = {
-  title: "Création Site Internet Paris & IDF | Agence Web Expert (WordPress, Webflow)",
-  description: "Agence de création de sites vitrines à Paris (75) et Île-de-France. Experts WordPress, Webflow & Wix pour freelances, cabinets et startups. Devis gratuit sous 24h.",
-  keywords: ["création site internet paris", "agence web paris", "développeur web île-de-france", "expert webflow paris", "agence wordpress paris", "refonte site internet paris"],
+  title: "Création de site internet Paris | Studio web & branding",
+  description: "Studio web créatif à Paris. Création de sites vitrines WordPress, Webflow et Wix pour TPE, PME et startups en Île-de-France. Discutons de votre projet.",
+  keywords: [
+    "création site internet Paris",
+    "agence création site web Paris",
+    "création site vitrine Paris",
+    "agence web Paris",
+    "création site internet Île-de-France",
+    "site vitrine WordPress Paris",
+    "site vitrine Webflow Paris",
+    "refonte site internet Paris"
+  ],
   alternates: {
     canonical: "https://artichaud.com/creation-site-internet-paris",
   },
   openGraph: {
-    title: "Agence Web Paris - Création de Sites Uniques",
-    description: "Votre site internet sur-mesure à Paris. Design, SEO et performance pour vous démarquer localement.",
+    title: "Agence Web Paris - Création de Sites Internet Uniques",
+    description: "Votre partenaire digital à Paris. Design, stratégie et performance pour les marques qui veulent se démarquer.",
     url: "https://artichaud.com/creation-site-internet-paris",
     siteName: "Agence Artichaud",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://artichaud.com/images/og-paris.jpg", // Pense à mettre une vraie image
+        url: "https://artichaud.com/images/og-paris.jpg",
         width: 1200,
         height: 630,
-        alt: "Création site internet Paris",
+        alt: "Création site internet Paris Artichaud",
       },
     ],
   },

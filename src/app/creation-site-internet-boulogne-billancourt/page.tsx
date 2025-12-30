@@ -1,26 +1,34 @@
 import type { Metadata } from "next";
-import BoulogneClient from "../creation-site-internet-boulogne-billancourt/BoulogneClient"; // On importe le composant client
+import BoulogneClient from "./BoulogneClient";
 
 export const metadata: Metadata = {
-  title: "Création Site Internet Boulogne-Billancourt (92) | Agence Web Expert",
-  description: "Agence web à Boulogne-Billancourt (92100). Création de sites vitrines sur-mesure (WordPress, Webflow, Wix) pour TPE, PME et startups des Hauts-de-Seine.",
-  keywords: ["création site internet boulogne billancourt", "agence web 92", "site internet boulogne", "freelance web boulogne billancourt", "agence wordpress 92100", "expert webflow hauts-de-seine"],
+  title: "Création de site internet Boulogne-Billancourt | Agence web créative",
+  description: "Agence web créative à Boulogne-Billancourt. Sites vitrines WordPress, Webflow ou Wix qui valorisent votre marque. Parlez-nous de votre projet dès aujourd’hui.",
+  keywords: [
+    "création site internet Boulogne-Billancourt",
+    "agence web Boulogne-Billancourt",
+    "site vitrine Boulogne-Billancourt",
+    "création site vitrine 92",
+    "création site WordPress Boulogne-Billancourt",
+    "webdesigner Boulogne-Billancourt",
+    "création site Webflow Boulogne"
+  ],
   alternates: {
     canonical: "https://artichaud.com/creation-site-internet-boulogne-billancourt",
   },
   openGraph: {
-    title: "Agence Web Boulogne - Création de Sites Uniques",
-    description: "Votre partenaire digital local à Boulogne-Billancourt. Design, performance et SEO pour les entreprises du 92.",
+    title: "Création de site internet Boulogne-Billancourt | Agence Artichaud",
+    description: "Agence web créative à Boulogne-Billancourt. Sites vitrines WordPress, Webflow ou Wix qui valorisent votre marque.",
     url: "https://artichaud.com/creation-site-internet-boulogne-billancourt",
     siteName: "Agence Artichaud",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://artichaud.com/images/og-boulogne.jpg", // Pensez à mettre une vraie image
+        url: "https://artichaud.com/images/og-boulogne.jpg", // Pensez à ajouter cette image
         width: 1200,
         height: 630,
-        alt: "Création site web Boulogne-Billancourt",
+        alt: "Création site internet Boulogne-Billancourt",
       },
     ],
   },

@@ -110,7 +110,7 @@ export default function ShowcaseClient() {
     <main className="w-full bg-white min-h-screen overflow-x-hidden">
       
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
+      <section className="relative pt-32 pb-24 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
            <CanvasEffect />
         </div>
@@ -162,9 +162,7 @@ export default function ShowcaseClient() {
             
             {/* WIX */}
             <SpotlightCard className="rounded-3xl p-8 shadow-lg border-t-4 border-t-purple-500">
-                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
-                    <span className="text-2xl font-bold text-purple-600">W</span>
-                </div>
+                
                 <h3 className="text-3xl font-bold mb-2">Wix Studio</h3>
                 <p className="text-purple-600 font-medium text-sm mb-6 uppercase tracking-wide">Rapidité & Simplicité</p>
                 <div className="bg-gray-50 rounded-xl p-6 mb-8">
@@ -179,34 +177,30 @@ export default function ShowcaseClient() {
 
             {/* WORDPRESS */}
             <SpotlightCard className="rounded-3xl p-8 shadow-lg border-t-4 border-t-blue-500 transform lg:-translate-y-4 lg:scale-105 z-10">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                    <span className="text-2xl font-bold text-blue-600">WP</span>
-                </div>
+                
                 <h3 className="text-3xl font-bold mb-2">WordPress</h3>
                 <p className="text-blue-600 font-medium text-sm mb-6 uppercase tracking-wide">Liberté & Contenu</p>
                 <div className="bg-gray-50 rounded-xl p-6 mb-8">
                     <h4 className="font-bold mb-3 text-sm uppercase text-gray-400">Pourquoi ?</h4>
                     <ul className="space-y-2">
                         <li className="flex gap-2 text-sm text-gray-700">📰 Blog & SEO éditorial puissant</li>
-                        <li className="flex gap-2 text-sm text-gray-700">🔗 Écosystème Open Source</li>
+                        <li className="flex gap-2 text-sm text-gray-700">🔗 Écosystème open source</li>
                         <li className="flex gap-2 text-sm text-gray-700">📈 Évolutivité illimitée</li>
                     </ul>
                 </div>
             </SpotlightCard>
 
             {/* WEBFLOW */}
-            <SpotlightCard className="rounded-3xl p-8 shadow-lg border-t-4 border-t-black bg-neutral-900 text-white border-neutral-800">
-                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
-                    <span className="text-2xl font-bold text-[#D0FF00]">Wf</span>
-                </div>
-                <h3 className="text-3xl font-bold mb-2 text-white">Webflow</h3>
-                <p className="text-[#D0FF00] font-medium text-sm mb-6 uppercase tracking-wide">Design & Performance</p>
-                <div className="bg-white/5 rounded-xl p-6 mb-8">
-                    <h4 className="font-bold mb-3 text-sm uppercase text-gray-500">Pourquoi ?</h4>
+            <SpotlightCard className="rounded-3xl p-8 shadow-lg border-t-4 border-t-black bg-neutral-900 border-neutral-800">
+               
+                <h3 className="text-3xl font-bold mb-2 ">Webflow</h3>
+                <p className="text-[#48AE08] font-medium text-sm mb-6 uppercase tracking-wide">Design & performance</p>
+                <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                    <h4 className="font-bold mb-3 text-sm uppercase text-gray-400">Pourquoi ?</h4>
                     <ul className="space-y-2">
-                        <li className="flex gap-2 text-sm text-gray-300">✨ Image de marque Premium</li>
-                        <li className="flex gap-2 text-sm text-gray-300">🚀 Performance (Vitesse)</li>
-                        <li className="flex gap-2 text-sm text-gray-300">🎨 Animations sur-mesure</li>
+                        <li className="flex gap-2 text-sm text-gray-700">✨ Image de marque premium</li>
+                        <li className="flex gap-2 text-sm text-gray-700">🚀 Performance (vitesse)</li>
+                        <li className="flex gap-2 text-sm text-gray-700">🎨 Animations sur-mesure</li>
                     </ul>
                 </div>
             </SpotlightCard>
@@ -229,7 +223,7 @@ export default function ShowcaseClient() {
                     <h2 className="text-4xl font-bold mb-6 text-black">WordPress : La puissance de l'Open Source.</h2>
                     <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
                         <p>
-                            Avec plus de <strong>43% du web mondial</strong> propulsé par ses soins, WordPress est le standard incontesté. C'est le choix de la raison pour les entreprises qui veulent rester maîtres de leurs données.
+                            Avec plus de <strong><a href="https://www.blogdumoderateur.com/chiffres-wordpress/" className="text-decoration: underline">43% du web mondial</a></strong> propulsé par ses soins, WordPress est le standard incontesté. C'est le choix de la raison pour les entreprises qui veulent rester maîtres de leurs données.
                         </p>
                         <p>
                             Chez Artichaud, nous développons des thèmes WordPress sur-mesure (pas de templates lourds achetés 50$). Cela garantit un site léger, sécurisé et parfaitement optimisé pour Google (SEO).

@@ -1,24 +1,21 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import TrustedSection from "@/components/about/TrustedSection";
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence, Variants, steps } from "framer-motion";
 import { MouseEvent, useState } from "react";
 
-// --- MICRO-INTERACTIONS AVANCÉES ---
+// --- COMPOSANTS UI & MICRO-INTERACTIONS ---
 
-// 1. TEXTE GLITCH (NOUVEAU)
 const GlitchText = ({ text }: { text: string }) => {
   return (
     <motion.span 
       className="relative inline-block text-[#D0FF00] cursor-pointer"
       whileHover="hover"
     >
-      {/* Texte Principal */}
       <span className="relative z-10">{text}</span>
-      
-      {/* Calque Glitch 1 : Décalage Rapide + Opacité */}
       <motion.span
         className="absolute top-0 left-0 text-white z-[-1] select-none pointer-events-none"
         variants={{
@@ -32,19 +29,12 @@ const GlitchText = ({ text }: { text: string }) => {
       >
         {text}
       </motion.span>
-      
-      {/* Calque Glitch 2 : Effet de découpe (ClipPath) */}
       <motion.span
         className="absolute top-0 left-0 text-[#D0FF00] z-[-1] select-none pointer-events-none"
         variants={{
           hover: {
             opacity: [0, 1, 1, 0],
-            clipPath: [
-              "inset(0 0 0 0)", 
-              "inset(40% 0 10% 0)", 
-              "inset(10% 0 60% 0)", 
-              "inset(80% 0 5% 0)"
-            ],
+            clipPath: ["inset(0 0 0 0)", "inset(40% 0 10% 0)", "inset(10% 0 60% 0)", "inset(80% 0 5% 0)"],
             x: [0, 4, -4, 2],
             transition: { repeat: Infinity, duration: 0.3, ease: steps(2) }
           }
@@ -56,7 +46,6 @@ const GlitchText = ({ text }: { text: string }) => {
   );
 };
 
-// 2. Carte avec effet "Spotlight"
 function SpotlightCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -76,11 +65,7 @@ function SpotlightCard({ children, className = "" }: { children: React.ReactNode
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(208, 255, 0, 0.15),
-              transparent 80%
-            )
+            radial-gradient(650px circle at ${mouseX}px ${mouseY}px, rgba(208, 255, 0, 0.15), transparent 80%)
           `,
         }}
       />
@@ -89,42 +74,20 @@ function SpotlightCard({ children, className = "" }: { children: React.ReactNode
   );
 }
 
-// 3. Accordéon FAQ (Animation Fluide)
 const AccordionItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="border-b border-gray-100 last:border-0">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full cursor-pointer items-center justify-between py-6 text-left group"
-      >
-        <span className={`text-lg font-medium transition-colors duration-300 ${isOpen ? 'text-black' : 'text-gray-800 group-hover:text-[#D0FF00]'}`}>
-          {question}
-        </span>
-        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#D0FF00]">
-          <motion.svg
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-            className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500'}`}
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </motion.svg>
+      <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
+        <span className={`text-lg font-medium ${isOpen ? 'text-black' : 'text-gray-800'}`}>{question}</span>
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black">
+          <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500 group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="pb-6 pt-0 text-gray-600 leading-relaxed">
-              {answer}
-            </div>
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
+            <div className="pb-6 pt-0 text-gray-600 leading-relaxed">{answer}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -132,39 +95,29 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
   );
 };
 
-// 4. Variantes d'animation
+// --- ANIMATIONS GLOBALES ---
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
-
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 export default function ParisClient() {
   
-  // JSON-LD Local Business
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Agence Artichaud Paris",
-    "image": "https://artichaud.com/images/paris-web-agency.jpg",
+    "image": "https://artichaud.com/images/agence-web-paris.jpg",
     "telephone": "+33100000000",
     "url": "https://artichaud.com/creation-site-internet-paris",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Paris",
       "addressRegion": "Île-de-France",
-      "postalCode": "75000",
       "addressCountry": "FR"
     },
     "geo": {
@@ -183,7 +136,7 @@ export default function ParisClient() {
       />
 
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
+      <section className="relative pt-32 pb-24 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
            <CanvasEffect />
         </div>
@@ -195,258 +148,484 @@ export default function ParisClient() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md hover:bg-[#D0FF00]/20 transition-colors cursor-default">
+            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0FF00] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
               </span>
-              Agence Web 📍 Paris & Île-de-France
+              Agence Web Paris & Île-de-France
             </span>
           </motion.div>
 
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
-            Création de site internet <br/> à Paris & en Île‑de‑France
+          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 text-balance">
+            Agence de création de sites internet à <br className="hidden md:block"/> Paris & en Île‑de‑France
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-            Nous concevons des expériences digitales sur-mesure pour les entreprises parisiennes exigeantes. Experts <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors"><strong>WordPress, Webflow et Wix</strong></Link>, nous transformons votre visibilité locale en levier de croissance.
-          </motion.p>
+          <motion.div variants={fadeInUp} className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed space-y-4 text-balance">
+            <p>
+              Dans la capitale mondiale du style et de l'innovation, un site web standard ne suffit plus. Vous avez besoin d'une identité numérique qui marque les esprits.
+            </p>
+            <p>
+              Artichaud est un <strong>studio web créatif basé à Paris</strong>. Nous accompagnons les marques audacieuses, TPE, PME et Startups de la région parisienne dans la conception de <strong>sites vitrines sur-mesure</strong> qui convertissent vos visiteurs en clients fidèles.
+            </p>
+          </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="group relative px-8 py-4 bg-[#D0FF00] text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105">
-              <span className="relative z-10 group-hover:text-black transition-colors">Lancer mon projet</span>
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg" />
+            {/* CTA 1 : Magnétique au survol */}
+            <Link href="/contact" className="group relative px-8 py-4 bg-[#D0FF00] text-black font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(208,255,0,0.3)] hover:shadow-[0_0_30px_rgba(208,255,0,0.6)]">
+              <span className="relative z-10">Lancer mon projet</span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm" />
             </Link>
-            <Link href="#technologies" className="px-8 py-4 text-white font-medium hover:text-[#D0FF00] transition-colors underline-offset-4 hover:underline">
-              Découvrir nos technologies →
+            {/* CTA 2 : Souligné animé */}
+            <Link href="#portfolio" className="relative px-8 py-4 text-white font-medium group">
+              Voir nos réalisations
+              <span className="absolute bottom-3 left-8 right-8 h-[1px] bg-[#D0FF00] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </Link>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* --- SECTION 1: CONTEXTE LOCAL --- */}
-      <section className="py-24 bg-white">
+      {/* --- H2: OBJECTIFS BUSINESS (VERSION DASHBOARD PRO) --- */}
+      <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="w-full lg:w-1/2">
-               <motion.h2 
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 className="text-4xl md:text-5xl font-bold mb-8 text-black leading-tight"
-               >
-                 Une expertise web ancrée dans l'économie <span className="text-gray-400">parisienne.</span>
-               </motion.h2>
-               
-               <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-                 <p>
-                   Paris n'est pas seulement la capitale de la mode, c'est le cœur battant de l'innovation et du business en France. Que vous soyez installé dans le <strong>Sentier</strong>, à <strong>La Défense</strong>, près de <strong>Station F</strong> ou dans les quartiers d'affaires du <strong>8ème arrondissement</strong>, la compétition est féroce.
-                 </p>
-                 <p>
-                   Avoir un site web ne suffit plus. Il vous faut une plateforme performante, rapide et optimisée pour le référencement local (SEO Paris) afin de capter une clientèle francilienne volatile et exigeante.
-                 </p>
-                 <p>
-                   Chez Artichaud, nous connaissons les codes du marché parisien. Nous créons des sites qui parlent à votre audience, qu'elle soit B2B (Grands comptes, PME) ou B2C (Commerces, Artisans, Services). Nous accompagnons également les entreprises de <Link href="/creation-site-internet-boulogne-billancourt" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors font-semibold">Boulogne-Billancourt</Link> et de toute l'Île-de-France.
-                 </p>
-               </div>
-
-               <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
-                  <div className="flex flex-col">
-                    <span className="text-3xl font-bold text-black">100%</span>
-                    <span className="text-sm text-gray-500">Made in Paris/IDF</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-3xl font-bold text-black">4.9/5</span>
-                    <span className="text-sm text-gray-500">Note Clients</span>
-                  </div>
-               </div>
-            </div>
+          <div className="flex flex-col lg:flex-row gap-20 items-center">
             
-            <div className="w-full lg:w-1/2">
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <SpotlightCard className="rounded-2xl p-6 h-full">
-                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mb-4 text-white">💼</div>
-                    <h3 className="font-bold text-xl mb-2">Cabinets & Conseil</h3>
-                    <p className="text-sm text-gray-500">Avocats, Architectes, Consulting. Des sites sobres et rassurants.</p>
-                  </SpotlightCard>
-                  <SpotlightCard className="rounded-2xl p-6 h-full">
-                    <div className="w-10 h-10 bg-[#D0FF00] rounded-full flex items-center justify-center mb-4 text-black">🚀</div>
-                    <h3 className="font-bold text-xl mb-2">Startups & Tech</h3>
-                    <p className="text-sm text-gray-500">Sites Webflow scalables pour lever des fonds et convertir.</p>
-                  </SpotlightCard>
-                  <SpotlightCard className="rounded-2xl p-6 h-full">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-black">🎨</div>
-                    <h3 className="font-bold text-xl mb-2">Agences & Créatifs</h3>
-                    <p className="text-sm text-gray-500">Portfolios immersifs avec animations (GSAP, Framer Motion).</p>
-                  </SpotlightCard>
-                  <SpotlightCard className="rounded-2xl p-6 h-full">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-black">🛍️</div>
-                    <h3 className="font-bold text-xl mb-2">Commerces Locaux</h3>
-                    <p className="text-sm text-gray-500">Click & Collect, réservation en ligne et visibilité GMB.</p>
-                  </SpotlightCard>
-               </div>
-            </div>
+            {/* COLONNE GAUCHE : TEXTE */}
+            <motion.div 
+              className="w-full lg:w-1/2"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-black leading-tight">
+                Des sites vitrines pensés pour vos <span className="text-gray-400">objectifs business.</span>
+              </h2>
+              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>
+                  Paris est un marché ultra-concurrentiel. Que vous soyez un cabinet d'avocats dans le <strong>8ème</strong>, une startup à <strong>Station F</strong> ou un commerce dans le <strong>Marais</strong>, l'esthétique ne suffit pas.
+                </p>
+                <p>
+                  Nous ne faisons pas de l'art pour l'art. Nous créons des <strong>machines à croissance</strong>. Chaque pixel et chaque ligne de code a un but précis : crédibiliser votre expertise et transformer vos visiteurs en clients.
+                </p>
+                <p>
+                  En tant qu'<Link href="/contact" className="text-black font-bold underline decoration-[#D0FF00] hover:bg-[#D0FF00] transition-colors">agence de création de site web à Paris</Link>, nous intégrons nativement les standards du marché : rapidité mobile, structure SEO sémantique et UX orientée conversion.
+                </p>
+                
+                <div className="pt-6 flex flex-wrap gap-4">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-100 text-sm font-medium text-black">
+                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        SEO Friendly
+                    </div>
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-100 text-sm font-medium text-black">
+                        <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                        Mobile First
+                    </div>
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-100 text-sm font-medium text-black">
+                        <span className="w-2 h-2 bg-[#D0FF00] rounded-full"></span>
+                        Conversion Rate
+                    </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* COLONNE DROITE : VISUEL DASHBOARD ANALYTICS */}
+            <motion.div 
+              className="w-full lg:w-1/2 relative"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+                {/* Fond abstrait */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-gray-100 to-gray-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
+
+                {/* Carte Principale : Graphique Trafic */}
+                <div className="relative bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden p-6 z-10">
+                    <div className="flex justify-between items-center mb-8">
+                        <div>
+                            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Trafic Organique (SEO)</p>
+                            <div className="flex items-baseline gap-3">
+                                <span className="text-3xl font-bold text-black">12,450</span>
+                                <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+158%</span>
+                            </div>
+                        </div>
+                        <div className="flex gap-2">
+                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                    </div>
+                    {/* Graphique SVG Animé */}
+                    <div className="relative h-40 w-full">
+                        <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="gradientGraph" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#D0FF00" stopOpacity="0.5" />
+                                    <stop offset="100%" stopColor="#D0FF00" stopOpacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <motion.path 
+                                d="M0 150 C 50 140, 100 130, 150 90 S 250 100, 300 60 S 400 40, 500 10" 
+                                fill="none" 
+                                stroke="black" 
+                                strokeWidth="3"
+                                initial={{ pathLength: 0 }}
+                                whileInView={{ pathLength: 1 }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                            />
+                            <motion.path 
+                                d="M0 150 C 50 140, 100 130, 150 90 S 250 100, 300 60 S 400 40, 500 10 V 160 H 0 Z" 
+                                fill="url(#gradientGraph)" 
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ duration: 1.5, delay: 0.5 }}
+                            />
+                        </svg>
+                    </div>
+                </div>
+
+                {/* Widget Flottant 1 : Score Performance */}
+                <motion.div 
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="absolute -bottom-6 -left-4 md:left-[-20px] bg-black text-white p-5 rounded-xl shadow-2xl border border-gray-800 z-20 w-48"
+                >
+                    <div className="flex justify-between items-start mb-2">
+                        <span className="text-xs text-gray-400 uppercase">Performance</span>
+                        <svg className="w-4 h-4 text-[#D0FF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <div className="flex items-end gap-2">
+                        <span className="text-3xl font-bold text-white">99</span>
+                        <span className="text-sm text-gray-400 mb-1">/100</span>
+                    </div>
+                    <div className="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                        <motion.div 
+                            className="h-full bg-[#D0FF00]" 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "99%" }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                        />
+                    </div>
+                </motion.div>
+
+                {/* Widget Flottant 2 : Conversion Lead */}
+                <motion.div 
+                    initial={{ y: -20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="absolute -top-6 -right-4 md:right-[-10px] bg-white p-4 rounded-xl shadow-xl border border-gray-100 z-20 flex items-center gap-3"
+                >
+                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div>
+                        <p className="text-xs text-gray-400 uppercase font-bold">Nouveau Lead</p>
+                        <p className="text-sm font-bold text-black">Contact via Site Web</p>
+                    </div>
+                </motion.div>
+
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* --- SECTION TECHNOLOGIES --- */}
-      <section className="py-24 bg-neutral-50" id="technologies">
+      {/* --- H2: COMPARATIF CMS (DÉTAILLÉ + LIENS ANCRÉS) --- */}
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">Nos armes de construction massive.</h2>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">WordPress, Webflow ou Wix : le bon outil.</h2>
             <p className="text-lg text-gray-600">
-              Nous ne sommes pas mariés à une seule technologie. Nous sélectionnons le CMS (Content Management System) le plus adapté à votre ambition et votre budget.
+              Nous sommes agnostiques technologiquement. Nous choisissons le CMS qui sert votre ambition, pas celui qui nous arrange.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* WordPress */}
-            <SpotlightCard className="rounded-3xl p-8 shadow-sm">
-                <div className="mb-6 pb-6 border-b border-gray-100">
-                    <h3 className="text-2xl font-bold text-black mb-1">WordPress</h3>
-                    <p className="text-sm font-medium text-blue-600">Le standard évolutif</p>
-                </div>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                    La solution idéale pour les sites riches en contenu (blogs, actualités) qui nécessitent une flexibilité totale.
+            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full bg-white">
+                <h3 className="text-2xl font-bold mb-4">WordPress</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                    Le leader mondial (Open Source). Idéal si vous avez besoin d'une flexibilité totale, d'un blog puissant ou de connecteurs complexes (API). Nous développons des thèmes sur-mesure (Gutenberg ou ACF), garantissant un code propre et un site rapide, loin des templates lourds du marché.
                 </p>
-                <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-gray-700">✅ Back-office intuitif</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-700">✅ Écosystème de plugins infini</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-700">✅ Excellent pour le SEO</li>
-                </ul>
-                <div className="mt-auto pt-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Idéal pour : PME, Médias</span>
-                </div>
+                {/* Lien corrigé : Vers ancre spécifique */}
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix#wordpress" className="group inline-flex items-center text-sm font-bold text-black hover:text-blue-600 transition-colors">
+                    Tout savoir sur WordPress <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                </Link>
             </SpotlightCard>
 
             {/* Webflow */}
-            <SpotlightCard className="rounded-3xl p-8 bg-neutral-900 text-white border-neutral-800 ring-4 ring-[#D0FF00]/20">
-                <div className="mb-6 pb-6 border-b border-white/10">
-                    <h3 className="text-2xl font-bold text-white mb-1">Webflow</h3>
-                    <p className="text-sm font-medium text-[#D0FF00]">Le choix Premium</p>
-                </div>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                    Pour des sites au design époustouflant, des animations fluides et un code ultra-propre sans maintenance technique lourde.
+            <SpotlightCard className="p-8 rounded-2xl bg-black text-white border border-gray-800 ring-4 ring-[#D0FF00]/20 flex flex-col h-full">
+                 <h3 className="text-2xl font-bold mb-4 text-black">Webflow</h3>
+                <p className="text-neutral-600 text-sm leading-relaxed mb-6 flex-grow">
+                    L'arme absolue des startups parisiennes. Design "pixel-perfect", animations fluides (GSAP natif), hébergement AWS ultra-rapide et sécurité militaire. C'est le choix premium pour marquer les esprits sans se soucier de la maintenance technique.
                 </p>
-                <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-gray-300">⚡ Performances extrêmes</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-300">✨ Liberté créative totale</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-300">🔒 Sécurité maximale (AWS)</li>
-                </ul>
-                <div className="mt-auto pt-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500">Idéal pour : Startups, Tech, Luxe</span>
-                </div>
+                {/* Lien corrigé : Couleur visible (Jaune) */}
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix#webflow" className="group inline-flex items-center text-sm font-bold text-black hover:text-[#D0FF00] transition-colors">
+                    Pourquoi choisir Webflow <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                </Link>
             </SpotlightCard>
 
-            {/* Wix Studio */}
-            <SpotlightCard className="rounded-3xl p-8 shadow-sm">
-                <div className="mb-6 pb-6 border-b border-gray-100">
-                    <h3 className="text-2xl font-bold text-black mb-1">Wix Studio</h3>
-                    <p className="text-sm font-medium text-purple-600">Rapidité & Efficacité</p>
-                </div>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                    Une solution tout-en-un parfaite pour lancer rapidement une activité avec un budget maîtrisé, sans compromis sur le look.
+            {/* Wix */}
+            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full bg-white">
+                <h3 className="text-2xl font-bold mb-4">Wix Studio</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                    La solution tout-en-un pour lancer une activité rapidement à Paris. Parfait pour les budgets maîtrisés qui veulent un résultat esthétique sans maintenance technique complexe. Wix Studio offre désormais des capacités de design et de SEO très performantes.
                 </p>
-                <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-gray-700">🚀 Mise en ligne rapide</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-700">🔧 Maintenance incluse</li>
-                    <li className="flex items-center gap-2 text-sm text-gray-700">💰 Budget optimisé</li>
-                </ul>
-                <div className="mt-auto pt-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Idéal pour : Freelances, Artisans</span>
-                </div>
+                {/* Lien corrigé : Vers ancre spécifique */}
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix#wix" className="group inline-flex items-center text-sm font-bold text-black hover:text-purple-600 transition-colors">
+                    Découvrir l'offre Wix <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                </Link>
             </SpotlightCard>
           </div>
         </div>
       </section>
 
-      {/* --- SECTION PROCESS --- */}
-      <section className="py-24 bg-neutral-950 text-white overflow-hidden relative">
-        <div className="container mx-auto px-6 relative z-10">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                  <h2 className="text-3xl md:text-5xl font-bold mb-6">Notre méthodologie <br/>projet.</h2>
-                  <p className="text-neutral-400 text-lg mb-8">
-                    Créer un site web, c'est construire une maison. On ne commence pas par la peinture, mais par les fondations. Voici comment nous collaborons avec nos clients parisiens.
-                  </p>
-                  <div className="space-y-8">
-                      <Step number="01" title="Audit & Stratégie" desc="Analyse de votre marché, de vos concurrents à Paris et définition de vos objectifs de conversion." />
-                      <Step number="02" title="UX & Maquettage" desc="Création de l'architecture (Sitemap) et des maquettes graphiques haute fidélité." />
-                      <Step number="03" title="Développement & SEO" desc="Intégration technique et optimisation sémantique pour Google (Référencement local)." />
-                      <Step number="04" title="Formation & Lancement" desc="On vous remet les clés. Session de formation pour que vous soyez autonome." />
-                  </div>
-              </div>
-              <div className="relative h-[600px] w-full rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/50 flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D0FF00]/20 to-transparent opacity-50" />
-                  <p className="text-white/30 font-mono text-sm">Zone d'image process ou vidéo</p>
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* --- SECTION PROJETS --- */}
-      <div id="portfolio">
-        <TrustedSection /> 
-      </div>
-
-      {/* --- SECTION 2: OFFRES --- */}
-      <section className="py-20 bg-white border-t border-gray-100" id="offres">
+      {/* --- H2: PACKS PARIS --- */}
+      <section className="py-24 bg-white" id="tarifs">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-black">Des offres transparentes</h2>
-            <p className="text-gray-500">Un investissement clair pour votre croissance digitale.</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">Nos packs de création de site à Paris</h2>
+            <p className="text-lg text-gray-600">
+              Des forfaits clairs pour accompagner la croissance des entreprises d'Île-de-France.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PriceCard 
-              title="Starter Presence"
-              price="Sur devis"
-              desc="L'essentiel pour exister sur Google et rassurer vos prospects."
-              features={["Wix ou WordPress", "Site One-Page ou 3 pages", "Responsive Mobile", "Formulaire de contact", "Mentions légales"]}
-              delay={0}
-            />
-            <PriceCard 
-              title="Identité & Performance"
-              price="Populaire"
-              isPopular
-              desc="Le standard pour les PME et Startups ambitieuses."
-              features={["Webflow ou WordPress", "5 à 10 pages", "Webdesign sur-mesure", "Animations (Motion UI)", "Optimisation SEO Technique", "Formation Back-office"]}
-              delay={0.1}
-            />
-            <PriceCard 
-              title="Expérience Premium"
-              price="Sur mesure"
-              desc="Pour dominer votre marché avec une image de marque irréprochable."
-              features={["Direction Artistique 360", "Site Vitrine ou E-commerce", "Stratégie de contenu (SEO)", "Intégrations CRM/API", "Maintenance annuelle"]}
-              delay={0.2}
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-black transition-colors">
+                <h3 className="text-xl font-bold text-gray-500 mb-2">Lancement</h3>
+                <div className="text-3xl font-bold mb-4 text-black">Pack Essentiel</div>
+                <p className="text-sm text-gray-600 mb-6">Pour les commerces et indépendants parisiens.</p>
+                <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-center gap-2 text-sm">✓ Site One-Page ou 3 pages</li>
+                    <li className="flex items-center gap-2 text-sm">✓ CMS Wix ou WordPress</li>
+                    <li className="flex items-center gap-2 text-sm">✓ Mobile Responsive</li>
+                    <li className="flex items-center gap-2 text-sm">✓ Référencement local de base</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-3 border border-black text-black font-bold text-center rounded-lg hover:bg-black hover:text-white transition-colors">Demander un devis</Link>
+            </SpotlightCard>
+
+            <SpotlightCard className="p-8 rounded-2xl bg-black text-white border border-black flex flex-col h-full relative z-10 transform lg:scale-105 shadow-2xl">
+                <div className="absolute top-0 right-0 bg-[#D0FF00] text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase">Best-Seller</div>
+                <h3 className="text-xl font-bold text-[#D0FF00] mb-2">Croissance</h3>
+                <div className="text-3xl font-bold mb-4 text-black">Pack Créatif</div>
+                <p className="text-sm text-neutral-400 mb-6">Pour les PME et Startups ambitieuses.</p>
+                <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-center gap-2 text-sm text-black">✓ 5 à 10 pages sur-mesure</li>
+                    <li className="flex items-center gap-2 text-sm text-black">✓ Expert Webflow ou WP</li>
+                    <li className="flex items-center gap-2 text-sm text-black">✓ SEO Sémantique Avancé</li>
+                    <li className="flex items-center gap-2 text-sm text-black">✓ Animations & Motion Design</li>
+                    <li className="flex items-center gap-2 text-sm text-black">✓ Formation Back-office</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-3 bg-[#D0FF00] text-black font-bold text-center rounded-lg hover:bg-white transition-colors">Lancer le projet</Link>
+            </SpotlightCard>
+
+            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-black transition-colors">
+                <h3 className="text-xl font-bold text-gray-500 mb-2">360°</h3>
+                <div className="text-3xl font-bold mb-4 text-black">Transformation</div>
+                <p className="text-sm text-gray-600 mb-6">Refonte globale Image + Site.</p>
+                <ul className="space-y-3 mb-8 flex-grow">
+                    <li className="flex items-center gap-2 text-sm">✓ Branding (Logo & Charte)</li>
+                    <li className="flex items-center gap-2 text-sm">✓ Site Vitrine Premium</li>
+                    <li className="flex items-center gap-2 text-sm">✓ Stratégie de Contenu (SEO)</li>
+                    <li className="flex items-center gap-2 text-sm">✓ Intégrations CRM & API</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-3 border border-black text-black font-bold text-center rounded-lg hover:bg-black hover:text-white transition-colors">Discuter Branding</Link>
+            </SpotlightCard>
           </div>
         </div>
       </section>
 
-      {/* --- FAQ SEO (ACCORDÉON) --- */}
+      {/* --- H2: RÉALISATIONS (4 PROJETS) --- */}
+      <section className="py-24 bg-white" id="portfolio">
+        <div className="container mx-auto px-6">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-black">
+                Nos réalisations récentes
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                 
+                 {/* Projet 1 : Lumyn */}
+                 <Link href="/works/lumyn" className="group block">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative aspect-video overflow-hidden cursor-pointer"
+                    >
+                        <Image src="/projects/Lumyn.avif" alt="Site internet agence digitale Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Lumyn Paris</h3>
+                                <p className="text-sm text-neutral-300">Webflow & 3D</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </div>
+                        </div>
+                    </motion.div>
+                 </Link>
+
+                 {/* Projet 2 : Disobey */}
+                 <Link href="/works/disobey" className="group block">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="relative aspect-video overflow-hidden cursor-pointer"
+                    >
+                        <Image src="/projects/Disobey.avif" alt="Création site e-commerce Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Disobey Apparel</h3>
+                                <p className="text-sm text-neutral-300">E-shop & Branding</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </div>
+                        </div>
+                    </motion.div>
+                 </Link>
+
+                 {/* Projet 3 : Keleti */}
+                 <Link href="/works/keleti" className="group block">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative aspect-video overflow-hidden cursor-pointer"
+                    >
+                        <Image src="/projects/Keleti.avif" alt="Webdesign portfolio architecte IDF" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Keleti Architectes</h3>
+                                <p className="text-sm text-neutral-300">Portfolio Minimaliste</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </div>
+                        </div>
+                    </motion.div>
+                 </Link>
+
+                 {/* Projet 4 : Utopia (Nouveau) */}
+                 <Link href="/works/Utopia" className="group block">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="relative aspect-video overflow-hidden cursor-pointer"
+                    >
+                        <Image src="/projects/Utopia.avif" alt="Site internet Utopia Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Utopia</h3>
+                                <p className="text-sm text-neutral-300">Site Vitrine & Identité</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </div>
+                        </div>
+                    </motion.div>
+                 </Link>
+
+            </div>
+            <div className="text-center">
+                <Link href="/works" className="inline-block px-8 py-3 bg-black text-white font-bold rounded-full hover:bg-[#D0FF00] hover:text-black transition-colors shadow-lg hover:shadow-xl">
+                    Explorer tous les projets
+                </Link>
+            </div>
+        </div>
+      </section>
+
+      {/* --- H2: STRATÉGIE & DESIGN --- */}
+      <section className="py-24 bg-neutral-50">
+        <div className="container mx-auto px-6 max-w-5xl">
+            <div className="flex flex-col md:flex-row gap-12 items-center">
+                <div className="w-full md:w-1/2">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">Un accompagnement de la stratégie au design.</h2>
+                    <div className="space-y-6 text-gray-600 leading-relaxed">
+                        <p>
+                            Créer un site internet à Paris ne s'improvise pas. C'est un processus rigoureux où le design doit servir la fonction.
+                        </p>
+                        <ul className="space-y-4">
+                            <li className="flex items-start gap-3">
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">1</span>
+                                <div>
+                                    <strong className="text-black block">Direction Artistique (DA)</strong>
+                                    Nous définissons un univers visuel unique qui incarne vos valeurs et vous distingue de la concurrence parisienne.
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">2</span>
+                                <div>
+                                    <strong className="text-black block">Expérience Utilisateur (UX)</strong>
+                                    Nous concevons des parcours fluides pour guider le visiteur vers l'action (contact, achat, inscription).
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">3</span>
+                                <div>
+                                    <strong className="text-black block">SEO Technique</strong>
+                                    Nous appliquons les <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=fr" target="_blank" rel="nofollow" className="underline hover:text-black">bonnes pratiques Google</a> (Core Web Vitals) pour assurer votre visibilité durable.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="w-full md:w-1/2 relative h-[500px] bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-8 flex items-center justify-center">
+                    {/* Abstract Representation of Process */}
+                    <div className="relative w-full h-full">
+                         <div className="absolute top-10 left-10 w-32 h-32 bg-blue-50 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                         <div className="absolute top-10 right-10 w-32 h-32 bg-purple-50 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                         <div className="absolute -bottom-8 left-20 w-32 h-32 bg-yellow-50 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                         <div className="relative z-10 flex flex-col gap-4 h-full justify-center">
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transform translate-x-4">
+                                <div className="w-8 h-8 bg-black rounded-lg"></div>
+                                <div className="h-2 w-24 bg-gray-200 rounded"></div>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transform -translate-x-4">
+                                <div className="w-8 h-8 bg-[#D0FF00] rounded-lg"></div>
+                                <div className="h-2 w-32 bg-gray-200 rounded"></div>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transform translate-x-2">
+                                <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
+                                <div className="h-2 w-20 bg-gray-200 rounded"></div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* --- H2: FAQ --- */}
       <section className="py-24 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6 max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-black">Questions Fréquentes</h2>
-            <p className="text-gray-500">Tout ce que vous devez savoir avant de lancer votre projet web.</p>
-          </div>
+          <h2 className="text-3xl font-bold mb-12 text-center text-black">FAQ création de site internet à Paris</h2>
           <div className="space-y-4">
-            <AccordionItem question="Pourquoi faire appel à une agence web parisienne ?" answer="La proximité est clé. Même à l'ère du digital, pouvoir se rencontrer physiquement à Paris pour un atelier de co-conception ou un point stratégique accélère le projet et évite les malentendus. De plus, nous comprenons les spécificités du tissu économique local." />
-            <AccordionItem question="Combien coûte la création d'un site internet à Paris ?" answer="Le budget varie selon la technologie et la complexité. Un site vitrine simple sur Wix commence autour de 2000€. Un site WordPress sur-mesure se situe entre 3500€ et 7000€. Pour une expérience Webflow haut de gamme avec animations, les budgets démarrent généralement à 5000€. Nous fournissons toujours un devis détaillé." />
-            <AccordionItem question="Combien de temps faut-il pour créer le site ?" answer="Comptez 3 à 4 semaines pour un site vitrine standard, et 6 à 8 semaines pour un projet complet avec identité visuelle et développement complexe. Nous nous engageons sur un planning précis au début du projet." />
-            <AccordionItem question="Le site sera-t-il optimisé pour le référencement (SEO) ?" answer="Oui, c'est natif chez nous. Structure Hn, balises Title/Meta, optimisation des images (WebP), rapidité de chargement (Core Web Vitals) et maillage interne. Pour aller plus loin, nous proposons des prestations de rédaction de contenu optimisé." />
+            <AccordionItem 
+                question="Quel est le prix d'un site internet à Paris ?" 
+                answer="Les tarifs parisiens peuvent varier du simple au décuple. Chez Artichaud, nous misons sur la transparence. Un site vitrine démarre à 2000€ (offre Essentiel). Un site sur-mesure complet (Design + Dév Webflow/WP) se situe entre 4000€ et 10 000€ selon les fonctionnalités et le niveau d'animation demandé." 
+            />
+            <AccordionItem 
+                question="Peut-on se rencontrer à Paris pour le projet ?" 
+                answer="Absolument. Bien que nous soyons digital-first, nous adorons rencontrer nos clients. Nous pouvons organiser des ateliers de travail dans vos locaux à Paris ou en Île-de-France, ou autour d'un café pour discuter de votre vision." 
+            />
+            <AccordionItem 
+                question="Faites-vous la maintenance du site ?" 
+                answer="Oui. Une fois le site en ligne, nous ne vous abandonnons pas. Nous proposons des contrats de maintenance (TMA) pour gérer les mises à jour de sécurité (WordPress), les sauvegardes et les petites évolutions de contenu mensuelles." 
+            />
+            <AccordionItem 
+                question="Combien de temps prend la création ?" 
+                answer="Pour un site vitrine de qualité agence, comptez 4 à 8 semaines. Ce délai inclut la phase de découverte, la conception graphique (allers-retours inclus), le développement et les tests. Nous pouvons accélérer la cadence pour des lancements urgents (offre Sprint)." 
+            />
           </div>
         </div>
       </section>
 
-      {/* --- CTA FINAL (GLITCH) --- */}
+      {/* --- CONCLUSION + CTA (ANIMATION REVISITÉE) --- */}
       <section className="relative py-40 px-6 overflow-hidden bg-[#050505] text-white">
-         
-         {/* Texture de fond subtile (Grid) */}
          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-
          <motion.div
            className="relative z-10 max-w-4xl mx-auto text-center"
            initial={{ opacity: 0, y: 30 }}
@@ -454,71 +633,44 @@ export default function ParisClient() {
            viewport={{ once: true }}
            transition={{ duration: 0.8 }}
          >
-           <h2 className="text-6xl md:text-8xl font-bold mb-8 tracking-tighter text-white">
-             Prêt à marquer <br/> 
-             <GlitchText text="les esprits ?" />
+           <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter text-white">
+             Prêt à digitaliser <br/> 
+             <GlitchText text="votre activité ?" />
            </h2>
            <p className="text-xl mb-12 text-neutral-400 max-w-2xl mx-auto font-light">
-             L'excellence digitale est à portée de clic. Construisons ensemble l'outil qui fera décoller votre business.
+             Ne laissez pas votre image au hasard. Collaborez avec un studio web parisien qui comprend vos enjeux de marque et de business.
            </p>
            
            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
                 href="/contact" 
-                className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105"
+                className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]"
               >
-                <span className="relative z-10 group-hover:text-black">Démarrer maintenant</span>
+                <span className="relative z-10 group-hover:text-black">Demander un devis</span>
                 <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
+              </Link>
+              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#D0FF00] transition-colors relative group">
+                Réserver un appel découverte
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
            </div>
          </motion.div>
       </section>
 
+      {/* --- LIENS INTERNES SEO (FOOTER LINKING) --- */}
+      <div className="bg-black py-12 border-t border-neutral-900">
+        <div className="container mx-auto px-6 text-center text-xs text-neutral-600">
+            <p className="mb-4 uppercase tracking-widest font-bold text-neutral-500">Navigation Rapide Île-de-France</p>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+                <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne-Billancourt</Link>
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">Expertise WordPress & Webflow</Link>
+                <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
+                <Link href="/blog" className="hover:text-white transition-colors">Blog & Conseils</Link>
+                <Link href="/contact" className="hover:text-white transition-colors">Contact Agence Paris</Link>
+            </div>
+        </div>
+      </div>
+
     </main>
   );
 }
-
-// --- SOUS-COMPOSANTS ---
-
-const Step = ({ number, title, desc }: { number: string, title: string, desc: string }) => (
-    <div className="flex gap-6 group">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center font-mono text-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black transition-colors duration-300">
-            {number}
-        </div>
-        <div>
-            <h3 className="text-xl font-bold mb-2 group-hover:text-[#D0FF00] transition-colors">{title}</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
-        </div>
-    </div>
-);
-
-const PriceCard = ({ title, price, desc, features, isPopular = false, delay }: any) => (
-  <motion.div 
-    className={`relative p-8 rounded-2xl border ${isPopular ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-200'} flex flex-col h-full`}
-    initial="rest"
-    whileHover="hover"
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: delay }}
-  >
-    {isPopular && (
-      <span className="absolute top-0 right-0 bg-[#D0FF00] text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase tracking-wider">
-        Best-seller
-      </span>
-    )}
-    <h3 className="text-xl font-bold mb-2">{title}</h3>
-    <div className="text-3xl font-bold mb-4">{price}</div>
-    <p className={`text-sm mb-8 ${isPopular ? 'text-gray-400' : 'text-gray-500'}`}>{desc}</p>
-    <ul className="space-y-3 mb-8 flex-grow">
-      {features.map((feat: string, i: number) => (
-        <li key={i} className="flex items-center gap-2 text-sm">
-          <span className={isPopular ? 'text-[#D0FF00]' : 'text-black'}>✓</span>
-          {feat}
-        </li>
-      ))}
-    </ul>
-    <Link href="/contact" className={`w-full py-3 rounded-lg text-center font-bold text-sm transition-colors ${isPopular ? 'bg-[#D0FF00] text-black hover:bg-white' : 'bg-black text-white hover:bg-[#D0FF00] hover:text-black'}`}>
-      Demander un devis
-    </Link>
-  </motion.div>
-);
