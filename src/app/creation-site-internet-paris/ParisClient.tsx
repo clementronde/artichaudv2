@@ -496,7 +496,7 @@ export default function ParisClient() {
                         <Image src="/projects/Keleti.avif" alt="Webdesign portfolio architecte IDF" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
-                                <h3 className="text-xl font-bold text-white">Keleti Architectes</h3>
+                                <h3 className="text-xl font-bold text-white">Keleti Tautu</h3>
                                 <p className="text-sm text-neutral-300">Portfolio Minimaliste</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
@@ -506,8 +506,8 @@ export default function ParisClient() {
                     </motion.div>
                  </Link>
 
-                 {/* Projet 4 : Utopia (Nouveau) */}
-                 <Link href="/works/Utopia" className="group block">
+                 {/* Projet 4 : Rockstar (Nouveau) */}
+                 <Link href="/works/rockstar" className="group block">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -515,10 +515,10 @@ export default function ParisClient() {
                         transition={{ delay: 0.1 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
-                        <Image src="/projects/Utopia.avif" alt="Site internet Utopia Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src="/projects/rockstar/rockstarprojet1.avif" alt="Site internet Rockstar Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
-                                <h3 className="text-xl font-bold text-white">Utopia</h3>
+                                <h3 className="text-xl font-bold text-white">Rockstar</h3>
                                 <p className="text-sm text-neutral-300">Site Vitrine & Identité</p>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">

@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/creation-site-internet-boulogne-billancourt",
     "/creation-site-internet-paris",
     "/creation-site-vitrine-wordpress-webflow-wix",
+    "/refonte-site-internet",
+    
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
