@@ -1,20 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, Variants } from 'framer-motion'
 import BlogSection from '@/components/home/BlogSection'
 import { projects as allProjects } from '@/data/project'
-
-// On prend les 6 premiers projets pour la page works principale
-const projects = allProjects.slice(0, 6).map(project => ({
-  id: project.id,
-  client: project.client,
-  category: project.category,
-  image: project.cover,
-  slug: `/works/${project.slug}`,
-  format: "aspect-[16/10]"
-}))
 
 // --- ANIMATION ---
 const cardVariants: Variants = {
@@ -90,9 +81,27 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
 // --- COMPOSANT CLIENT PRINCIPAL ---
 // On accepte 'posts' ici
 export default function WorkClient({ posts }: { posts: any[] }) {
+  const [visibleCount, setVisibleCount] = useState(6)
+
+  // On mappe les projets en fonction du nombre visible
+  const projects = allProjects.slice(0, visibleCount).map(project => ({
+    id: project.id,
+    client: project.client,
+    category: project.category,
+    image: project.cover,
+    slug: `/works/${project.slug}`,
+    format: "aspect-[16/10]"
+  }))
+
+  const hasMore = visibleCount < allProjects.length
+
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 4, allProjects.length))
+  }
+
   return (
     <main className="w-full bg-white pt-40 min-h-screen overflow-x-hidden">
-      
+
       {/* 1. HEADER INTRODUCTION */}
       <div className="container mx-auto px-6 md:px-12 mb-32">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
@@ -102,7 +111,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
             </span>
           </div>
           <div className="col-span-1 md:col-span-5 md:col-start-2">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -117,7 +126,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
       {/* 2. SECTION TITRE GRILLE + BOUTON */}
       <div className="container mx-auto px-6 md:px-12 mb-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -127,9 +136,9 @@ export default function WorkClient({ posts }: { posts: any[] }) {
               Most Recent
             </motion.h2>
 
-            <Link 
-                href="/works/all" 
-                className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300" 
+            <Link
+                href="/works/all"
+                className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300"
             >
                 <span className="relative z-10 font-medium text-sm">All projects</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -138,12 +147,29 @@ export default function WorkClient({ posts }: { posts: any[] }) {
       </div>
 
       {/* 3. GRILLE PROJETS */}
-      <div className="container mx-auto px-6 md:px-12 pb-32">
+      <div className="container mx-auto px-6 md:px-12 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-5">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
+
+        {/* BOUTON VOIR PLUS */}
+        {hasMore && (
+          <div className="flex justify-center mt-16">
+            <motion.button
+              onClick={loadMore}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-black/20 hover:border-black hover:bg-black hover:text-white transition-all duration-300"
+            >
+              <span className="relative z-10 font-medium">Voir plus de projets</span>
+              <span className="relative z-10 transition-transform duration-300 group-hover:translate-y-1">↓</span>
+            </motion.button>
+          </div>
+        )}
       </div>
 
       {/* LIGNE DE SÉPARATION */}
