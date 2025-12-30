@@ -209,7 +209,7 @@ export default function ParisClient() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-            Nous concevons des expériences digitales sur-mesure pour les entreprises parisiennes exigeantes. Experts <strong>WordPress, Webflow et Wix</strong>, nous transformons votre visibilité locale en levier de croissance.
+            Nous concevons des expériences digitales sur-mesure pour les entreprises parisiennes exigeantes. Experts <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors"><strong>WordPress, Webflow et Wix</strong></Link>, nous transformons votre visibilité locale en levier de croissance.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -246,7 +246,7 @@ export default function ParisClient() {
                    Avoir un site web ne suffit plus. Il vous faut une plateforme performante, rapide et optimisée pour le référencement local (SEO Paris) afin de capter une clientèle francilienne volatile et exigeante.
                  </p>
                  <p>
-                   Chez Artichaud, nous connaissons les codes du marché parisien. Nous créons des sites qui parlent à votre audience, qu'elle soit B2B (Grands comptes, PME) ou B2C (Commerces, Artisans, Services).
+                   Chez Artichaud, nous connaissons les codes du marché parisien. Nous créons des sites qui parlent à votre audience, qu'elle soit B2B (Grands comptes, PME) ou B2C (Commerces, Artisans, Services). Nous accompagnons également les entreprises de <Link href="/creation-site-internet-boulogne-billancourt" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors font-semibold">Boulogne-Billancourt</Link> et de toute l'Île-de-France.
                  </p>
                </div>
 

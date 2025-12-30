@@ -122,7 +122,7 @@ export default function BoulogneClient() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-10">
-            Nous sommes l'agence digitale de proximité des entreprises du 92. Nous concevons des sites <strong>WordPress, Webflow et Wix</strong> performants pour les TPE, PME et startups qui veulent dominer leur marché local.
+            Nous sommes l'agence digitale de proximité des entreprises du 92. Nous concevons des <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors"><strong>sites WordPress, Webflow et Wix</strong></Link> performants pour les TPE, PME et startups qui veulent dominer leur marché local.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -159,7 +159,7 @@ export default function BoulogneClient() {
                   Pour émerger face à une concurrence dense, votre entreprise a besoin d'un site web qui soit plus qu'une simple vitrine : un véritable outil commercial.
                 </p>
                 <p>
-                  Chez Artichaud, nous comprenons les enjeux locaux. Nous créons des sites optimisés pour le <strong>référencement local (SEO)</strong> afin que vos clients du 92 vous trouvent immédiatement sur Google.
+                  Chez Artichaud, nous comprenons les enjeux locaux. Nous créons des sites optimisés pour le <strong>référencement local (SEO)</strong> afin que vos clients du 92 vous trouvent immédiatement sur Google. Notre expertise s'étend également à <Link href="/creation-site-internet-paris" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors font-semibold">Paris</Link> et toute l'Île-de-France.
                 </p>
               </div>
 
