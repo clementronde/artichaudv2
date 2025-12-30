@@ -231,5 +231,31 @@ export const projects = [
       { hex: "#3E2723", name: "Dark Roast" },
       { hex: "#8D6E63", name: "Chicory" }
     ]
+  },// NOUVEAU PROJET 3 : Cherico
+  {
+    id: 9,
+    slug: "comon",
+    client: "Comon",
+    category: "Brand Identity",
+    year: "2025",
+    services: ["Brand Strategy", "Visual Identity", "Web Design", "UX/UI"],
+    description: [
+      "Création de maquettes pour un site de mise en avant d'articles gamifiés.",
+      "Donner envie à la nouvelle génération de restere connecter à l'actualité avec la gamification des articles."
+    ],
+    cover: "/projects/comon/comonprojet1.avif",
+    images: [
+      "/projects/comon/comonprojet2.avif",
+      "/projects/comon/comonprojet3.avif",
+      "/projects/comon/comonprojet4.avif",
+      "/projects/comon/comonprojet5.avif"
+    ],
+    // Palette suggérée (Café/Nature)
+    colors: [
+      { hex: "#6D4C41", name: "Coffee Bean" },
+      { hex: "#D7CCC8", name: "Latte Foam" },
+      { hex: "#3E2723", name: "Dark Roast" },
+      { hex: "#8D6E63", name: "Chicory" }
+    ]
   }
 ]
