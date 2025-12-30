@@ -8,51 +8,50 @@ import { useGSAP } from '@gsap/react'
 // --- 1. DONNÉES ---
 const projects = [
   {
-    id: 1,
+    id: "keleti",
     client: "Tautu",
     category: "Brand Identity",
     cover: "/projects/Tautu1.png",
     gallery: [
-      "/projects/Tautu1.png",
-      "/projects/Tautu2.png",
-      "/projects/Charitio1.png"
+      "/projects/keleti/keletiprojet1.avif",
+      "/projects/keleti/keletiprojet2.avif",
+      "/projects/keleti/keletiprojet4.avif"
     ],
     fullWidth: false 
   },{
-    id: 2,
-    client: "Tautu",
+    id: "rockstar",
+    client: "Rockstar",
     category: "Brand Identity",
-    cover: "/projects/Tautu1.png",
+    cover: "/projects/rockstar/rockstarprojet1.avif",
     gallery: [
-      "/projects/Tautu1.png",
-      "/projects/Tautu2.png",
-      "/projects/Charitio1.png"
+      "/projects/rockstar/rockstarprojet2.avif",
+      "/projects/rockstar/rockstarprojet3.avif",
+      "/projects/rockstar/rockstarprojet5.avif"
     ],
     fullWidth: false 
   },
   {
-    id: 3,
+    id: "charitio",
     client: "Charit.io",
     category: "Web Design",
-    cover: "/projects/Charitio1.png",
+    cover: "/projects/charitio/charitioprojet1.avif",
     gallery: [
-      "/projects/Charitio1.png",
-      "/projects/Charitio1.png",
-      "/projects/Charitio1.png"
-
+      "/projects/charitio/charitioprojet1.avif",
+      "/projects/charitio/charitioprojet5.avif",
+      "/projects/charitio/charitioprojet4.avif",
 
     ],
     fullWidth: false
   },
   {
-    id: 4,
-    client: "Keleti",
+    id: "lumyn",
+    client: "Lumyn",
     category: "Art Direction",
-    cover: "/projects/Tautu2.png",
+    cover: "/projects/lumyn/Lumynprojet1.avif",
     gallery: [
-      "/projects/Tautu2.png",
-      "/projects/Tautu2.png",
-      "/projects/Tautu2.png"
+      "/projects/lumyn/Lumynprojet2.avif",
+      "/projects/lumyn/Lumynprojet5.avif",
+      "/projects/lumyn/Lumynprojet4.avif"
     ],
     fullWidth: false
   }
