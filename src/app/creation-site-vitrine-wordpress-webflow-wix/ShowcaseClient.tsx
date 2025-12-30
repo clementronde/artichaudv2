@@ -73,7 +73,7 @@ function SpotlightCard({ children, className = "" }: { children: React.ReactNode
   );
 }
 
-const AccordionItem = ({ question, answer }: { question: string, answer: string }) => {
+const AccordionItem = ({ question, answer }: { question: string, answer: string | React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-gray-100 last:border-0">
@@ -469,6 +469,14 @@ export default function ShowcaseClient() {
             <AccordionItem question="Puis-je migrer mon site Wix vers Webflow plus tard ?" answer="Oui, c'est possible, mais cela demande de reconstruire le site techniquement (le design peut être conservé). C'est pourquoi nous recommandons de bien choisir dès le départ. Si vous avez une forte ambition de croissance, partir directement sur Webflow ou WordPress est souvent un meilleur calcul à long terme." />
             <AccordionItem question="Est-ce que je serai autonome sur mon site ?" answer="Absolument. Que ce soit sur Wix, WordPress ou Webflow, nous vous livrons un site clé en main avec une formation vidéo personnalisée. Vous pourrez modifier les textes, changer les images et ajouter des articles de blog sans toucher une ligne de code." />
             <AccordionItem question="Quel est le meilleur CMS pour le référencement (SEO) ?" answer="Techniquement, WordPress et Webflow offrent les meilleures capacités pour un SEO avancé (structure propre, vitesse de chargement, balisage sémantique). Wix a fait beaucoup de progrès mais reste parfois limité pour des stratégies très complexes. Cela dit, le contenu et la structure que nous créons comptent autant que l'outil." />
+            <AccordionItem
+              question="Dans quelles zones géographiques intervenez-vous ?"
+              answer={
+                <span>
+                  Nous accompagnons principalement les entreprises basées en Île-de-France. Nous intervenons notamment à <Link href="/creation-site-internet-paris" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors font-semibold">Paris</Link>, <Link href="/creation-site-internet-boulogne-billancourt" className="underline underline-offset-4 hover:text-[#D0FF00] transition-colors font-semibold">Boulogne-Billancourt</Link> et dans toute la région parisienne. Nous travaillons également avec des clients à distance partout en France pour des projets WordPress, Webflow ou Wix.
+                </span>
+              }
+            />
           </div>
         </div>
       </section>
