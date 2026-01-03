@@ -15,7 +15,7 @@ export default function BlogIndex() {
     <main className="w-full bg-white pt-40 pb-20 min-h-screen">
       <div className="container mx-auto px-6 md:px-12">
         <h1 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black mb-16">
-          Insights & <br/> Perspectives
+          Toutes nos dernières <br/> Actus
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
