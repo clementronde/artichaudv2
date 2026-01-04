@@ -33,13 +33,14 @@ const Footer: React.FC = () => {
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          overflow: 'hidden'
         }}
       >
-        {/* TOP SECTION - 3 colonnes + Let's talk */}
+        {/* TOP SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto w-full">
 
-          {/* Colonne 1 - Let's talk + Button */}
+          {/* Colonne 1 - Let's talk */}
           <div className="flex flex-col gap-8">
             <h2
               className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight"
@@ -62,7 +63,7 @@ const Footer: React.FC = () => {
             </Link>
           </div>
 
-          {/* Colonne 2 - Contact Me */}
+          {/* Colonne 2 - Contact */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-medium text-white mb-2">Contact Me</h3>
             <a
@@ -80,7 +81,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
 
-          {/* Colonne 3 - Follow Me */}
+          {/* Colonne 3 - Social */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-medium text-white mb-2">Follow Me</h3>
             {socialLinks.map((social) => (
@@ -96,7 +97,7 @@ const Footer: React.FC = () => {
             ))}
           </div>
 
-          {/* Colonne 4 - Overview */}
+          {/* Colonne 4 - Overview + Légal */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-medium text-white mb-2">Overview</h3>
             {navItems.map((item) => (
@@ -109,11 +110,21 @@ const Footer: React.FC = () => {
                 {item.label}
               </Link>
             ))}
-            {/* Lien Boulogne-Billancourt */}
+            
+            {/* --- AJOUT MENTIONS LÉGALES --- */}
+            <Link
+              href="/mentions-legales"
+              suppressHydrationWarning={true}
+              className="text-white/40 hover:text-[#D0FF00] transition-colors text-xs uppercase tracking-wider mt-2"
+            >
+              Mentions Légales
+            </Link>
+
+            {/* Lien SEO Boulogne */}
             <Link
               href="/creation-site-internet-boulogne-billancourt"
               suppressHydrationWarning={true}
-              className="text-white/60 hover:text-white transition-colors text-sm"
+              className="text-white/40 hover:text-white transition-colors text-xs"
             >
               Création de site internet à Boulogne-Billancourt
             </Link>
@@ -121,15 +132,23 @@ const Footer: React.FC = () => {
         </div>
 
         {/* BOTTOM SECTION - Giant Artichaud text */}
-        <div className="relative w-full mt-auto overflow-visible">
+        <div 
+          className="relative w-full mt-auto"
+          style={{
+             marginLeft: '-40px', 
+             marginRight: '-40px', 
+             width: 'calc(100% + 80px)' 
+          }}
+        >
           <div
-            className="font-bold leading-none select-none"
+            className="font-bold leading-none select-none text-center"
             style={{
               color: '#ffffff',
               opacity: 1,
-              fontSize: 'clamp(80px, 20vw, 400px)',
-              letterSpacing: '-0.05em',
-              width: '100%',
+              fontSize: '13.5vw', // CORRECTION: Utiliser vw pur au lieu de clamp pour remplir la largeur
+              lineHeight: 0.8,
+              letterSpacing: '-0.04em',
+              paddingBottom: '20px'
             }}
           >
             Artichaud
