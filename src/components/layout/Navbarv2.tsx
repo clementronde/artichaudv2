@@ -68,19 +68,14 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     </button>
 
                     <nav className="flex flex-col items-center gap-8">
-                        {[
-                            { label: 'Projets', href: '/works' },
-                            { label: 'Services', href: '/services' },
-                            { label: 'À propos', href: '/about' },
-                            { label: 'Contact', href: '/contact' }
-                        ].map((item) => (
-                            <Link
-                                key={item.label}
-                                href={item.href}
+                        {['Works', 'Services', 'About', 'Contact'].map((item) => (
+                            <Link 
+                                key={item}
+                                href={item === 'Contact' ? '/contact' : `/${item.toLowerCase()}`}
                                 onClick={onClose}
                                 className="text-4xl font-bold text-white hover:text-[#D0FF00] transition-colors"
                             >
-                                {item.label}
+                                {item}
                             </Link>
                         ))}
                     </nav>
@@ -115,9 +110,9 @@ export default function Navbar() {
   const DESKTOP_OPEN_WIDTH = 400 
   
   const navLinks = [
-    { label: 'Projets', href: '/works' },
+    { label: 'Works', href: '/works' },
     { label: 'Services', href: '/services' },
-    { label: 'À propos', href: '/about' },
+    { label: 'About', href: '/about' },
   ]
 
   // --- LOGIQUE GSAP DESKTOP (Inchangée) ---
@@ -288,7 +283,7 @@ export default function Navbar() {
                   <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
-                      <span>Parlons-en</span>
+                      <span>Let's talk</span>
                     </span>
                   </Link>
                 </Magnetic>
