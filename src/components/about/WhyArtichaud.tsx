@@ -5,23 +5,23 @@ import { motion, Variants } from 'framer-motion'
 const reasons = [
   {
     id: "01",
-    title: "Serial collaborators",
-    text: "We believe the best work happens when lines blur between agency and client. We don't just take a brief; we co-create to build something that truly belongs to you, breaking down silos to foster genuine partnership."
+    title: "Collaborateurs en série",
+    text: "Nous croyons que le meilleur travail se produit quand les frontières s'estompent entre agence et client. Nous ne prenons pas simplement un brief ; nous co-créons pour construire quelque chose qui vous appartient vraiment, brisant les silos pour favoriser un véritable partenariat."
   },
   {
     id: "02",
-    title: "Fueled by diversity",
-    text: "Creativity thrives on friction. By bringing together distinct backgrounds, cultures, and disciplines, we challenge the expected to discover the exceptional. Different perspectives lead to unique solutions."
+    title: "Nourris par la diversité",
+    text: "La créativité prospère grâce à la friction. En réunissant des parcours, cultures et disciplines distincts, nous remettons en question l'attendu pour découvrir l'exceptionnel. Différentes perspectives mènent à des solutions uniques."
   },
   {
     id: "03",
-    title: "Guided by kindness",
-    text: "Great work requires trust, not ego. We prioritize transparency and honest conversations, ensuring that the process is as enjoyable as the final result is impactful. We build relationships, not just assets."
+    title: "Guidés par la bienveillance",
+    text: "Un excellent travail nécessite de la confiance, pas de l'ego. Nous priorisons la transparence et les conversations honnêtes, garantissant que le processus soit aussi agréable que le résultat final est percutant. Nous construisons des relations, pas seulement des assets."
   },
   {
     id: "04",
-    title: "That never settle",
-    text: "\"Good enough\" is where we start, not where we finish. We obsess over the details, pushing every pixel and strategy until it doesn't just work—it resonates. We are relentless in the pursuit of quality."
+    title: "Qui ne se contentent jamais",
+    text: "\"Assez bien\" est notre point de départ, pas notre destination. Nous sommes obsédés par les détails, ajustant chaque pixel et stratégie jusqu'à ce que ça ne fonctionne pas seulement — mais que ça résonne. Nous sommes implacables dans la quête de la qualité."
   }
 ]
 
@@ -59,34 +59,26 @@ export default function WhyArtichaud() {
           className="grid grid-cols-4 md:grid-cols-8 gap-5 w-full"
         >
 
-          {/* Label Why */}
+          {/* Label Pourquoi */}
           <div className="col-span-4 md:col-span-1 mb-8 md:mb-0">
-            <motion.div 
+            <motion.div
               variants={itemVariants}
-              className="text-black"
-              style={{ 
-                fontSize: '16px', 
-                fontFamily: 'Helvetica Now Display, Arial, sans-serif',
-                fontWeight: '400'
-              }}
+              className="text-black text-base font-normal"
             >
-              Why
+              Pourquoi
             </motion.div>
           </div>
 
           {/* Titre */}
           <div className="col-span-4 md:col-span-2 mb-16 md:mb-0">
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
-              className="text-black"
+              className="text-black leading-[1.1] font-normal"
               style={{
-                fontSize: 'clamp(32px, 3.5vw, 45px)', 
-                lineHeight: '110%',
-                fontFamily: 'Helvetica Now Display, Arial, sans-serif',
-                fontWeight: '400'
+                fontSize: 'clamp(32px, 3.5vw, 45px)'
               }}
             >
-              Why Artichaud is good
+              Pourquoi Artichaud c'est bien
             </motion.h2>
           </div>
 

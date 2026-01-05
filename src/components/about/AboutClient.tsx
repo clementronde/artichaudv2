@@ -71,10 +71,9 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
             
             {/* Label Services */}
             <div className="col-span-4 md:col-span-1 flex flex-col items-start">
-              <motion.div 
+              <motion.div
                 variants={fadeInUp}
-                className="text-black uppercase md:normal-case"
-                style={{ fontSize: '16px', fontFamily: 'Helvetica Now Display, Arial, sans-serif', fontWeight: '400' }}
+                className="text-black uppercase md:normal-case text-base font-normal"
               >
                 Services
               </motion.div>
@@ -82,12 +81,12 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
 
             {/* Titre Principal */}
             <div className="col-span-4 md:col-span-3 mt-4 md:mt-0">
-              <motion.h1 
+              <motion.h1
                 variants={fadeInUp}
-                className="text-black"
-                style={{ fontSize: 'clamp(32px, 4vw, 45px)', lineHeight: '140%', fontFamily: 'Helvetica Now Display, Arial, sans-serif', fontWeight: '400' }}
+                className="text-black leading-[1.4] font-normal"
+                style={{ fontSize: 'clamp(32px, 4vw, 45px)' }}
               >
-                Une agence 360 qui réunit tous les métiers de la création. C’est mieux penser chaque idée.
+                Une agence 360 qui réunit tous les métiers de la création. C'est mieux pour penser chaque idée.
               </motion.h1>
             </div>
           </div>
