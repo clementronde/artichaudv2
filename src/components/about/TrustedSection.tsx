@@ -135,7 +135,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
             </div>
             <div className="absolute top-4 left-0 w-full text-center z-10">
                <span className="text-white mix-blend-difference text-[10px] uppercase tracking-widest font-bold">
-                 Case Study {project.client}
+                 Étude de cas {project.client}
                </span>
             </div>
           </div>
@@ -144,7 +144,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
 
       <div className="flex items-center gap-3 text-sm md:text-base">
         <span className="font-medium text-black">{project.category}</span>
-        <span className="font-light italic text-gray-400">for</span>
+        <span className="font-light italic text-gray-400">pour</span>
         <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-black"></div>
             <span className="font-bold text-black">{project.client}</span>
@@ -162,21 +162,21 @@ export default function TrustedSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-12 mb-16">
             <div className="col-span-1 md:col-span-6 lg:col-span-5">
-                <h2 
+                <h2
                     className="text-black leading-[1.1]"
                     style={{
-                        fontSize: 'clamp(32px, 4vw, 55px)', 
+                        fontSize: 'clamp(32px, 4vw, 55px)',
                         fontFamily: 'Helvetica Now Display, Arial, sans-serif',
                         fontWeight: '400'
                     }}
                 >
-                    Because we have already been trusted
+                    Parce qu'ils nous ont déjà fait confiance
                 </h2>
             </div>
-            
+
             <div className="hidden md:flex col-span-6 lg:col-span-7 justify-end items-start">
                  <Link href="/works" className="px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-colors text-black">
-                    View projects →
+                    Voir les projets →
                  </Link>
             </div>
         </div>

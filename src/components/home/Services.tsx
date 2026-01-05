@@ -10,37 +10,37 @@ gsap.registerPlugin(ScrollTrigger)
 const servicesData = [
   {
     id: "001",
-    title: "Brand Strategy",
-    description: "Your brand's compass. It defines purpose, sharpens positioning, and ensures every decision you make resonates with your audience while driving business growth.",
-    items: ["Research & Insight", "Go-to-Market Strategy", "Brand Architecture", "Purpose, Mission, Vision", "Communication Strategy"],
+    title: "Stratégie de marque",
+    description: "La boussole de votre marque. Elle définit votre raison d'être, affine votre positionnement et garantit que chaque décision résonne avec votre audience tout en stimulant la croissance.",
+    items: ["Recherche & Insights", "Stratégie de lancement", "Architecture de marque", "Raison d'être, Mission, Vision", "Stratégie de communication"],
     image: "/services/projetkeletitautuservices.png",
   },
   {
     id: "002",
-    title: "Visual Identity",
-    description: "More than just a logo. We craft a visual language that speaks to your audience before you even say a word. Colors, typography, and art direction that stand out.",
-    items: ["Logo Design", "Graphic Charter", "Art Direction", "Motion Design", "Illustration & Iconography"],
+    title: "Identité visuelle",
+    description: "Plus qu'un simple logo. Nous créons un langage visuel qui parle à votre audience avant même que vous ne disiez un mot. Couleurs, typographie et direction artistique qui se démarquent.",
+    items: ["Design de logo", "Charte graphique", "Direction artistique", "Motion Design", "Illustration & Iconographie"],
     image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
   },
   {
     id: "003",
     title: "Webdesign",
-    description: "Digital experiences that convert. We design immersive websites that blend aesthetics with performance, ensuring a seamless user journey across all devices.",
-    items: ["UX/UI Design", "Prototyping", "Interaction Design", "Design Systems", "Mobile First Approach"],
+    description: "Des expériences digitales qui convertissent. Nous concevons des sites web immersifs alliant esthétique et performance, garantissant un parcours utilisateur fluide sur tous les appareils.",
+    items: ["Design UX/UI", "Prototypage", "Design d'interaction", "Design Systems", "Approche Mobile First"],
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2864&auto=format&fit=crop",
   },
   {
     id: "004",
     title: "Webmarketing",
-    description: "Amplifying your voice. We build data-driven strategies to acquire, convert, and retain your customers through precise targeting and compelling content.",
-    items: ["SEO & SEA", "Social Media Strategy", "Content Marketing", "Emailing Automation", "Analytics & Reporting"],
+    description: "Amplifier votre voix. Nous développons des stratégies data-driven pour acquérir, convertir et fidéliser vos clients grâce à un ciblage précis et du contenu engageant.",
+    items: ["SEO & SEA", "Stratégie Social Media", "Marketing de contenu", "Automation d'emailing", "Analytics & Reporting"],
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
   },
   {
     id: "005",
     title: "Shooting Produit",
-    description: "Visuals that sell. High-end photography and videography to showcase your products in their best light, creating desire and elevating perceived value.",
-    items: ["Artistic Direction", "Studio Photography", "Lifestyle Shooting", "Post-production", "Video Reels"],
+    description: "Des visuels qui vendent. Photographie et vidéographie haut de gamme pour mettre en valeur vos produits sous leur meilleur jour, créer du désir et valoriser votre offre.",
+    items: ["Direction artistique", "Photographie studio", "Shooting lifestyle", "Post-production", "Vidéos courtes"],
     image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2940&auto=format&fit=crop",
   }
 ]
@@ -112,13 +112,13 @@ export default function Services() {
 
                     {/* BOUTON */}
                     <div className="mt-8 md:mt-12">
-                      <Link 
+                      <Link
                         href="/contact"
                         suppressHydrationWarning={true}
                         className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium border border-black/10 hover:border-black transition-all duration-300 group/btn"
                       >
                         <span className="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
-                        <span>Let's Begin</span>
+                        <span>Commençons</span>
                       </Link>
                     </div>
 

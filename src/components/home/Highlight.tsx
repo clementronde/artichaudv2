@@ -173,7 +173,7 @@ const ProjectCard = ({ project }: { project: any }) => {
             
             <div className="absolute top-4 left-0 w-full text-center z-10">
                <span className="text-white text-[10px] uppercase tracking-widest font-bold drop-shadow-md">
-                 Case Study {project.client}
+                 Étude de cas {project.client}
                </span>
             </div>
           </div>
@@ -184,7 +184,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-baseline gap-2">
             <span className="text-lg font-medium text-arti-black">{project.category}</span>
-            <span className="text-sm font-light italic text-arti-black/60">for</span>
+            <span className="text-sm font-light italic text-arti-black/60">pour</span>
             <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-black"></div>
                 <span className="text-lg font-bold text-arti-black">{project.client}</span>
@@ -205,10 +205,10 @@ export default function Highlight() {
       
       <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
-          Highlight
+          À la une
         </h2>
         <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
-          <span className="text-sm font-bold">View projects</span>
+          <span className="text-sm font-bold">Voir les projets</span>
           <span>→</span>
         </Link>
       </div>

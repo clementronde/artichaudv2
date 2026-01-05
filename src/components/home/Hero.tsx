@@ -530,9 +530,9 @@ export default function Hero() {
         {/* PARAGRAPHE MANIFESTE */}
         <div className="mt-8 md:mt-12 max-w-2xl">
           <p className="hero-text text-lead font-light text-arti-black/80">
-            Let&apos;s be honest. You&apos;ve built something great. But lately, 
-            it&apos;s been harder to capture attention, or even - the right kind.
-            Maybe your brand feels a little out of step with where your business is heading.
+            Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu,
+            il est devenu plus difficile de capter l&apos;attention, ou même le bon type d&apos;attention.
+            Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.
           </p>
         </div>
 
@@ -558,10 +558,10 @@ export default function Hero() {
             >
                {/* Texte Rolling */}
               <span className="absolute block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-[150%]">
-                The projets
+                Les projets
               </span>
               <span className="block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] translate-y-[150%] group-hover:translate-y-0">
-                The projets
+                Les projets
               </span>
             </Link>
           </Magnetic>
@@ -591,7 +591,7 @@ export default function Hero() {
                   →
                 </span>
               </span>
-              <span>Let&apos;s talk</span>
+              <span>Parlons-en</span>
             </Link>
           </Magnetic>
 
