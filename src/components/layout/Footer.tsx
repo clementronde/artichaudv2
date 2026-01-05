@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 const navItems = [
-  { label: 'Work', href: '/works' },
+  { label: 'Projets', href: '/works' },
   { label: 'Services', href: '/services' },
-  { label: 'About', href: '/about' },
-  { label: "Let's talk", href: '/contact' },
+  { label: 'À propos', href: '/about' },
+  { label: "Parlons-en", href: '/contact' },
 ];
 
 const socialLinks = [
@@ -40,13 +40,13 @@ const Footer: React.FC = () => {
         {/* TOP SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto w-full">
 
-          {/* Colonne 1 - Let's talk */}
+          {/* Colonne 1 - Parlons-en */}
           <div className="flex flex-col gap-8">
             <h2
               className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight"
               style={{ color: '#D0FF00' }}
             >
-              Let's talk
+              Parlons-en
             </h2>
             <Link href="/contact" suppressHydrationWarning={true}>
               <motion.span
@@ -58,14 +58,14 @@ const Footer: React.FC = () => {
                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(208, 255, 0, 0.1)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>→</span> Get in touch
+                <span>→</span> Nous contacter
               </motion.span>
             </Link>
           </div>
 
           {/* Colonne 2 - Contact */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Contact Me</h3>
+            <h3 className="text-sm font-medium text-white mb-2">Me contacter</h3>
             <a
               href="mailto:artichaud.studio@gmail.com"
               className="text-white/60 hover:text-white transition-colors text-sm"
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
 
           {/* Colonne 3 - Social */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Follow Me</h3>
+            <h3 className="text-sm font-medium text-white mb-2">Me suivre</h3>
             {socialLinks.map((social) => (
               <Link
                 key={social.label}
@@ -97,9 +97,9 @@ const Footer: React.FC = () => {
             ))}
           </div>
 
-          {/* Colonne 4 - Overview + Légal */}
+          {/* Colonne 4 - Navigation + Légal */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Overview</h3>
+            <h3 className="text-sm font-medium text-white mb-2">Navigation</h3>
             {navItems.map((item) => (
               <Link
                 key={item.label}

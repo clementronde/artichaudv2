@@ -41,7 +41,7 @@ const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivEle
     >
       <div className="absolute inset-0 bg-[#D0FF00] rounded-full blur-md opacity-90" />
       <span className="relative z-10 text-white font-bold text-xs uppercase tracking-widest drop-shadow-md">
-        Drag
+        Glisser
       </span>
     </motion.div>
   )
@@ -92,7 +92,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
-               <span className="text-sm">No Image</span>
+               <span className="text-sm">Pas d'image</span>
             </div>
           )}
 

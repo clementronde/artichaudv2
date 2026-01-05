@@ -82,13 +82,13 @@ export default function Intro() {
 
           <div className="col-span-12 md:col-span-2">
             <span className="text-sm font-medium text-white/60 uppercase tracking-wide">
-              Our approach
+              Notre approche
             </span>
           </div>
 
           <div className="col-span-12 md:col-span-10">
             <h2 className="text-[32px] md:text-[50px] leading-[1.1] font-normal">
-              <HighlightTitle text="Hey, we're Artichaud Studio - a branding and design agency in Paris. We take brands from where they are, to where they deserve to be." />
+              <HighlightTitle text="Nous sommes Artichaud Studio - une agence de branding et design à Paris. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être." />
             </h2>
           </div>
 
@@ -96,15 +96,15 @@ export default function Intro() {
 
           <div className="para-container col-span-12 md:col-span-6 flex flex-col gap-8 mt-auto">
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Let's be honest. You've built something great. But lately, it's been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading. Maybe your messaging isn't landing quite like you want it to. Or maybe you're just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that's where we come in.
+              Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise. Peut-être que votre message ne résonne pas comme vous le souhaitez.
             </p>
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Or maybe you're just tired of excusing how your brand looks. It's time to start showing up with the clarity and confidence you know you deserve. And that's where we come in.
+              Ou peut-être êtes-vous simplement fatigué de justifier l'apparence de votre marque. Il est temps de vous présenter avec la clarté et la confiance que vous méritez. Et c'est là que nous intervenons.
             </p>
             <div className="mt-4 pt-4">
                <button className="group flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  Learn more
+                  En savoir plus
                </button>
             </div>
           </div>

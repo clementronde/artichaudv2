@@ -194,22 +194,22 @@ export default function AllProjectsPage() {
       <div className="px-10 mb-32">
         <div className="grid grid-cols-8 gap-5">
           
-          {/* Label "Works" - Col 1 */}
+          {/* Label "Projets" - Col 1 */}
           <div className="hidden md:block col-span-1 pt-2">
             <span className="text-base font-normal text-white block">
-              Works
+              Projets
             </span>
           </div>
 
           {/* Phrase d'accroche - Col 2-6 (5 colonnes) */}
           <div className="col-span-8 md:col-span-5 md:col-start-2">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[32px] md:text-[45px] lg:text-[56px] leading-[1.1] font-normal text-white tracking-tight"
             >
-              Working to shape the future of your industry? We create brands that bring that ambition to life.
+              Vous travaillez à façonner l'avenir de votre industrie ? Nous créons des marques qui donnent vie à cette ambition.
             </motion.h1>
           </div>
 
