@@ -58,10 +58,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={helvetica.variable}>
-      <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon" />
-      <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-     
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
         <JsonLd />
         <ScrollToTop />
