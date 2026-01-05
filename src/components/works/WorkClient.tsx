@@ -64,7 +64,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             {project.category}
           </span>
           <span className="text-sm font-light text-gray-400 italic">
-            for
+            pour
           </span>
           <div className="flex items-center gap-2">
              <div className="w-2 h-2 bg-black rounded-full" />
@@ -107,7 +107,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
           <div className="hidden md:block col-span-1 pt-2">
             <span className="text-sm font-medium text-arti-black block">
-              Works
+              Projets
             </span>
           </div>
           <div className="col-span-1 md:col-span-5 md:col-start-2">
@@ -117,7 +117,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[32px] md:text-[48px] lg:text-[56px] leading-[1.1] font-normal text-arti-black tracking-tight"
             >
-              Working to shape the future of your industry? We create brands that bring that ambition to life.
+              Vous travaillez à façonner l'avenir de votre industrie ? Nous créons des marques qui donnent vie à cette ambition.
             </motion.h1>
           </div>
         </div>
@@ -133,14 +133,14 @@ export default function WorkClient({ posts }: { posts: any[] }) {
               transition={{ duration: 0.8 }}
               className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black"
             >
-              Most Recent
+              Les plus récents
             </motion.h2>
 
             <Link
                 href="/works/all"
                 className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300"
             >
-                <span className="relative z-10 font-medium text-sm">All projects</span>
+                <span className="relative z-10 font-medium text-sm">Tous les projets</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
         </div>

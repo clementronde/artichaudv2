@@ -8,32 +8,32 @@ const testimonials = [
   {
     id: 1,
     name: "Tobias Schaller",
-    role: "Managing Director, Charit.io",
-    text: "Let's be honest. You've built something great. But lately, it's been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading.",
+    role: "Directeur Général, Charit.io",
+    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
   },
   {
     id: 2,
     name: "Kiera Monaghan",
-    role: "CEO, Disobey",
-    text: "It's time to start showing up with clarity. This team is a game changer. We stripped away the noise to focus on human connection and it paid off immediately.",
+    role: "PDG, Disobey",
+    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
   },
   {
     id: 3,
     name: "David Laroche",
-    role: "Founder, Paradox",
-    text: "The rebranding process was seamless. We take brands from where they are, to where they deserve to be. The strategic depth they brought was impressive.",
+    role: "Fondateur, Paradox",
+    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
   },
   {
     id: 4,
     name: "Elena Rodriguez",
-    role: "CMO, TechFlow",
-    text: "We push pixels until it feels right. Artichaud pushed us further than we thought possible. A truly 360 agency from strategy to execution.",
+    role: "Directrice Marketing, TechFlow",
+    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
   },
   {
     id: 5,
     name: "Marc Dupont",
-    role: "Director, Studio A",
-    text: "A truly 360 agency. From strategy to execution, every detail was handled with care. The result exceeded our expectations in every way.",
+    role: "Directeur, Studio A",
+    text: "Une véritable agence 360. De la stratégie à l'exécution, chaque détail a été géré avec soin. Le résultat a dépassé nos attentes à tous les niveaux.",
   }
 ]
 
@@ -113,24 +113,24 @@ export default function Testimonials() {
           className="grid grid-cols-1 md:grid-cols-12 gap-y-8 mb-12 md:mb-20"
         >
           <motion.div variants={fadeInUp} className="md:col-span-2 pt-2">
-            <span className="text-sm font-medium text-black">Testimonials</span>
+            <span className="text-sm font-medium text-black">Témoignages</span>
           </motion.div>
 
           <div className="md:col-span-8">
-            <motion.h2 
+            <motion.h2
               variants={fadeInUp}
               className="text-[40px] md:text-[60px] font-normal text-black leading-[1.1] tracking-tight mb-8"
               style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
             >
-              Read Some of Our <br /> Success Stories
+              Découvrez quelques-unes <br /> de nos réussites
             </motion.h2>
-            
+
             <motion.div variants={fadeInUp}>
-              <Link 
-                href="/testimonials" 
+              <Link
+                href="/testimonials"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 group"
               >
-                <span className="text-sm font-medium">Read all testimonials</span>
+                <span className="text-sm font-medium">Lire tous les témoignages</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </motion.div>

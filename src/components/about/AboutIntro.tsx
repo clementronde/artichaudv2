@@ -25,27 +25,27 @@ const HighlightTitle = ({ text }: { text: string }) => {
 const testimonials = [
   {
     id: 1,
-    text: "Let's be honest. You've built something great. But lately, it's been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading.",
+    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
     author: "Tobias Schaller",
-    role: "Managing Director, Charit.io"
+    role: "Directeur Général, Charit.io"
   },
   {
     id: 2,
-    text: "It's time to start showing up with clarity. This team is a game changer. We stripped away the noise to focus on human connection and it paid off immediately.",
+    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
     author: "Kiera Monaghan",
-    role: "CEO, Disobey"
+    role: "PDG, Disobey"
   },
   {
     id: 3,
-    text: "The rebranding process was seamless. We take brands from where they are, to where they deserve to be. The strategic depth they brought was impressive.",
+    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
     author: "David Laroche",
-    role: "Founder, Paradox"
+    role: "Fondateur, Paradox"
   },
   {
     id: 4,
-    text: "We push pixels until it feels right. Artichaud pushed us further than we thought possible. A truly 360 agency from strategy to execution.",
+    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
     author: "Elena Rodriguez",
-    role: "CMO, TechFlow"
+    role: "Directrice Marketing, TechFlow"
   }
 ]
 
@@ -127,33 +127,33 @@ export default function AboutIntro() {
         {/* --- PARTIE HAUTE : CONTENU --- */}
         <div className="grid grid-cols-1 md:grid-cols-8 gap-10 md:gap-5 mb-24">
           
-          {/* Col 1 : Label "History" */}
+          {/* Col 1 : Label "Histoire" */}
           <div className="col-span-1">
             <span className="text-sm font-medium text-white/60 uppercase tracking-wide block mb-4 md:mb-0">
-              History
+              Histoire
             </span>
           </div>
 
           {/* Col 2 à 8 : Titre + Paragraphe */}
           <div className="col-span-1 md:col-span-7 grid grid-cols-1 md:grid-cols-7 gap-5">
-             
+
              {/* Titre Principal (HighlightTitle intégré ici) */}
              <div className="md:col-span-5 mb-10 md:mb-0">
                 <h2 className="text-[32px] md:text-[50px] leading-[1.1] font-normal">
-                  <HighlightTitle text="Hey, we're Artichaud Studio - a branding and design agency in Paris. We take brands from where they are, to where they deserve to be." />
+                  <HighlightTitle text="Nous sommes Artichaud Studio - une agence de branding et design à Paris. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être." />
                 </h2>
              </div>
-             
+
              {/* Espace vide grid */}
              <div className="hidden md:block md:col-span-2"></div>
 
              {/* Paragraphes (Ajout de la classe 'para-container' sur le parent et 'para-block' sur les <p>) */}
              <div className="para-container md:col-start-4 md:col-span-4 text-white/40 text-lg font-light leading-relaxed space-y-6">
                 <p className="para-block transition-colors">
-                  Let's be honest. You've built something great. But lately, it's been harder to capture attention, or even - the right kind. Maybe your brand feels a little out of step with where your business is heading. Maybe your messaging isn't landing quite like you want it to. Or maybe you're just tired of excusing how your brand looks.
+                  Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise. Peut-être que votre message ne résonne pas comme vous le souhaitez. Ou peut-être êtes-vous simplement fatigué de justifier l'apparence de votre marque.
                 </p>
                 <p className="para-block transition-colors">
-                  It's time to start showing up with the clarity and confidence you know you deserve. And that's where we come in.
+                  Il est temps de vous présenter avec la clarté et la confiance que vous méritez. Et c'est là que nous intervenons.
                 </p>
              </div>
           </div>

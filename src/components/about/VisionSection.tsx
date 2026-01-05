@@ -37,32 +37,22 @@ export default function VisionSection() {
       <div className="w-full px-5 md:px-10 z-10 relative">
         <div className="grid grid-cols-4 md:grid-cols-8 gap-5 w-full items-center">
           
-          {/* Label "Our vision" centré */}
+          {/* Label "Notre vision" centré */}
           <div className="col-span-4 md:col-start-4 md:col-span-2 text-center mb-6">
-            <span 
-              style={{
-                fontSize: '14px',
-                fontFamily: 'Helvetica Now Display, Arial, sans-serif',
-                fontWeight: '400',
-                color: 'black'
-              }}
-            >
-              Our vision
+            <span className="text-sm font-normal text-black">
+              Notre vision
             </span>
           </div>
 
           {/* Titre H2 centré */}
           <div className="col-span-4 md:col-start-2 md:col-span-6 text-center">
-            <h2 
+            <h2
+              className="text-black leading-[1.3] font-normal"
               style={{
-                fontSize: 'clamp(28px, 3.5vw, 45px)',
-                fontFamily: 'Helvetica Now Display, Arial, sans-serif',
-                fontWeight: '400',
-                lineHeight: '130%',
-                color: 'black'
+                fontSize: 'clamp(28px, 3.5vw, 45px)'
               }}
             >
-              Une agence 360 qui réunit tous les métiers de la création. C’est mieux penser chaque idée
+              Une agence 360 qui réunit tous les métiers de la création. C'est mieux pour penser chaque idée
             </h2>
           </div>
 

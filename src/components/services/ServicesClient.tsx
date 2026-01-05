@@ -17,35 +17,35 @@ if (typeof window !== 'undefined') {
 // --- DONNÉES : SERVICES ---
 const capabilities = [
   {
-    category: "Brand Identity",
+    category: "Identité de marque",
     items: [
-      { title: "Brand Strategy & Verbal Identity", description: "Brand Workshops, Strategy & Positioning, Tagline & Slogan Development, Storytelling, Tone-of-voice, Copywriting." },
-      { title: "Visual Identity", description: "Logo, Color Palette, Font, Brand Graphics & Illustration, Design System." },
-      { title: "Fundraising & Go-to-Market", description: "Pitch Deck Design, Product Video, Event Collateral, Merchandise, Digital Content, Sales and Marketing Assets." }
+      { title: "Stratégie de marque & Identité verbale", description: "Ateliers de marque, Stratégie & Positionnement, Développement de baseline & slogan, Storytelling, Ton de voix, Rédaction." },
+      { title: "Identité visuelle", description: "Logo, Palette de couleurs, Typographie, Graphismes & Illustrations de marque, Design System." },
+      { title: "Levée de fonds & Go-to-Market", description: "Design de pitch deck, Vidéo produit, Support événementiel, Merchandising, Contenu digital, Assets commerciaux et marketing." }
     ]
   },
   {
-    category: "Website Creation",
+    category: "Création de site web",
     items: [
-      { title: "UX & Copy", description: "Site Structure and Navigation, Wireframing, Content Mapping, Messaging & Copy." },
-      { title: "Website Design", description: "Design System, Brand Graphics, Iconography and Illustrations." },
-      { title: "Web Development", description: "Website Development, Technical SEO, API integrations, CMS setup, Animations, Interactions and QA." }
+      { title: "UX & Rédaction", description: "Structure et navigation du site, Wireframing, Cartographie du contenu, Messages & Rédaction." },
+      { title: "Design de site web", description: "Design System, Graphismes de marque, Iconographie et illustrations." },
+      { title: "Développement web", description: "Développement de site web, SEO technique, Intégrations API, Configuration CMS, Animations, Interactions et QA." }
     ]
   },
   {
-    category: "Social Media",
+    category: "Réseaux sociaux",
     items: [
-      { title: "Strategie & pilotage social media", description: "Brand Workshops, Strategy & Positioning, Tagline & Slogan Development, Storytelling, Tone-of-voice." },
-      { title: "Création de contenu", description: "Logo, Color Palette, Font, Brand Graphics & Illustration, Design System." },
-      { title: "Captation", description: "Pitch Deck Design, Product Video, Event Collateral, Merchandise, Digital Content." }
+      { title: "Stratégie & pilotage social media", description: "Ateliers de marque, Stratégie & Positionnement, Développement de baseline & slogan, Storytelling, Ton de voix." },
+      { title: "Création de contenu", description: "Logo, Palette de couleurs, Typographie, Graphismes & Illustrations de marque, Design System." },
+      { title: "Captation", description: "Design de pitch deck, Vidéo produit, Support événementiel, Merchandising, Contenu digital." }
     ]
   },
   {
     category: "Webmarketing",
     items: [
-      { title: "Strategie & pilotage social media", description: "Brand Workshops, Strategy & Positioning, Tagline & Slogan Development, Storytelling." },
-      { title: "Création de contenu", description: "Logo, Color Palette, Font, Brand Graphics & Illustration, Design System." },
-      { title: "Captation", description: "Pitch Deck Design, Product Video, Event Collateral, Merchandise, Digital Content." }
+      { title: "Stratégie & pilotage social media", description: "Ateliers de marque, Stratégie & Positionnement, Développement de baseline & slogan, Storytelling." },
+      { title: "Création de contenu", description: "Logo, Palette de couleurs, Typographie, Graphismes & Illustrations de marque, Design System." },
+      { title: "Captation", description: "Design de pitch deck, Vidéo produit, Support événementiel, Merchandising, Contenu digital." }
     ]
   }
 ]
@@ -53,14 +53,14 @@ const capabilities = [
 // --- DONNÉES : OFFRES ---
 const offers = [
   {
-    title: "One shot",
-    description: "Let's be honest. You've built something great. But lately, it's been harder to capture attention. We build specific assets to solve immediate problems.",
+    title: "Ponctuel",
+    description: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est plus difficile de capter l'attention. Nous créons des assets spécifiques pour résoudre des problèmes immédiats.",
     image: null, // Pas d'image
     color: "bg-[#111111]"
   },
   {
-    title: "Long term",
-    description: "Continuous partnership. We become your dedicated design team, iterating and evolving your brand month after month.",
+    title: "Long terme",
+    description: "Partenariat continu. Nous devenons votre équipe design dédiée, itérant et faisant évoluer votre marque mois après mois.",
     // 👇 VRAIE IMAGE UTILISÉE ICI
     image: "https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop",
     color: "bg-[#111111]"
@@ -69,10 +69,10 @@ const offers = [
 
 // --- DONNÉES : VALEURS ---
 const values = [
-  { id: "1", title: "Serial collaborators", text: "Let's be honest. You've built something great. We build ecosystems where collaboration fuels growth." },
-  { id: "2", title: "Fueled by diversity", text: "Different perspectives create better solutions. We embrace the chaos of creativity to find clarity." },
-  { id: "3", title: "Guided by kindness", text: "No ego, just great work and good people building things together." },
-  { id: "4", title: "That never settle", text: "Good is the enemy of great. We push pixels until it feels right." }
+  { id: "1", title: "Collaborateurs en série", text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Nous créons des écosystèmes où la collaboration alimente la croissance." },
+  { id: "2", title: "Nourris par la diversité", text: "Différentes perspectives créent de meilleures solutions. Nous embrassons le chaos de la créativité pour trouver la clarté." },
+  { id: "3", title: "Guidés par la bienveillance", text: "Pas d'ego, juste du bon travail et des bonnes personnes qui construisent ensemble." },
+  { id: "4", title: "Qui ne se contentent jamais", text: "Le bien est l'ennemi du génial. Nous ajustons chaque pixel jusqu'à ce que ce soit parfait." }
 ]
 
 interface ServicesClientProps {
@@ -144,12 +144,12 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg text-gray-500 font-light leading-relaxed"
             >
-              Let's be honest. You've built something great. But lately, it's been harder to capture attention.
+              Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention.
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
                 <Link href="/contact" className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    <span className="relative z-10 font-medium text-sm">Let's talk</span>
+                    <span className="relative z-10 font-medium text-sm">Parlons-en</span>
                 </Link>
             </motion.div>
           </div>
@@ -163,7 +163,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
             ref={blackBoxRef}
             className="bg-[#0a0a0a] text-white rounded-[40px] p-8 md:p-12 lg:p-20 mx-auto will-change-transform"
         >
-            <h2 className="text-[40px] md:text-[60px] font-normal mb-20 tracking-tight">Our Capabilities</h2>
+            <h2 className="text-[40px] md:text-[60px] font-normal mb-20 tracking-tight">Nos expertises</h2>
 
             {/* LISTE SERVICES */}
             <div className="flex flex-col mb-32">
@@ -187,7 +187,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
             {/* HEADER OFFRES */}
             <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 mb-12 items-baseline">
                 <div className="md:col-span-1"><span className="text-sm font-medium text-white/60">Services</span></div>
-                <div className="md:col-span-6"><h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-white tracking-tight">How we can support you</h2></div>
+                <div className="md:col-span-6"><h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-white tracking-tight">Comment nous pouvons vous accompagner</h2></div>
             </div>
 
             {/* CARTES OFFRES */}
@@ -228,11 +228,11 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
             <div className="md:col-span-4 mb-16 md:mb-0">
                 <div className="grid grid-cols-4 gap-x-5 sticky top-32"> {/* Sticky pour garder le titre visible au scroll */}
                     <div className="col-span-1 pt-2">
-                        <span className="text-sm font-medium text-arti-black">Why</span>
+                        <span className="text-sm font-medium text-arti-black">Pourquoi</span>
                     </div>
                     <div className="col-span-3">
                         <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black tracking-tight">
-                            Why Artichaud <br /> is good
+                            Pourquoi Artichaud <br /> c'est bien
                         </h2>
                     </div>
                 </div>
