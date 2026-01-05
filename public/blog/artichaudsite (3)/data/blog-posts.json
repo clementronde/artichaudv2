@@ -1,0 +1,34 @@
+[
+    {
+      "id": 1,
+      "title": "Guide to Rebranding",
+      "excerpt": "Découvrez notre guide complet pour réussir votre rebranding. De la stratégie à l'exécution, apprenez comment transformer l'identité de votre marque.",
+      "date": "2025-03-28",
+      "category": "Design",
+      "image": "/img/blog/guide-rebranding.jpg",
+      "slug": "guide-to-rebranding",
+      "author": {
+        "name": "Charlotte",
+        "role": "Brand Strategist"
+      },
+      "metaTitle": "Guide Complet du Rebranding en 2025 | Artichaud Studio",
+      "metaDescription": "Découvrez notre guide expert pour réussir votre rebranding : stratégie, étapes clés, erreurs à éviter.",
+      "metaKeywords": ["rebranding", "identité de marque", "stratégie de marque"]
+    },
+    {
+        "id": 2,
+        "title": "Comment créer un webdesign efficace",
+        "excerpt": "Les principes essentiels pour concevoir un site web qui convertit et engage vos visiteurs. Du design system à l'expérience utilisateur.",
+        "date": "2025-03-15",
+        "category": "Webdesign",
+        "image": "/img/blog/webdesign-efficace.jpg",
+        "slug": "webdesign-efficace",
+        "author": {
+          "name": "Clément",
+          "role": "Web Designer"
+        },
+        "metaTitle": "Créer un Webdesign Efficace : Guide Complet 2025 | Artichaud",
+        "metaDescription": "Découvrez comment créer un webdesign performant qui convertit : UX/UI, design system, responsive et optimisation de la performance.",
+        "metaKeywords": ["webdesign", "design web", "UX design", "UI design", "site web efficace"]
+      }
+  ]
