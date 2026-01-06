@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Artichaud Studio - Agence Web & Branding Paris",
     description: "Nous accompagnons les marques de là où elles sont, vers là où elles méritent d'être. Branding, webdesign et stratégie digitale à Paris.",
-    url: "https://artichaud.studio",
+    url: "https://artichaud-studio.com",
     siteName: "Artichaud Studio",
     images: [
       {
-        url: "https://artichaud.studio/icon.png",
+        url: "https://artichaud-studio.com/icon.png",
         width: 1200,
         height: 630,
         alt: "Artichaud Studio - Agence Branding Paris"
@@ -35,10 +35,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Artichaud Studio | Agence Web & Branding Paris",
     description: "Design d'identité visuelle et création de sites web sur mesure à Paris.",
-    images: ["https://artichaud.studio/icon.png"]
+    images: ["https://artichaud-studio.com/icon.png"]
   },
   alternates: {
-    canonical: "https://artichaud.studio"
+    canonical: "https://artichaud-studio.com"
   }
 };
 

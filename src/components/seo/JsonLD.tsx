@@ -5,9 +5,9 @@ export default function JsonLd() {
     "name": "Artichaud Studio",
     "alternateName": "Artichaud",
     "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
-    "image": "https://artichaud.studio/icon.png",
-    "logo": "https://artichaud.studio/icon.png",
-    "url": "https://artichaud.studio",
+    "image": "https://artichaud-studio.com/icon.png",
+    "logo": "https://artichaud-studio.com/icon.png",
+    "url": "https://artichaud-studio.com",
     "telephone": "+33697538017",
     "email": "artichaud.studio@gmail.com",
     "address": {

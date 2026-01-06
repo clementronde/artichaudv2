@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     "agence branding questions"
   ],
   alternates: {
-    canonical: "https://artichaud.studio/faq"
+    canonical: "https://artichaud-studio.com/faq"
   },
   openGraph: {
     title: "FAQ - Artichaud Studio",
     description: "Questions fréquentes sur nos services de branding et création web à Paris.",
-    url: "https://artichaud.studio/faq"
+    url: "https://artichaud-studio.com/faq"
   }
 };
 

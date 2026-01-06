@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "À Propos - Artichaud Studio Paris",
     description: "L'équipe, notre vision et notre approche pour faire grandir votre marque.",
-    url: "https://artichaud.studio/about",
+    url: "https://artichaud-studio.com/about",
     images: [
       {
-        url: "https://artichaud.studio/icon.png",
+        url: "https://artichaud-studio.com/icon.png",
         width: 1200,
         height: 630,
         alt: "À Propos Artichaud Studio"
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://artichaud.studio/about"
+    canonical: "https://artichaud-studio.com/about"
   }
 }
 

@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Services - Artichaud Studio Paris",
     description: "Stratégie de marque, identité visuelle, webdesign, webmarketing et shooting produit. Nos expertises pour faire grandir votre marque.",
-    url: "https://artichaud.studio/services",
+    url: "https://artichaud-studio.com/services",
     images: [
       {
-        url: "https://artichaud.studio/icon.png",
+        url: "https://artichaud-studio.com/icon.png",
         width: 1200,
         height: 630,
         alt: "Services Artichaud Studio Paris"
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://artichaud.studio/services"
+    canonical: "https://artichaud-studio.com/services"
   }
 };
 
