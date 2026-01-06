@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
+import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Navbar2 from "@/components/layout/Navbarv2";
@@ -10,7 +10,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 import JsonLd from "@/components/seo/JsonLD";
 
-// CHARGEMENT DES POLICES
+// CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
   src: [
     { path: '../../public/fonts/HelveticaNowDisplay-Light.woff2', weight: '300', style: 'normal' },
@@ -20,7 +20,9 @@ const helvetica = localFont({
     { path: '../../public/fonts/HelveticaNowDisplay-ExtraBold.woff2', weight: '800', style: 'normal' },
   ],
   variable: "--font-helvetica",
-  display: "swap",
+  display: "swap", // Optimise le chargement des polices
+  preload: true, // Précharge les polices critiques
+  fallback: ['system-ui', '-apple-system', 'Arial', 'sans-serif'], // Fallback natif rapide
 });
 
 export const metadata: Metadata = {
@@ -63,14 +65,14 @@ export default function RootLayout({
         <ScrollToTop />
         <Navbar2 />
 
-        <SmoothScroll>
-         
+        <SmoothScrollWrapper>
+
           <main className="relative z-10 bg-white min-h-screen">
             {children}
           </main>
-          
+
           <Footer />
-        </SmoothScroll>
+        </SmoothScrollWrapper>
 
         {process.env.NEXT_PUBLIC_GA_ID && (
            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
