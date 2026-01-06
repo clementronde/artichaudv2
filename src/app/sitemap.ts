@@ -14,16 +14,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/contact',
     '/blog',
+    '/tarifs',
+    '/faq',
     "/creation-site-internet-boulogne-billancourt",
     "/creation-site-internet-paris",
     "/creation-site-vitrine-wordpress-webflow-wix",
     "/refonte-site-internet",
-    
+
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : 0.8,
+    priority: route === '' ? 1 : route === '/tarifs' ? 0.9 : 0.8,
   }))
 
   // 2. Pages Projets (Dynamique - depuis data/project.ts)
