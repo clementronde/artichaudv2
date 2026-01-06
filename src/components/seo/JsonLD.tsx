@@ -12,9 +12,9 @@ export default function JsonLd() {
     "email": "artichaud.studio@gmail.com",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Paris",
+      "addressLocality": "Boulogne-Billancourt",
       "addressRegion": "Île-de-France",
-      "postalCode": "75000",
+      "postalCode": "92100",
       "addressCountry": "FR"
     },
     "geo": {
