@@ -1,5 +1,37 @@
+import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx'
 import WorkClient from '@/components/works/WorkClient'
+
+export const metadata: Metadata = {
+  title: "Portfolio | Nos Projets Web & Branding - Artichaud Studio Paris",
+  description: "Découvrez nos réalisations : branding, sites web et stratégies digitales pour Charit.io, Disobey, Paradox, Lumyn et autres marques ambitieuses.",
+  keywords: [
+    "portfolio agence web Paris",
+    "projets branding",
+    "réalisations webdesign",
+    "case studies design",
+    "portfolio identité visuelle",
+    "références clients agence Paris"
+  ],
+  openGraph: {
+    title: "Portfolio - Artichaud Studio Paris",
+    description: "Nos projets de branding et webdesign pour des marques qui osent se démarquer.",
+    url: "https://artichaud.studio/works",
+    images: [
+      {
+        url: "https://artichaud.studio/icon.png",
+        width: 1200,
+        height: 630,
+        alt: "Portfolio Artichaud Studio"
+      }
+    ],
+    locale: "fr_FR",
+    type: "website"
+  },
+  alternates: {
+    canonical: "https://artichaud.studio/works"
+  }
+};
 
 export default function WorkPage() {
   // 1. On récupère les articles (Serveur)

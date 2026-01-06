@@ -4,8 +4,34 @@ import { getAllPosts } from '@/lib/mdx'; // On utilise notre nouvelle lib
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Le Blog | Conseils en Branding & Web Design',
-  description: 'Actualités, stratégies et retours d\'expérience.',
+  title: 'Le Blog | Conseils Branding, Webdesign & Stratégie Digitale - Artichaud',
+  description: 'Découvrez nos articles sur le branding, le webdesign, le marketing digital et les tendances du design. Conseils pratiques et retours d\'expérience de nos projets à Paris.',
+  keywords: [
+    'blog branding Paris',
+    'conseils webdesign',
+    'stratégie digitale',
+    'tendances design',
+    'actualités web Paris',
+    'articles marketing digital'
+  ],
+  openGraph: {
+    title: 'Blog - Artichaud Studio Paris',
+    description: 'Nos articles sur le branding, le webdesign et la stratégie digitale.',
+    url: 'https://artichaud.studio/blog',
+    images: [
+      {
+        url: 'https://artichaud.studio/icon.png',
+        width: 1200,
+        height: 630,
+        alt: 'Blog Artichaud Studio'
+      }
+    ],
+    locale: 'fr_FR',
+    type: 'website'
+  },
+  alternates: {
+    canonical: 'https://artichaud.studio/blog'
+  }
 };
 
 export default function BlogIndex() {
