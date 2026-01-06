@@ -1,24 +1,41 @@
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "DesignAgency", // ou "WebSite" ou "DesignAgency"
+    "@type": "DesignAgency",
     "name": "Artichaud Studio",
-    "image": "https://artichaud-studio.com/opengraph-image.png",
+    "alternateName": "Artichaud",
+    "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
+    "image": "https://artichaud-studio.com/icon.png",
+    "logo": "https://artichaud-studio.com/icon.png",
     "url": "https://artichaud-studio.com",
-    "telephone": "07 66 48 99 82", // Ton numéro public
+    "telephone": "+33697538017",
     "email": "artichaud.studio@gmail.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Votre adresse", 
       "addressLocality": "Paris",
+      "addressRegion": "Île-de-France",
       "postalCode": "75000",
       "addressCountry": "FR"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.8566, // À ajuster précisément
-      "longitude": 2.3522
-    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Paris"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Île-de-France"
+      }
+    ],
+    "serviceType": [
+      "Branding",
+      "Identité Visuelle",
+      "Web Design",
+      "Développement Web",
+      "Stratégie Digitale",
+      "Webmarketing",
+      "SEO"
+    ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -32,10 +49,14 @@ export default function JsonLd() {
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.instagram.com/...",
       "https://www.linkedin.com/company/artichaud-studio"
     ],
-    "priceRange": "$$$"
+    "priceRange": "€€€",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "12"
+    }
   }
 
   return (

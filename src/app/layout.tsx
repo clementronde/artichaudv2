@@ -26,7 +26,7 @@ const helvetica = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://artichaud.studio'), 
+  metadataBase: new URL('https://artichaud-studio.com'), 
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
