@@ -26,7 +26,7 @@ const helvetica = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://artichaud-studio.com'), 
+  metadataBase: new URL('https://artichaud-studio.com'),
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
@@ -38,9 +38,13 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  description: "Artichaud est une agence de design et création de sites web basée à Paris.",
-  // ... tes autres métadonnées restent identiques
-
+  description: "Artichaud Studio transforme votre marque avec du branding percutant et des sites web sur mesure. Agence créative à Paris spécialisée en identité visuelle, webdesign et stratégie digitale.",
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Artichaud Studio',
+  },
   robots: {
     index: true,
     follow: true,
@@ -51,6 +55,10 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     }}
+};
+
+export const viewport = {
+  themeColor: '#000000',
 };
 
 export default function RootLayout({
