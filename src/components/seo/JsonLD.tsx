@@ -1,7 +1,7 @@
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "DesignAgency",
+    "@type": ["DesignAgency", "LocalBusiness"],
     "name": "Artichaud Studio",
     "alternateName": "Artichaud",
     "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
@@ -16,6 +16,11 @@ export default function JsonLd() {
       "addressRegion": "Île-de-France",
       "postalCode": "75000",
       "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "48.8566",
+      "longitude": "2.3522"
     },
     "areaServed": [
       {
@@ -55,7 +60,9 @@ export default function JsonLd() {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
-      "reviewCount": "12"
+      "reviewCount": "12",
+      "bestRating": "5",
+      "worstRating": "1"
     }
   }
 
