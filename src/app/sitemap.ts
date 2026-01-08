@@ -1,54 +1,74 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/data/project'
-// 1. On change l'import : on utilise la lib MDX au lieu du fichier supprimé
 import { getAllPosts } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://artichaud-studio.com' // Assurez-vous que c'est le bon domaine
+  const baseUrl = 'https://artichaud-studio.com'
 
-  // 1. Pages statiques
-  const staticRoutes = [
-    '',
-    '/services',
-    '/works',
-    '/about',
-    '/contact',
-    '/blog',
-    '/tarifs',
-    '/faq',
-    "/creation-site-internet-boulogne-billancourt",
-    "/creation-site-internet-paris",
-    "/creation-site-vitrine-wordpress-webflow-wix",
-    "/refonte-site-internet",
-
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
+  // 1. Pages principales (haute priorité)
+  const mainPages = [
+    { route: '', priority: 1.0, changeFreq: 'daily' as const },           // Homepage
+    { route: '/services', priority: 0.95, changeFreq: 'weekly' as const }, // Services
+    { route: '/tarifs', priority: 0.95, changeFreq: 'monthly' as const },  // Tarifs (haute valeur SEO)
+    { route: '/works', priority: 0.9, changeFreq: 'weekly' as const },     // Portfolio
+    { route: '/contact', priority: 0.85, changeFreq: 'monthly' as const }, // Contact
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : route === '/tarifs' ? 0.9 : 0.8,
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
   }))
 
-  // 2. Pages Projets (Dynamique - depuis data/project.ts)
+  // 2. Pages secondaires
+  const secondaryPages = [
+    { route: '/about', priority: 0.8, changeFreq: 'monthly' as const },
+    { route: '/blog', priority: 0.85, changeFreq: 'daily' as const },      // Blog index mis à jour souvent
+    { route: '/faq', priority: 0.75, changeFreq: 'monthly' as const },
+    { route: '/works/all', priority: 0.8, changeFreq: 'weekly' as const }, // Portfolio complet
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
+  }))
+
+  // 3. Pages SEO locales (importantes pour référencement local)
+  const localSeoPages = [
+    { route: '/creation-site-internet-paris', priority: 0.85, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-boulogne-billancourt', priority: 0.75, changeFreq: 'monthly' as const },
+    { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.8, changeFreq: 'monthly' as const },
+    { route: '/refonte-site-internet', priority: 0.8, changeFreq: 'monthly' as const },
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
+  }))
+
+  // 4. Pages Projets (Dynamique - portfolio)
   const projectRoutes = projects.map((project) => ({
-    // Attention : vos slugs dans project.ts contiennent parfois "/works/", 
-    // on s'assure ici de construire une URL propre.
-    // Si project.slug est déjà "/works/charitio", on ne rajoute pas /works
-    url: project.slug.startsWith('/') 
-      ? `${baseUrl}${project.slug}` 
+    url: project.slug.startsWith('/')
+      ? `${baseUrl}${project.slug}`
       : `${baseUrl}/works/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.9,
+    priority: 0.7, // Projets individuels moins prioritaires que pages principales
   }))
 
-  // 3. Pages Blog (Dynamique - depuis les fichiers MDX)
-  const posts = getAllPosts(); // On récupère les vrais fichiers
+  // 5. Pages Blog (Dynamique - articles)
+  const posts = getAllPosts();
   const blogRoutes = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.meta.date), // On utilise la date du frontmatter
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    lastModified: new Date(post.meta.date),
+    changeFrequency: 'monthly' as const, // Articles rarement modifiés après publication
+    priority: 0.65, // Articles moins prioritaires que pages de service
   }))
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes]
+  return [
+    ...mainPages,
+    ...secondaryPages,
+    ...localSeoPages,
+    ...projectRoutes,
+    ...blogRoutes
+  ]
 }
