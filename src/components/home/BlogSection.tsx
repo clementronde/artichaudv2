@@ -183,8 +183,8 @@ export default function BlogSection({ posts }: { posts: any[] }) {
           </div>
           <div className="col-span-1 md:col-span-7 flex flex-col items-start gap-8">
             <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-[#1a1a1a] tracking-tight">
-              Get the lo-down with <br />
-              the latest news and views
+              Soyez au courant  <br />
+              De nos dernières actus
             </h2>
             <Link 
               href="/blog"

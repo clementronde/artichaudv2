@@ -1,0 +1,26 @@
+# robots.txt - Artichaud Studio
+# https://artichaud-studio.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Fichiers à ne pas indexer
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://artichaud-studio.com/sitemap.xml
+
+# Crawl delay (optionnel, pour éviter la surcharge)
+Crawl-delay: 1
+
+# Autoriser Google Images
+User-agent: Googlebot-Image
+Allow: /
+
+# Bloquer les bots inutiles (optionnel pour économiser la bande passante)
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: DotBot
+Disallow: /
