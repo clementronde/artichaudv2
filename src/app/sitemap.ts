@@ -1,100 +1,74 @@
 import { MetadataRoute } from 'next'
-import { getAllPosts } from '@/lib/mdx'
+import { projects } from '@/data/project'
+import { getAllPosts } from '@/lib/mdx';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://artichaud-studio.com'
 
-  // Pages statiques principales
-  const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/works`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/works/all`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/creation-site-internet-paris`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/creation-site-internet-boulogne-billancourt`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/creation-site-vitrine-wordpress-webflow-wix`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/refonte-site-internet`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/mentions-legales`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-  ]
-
-  // Articles du blog (dynamiques)
-  const posts = getAllPosts()
-  const blogPosts = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.meta.date ? new Date(post.meta.date) : new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
+  // 1. Pages principales (haute priorité)
+  const mainPages = [
+    { route: '', priority: 1.0, changeFreq: 'daily' as const },           // Homepage
+    { route: '/services', priority: 0.95, changeFreq: 'weekly' as const }, // Services
+    { route: '/tarifs', priority: 0.95, changeFreq: 'monthly' as const },  // Tarifs (haute valeur SEO)
+    { route: '/works', priority: 0.9, changeFreq: 'weekly' as const },     // Portfolio
+    { route: '/contact', priority: 0.85, changeFreq: 'monthly' as const }, // Contact
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
   }))
 
-  // Combiner toutes les URLs
-  return [...staticPages, ...blogPosts]
+  // 2. Pages secondaires
+  const secondaryPages = [
+    { route: '/about', priority: 0.8, changeFreq: 'monthly' as const },
+    { route: '/blog', priority: 0.85, changeFreq: 'daily' as const },      // Blog index mis à jour souvent
+    { route: '/faq', priority: 0.75, changeFreq: 'monthly' as const },
+    { route: '/works/all', priority: 0.8, changeFreq: 'weekly' as const }, // Portfolio complet
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
+  }))
+
+  // 3. Pages SEO locales (importantes pour référencement local)
+  const localSeoPages = [
+    { route: '/creation-site-internet-paris', priority: 0.85, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-boulogne-billancourt', priority: 0.75, changeFreq: 'monthly' as const },
+    { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.8, changeFreq: 'monthly' as const },
+    { route: '/refonte-site-internet', priority: 0.8, changeFreq: 'monthly' as const },
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
+  }))
+
+  // 4. Pages Projets (Dynamique - portfolio)
+  const projectRoutes = projects.map((project) => ({
+    url: project.slug.startsWith('/')
+      ? `${baseUrl}${project.slug}`
+      : `${baseUrl}/works/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7, // Projets individuels moins prioritaires que pages principales
+  }))
+
+  // 5. Pages Blog (Dynamique - articles)
+  const posts = getAllPosts();
+  const blogRoutes = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.meta.date),
+    changeFrequency: 'monthly' as const, // Articles rarement modifiés après publication
+    priority: 0.65, // Articles moins prioritaires que pages de service
+  }))
+
+  return [
+    ...mainPages,
+    ...secondaryPages,
+    ...localSeoPages,
+    ...projectRoutes,
+    ...blogRoutes
+  ]
 }
