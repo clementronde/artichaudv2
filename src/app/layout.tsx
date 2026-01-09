@@ -8,6 +8,7 @@ import Navbar2 from "@/components/layout/Navbarv2";
 import ScrollToTop from "@/components/ScrollToTop";
 
 import JsonLd from "@/components/seo/JsonLD";
+import GTMDebug from "@/components/analytics/GTMDebug";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -69,6 +70,7 @@ export default function RootLayout({
     <html lang="fr" className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
         <JsonLd />
+        <GTMDebug />
         <ScrollToTop />
         <Navbar2 />
 
