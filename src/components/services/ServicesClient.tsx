@@ -273,6 +273,68 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </section>
 
+      {/* 4. NOS SERVICES DÉTAILLÉS - MAILLAGE INTERNE */}
+      <section className="container mx-auto px-6 md:px-12 mb-32">
+        <div className="mb-16">
+          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
+            Découvrez nos services en détail
+          </h2>
+          <p className="text-lg text-gray-500 font-light max-w-3xl">
+            Explorez nos expertises et découvrez comment nous pouvons vous accompagner dans votre croissance digitale.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Link
+            href="/services/creation-site-internet"
+            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
+          >
+            <div className="text-4xl mb-6">🌐</div>
+            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
+              Création de Site Internet
+            </h3>
+            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
+              Sites web modernes, performants et SEO-friendly. Design sur mesure, développement Next.js/React, optimisations techniques.
+            </p>
+            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
+              En savoir plus →
+            </span>
+          </Link>
+
+          <Link
+            href="/services/branding-identite-visuelle"
+            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
+          >
+            <div className="text-4xl mb-6">🎨</div>
+            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
+              Branding & Identité Visuelle
+            </h3>
+            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
+              Identité de marque forte et cohérente. Logo, charte graphique, stratégie de marque, design system. Démarquez-vous.
+            </p>
+            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
+              En savoir plus →
+            </span>
+          </Link>
+
+          <Link
+            href="/services/seo-referencement-naturel"
+            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
+          >
+            <div className="text-4xl mb-6">📈</div>
+            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
+              SEO & Référencement Naturel
+            </h3>
+            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
+              Dominez Google et générez du trafic qualifié. Audit SEO, optimisations techniques, stratégie de contenu, netlinking.
+            </p>
+            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
+              En savoir plus →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       <BlogSection posts={posts} />
 
     </main>

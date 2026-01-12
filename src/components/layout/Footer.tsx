@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
             ))}
           </div>
 
-          {/* Colonne 4 - Overview + Légal */}
+          {/* Colonne 4 - Overview + Services + Légal */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-medium text-white mb-2">Overview</h3>
             {navItems.map((item) => (
@@ -110,12 +110,36 @@ const Footer: React.FC = () => {
                 {item.label}
               </Link>
             ))}
-            
+
+            {/* --- SERVICES DÉTAILLÉS --- */}
+            <h3 className="text-sm font-medium text-white mb-2 mt-6">Nos Services</h3>
+            <Link
+              href="/services/creation-site-internet"
+              suppressHydrationWarning={true}
+              className="text-white/60 hover:text-white transition-colors text-sm"
+            >
+              Création Site Internet
+            </Link>
+            <Link
+              href="/services/branding-identite-visuelle"
+              suppressHydrationWarning={true}
+              className="text-white/60 hover:text-white transition-colors text-sm"
+            >
+              Branding & Identité Visuelle
+            </Link>
+            <Link
+              href="/services/seo-referencement-naturel"
+              suppressHydrationWarning={true}
+              className="text-white/60 hover:text-white transition-colors text-sm"
+            >
+              SEO & Référencement
+            </Link>
+
             {/* --- AJOUT MENTIONS LÉGALES --- */}
             <Link
               href="/mentions-legales"
               suppressHydrationWarning={true}
-              className="text-white/40 hover:text-[#D0FF00] transition-colors text-xs uppercase tracking-wider mt-2"
+              className="text-white/40 hover:text-[#D0FF00] transition-colors text-xs uppercase tracking-wider mt-6"
             >
               Mentions Légales
             </Link>
