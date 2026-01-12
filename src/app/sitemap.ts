@@ -19,7 +19,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: page.priority,
   }))
 
-  // 2. Pages secondaires
+  // 2. Pages Services Détaillées (haute priorité SEO)
+  const servicePages = [
+    { route: '/services/creation-site-internet', priority: 0.92, changeFreq: 'weekly' as const },
+    { route: '/services/branding-identite-visuelle', priority: 0.92, changeFreq: 'weekly' as const },
+    { route: '/services/seo-referencement-naturel', priority: 0.92, changeFreq: 'weekly' as const },
+  ].map((page) => ({
+    url: `${baseUrl}${page.route}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFreq,
+    priority: page.priority,
+  }))
+
+  // 3. Pages secondaires
   const secondaryPages = [
     { route: '/about', priority: 0.8, changeFreq: 'monthly' as const },
     { route: '/blog', priority: 0.85, changeFreq: 'daily' as const },      // Blog index mis à jour souvent
@@ -32,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: page.priority,
   }))
 
-  // 3. Pages SEO locales (importantes pour référencement local)
+  // 4. Pages SEO locales (importantes pour référencement local)
   const localSeoPages = [
     { route: '/creation-site-internet-paris', priority: 0.85, changeFreq: 'monthly' as const },
     { route: '/creation-site-internet-boulogne-billancourt', priority: 0.75, changeFreq: 'monthly' as const },
@@ -45,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: page.priority,
   }))
 
-  // 4. Pages Projets (Dynamique - portfolio)
+  // 5. Pages Projets (Dynamique - portfolio)
   const projectRoutes = projects.map((project) => ({
     url: project.slug.startsWith('/')
       ? `${baseUrl}${project.slug}`
@@ -55,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7, // Projets individuels moins prioritaires que pages principales
   }))
 
-  // 5. Pages Blog (Dynamique - articles)
+  // 6. Pages Blog (Dynamique - articles)
   const posts = getAllPosts();
   const blogRoutes = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -66,6 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...mainPages,
+    ...servicePages,     // ← Nouvelles pages services
     ...secondaryPages,
     ...localSeoPages,
     ...projectRoutes,
