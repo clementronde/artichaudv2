@@ -1,8 +1,9 @@
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["DesignAgency", "LocalBusiness"],
+    "@type": ["Organization", "DesignAgency", "LocalBusiness"],
     "name": "Artichaud Studio",
+    "legalName": "Artichaud Studio",
     "alternateName": "Artichaud",
     "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
     "image": "https://artichaud-studio.com/icon.png",
@@ -11,11 +12,21 @@ export default function JsonLd() {
       "url": "https://artichaud-studio.com/icon.png",
       "width": 512,
       "height": 512,
-      "caption": "Artichaud Studio Logo"
+      "contentUrl": "https://artichaud-studio.com/icon.png",
+      "caption": "Artichaud Studio Logo",
+      "inLanguage": "fr-FR"
     },
     "url": "https://artichaud-studio.com",
     "telephone": "+33697538017",
     "email": "artichaud.studio@gmail.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+33697538017",
+      "email": "artichaud.studio@gmail.com",
+      "contactType": "customer service",
+      "areaServed": "FR",
+      "availableLanguage": ["French", "English"]
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Boulogne-Billancourt",
@@ -60,7 +71,10 @@ export default function JsonLd() {
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.linkedin.com/company/artichaud-studio"
+      "https://www.linkedin.com/company/artichaud-studio",
+      "https://www.instagram.com/artichaud.studio/",
+      "https://www.tiktok.com/@artichaud.studio",
+      "https://artichaud-studio.com"
     ],
     "priceRange": "€€€",
     "aggregateRating": {

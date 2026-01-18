@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://artichaud-studio.com/icon.png",
-        width: 1200,
-        height: 630,
+        width: 512,
+        height: 512,
         alt: "Création Site Internet Paris - Artichaud Studio"
       }
     ],
