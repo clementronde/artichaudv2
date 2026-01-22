@@ -37,6 +37,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/blog', priority: 0.85, changeFreq: 'daily' as const },      // Blog index mis à jour souvent
     { route: '/faq', priority: 0.75, changeFreq: 'monthly' as const },
     { route: '/works/all', priority: 0.8, changeFreq: 'weekly' as const }, // Portfolio complet
+    { route: '/mentions-legales', priority: 0.5, changeFreq: 'yearly' as const },
+    { route: '/simulateur', priority: 0.7, changeFreq: 'monthly' as const },
+    { route: '/artichaud-studio-orthographe', priority: 0.65, changeFreq: 'yearly' as const }, // Page SEO orthographe
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
     lastModified: new Date(),
