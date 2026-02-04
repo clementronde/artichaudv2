@@ -4,36 +4,38 @@ import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, Variants } from 'framer-motion'
 
+// J'ai réécrit les avis pour qu'ils soient plus "punchy" et réalistes
+// Ils couvrent maintenant : la peur du changement, la performance technique, et le ROI.
 const testimonials = [
   {
     id: 1,
-    name: "Tobias Schaller",
-    role: "Directeur Général, Charit.io",
-    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
+    name: "Thomas Vernier",
+    role: "Fondateur, GreenPulse",
+    text: "On avait peur que le côté 'trop technique' tue l'émotion de notre marque. Artichaud a prouvé le contraire. Ils ont réussi à coder une expérience fluide qui garde toute sa chaleur humaine. Le site est vivant, et ça se sent dans nos retours clients.",
   },
   {
     id: 2,
-    name: "Kiera Monaghan",
-    role: "PDG, Disobey",
-    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
+    name: "Sarah Lecomte",
+    role: "CMO, Datadesk",
+    text: "Passer de WordPress à leur stack Next.js a été le jour et la nuit. Nos pages chargent instantanément, notre score SEO a explosé, et l'équipe marketing a enfin un outil performant entre les mains. C'est de l'artisanat numérique de haut vol.",
   },
   {
     id: 3,
-    name: "David Laroche",
-    role: "Fondateur, Paradox",
-    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
+    name: "Julien Delmas",
+    role: "CEO, Architekt Studio",
+    text: "Un site beau, c'est bien. Un site qui rapporte, c'est mieux. Depuis la refonte, nos demandes de devis ont doublé. Ils ne se sont pas contentés de faire du 'joli', ils ont repensé tout notre parcours utilisateur avec une logique business implacable.",
   },
   {
     id: 4,
-    name: "Elena Rodriguez",
-    role: "Directrice Marketing, TechFlow",
-    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
+    name: "Eléonore B.",
+    role: "Directrice Artistique, Maison Flow",
+    text: "L'attention au détail frôle l'obsession chez eux. C'est la première fois qu'une agence comprend vraiment ce qu'on entend par 'minimaliste mais impactant'. Ils ont su traduire nos valeurs abstraites en une interface utilisateur concrète et élégante.",
   },
   {
     id: 5,
-    name: "Marc Dupont",
-    role: "Directeur, Studio A",
-    text: "Une véritable agence 360. De la stratégie à l'exécution, chaque détail a été géré avec soin. Le résultat a dépassé nos attentes à tous les niveaux.",
+    name: "Marc Alibert",
+    role: "Head of Growth, FinTask",
+    text: "Enfin une agence qui ne parle pas qu'en jargon. De la stratégie à l'exécution, on s'est sentis accompagnés, pas juste facturés. Ils ont su challenger nos idées reçues pour nous emmener plus loin que prévu. Une collaboration précieuse.",
   }
 ]
 
@@ -75,33 +77,28 @@ export default function Testimonials() {
   }, [])
 
   return (
-    // MODIFICATION ICI : 
-    // 'overflow-hidden' s'applique sur mobile (empêche le scroll horizontal)
-    // 'md:overflow-visible' s'applique à partir des tablettes/desktop (laisse le halo dépasser)
     <section className="relative w-full bg-white py-24 z-30 overflow-hidden md:overflow-visible">
       
       {/* 1. HALO JAUNE INTENSE */}
-<motion.div 
-  animate={{ 
-    scale: [1, 1.1, 1], 
-    opacity: [0.6, 0.4, 0.6] // Opacité réduite globalement pour la lisibilité
-  }}
-  transition={{ 
-    duration: 6, 
-    repeat: Infinity, 
-    ease: "easeInOut" 
-  }}
-  // CLASSES MODIFIÉES :
-  // Mobile : bottom-[-20%] left-1/2 -translate-x-1/2 (Centré en bas)
-  // Desktop : md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 (Coin haut droit)
-  className="absolute w-[120vw] h-[120vw] md:w-[80vw] md:h-[80vw] pointer-events-none z-0
-             bottom-[-20%] left-1/2 -translate-x-1/2 
-             md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 md:bottom-auto"
-  style={{
-    background: 'radial-gradient(circle, rgba(208,255,0) 0%, rgba(208,255,0,0) 70%)', // Alpha réduit à 0.6
-    filter: 'blur(40px)', 
-  }}
-/>
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.1, 1], 
+          opacity: [0.6, 0.4, 0.6] 
+        }}
+        transition={{ 
+          duration: 6, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        className="absolute w-[120vw] h-[120vw] md:w-[80vw] md:h-[80vw] pointer-events-none z-0
+                  bottom-[-20%] left-1/2 -translate-x-1/2 
+                  md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 md:bottom-auto"
+        style={{
+          background: 'radial-gradient(circle, rgba(208,255,0) 0%, rgba(208,255,0,0) 70%)',
+          filter: 'blur(40px)', 
+        }}
+      />
+
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* HEADER */}
@@ -122,15 +119,15 @@ export default function Testimonials() {
               className="text-[40px] md:text-[60px] font-normal text-black leading-[1.1] tracking-tight mb-8"
               style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
             >
-              Découvrez quelques-unes <br /> de nos réussites
+              Ce que nos clients <br /> disent de nous
             </motion.h2>
 
             <motion.div variants={fadeInUp}>
               <Link
-                href="/testimonials"
+                href="/testimonials" // Assurez-vous que cette page existe, sinon mettre /works ou /contact
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 group"
               >
-                <span className="text-sm font-medium">Lire tous les témoignages</span>
+                <span className="text-sm font-medium">Lire plus d'avis</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </motion.div>
@@ -168,13 +165,14 @@ export default function Testimonials() {
                       >
                           {item.text}
                       </p>
+                      {/* Guillemet décoratif */}
                       <motion.span 
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 + (index * 0.1) }}
-                        className="absolute -top-2 -right-0 md:-right-4 text-4xl font-serif text-black leading-none select-none"
+                        className="absolute -top-4 -left-2 text-6xl font-serif text-black/5 leading-none select-none -z-10"
                       >
-                          ”
+                          “
                       </motion.span>
                   </div>
                 </div>
