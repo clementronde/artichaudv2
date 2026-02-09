@@ -20,28 +20,28 @@ const servicesData = [
     title: "Identité visuelle",
     description: "Plus qu'un simple logo. Nous créons un langage visuel qui parle à votre audience avant même que vous ne disiez un mot. Couleurs, typographie et direction artistique qui se démarquent.",
     items: ["Design de logo", "Charte graphique", "Direction artistique", "Motion Design", "Illustration & Iconographie"],
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
+    image: "/projects/charitio/charitioprojet1.avif",
   },
   {
     id: "003",
     title: "Webdesign",
     description: "Des expériences digitales qui convertissent. Nous concevons des sites web immersifs alliant esthétique et performance, garantissant un parcours utilisateur fluide sur tous les appareils.",
     items: ["Design UX/UI", "Prototypage", "Design d'interaction", "Design Systems", "Approche Mobile First"],
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2864&auto=format&fit=crop",
+    image: "/projects/lumyn/Lumynprojet4.avif",
   },
   {
     id: "004",
     title: "Webmarketing",
     description: "Amplifier votre voix. Nous développons des stratégies data-driven pour acquérir, convertir et fidéliser vos clients grâce à un ciblage précis et du contenu engageant.",
     items: ["SEO & SEA", "Stratégie Social Media", "Marketing de contenu", "Automation d'emailing", "Analytics & Reporting"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    image: "/projects/comon/comonprojet2.avif",
   },
   {
     id: "005",
     title: "Shooting Produit",
     description: "Des visuels qui vendent. Photographie et vidéographie haut de gamme pour mettre en valeur vos produits sous leur meilleur jour, créer du désir et valoriser votre offre.",
     items: ["Direction artistique", "Photographie studio", "Shooting lifestyle", "Post-production", "Vidéos courtes"],
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2940&auto=format&fit=crop",
+    image: "/projects/cherico/chericoprojet3.avif",
   }
 ]
 

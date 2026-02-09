@@ -80,7 +80,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
       >
         <div className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
                         rounded-none transition-all duration-500 ease-out 
-                        group-hover:rounded-[120px]`}> 
+                        group-hover:rounded-[250px]`}> 
           
           {post.image ? (
             <Image
@@ -174,7 +174,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
     <section className="relative w-full bg-white py-24 md:py-32 overflow-hidden mt-12">
       
       {/* HEADER */}
-      <div className="container mx-auto px-6 md:px-12 mb-16">
+      <div className="container mx-auto px-0 md:px-0 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
           <div className="hidden md:block col-span-1 pt-2">
             <span className="text-sm font-medium uppercase tracking-wide text-gray-500 block">
