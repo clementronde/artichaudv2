@@ -5,7 +5,9 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 const servicesData = [
   {
@@ -66,13 +68,18 @@ export default function Services() {
             style={{ zIndex: index + 1 }}
           >
             
-            <div className="w-full max-w-[1600px] mx-auto px-6 md:px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
+            {/* MODIFICATION MARGES :
+                - w-full : Prend toute la largeur
+                - px-[40px] : Marge stricte de 40px à gauche et à droite
+                - Pas de max-w, pas de mx-auto
+            */}
+            <div className="w-full px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
               
-              {/* GRID : 8 Colonnes */}
+              {/* GRID : 8 Colonnes avec gap 20px */}
               <div className="grid grid-cols-1 md:grid-cols-8 gap-8 md:gap-[20px] w-full h-full items-stretch">
                 
                 {/* --- COLONNE 1 : Numéro --- */}
-                <div className="hidden md:block col-span-1 pt-3">
+                <div className="hidden md:block col-span-1 pt-3 border-t border-transparent">
                    <span className="text-sm font-medium opacity-100 block">
                     {service.id}
                   </span>
@@ -86,7 +93,7 @@ export default function Services() {
 
                   <div className="flex flex-col">
                     
-                    {/* TITRE : Whitespace nowrap pour forcer une ligne */}
+                    {/* TITRE */}
                     <div className="mb-8 md:mb-12">
                       <h2 className={`${titleSizeClass} leading-[1] font-normal tracking-tight whitespace-nowrap`}>
                         {service.title}
@@ -129,20 +136,18 @@ export default function Services() {
                 <div className="hidden md:block col-span-1"></div>
 
                 {/* --- COLONNES 5 à 8 : Bloc Droit --- */}
-                <div className="col-span-1 md:col-span-4 flex flex-col justify-between h-full z-10 pl-0 md:pl-0">
+                {/* Note : md:col-start-5 force le démarrage à la colonne 5 */}
+                <div className="col-span-1 md:col-span-4 md:col-start-5 flex flex-col justify-between h-full z-10 pl-0 md:pl-0">
                   
-                 {/* 1. DESCRIPTION : Colonnes 6 à 7
-    - ml-[25%] : On saute la colonne 5 (25% d'espace vide à gauche)
-    - w-[50%]  : On occupe les colonnes 6 et 7 (50% de largeur)
-*/}
-<div className="pt-2 md:pt-3 md:w-[50%] md:ml-[25%]">
-  <p className="text-base md:text-lg text-arti-black/80 font-normal leading-relaxed">
-    {service.description}
-  </p>
-</div>
-                  {/* 2. IMAGE : Colonnes 6 à 8 
-                      (Même logique : ml-auto)
-                  */}
+                  {/* DESCRIPTION : Occupant la largeur de 2 colonnes (50% de l'espace de droite) 
+                      et décalée d'une colonne (ml-[25%]) */}
+                  <div className="pt-2 md:pt-3 md:w-[50%] md:ml-[25%]">
+                    <p className="text-base md:text-lg text-arti-black/80 font-normal leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  {/* IMAGE : Occupant 3 colonnes sur 4 (75% de largeur) aligné à droite */}
                   <div className={`
                     relative overflow-hidden bg-black/5 rounded-sm
                     w-full md:w-[75%] md:ml-auto aspect-[16/10] mt-auto

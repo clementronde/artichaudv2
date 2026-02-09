@@ -122,7 +122,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
     <main className="w-full bg-white min-h-screen pt-40 pb-32 overflow-x-hidden">
 
       {/* 1. HERO SECTION */}
-      <div className="container mx-auto px-6 md:px-12 mb-32">
+      <div className="w-full px-[40px] mb-32">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-12 items-start">
           <div className="hidden md:block col-span-1 pt-2">
             <span className="text-sm font-medium text-arti-black block">Services</span>
@@ -219,47 +219,62 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </section>
 
-      {/* 3. WHY ARTICHAUD (LAYOUT SPLIT GAUCHE/DROITE) */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
+    {/* 3. WHY ARTICHAUD (LAYOUT FLUIDE 8 COLUMNS) */}
+      {/* w-full + px-[40px] assure que le site prend toute la largeur moins les 40px de bord */}
+      <section className="w-full px-[40px] mb-32">
 
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
+        {/* Grille de 8 colonnes avec gouttière de 20px */}
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-[20px]">
 
-            {/* GAUCHE (Col 1-4) : TITRE FIXE */}
-            <div className="md:col-span-4 mb-16 md:mb-0">
-                <div className="grid grid-cols-4 gap-x-5 sticky top-32"> {/* Sticky pour garder le titre visible au scroll */}
-                    <div className="col-span-1 pt-2">
-                        <span className="text-sm font-medium text-arti-black">Pourquoi</span>
+            {/* --- GAUCHE (Col 1 à 4) --- */}
+            {/* On utilise col-span-4 pour prendre la moitié gauche exacte */}
+            <div className="md:col-span-4 mb-16 md:mb-0 relative">
+                
+                {/* Sticky Wrapper : On recrée une sous-grille de 4 colonnes pour aligner le texte */}
+                <div className="sticky top-32 grid grid-cols-4 gap-[20px]">
+                    
+                    {/* Col 1 : Label "Why" */}
+                    <div className="col-span-1 pt-2 border-t border-transparent">
+                        <span className="text-sm font-medium text-arti-black">Why</span>
                     </div>
-                    <div className="col-span-3">
+
+                    {/* Col 2-3 : Titre (Le titre prend 2 colonnes, donc col-span-2) */}
+                    {/* Note: Col 4 est laissée vide ici implicitement */}
+                    <div className="col-span-2 md:col-span-3">
                         <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black tracking-tight">
-                            Pourquoi Artichaud <br /> c'est bien
+                            Why Artichaud <br /> is good
                         </h2>
                     </div>
                 </div>
             </div>
 
-            {/* DROITE (Col 5-8) : LISTE DES VALEURS */}
-            <div className="md:col-span-4 flex flex-col">
+            {/* --- DROITE (Col 5 à 8) --- */}
+            {/* md:col-start-5 force le démarrage à la 5ème colonne */}
+            <div className="md:col-span-4 md:col-start-5 flex flex-col">
                 {values.map((val, index) => (
-                    // Ligne du tableau (Bordure uniquement ici)
-                    <div
-                        key={val.id}
-                        className={`grid grid-cols-1 md:grid-cols-4 gap-x-5 py-12 border-t border-black/10 group hover:bg-gray-50 transition-colors duration-500 ${index === values.length - 1 ? 'border-b' : ''}`}
+                    
+                    // Ligne item : On recrée une grille de 4 colonnes (qui correspondent aux colonnes 5, 6, 7, 8 globales)
+                    <div 
+                        key={val.id} 
+                        className={`grid grid-cols-1 md:grid-cols-4 gap-[20px] py-12 border-t border-black/10 group hover:bg-gray-50 transition-colors duration-500 ${index === values.length - 1 ? 'border-b' : ''}`}
                     >
 
-                        {/* 1. Numéro (Col 5 Globale) */}
-                        <div className="md:col-span-1 hidden md:block">
-                            <span className="text-sm font-bold text-arti-black">{val.id}</span>
-                        </div>
-
-                        {/* 2. Titre (Col 6 Globale) */}
-                        <div className="md:col-span-1 mb-4 md:mb-0">
+                        {/* COLONNES 5 & 6 (Globales) -> Col 1 & 2 (Locales) : ID + TITRE */}
+                        <div className="md:col-span-2 flex items-start">
+                            
+                            {/* ID : Placé au début de la colonne 5 */}
+                            {/* w-[20%] ou une largeur fixe permet de simuler l'espace avant le titre "milieu colonne 5" */}
+                            <span className="text-sm font-bold text-arti-black shrink-0 w-12 md:w-16 pt-1">
+                                {val.id}
+                            </span>
+                            
+                            {/* Titre : Commence après l'ID (milieu col 5) et s'étend vers col 6 */}
                             <h3 className="text-xl md:text-2xl font-medium text-arti-black group-hover:text-amber-600 transition-colors leading-tight">
                                 {val.title}
                             </h3>
                         </div>
 
-                        {/* 3. Texte (Col 7-8 Globales) */}
+                        {/* COLONNES 7 & 8 (Globales) -> Col 3 & 4 (Locales) : TEXTE */}
                         <div className="md:col-span-2">
                             <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed">
                                 {val.text}
@@ -273,67 +288,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </section>
 
-      {/* 4. NOS SERVICES DÉTAILLÉS - MAILLAGE INTERNE */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
-            Découvrez nos services en détail
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-3xl">
-            Explorez nos expertises et découvrez comment nous pouvons vous accompagner dans votre croissance digitale.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link
-            href="/services/creation-site-internet"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
-          >
-            <div className="text-4xl mb-6">🌐</div>
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              Création de Site Internet
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
-              Sites web modernes, performants et SEO-friendly. Design sur mesure, développement Next.js/React, optimisations techniques.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              En savoir plus →
-            </span>
-          </Link>
-
-          <Link
-            href="/services/branding-identite-visuelle"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
-          >
-            <div className="text-4xl mb-6">🎨</div>
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              Branding & Identité Visuelle
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
-              Identité de marque forte et cohérente. Logo, charte graphique, stratégie de marque, design system. Démarquez-vous.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              En savoir plus →
-            </span>
-          </Link>
-
-          <Link
-            href="/services/seo-referencement-naturel"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300 flex flex-col"
-          >
-            <div className="text-4xl mb-6">📈</div>
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              SEO & Référencement Naturel
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-6 flex-grow">
-              Dominez Google et générez du trafic qualifié. Audit SEO, optimisations techniques, stratégie de contenu, netlinking.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              En savoir plus →
-            </span>
-          </Link>
-        </div>
-      </section>
+     
 
       <BlogSection posts={posts} />
 

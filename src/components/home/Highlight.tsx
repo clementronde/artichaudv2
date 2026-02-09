@@ -57,9 +57,8 @@ const projects = [
   }
 ]
 
-// --- 2. LE SOUS-COMPOSANT ProjectCard (C'EST ICI !) ---
+// --- 2. LE SOUS-COMPOSANT ProjectCard ---
 const ProjectCard = ({ project }: { project: any }) => {
-  // On utilise HTMLAnchorElement car c'est un Link (balise <a>)
   const containerRef = useRef<HTMLAnchorElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
   
@@ -103,7 +102,6 @@ const ProjectCard = ({ project }: { project: any }) => {
     const mouseY = e.clientY - rect.top
 
     // CALCULS DE LIMITES (CLAMP)
-    // Pour empêcher la carte de sortir du cadre
     const minX = (CARD_WIDTH / 2) + PADDING
     const maxX = rect.width - (CARD_WIDTH / 2) - PADDING
     
@@ -134,7 +132,6 @@ const ProjectCard = ({ project }: { project: any }) => {
         href={`/works/${project.id}`}
         ref={containerRef} 
         suppressHydrationWarning={true}
-        // MODIFICATION ICI : Remplacement des classes 'aspect-...' par 'h-[500px]'
         className="relative w-full h-[500px] overflow-hidden bg-gray-100 cursor-none block"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
@@ -201,7 +198,8 @@ export default function Highlight() {
   const container = useRef(null)
 
   return (
-    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-12">
+    // MODIFICATION MARGES : w-full + px-[40px]
+    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-[40px]">
       
       <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
@@ -213,9 +211,9 @@ export default function Highlight() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* GRID : Changement de gap-6 à gap-[20px] pour respecter la gouttière standard */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
         {projects.map((project) => (
-          // On appelle le sous-composant ici
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>

@@ -99,7 +99,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="container mx-auto px-0 md:px-0 relative z-10">
+      <div className=" px-[40px] relative z-10">
         
         {/* HEADER */}
         <motion.div 

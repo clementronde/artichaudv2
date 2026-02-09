@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
             style={{
               color: '#ffffff',
               opacity: 1,
-              fontSize: '13.5vw', // CORRECTION: Utiliser vw pur au lieu de clamp pour remplir la largeur
+              fontSize: '20vw', // CORRECTION: Utiliser vw pur au lieu de clamp pour remplir la largeur
               lineHeight: 0.8,
               letterSpacing: '-0.04em',
               paddingBottom: '20px'
