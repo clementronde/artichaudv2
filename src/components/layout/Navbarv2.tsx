@@ -280,7 +280,7 @@ export default function Navbar() {
 
               <div ref={ctaRef} className="flex-shrink-0">
                 <Magnetic disabled={isNavigatingRef.current}>
-                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
+                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-4 px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
                       <span>Let's talk</span>
