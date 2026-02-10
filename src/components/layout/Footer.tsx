@@ -164,19 +164,7 @@ const Footer: React.FC = () => {
              width: 'calc(100% + 80px)' 
           }}
         >
-          <div
-            className="font-bold leading-none select-none text-center"
-            style={{
-              color: '#ffffff',
-              opacity: 1,
-              fontSize: '20vw', // CORRECTION: Utiliser vw pur au lieu de clamp pour remplir la largeur
-              lineHeight: 0.8,
-              letterSpacing: '-0.04em',
-              paddingBottom: '20px'
-            }}
-          >
-            Artichaud
-          </div>
+          
         </div>
       </footer>
     </>

@@ -103,7 +103,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
     <main className="w-full bg-white pt-40 min-h-screen overflow-x-hidden">
 
       {/* 1. HEADER INTRODUCTION */}
-      <div className="container mx-auto px-6 md:px-12 mb-32">
+      <div className="w-full px-[40px] mb-32">
         <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5">
           <div className="hidden md:block col-span-1 pt-2">
             <span className="text-sm font-medium text-arti-black block">
@@ -124,7 +124,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
       </div>
 
       {/* 2. SECTION TITRE GRILLE + BOUTON */}
-      <div className="container mx-auto px-6 md:px-12 mb-12">
+      <div className="w-full px-[40px] mb-32">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
