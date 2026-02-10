@@ -98,37 +98,33 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
     }
 
     // 2. Tracker les images
+    const trackedImages = new Set<HTMLImageElement>();
+
     const trackImages = () => {
       const images = Array.from(document.images);
 
-      if (images.length === 0) {
+      // Ajouter les nouvelles images non encore trackées
+      images.forEach((img) => {
+        if (trackedImages.has(img)) return;
+        trackedImages.add(img);
+
+        if (!img.complete) {
+          img.addEventListener('load', () => checkAllImagesLoaded());
+          img.addEventListener('error', () => checkAllImagesLoaded());
+        }
+      });
+
+      checkAllImagesLoaded();
+    };
+
+    const checkAllImagesLoaded = () => {
+      if (trackedImages.size === 0) {
         resources.images = true;
         return;
       }
 
-      let loadedImages = 0;
-      const totalImages = images.length;
-
-      images.forEach((img) => {
-        if (img.complete) {
-          loadedImages++;
-        } else {
-          img.addEventListener('load', () => {
-            loadedImages++;
-            if (loadedImages >= totalImages) {
-              resources.images = true;
-            }
-          });
-          img.addEventListener('error', () => {
-            loadedImages++;
-            if (loadedImages >= totalImages) {
-              resources.images = true;
-            }
-          });
-        }
-      });
-
-      if (loadedImages >= totalImages) {
+      const allLoaded = Array.from(trackedImages).every((img) => img.complete);
+      if (allLoaded) {
         resources.images = true;
       }
     };
@@ -150,6 +146,11 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
       trackImages();
       updateProgress();
     }, 100);
+
+    // Re-scan après 500ms pour capter les images rendues tardivement (ex: hero trail)
+    setTimeout(() => {
+      trackImages();
+    }, 500);
 
     // Fallback de sécurité
     timeoutId = setTimeout(() => {
