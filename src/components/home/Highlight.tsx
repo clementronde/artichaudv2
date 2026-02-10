@@ -168,11 +168,11 @@ const ProjectCard = ({ project }: { project: any }) => {
                />
             </div>
             
-            <div className="absolute top-4 left-0 w-full text-center z-10">
+            {/*<div className="absolute top-4 left-0 w-full text-center z-10">
                <span className="text-white text-[10px] uppercase tracking-widest font-bold drop-shadow-md">
                  Étude de cas {project.client}
                </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </Link>
