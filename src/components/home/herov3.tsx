@@ -133,6 +133,21 @@ export default function HeroV3() {
         </button>
       </div>
 
+      {/* PRELOAD IMAGES - Hidden images so the preloader tracks them via document.images */}
+      <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden pointer-events-none">
+        {images.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt=""
+            loading="eager"
+            decoding="async"
+            width={1}
+            height={1}
+          />
+        ))}
+      </div>
+
     </section>
   )
 }
