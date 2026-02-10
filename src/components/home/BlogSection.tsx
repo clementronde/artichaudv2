@@ -199,7 +199,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
       </div>
 
       {/* ZONE SLIDER */}
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-[40px] mb-32">
         <div ref={containerRef} className="relative w-full !cursor-none">
           <DragCursor containerRef={containerRef} />
 
