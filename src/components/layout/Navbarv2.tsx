@@ -256,8 +256,8 @@ export default function Navbar() {
           ref={logoWrapperRef}
           className="h-[60px] w-[60px] rounded-full bg-[#000000] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
         >
-          <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative w-full h-full flex items-center justify-center hover:scale-105 transition-transform duration-300">
-              <Image src="/icon.png" alt="Artichaud Logo" width={36} height={36} className="object-contain" />
+          <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative h-[30px] w-[30px] flex items-center justify-center hover:scale-105 transition-transform duration-300">
+              <Image src="/Logo_artichaud_Studio_navbar.png" alt="Artichaud Logo" width={36} height={36} className="object-contain" />
           </Link>
         </div>
 

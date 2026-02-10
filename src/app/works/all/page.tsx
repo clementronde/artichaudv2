@@ -114,7 +114,7 @@ const ProjectRow = ({ project, setModal, index }: ProjectRowProps) => {
 
         {/* COL 7-8 : CATÉGORIE */}
         <div className="col-span-4 md:col-span-2 text-right md:text-left">
-          <p className="text-sm md:text-base text-gray-500 font-light transition-colors duration-300 group-hover/item:text-amber-500">
+          <p className="text-sm md:text-base text-gray-500 font-light transition-colors duration-300 group-hover/item:text-[#D0F800]">
             {project.category}
           </p>
         </div>
