@@ -13,64 +13,64 @@ const allProjects = [
     client: "Charit.IO",
     slogan: "Soutenons la culture ensemble !",
     category: "Brand Identity, Webdesign, UX",
-    image: "/assets/projects/Charit.avif",
+    image: "/projects/charitio/charitioprojet1.avif",
     slug: "/works/charitio"
   },
   {
     id: 2,
     client: "Keleti Agency",
-    slogan: "Lorem ipsum dolor sit amet",
+    slogan: "Portfolio de projets créatifs et innovants",
     category: "Brand Identity, Brand strategy",
-    image: "/assets/projects/Keleti.avif",
+    image: "/projects/keleti/keletiprojet1.avif",
     slug: "/works/keleti"
   },
   {
     id: 3,
     client: "Disobey",
-    slogan: "Consectetur adipiscing elit",
+    slogan: "Plateforme musicale de musique alternative",
     category: "Brand Identity, Webdesign",
-    image: "/assets/projects/Disobey.avif",
+    image: "/projects/disobey/disobeyprojet1.avif",
     slug: "/works/disobey"
   },
   {
     id: 4,
     client: "Lumyn",
-    slogan: "Ut labore et dolore magna aliqua",
+    slogan: "Plateforme de concours créatifs",
     category: "Brand Identity, Webdesign, Brand strategy",
-    image: "/assets/projects/Lumyn.avif",
+    image: "/projects/lumyn/Lumynprojet1.avif",
     slug: "/works/lumyn"
   },
   {
     id: 5,
     client: "Com'on",
-    slogan: "Duis aute irure",
+    slogan: "Gamification de l'actualité pour la nouvelle génération",
     category: "Brand Identity, Webdesign, UX",
-    image: "/assets/projects/Com'on.avif",
+    image: "/projects/comon/comonprojet1.avif",
     slug: "/works/comon"
   },
   {
     id: 6,
     client: "Jobmi",
-    slogan: "Excepteur sint occaecat",
+    slogan: "Tiers de confiance de la reconversion professionnelle",
     category: "Brand Identity, Webdesign, UX",
-    image: "/assets/projects/Jobmi.avif",
+    image: "/projects/jobmi/jobmiprojet1.avif",
     slug: "/works/jobmi"
   },
   {
     id: 7,
     client: "Multiface",
-    slogan: "Quis nostrud exercitation ullamco laboris",
+    slogan: "Musée virtuel d'art contemporain en réalité augmentée",
     category: "Brand Identity, Webdesign, Web Marketing",
-    image: "/assets/projects/Multiface.avif",
+    image: "/projects/multiface/multifaceprojet1.avif",
     slug: "/works/multiface"
   },
   {
     id: 8,
-    client: "Utopia",
-    slogan: "Quis nostrud exercitation ullamco laboris",
+    client: "Rockstar",
+    slogan: "Collectif musical rock",
     category: "Brand Identity, Webdesign, Web Marketing",
-    image: "/assets/projects/Utopia.avif",
-    slug: "/works/utopia"
+    image: "/projects/rockstar/rockstarprojet1.avif",
+    slug: "/works/rockstar"
   }
 ]
 
