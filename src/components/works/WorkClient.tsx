@@ -147,7 +147,7 @@ export default function WorkClient({ posts }: { posts: any[] }) {
       </div>
 
       {/* 3. GRILLE PROJETS */}
-      <div className="container mx-auto px-6 md:px-12 pb-16">
+      <div className="w-full px-[40px] mb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-5">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
