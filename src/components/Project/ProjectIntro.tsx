@@ -80,7 +80,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
     <section 
       ref={container} 
       // z-[70] pour passer au-dessus du Hero (comme demandé)
-      className="relative z-[70] w-full pb-10 flex justify-center overflow-visible bg-transparent pointer-events-none -mt-20 md:-mt-32"
+      className="relative z-[70] w-full pb-10 flex justify-center overflow-visible bg-transparent pointer-events-none -mt-20 md:-mt-32 mb-24" 
     >
       <div 
         ref={blackBox} 
