@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useLocale } from '@/context/LocaleContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,6 +23,7 @@ const HighlightTitle = ({ text }: { text: string }) => {
 export default function Intro() {
   const container = useRef(null)
   const blackBox = useRef(null)
+  const { t } = useLocale()
 
   useGSAP(() => {
     // 1. Expansion du bloc noir
@@ -82,13 +84,13 @@ export default function Intro() {
 
           <div className="col-span-12 md:col-span-2">
             <span className="text-sm font-medium text-white/60 uppercase tracking-wide">
-              Notre approche
+              {t.intro.tagline}
             </span>
           </div>
 
           <div className="col-span-12 md:col-span-10">
             <h2 className="text-[32px] md:text-[50px] leading-[1.1] font-normal">
-              <HighlightTitle text="Nous sommes Artichaud Studio - une agence de branding et design à Paris. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être." />
+              <HighlightTitle text={t.intro.heading} />
             </h2>
           </div>
 
@@ -96,15 +98,15 @@ export default function Intro() {
 
           <div className="para-container col-span-12 md:col-span-6 flex flex-col gap-8 mt-auto">
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise. Peut-être que votre message ne résonne pas comme vous le souhaitez.
+              {t.intro.para1}
             </p>
             <p className="para-block text-white/40 text-lg md:text-xl font-light leading-relaxed transition-colors">
-              Ou peut-être êtes-vous simplement fatigué de justifier l'apparence de votre marque. Il est temps de vous présenter avec la clarté et la confiance que vous méritez. Et c'est là que nous intervenons.
+              {t.intro.para2}
             </p>
             <div className="mt-4 pt-4">
                <button className="group flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  En savoir plus
+                  {t.intro.cta}
                </button>
             </div>
           </div>

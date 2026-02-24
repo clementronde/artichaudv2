@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import { cookies } from 'next/headers';
 import "./globals.css";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
 import Navbar2 from "@/components/layout/Navbarv2";
 import ScrollToTop from "@/components/ScrollToTop";
-
 import JsonLd from "@/components/seo/JsonLD";
 import GlobalPreloader from "@/components/GlobalPreloader";
+import { LocaleProvider } from "@/context/LocaleContext";
+import type { Locale } from "@/lib/i18n/translations";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -61,27 +63,36 @@ export const viewport = {
   themeColor: '#000000',
 };
 
-export default function RootLayout({
+const SUPPORTED_LOCALES: Locale[] = ['fr', 'en']
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read locale from cookie (set by middleware based on domain / Accept-Language)
+  const cookieStore = await cookies()
+  const rawLocale = cookieStore.get('NEXT_LOCALE')?.value
+  const locale: Locale = rawLocale && SUPPORTED_LOCALES.includes(rawLocale as Locale)
+    ? (rawLocale as Locale)
+    : 'fr'
+
   return (
-    <html lang="fr" className={helvetica.variable}>
+    <html lang={locale} className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden">
-        <GlobalPreloader />
-        <JsonLd />
-        <ScrollToTop />
-        <Navbar2 />
+        <LocaleProvider locale={locale}>
+          <GlobalPreloader />
+          <JsonLd />
+          <ScrollToTop />
+          <Navbar2 />
 
-        <SmoothScrollWrapper>
-
-          <main className="relative z-10 bg-white min-h-screen">
-            {children}
-          </main>
-
-          <Footer />
-        </SmoothScrollWrapper>
+          <SmoothScrollWrapper>
+            <main className="relative z-10 bg-white min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </SmoothScrollWrapper>
+        </LocaleProvider>
 
         {process.env.NEXT_PUBLIC_GA_ID && (
            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

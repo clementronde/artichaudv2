@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
+import { useLocale } from '@/context/LocaleContext'
 
 // --- TYPES ---
 interface FormData {
@@ -18,63 +19,6 @@ interface FormData {
   message: string
   howFound: string
 }
-
-// --- DONNÉES ---
-const services = [
-  { 
-    id: 'branding', 
-    label: 'Brand Identity', 
-    description: 'Logo, charte graphique, direction artistique' 
-  },
-  { 
-    id: 'webdesign', 
-    label: 'Web Design', 
-    description: 'UX/UI, maquettes, prototypes interactifs' 
-  },
-  { 
-    id: 'webdev', 
-    label: 'Développement Web', 
-    description: 'Site vitrine, e-commerce, application sur-mesure' 
-  },
-  { 
-    id: 'social', 
-    label: 'Social Media', 
-    description: 'Stratégie, création de contenu, community management' 
-  },
-  { 
-    id: 'marketing', 
-    label: 'Webmarketing', 
-    description: 'SEO, SEA, emailing, analytics & reporting' 
-  },
-  { 
-    id: 'photo', 
-    label: 'Shooting Photo & Vidéo', 
-    description: 'Packshot produit, lifestyle, motion design' 
-  },
-]
-
-const budgets = [
-  { id: 'small', label: 'Moins de 3 000 €', hint: 'Projet simple' },
-  { id: 'medium', label: '3 000 € — 8 000 €', hint: 'Projet standard' },
-  { id: 'large', label: '8 000 € — 15 000 €', hint: 'Projet complet' },
-  { id: 'enterprise', label: 'Plus de 15 000 €', hint: 'Projet d\'envergure' },
-  { id: 'unknown', label: 'À définir ensemble', hint: 'Discutons-en' },
-]
-
-const timelines = [
-  { id: 'urgent', label: 'Moins d\'un mois' },
-  { id: 'normal', label: '1 à 3 mois' },
-  { id: 'relaxed', label: '3 à 6 mois' },
-  { id: 'flexible', label: 'Pas de contrainte' },
-]
-
-const sources = [
-  'Google',
-  'Instagram',
-  'LinkedIn',
-  'Recommandation',
-  'Autre',
-]
 
 // --- COMPOSANTS UI ---
 
@@ -195,13 +139,16 @@ const ProgressBar = ({ current, total }: { current: number, total: number }) => 
 
 // --- ÉTAPES ---
 
-const Step1Services = ({ 
-  formData, 
-  setFormData 
-}: { 
+const Step1Services = ({
+  formData,
+  setFormData
+}: {
   formData: FormData
-  setFormData: React.Dispatch<React.SetStateAction<FormData>> 
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>
 }) => {
+  const { t } = useLocale()
+  const services = t.contact.services
+
   const toggleService = (id: string) => {
     setFormData(prev => ({
       ...prev,
@@ -221,13 +168,13 @@ const Step1Services = ({
     >
       <div className="flex flex-col gap-4 max-w-xl">
         <span className="text-sm font-medium text-arti-black/40 uppercase tracking-wider">
-          Étape 01
+          {t.contact.step1.label}
         </span>
         <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-          De quoi avez-vous besoin ?
+          {t.contact.step1.heading}
         </h2>
         <p className="text-lg text-arti-black/50 font-light">
-          Sélectionnez un ou plusieurs services.
+          {t.contact.step1.subheading}
         </p>
       </div>
 
@@ -239,7 +186,7 @@ const Step1Services = ({
             onClick={() => toggleService(service.id)}
             className="p-6 md:p-8"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -259,13 +206,17 @@ const Step1Services = ({
   )
 }
 
-const Step2Budget = ({ 
-  formData, 
-  setFormData 
-}: { 
+const Step2Budget = ({
+  formData,
+  setFormData
+}: {
   formData: FormData
-  setFormData: React.Dispatch<React.SetStateAction<FormData>> 
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>
 }) => {
+  const { t } = useLocale()
+  const budgets = t.contact.budgets
+  const timelines = t.contact.timelines
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -276,13 +227,13 @@ const Step2Budget = ({
     >
       <div className="flex flex-col gap-4 max-w-xl">
         <span className="text-sm font-medium text-arti-black/40 uppercase tracking-wider">
-          Étape 02
+          {t.contact.step2.label}
         </span>
         <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-          Quel est votre budget ?
+          {t.contact.step2.heading}
         </h2>
         <p className="text-lg text-arti-black/50 font-light">
-          Cette indication nous aide à vous proposer des solutions adaptées.
+          {t.contact.step2.subheading}
         </p>
       </div>
 
@@ -294,7 +245,7 @@ const Step2Budget = ({
             onClick={() => setFormData(prev => ({ ...prev, budget: budget.id }))}
             className="p-6"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -311,14 +262,14 @@ const Step2Budget = ({
         ))}
       </div>
 
-      {/* Délai */}
+      {/* Timeline */}
       <div className="flex flex-col gap-6 pt-8 border-t border-black/5">
         <div className="flex flex-col gap-2">
           <h3 className="text-xl font-medium text-arti-black">
-            Et côté délai ?
+            {t.contact.step2.timelineHeading}
           </h3>
           <p className="text-arti-black/50 font-light">
-            Quand souhaitez-vous lancer le projet ?
+            {t.contact.step2.timelineSubheading}
           </p>
         </div>
 
@@ -330,8 +281,8 @@ const Step2Budget = ({
               onClick={() => setFormData(prev => ({ ...prev, timeline: timeline.id }))}
               className={`
                 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
-                ${formData.timeline === timeline.id 
-                  ? 'bg-arti-black text-white' 
+                ${formData.timeline === timeline.id
+                  ? 'bg-arti-black text-white'
                   : 'bg-black/5 text-arti-black/60 hover:bg-black/10'
                 }
               `}
@@ -345,15 +296,18 @@ const Step2Budget = ({
   )
 }
 
-const Step3Contact = ({ 
-  formData, 
+const Step3Contact = ({
+  formData,
   setFormData,
-  errors 
-}: { 
+  errors
+}: {
   formData: FormData
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
   errors: Record<string, string>
 }) => {
+  const { t } = useLocale()
+  const sources = t.contact.sources
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -364,28 +318,28 @@ const Step3Contact = ({
     >
       <div className="flex flex-col gap-4 max-w-xl">
         <span className="text-sm font-medium text-arti-black/40 uppercase tracking-wider">
-          Étape 03
+          {t.contact.step3.label}
         </span>
         <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-          Comment vous contacter ?
+          {t.contact.step3.heading}
         </h2>
         <p className="text-lg text-arti-black/50 font-light">
-          Dernière étape, promis. On reviendra vers vous rapidement.
+          {t.contact.step3.subheading}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
-          label="Votre nom *"
-          placeholder="Jean Dupont"
+          label={t.contact.fields.name}
+          placeholder={t.contact.fields.namePlaceholder}
           value={formData.name}
           onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
           error={errors.name}
         />
         <Input
-          label="Email *"
+          label={t.contact.fields.email}
           type="email"
-          placeholder="jean@entreprise.com"
+          placeholder={t.contact.fields.emailPlaceholder}
           value={formData.email}
           onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
           error={errors.email}
@@ -394,22 +348,22 @@ const Step3Contact = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
-          label="Entreprise"
-          placeholder="Nom de votre entreprise"
+          label={t.contact.fields.company}
+          placeholder={t.contact.fields.companyPlaceholder}
           value={formData.company}
           onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
         />
         <Input
-          label="Site web actuel"
-          placeholder="https://votresite.com"
+          label={t.contact.fields.website}
+          placeholder={t.contact.fields.websitePlaceholder}
           value={formData.website}
           onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
         />
       </div>
 
       <Textarea
-        label="Décrivez votre projet *"
-        placeholder="Parlez-nous de votre projet, vos objectifs, vos contraintes éventuelles..."
+        label={t.contact.fields.message}
+        placeholder={t.contact.fields.messagePlaceholder}
         value={formData.message}
         onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
         error={errors.message}
@@ -417,7 +371,7 @@ const Step3Contact = ({
 
       <div className="flex flex-col gap-4">
         <label className="text-sm font-medium text-arti-black/50 uppercase tracking-wider">
-          Comment nous avez-vous connu ?
+          {t.contact.fields.howFound}
         </label>
         <div className="flex flex-wrap gap-3">
           {sources.map((source) => (
@@ -427,8 +381,8 @@ const Step3Contact = ({
               onClick={() => setFormData(prev => ({ ...prev, howFound: source }))}
               className={`
                 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
-                ${formData.howFound === source 
-                  ? 'bg-arti-black text-white' 
+                ${formData.howFound === source
+                  ? 'bg-arti-black text-white'
                   : 'bg-black/5 text-arti-black/60 hover:bg-black/10'
                 }
               `}
@@ -443,9 +397,13 @@ const Step3Contact = ({
 }
 
 const StepConfirmation = ({ formData }: { formData: FormData }) => {
+  const { t } = useLocale()
+  const services = t.contact.services
+  const budgets = t.contact.budgets
+  const timelines = t.contact.timelines
   const selectedServices = services.filter(s => formData.services.includes(s.id))
   const selectedBudget = budgets.find(b => b.id === formData.budget)
-  const selectedTimeline = timelines.find(t => t.id === formData.timeline)
+  const selectedTimeline = timelines.find(tl => tl.id === formData.timeline)
 
   return (
     <motion.div
@@ -495,41 +453,40 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
 
       <div className="flex flex-col gap-4 max-w-lg">
         <h2 className="text-[32px] md:text-[42px] font-normal text-arti-black leading-[1.1]">
-          Demande envoyée
+          {t.contact.confirmation.heading}
         </h2>
         <p className="text-lg text-arti-black/50 font-light">
-          Merci {formData.name.split(' ')[0]}. Nous avons bien reçu votre demande 
-          et reviendrons vers vous sous 24 à 48 heures.
+          {t.contact.confirmation.subtitle.replace('{{name}}', formData.name.split(' ')[0])}
         </p>
       </div>
 
       {/* Récapitulatif */}
       <div className="w-full max-w-md border border-black/10 rounded-2xl p-8 text-left">
         <span className="text-xs font-medium text-arti-black/40 uppercase tracking-wider">
-          Récapitulatif
+          {t.contact.confirmation.summary}
         </span>
-        
+
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex justify-between items-start gap-4">
-            <span className="text-arti-black/50 text-sm">Services</span>
+            <span className="text-arti-black/50 text-sm">{t.contact.confirmation.services}</span>
             <span className="text-arti-black text-sm text-right font-medium">
               {selectedServices.map(s => s.label).join(', ')}
             </span>
           </div>
           <div className="w-full h-px bg-black/5" />
-          
+
           <div className="flex justify-between">
-            <span className="text-arti-black/50 text-sm">Budget</span>
+            <span className="text-arti-black/50 text-sm">{t.contact.confirmation.budget}</span>
             <span className="text-arti-black text-sm font-medium">
-              {selectedBudget?.label || 'Non spécifié'}
+              {selectedBudget?.label || t.contact.confirmation.notSpecified}
             </span>
           </div>
           <div className="w-full h-px bg-black/5" />
-          
+
           <div className="flex justify-between">
-            <span className="text-arti-black/50 text-sm">Délai</span>
+            <span className="text-arti-black/50 text-sm">{t.contact.confirmation.timeline}</span>
             <span className="text-arti-black text-sm font-medium">
-              {selectedTimeline?.label || 'Non spécifié'}
+              {selectedTimeline?.label || t.contact.confirmation.notSpecified}
             </span>
           </div>
         </div>
@@ -537,11 +494,10 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
 
       <Link
         href="/"
-        className="group inline-flex items-center gap-3 px-8 py-4 bg-arti-black text-white rounded-full font-medium 
-                   hover:bg-black transition-colors duration-300"
+        className="group inline-flex items-center gap-3 px-8 py-4 bg-arti-black text-white rounded-full font-medium hover:bg-black transition-colors duration-300"
       >
         <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
-        <span>Retour à l'accueil</span>
+        <span>{t.contact.confirmation.backHome}</span>
       </Link>
     </motion.div>
   )
@@ -549,6 +505,7 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
 
 // --- PAGE PRINCIPALE ---
 export default function ContactPage() {
+  const { t } = useLocale()
   const containerRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
   const [currentStep, setCurrentStep] = useState(0)
@@ -619,13 +576,13 @@ export default function ContactPage() {
     }
 
     if (step === 2) {
-      if (!formData.name.trim()) newErrors.name = 'Champ requis'
+      if (!formData.name.trim()) newErrors.name = t.contact.errors.required
       if (!formData.email.trim()) {
-        newErrors.email = 'Champ requis'
+        newErrors.email = t.contact.errors.required
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        newErrors.email = 'Email invalide'
+        newErrors.email = t.contact.errors.invalidEmail
       }
-      if (!formData.message.trim()) newErrors.message = 'Champ requis'
+      if (!formData.message.trim()) newErrors.message = t.contact.errors.required
     }
 
     setErrors(newErrors)
@@ -672,7 +629,7 @@ export default function ContactPage() {
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
-      setSubmitError('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.')
+      setSubmitError(t.contact.errors.submitError)
     } finally {
       setIsSubmitting(false)
     }
@@ -694,12 +651,12 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto mb-16">
             <div className="overflow-hidden mb-6">
               <h1 className="contact-header-line text-[40px] md:text-[56px] lg:text-[72px] font-normal text-arti-black leading-[1] tracking-tight">
-                Démarrons un projet
+                {t.contact.title}
               </h1>
             </div>
             <div className="overflow-hidden">
               <p className="contact-intro text-lg md:text-xl text-arti-black/50 font-light max-w-xl">
-                Quelques questions pour cerner votre besoin. Nous reviendrons vers vous sous 24 à 48h.
+                {t.contact.subtitle}
               </p>
             </div>
           </div>
@@ -765,14 +722,14 @@ export default function ContactPage() {
                 onClick={prevStep}
                 className={`
                   group flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300
-                  ${currentStep === 0 
-                    ? 'opacity-0 pointer-events-none' 
+                  ${currentStep === 0
+                    ? 'opacity-0 pointer-events-none'
                     : 'text-arti-black/50 hover:text-arti-black'
                   }
                 `}
               >
                 <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
-                <span>Retour</span>
+                <span>{t.contact.nav.back}</span>
               </button>
 
               <motion.button
@@ -784,7 +741,7 @@ export default function ContactPage() {
                 className={`
                   group relative flex items-center gap-3 px-8 py-4 rounded-full font-medium transition-all duration-300
                   ${canProceed() && !isSubmitting
-                    ? 'bg-arti-black text-white hover:bg-black' 
+                    ? 'bg-arti-black text-white hover:bg-black'
                     : 'bg-black/10 text-black/30 cursor-not-allowed'
                   }
                 `}
@@ -796,11 +753,11 @@ export default function ContactPage() {
                       transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                       className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
                     />
-                    <span>Envoi...</span>
+                    <span>{t.contact.nav.sending}</span>
                   </>
                 ) : (
                   <>
-                    <span>{currentStep === totalSteps - 1 ? 'Envoyer' : 'Continuer'}</span>
+                    <span>{currentStep === totalSteps - 1 ? t.contact.nav.send : t.contact.nav.continue}</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </>
                 )}
@@ -815,10 +772,10 @@ export default function ContactPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
               <div className="flex flex-col gap-1">
                 <span className="text-xl font-medium text-arti-black">
-                  Vous préférez échanger directement ?
+                  {t.contact.directContact.heading}
                 </span>
                 <span className="text-arti-black/50">
-                  Parfois un appel vaut mieux qu'un formulaire.
+                  {t.contact.directContact.subheading}
                 </span>
               </div>
               

@@ -3,13 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-
-const navItems = [
-  { label: 'Work', href: '/works' },
-  { label: 'Services', href: '/services' },
-  { label: 'About', href: '/about' },
-  { label: "Let's talk", href: '/contact' },
-];
+import { useLocale } from '@/context/LocaleContext';
 
 const socialLinks = [
   { label: 'Instagram', href: 'https://www.instagram.com/artichaud.studio/' },
@@ -18,6 +12,15 @@ const socialLinks = [
 ];
 
 const Footer: React.FC = () => {
+  const { t } = useLocale()
+
+  const navItems = [
+    { label: t.navbar.works, href: '/works' },
+    { label: t.navbar.services, href: '/services' },
+    { label: t.navbar.about, href: '/about' },
+    { label: t.navbar.letsTalk, href: '/contact' },
+  ]
+
   return (
     <>
       {/* SPACER */}
@@ -40,7 +43,7 @@ const Footer: React.FC = () => {
               className="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight"
               style={{ color: '#D0FF00' }}
             >
-              Let's talk
+              {t.footer.letsTalk}
             </h2>
             <Link href="/contact" suppressHydrationWarning={true}>
               <motion.span
@@ -52,14 +55,14 @@ const Footer: React.FC = () => {
                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(208, 255, 0, 0.1)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>→</span> Get in touch
+                <span>→</span> {t.footer.getInTouch}
               </motion.span>
             </Link>
           </div>
 
           {/* Colonne 2 - Contact */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Contact Me</h3>
+            <h3 className="text-sm font-medium text-white mb-2">{t.footer.contactTitle}</h3>
             <a
               href="mailto:artichaud.studio@gmail.com"
               className="text-white/60 hover:text-white transition-colors text-sm"
@@ -77,7 +80,7 @@ const Footer: React.FC = () => {
 
           {/* Colonne 3 - Social */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Follow Me</h3>
+            <h3 className="text-sm font-medium text-white mb-2">{t.footer.followTitle}</h3>
             {socialLinks.map((social) => (
               <Link
                 key={social.label}
@@ -93,7 +96,7 @@ const Footer: React.FC = () => {
 
           {/* Colonne 4 - Overview + Services + Légal */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-white mb-2">Overview</h3>
+            <h3 className="text-sm font-medium text-white mb-2">{t.footer.overviewTitle}</h3>
             {navItems.map((item) => (
               <Link
                 key={item.label}
@@ -106,36 +109,36 @@ const Footer: React.FC = () => {
             ))}
 
             {/* --- SERVICES DÉTAILLÉS --- */}
-            <h3 className="text-sm font-medium text-white mb-2 mt-6">Nos Services</h3>
+            <h3 className="text-sm font-medium text-white mb-2 mt-6">{t.footer.servicesTitle}</h3>
             <Link
               href="/services/creation-site-internet"
               suppressHydrationWarning={true}
               className="text-white/60 hover:text-white transition-colors text-sm"
             >
-              Création Site Internet
+              {t.footer.services.web}
             </Link>
             <Link
               href="/services/branding-identite-visuelle"
               suppressHydrationWarning={true}
               className="text-white/60 hover:text-white transition-colors text-sm"
             >
-              Branding & Identité Visuelle
+              {t.footer.services.branding}
             </Link>
             <Link
               href="/services/seo-referencement-naturel"
               suppressHydrationWarning={true}
               className="text-white/60 hover:text-white transition-colors text-sm"
             >
-              SEO & Référencement
+              {t.footer.services.seo}
             </Link>
 
-            {/* --- AJOUT MENTIONS LÉGALES --- */}
+            {/* --- MENTIONS LÉGALES --- */}
             <Link
               href="/mentions-legales"
               suppressHydrationWarning={true}
               className="text-white/40 hover:text-[#D0FF00] transition-colors text-xs uppercase tracking-wider mt-6"
             >
-              Mentions Légales
+              {t.footer.legalNotices}
             </Link>
 
             {/* Lien SEO Boulogne */}
@@ -144,7 +147,7 @@ const Footer: React.FC = () => {
               suppressHydrationWarning={true}
               className="text-white/40 hover:text-white transition-colors text-xs"
             >
-              Création de site internet à Boulogne-Billancourt
+              {t.footer.boulogneLink}
             </Link>
           </div>
         </div>

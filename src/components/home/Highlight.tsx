@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useLocale } from '@/context/LocaleContext'
 
 // --- 1. DONNÉES ---
 const projects = [
@@ -58,7 +59,7 @@ const projects = [
 ]
 
 // --- 2. LE SOUS-COMPOSANT ProjectCard ---
-const ProjectCard = ({ project }: { project: any }) => {
+const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) => {
   const containerRef = useRef<HTMLAnchorElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
   
@@ -181,7 +182,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-baseline gap-2">
             <span className="text-lg font-medium text-arti-black">{project.category}</span>
-            <span className="text-sm font-light italic text-arti-black/60">pour</span>
+            <span className="text-sm font-light italic text-arti-black/60">{forLabel}</span>
             <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-black"></div>
                 <span className="text-lg font-bold text-arti-black">{project.client}</span>
@@ -196,6 +197,7 @@ const ProjectCard = ({ project }: { project: any }) => {
 // --- 3. LE COMPOSANT PRINCIPAL (Exporté) ---
 export default function Highlight() {
   const container = useRef(null)
+  const { t } = useLocale()
 
   return (
     // MODIFICATION MARGES : w-full + px-[40px]
@@ -203,10 +205,10 @@ export default function Highlight() {
       
       <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
-          À la une
+          {t.highlight.title}
         </h2>
         <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
-          <span className="text-sm font-bold">Voir les projets</span>
+          <span className="text-sm font-bold">{t.highlight.viewAll}</span>
           <span>→</span>
         </Link>
       </div>
@@ -214,7 +216,7 @@ export default function Highlight() {
       {/* GRID : Changement de gap-6 à gap-[20px] pour respecter la gouttière standard */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} forLabel={t.highlight.for} />
         ))}
       </div>
 

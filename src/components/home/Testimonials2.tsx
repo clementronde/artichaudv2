@@ -3,41 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, Variants } from 'framer-motion'
-
-// J'ai réécrit les avis pour qu'ils soient plus "punchy" et réalistes
-// Ils couvrent maintenant : la peur du changement, la performance technique, et le ROI.
-const testimonials = [
-  {
-    id: 1,
-    name: "Thomas Vernier",
-    role: "Fondateur, GreenPulse",
-    text: "On avait peur que le côté 'trop technique' tue l'émotion de notre marque. Artichaud a prouvé le contraire. Ils ont réussi à coder une expérience fluide qui garde toute sa chaleur humaine. Le site est vivant, et ça se sent dans nos retours clients.",
-  },
-  {
-    id: 2,
-    name: "Sarah Lecomte",
-    role: "CMO, Datadesk",
-    text: "Passer de WordPress à leur stack Next.js a été le jour et la nuit. Nos pages chargent instantanément, notre score SEO a explosé, et l'équipe marketing a enfin un outil performant entre les mains. C'est de l'artisanat numérique de haut vol.",
-  },
-  {
-    id: 3,
-    name: "Julien Delmas",
-    role: "CEO, Architekt Studio",
-    text: "Un site beau, c'est bien. Un site qui rapporte, c'est mieux. Depuis la refonte, nos demandes de devis ont doublé. Ils ne se sont pas contentés de faire du 'joli', ils ont repensé tout notre parcours utilisateur avec une logique business implacable.",
-  },
-  {
-    id: 4,
-    name: "Eléonore B.",
-    role: "Directrice Artistique, Maison Flow",
-    text: "L'attention au détail frôle l'obsession chez eux. C'est la première fois qu'une agence comprend vraiment ce qu'on entend par 'minimaliste mais impactant'. Ils ont su traduire nos valeurs abstraites en une interface utilisateur concrète et élégante.",
-  },
-  {
-    id: 5,
-    name: "Marc Alibert",
-    role: "Head of Growth, FinTask",
-    text: "Enfin une agence qui ne parle pas qu'en jargon. De la stratégie à l'exécution, on s'est sentis accompagnés, pas juste facturés. Ils ont su challenger nos idées reçues pour nous emmener plus loin que prévu. Une collaboration précieuse.",
-  }
-]
+import { useLocale } from '@/context/LocaleContext'
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -61,6 +27,8 @@ const staggerContainer: Variants = {
 export default function Testimonials() {
   const [width, setWidth] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
+  const { t } = useLocale()
+  const testimonials = t.testimonials.items
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -110,7 +78,7 @@ export default function Testimonials() {
           className="grid grid-cols-1 md:grid-cols-12 gap-y-8 mb-12 md:mb-20"
         >
           <motion.div variants={fadeInUp} className="md:col-span-2 pt-2">
-            <span className="text-sm font-medium text-black">Témoignages</span>
+            <span className="text-sm font-medium text-black">{t.testimonials.tagline}</span>
           </motion.div>
 
           <div className="md:col-span-8">
@@ -119,7 +87,9 @@ export default function Testimonials() {
               className="text-[40px] md:text-[60px] font-normal text-black leading-[1.1] tracking-tight mb-8"
               style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
             >
-              Ce que nos clients <br /> disent de nous
+              {t.testimonials.heading.split('\n').map((line, i, arr) => (
+                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+              ))}
             </motion.h2>
 
             <motion.div variants={fadeInUp}>
@@ -127,7 +97,7 @@ export default function Testimonials() {
                 href="/contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 group"
               >
-                <span className="text-sm font-medium">Lire plus d'avis</span>
+                <span className="text-sm font-medium">{t.testimonials.readMore}</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </motion.div>

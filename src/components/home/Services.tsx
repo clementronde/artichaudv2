@@ -4,51 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLocale } from '@/context/LocaleContext'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const servicesData = [
-  {
-    id: "001",
-    title: "Stratégie de marque",
-    description: "La boussole de votre marque. Elle définit votre raison d'être, affine votre positionnement et garantit que chaque décision résonne avec votre audience tout en stimulant la croissance.",
-    items: ["Recherche & Insights", "Stratégie de lancement", "Architecture de marque", "Raison d'être, Mission, Vision", "Stratégie de communication"],
-    image: "/services/projetkeletitautuservices.png",
-  },
-  {
-    id: "002",
-    title: "Identité visuelle",
-    description: "Plus qu'un simple logo. Nous créons un langage visuel qui parle à votre audience avant même que vous ne disiez un mot. Couleurs, typographie et direction artistique qui se démarquent.",
-    items: ["Design de logo", "Charte graphique", "Direction artistique", "Motion Design", "Illustration & Iconographie"],
-    image: "/projects/charitio/charitioprojet1.avif",
-  },
-  {
-    id: "003",
-    title: "Webdesign",
-    description: "Des expériences digitales qui convertissent. Nous concevons des sites web immersifs alliant esthétique et performance, garantissant un parcours utilisateur fluide sur tous les appareils.",
-    items: ["Design UX/UI", "Prototypage", "Design d'interaction", "Design Systems", "Approche Mobile First"],
-    image: "/projects/lumyn/Lumynprojet4.avif",
-  },
-  {
-    id: "004",
-    title: "Webmarketing",
-    description: "Amplifier votre voix. Nous développons des stratégies data-driven pour acquérir, convertir et fidéliser vos clients grâce à un ciblage précis et du contenu engageant.",
-    items: ["SEO & SEA", "Stratégie Social Media", "Marketing de contenu", "Automation d'emailing", "Analytics & Reporting"],
-    image: "/projects/comon/comonprojet2.avif",
-  },
-  {
-    id: "005",
-    title: "Shooting Produit",
-    description: "Des visuels qui vendent. Photographie et vidéographie haut de gamme pour mettre en valeur vos produits sous leur meilleur jour, créer du désir et valoriser votre offre.",
-    items: ["Direction artistique", "Photographie studio", "Shooting lifestyle", "Post-production", "Vidéos courtes"],
-    image: "/projects/cherico/chericoprojet3.avif",
-  }
-]
-
 export default function Services() {
   const container = useRef(null)
+  const { t } = useLocale()
+  const servicesData = t.services.list
 
   return (
     <section ref={container} className="relative w-full z-10 bg-white">
@@ -125,7 +90,7 @@ export default function Services() {
                         className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium border border-black/10 hover:border-black transition-all duration-300 group/btn"
                       >
                         <span className="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
-                        <span>Commençons</span>
+                        <span>{t.services.cta}</span>
                       </Link>
                     </div>
 
