@@ -118,7 +118,7 @@ export default function Services() {
                     </ul>
 
                     {/* BOUTON */}
-                    <div className="mt-8 md:mt-12">
+                    <div className="mt-8 mb-8 md:mt-12">
                       <Link
                         href="/contact"
                         suppressHydrationWarning={true}
