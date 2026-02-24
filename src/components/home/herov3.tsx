@@ -3,11 +3,12 @@
 import { useRef, useState } from "react"
 import { ImageTrail } from "@/components/ui/image-trail"
 import Image from "next/image"
+import { useLocale } from '@/context/LocaleContext'
 
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
-  
   const [isActive, setIsActive] = useState(false)
+  const { t } = useLocale()
 
   const images = [
     "/projects/charitio/charitioprojet2.avif",
@@ -106,16 +107,16 @@ export default function HeroV3() {
      {/* TEXTE PRINCIPAL */}
       <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex flex-col justify-end items-end p-6 md:p-12 pb-32">
         <div className="text-right">
-            <h1 
+            <h1
               className="font-normal text-black tracking-tight"
-              style={{ 
+              style={{
                 fontFamily: "Helvetica, Arial, sans-serif",
-                fontSize: 'clamp(40px, 5.5vw, 80px)', 
+                fontSize: 'clamp(40px, 5.5vw, 80px)',
               }}
             >
-              <span className="block">Artichaud, c'est le</span>
-              <span className="block">studio de création web qui fait monter</span>
-              <span className="block md:text-left">la température.</span>
+              <span className="block">{t.hero.title[0]}</span>
+              <span className="block">{t.hero.title[1]}</span>
+              <span className="block md:text-left">{t.hero.title[2]}</span>
             </h1>
         </div>
       </div>
@@ -126,7 +127,7 @@ export default function HeroV3() {
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
           className="flex items-center gap-2 text-sm font-medium tracking-wider text-black hover:opacity-70 transition-opacity"
         >
-          SCROLL
+          {t.hero.scroll}
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>

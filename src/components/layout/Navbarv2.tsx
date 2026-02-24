@@ -5,7 +5,9 @@ import { usePathname, useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Link from 'next/link'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion' // Assurez-vous d'avoir framer-motion
+import { AnimatePresence, motion } from 'framer-motion'
+import { useLocale } from '@/context/LocaleContext'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 // --- COMPOSANT MAGNETIC (Inchangé) ---
 const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?: boolean }) => {
@@ -48,7 +50,7 @@ const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?
 }
 
 // --- MENU MOBILE OVERLAY ---
-const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const MobileMenu = ({ isOpen, onClose, closeLabel }: { isOpen: boolean; onClose: () => void; closeLabel: string }) => {
     return (
         <AnimatePresence>
             {isOpen && (
@@ -60,16 +62,16 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     className="fixed inset-0 z-[6000] bg-black flex flex-col items-center justify-center"
                 >
                     {/* Bouton Fermer */}
-                    <button 
+                    <button
                         onClick={onClose}
                         className="absolute top-6 right-6 p-4 text-white"
                     >
-                        Fermer
+                        {closeLabel}
                     </button>
 
                     <nav className="flex flex-col items-center gap-8">
                         {['Works', 'Services', 'About', 'Contact'].map((item) => (
-                            <Link 
+                            <Link
                                 key={item}
                                 href={item === 'Contact' ? '/contact' : `/${item.toLowerCase()}`}
                                 onClick={onClose}
@@ -79,6 +81,10 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                             </Link>
                         ))}
                     </nav>
+
+                    <div className="absolute bottom-10">
+                        <LanguageSwitcher />
+                    </div>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -90,6 +96,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { t } = useLocale()
 
   // Refs pour la version Desktop (GSAP)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -110,9 +117,9 @@ export default function Navbar() {
   const DESKTOP_OPEN_WIDTH = 400 
   
   const navLinks = [
-    { label: 'Works', href: '/works' },
-    { label: 'Services', href: '/services' },
-    { label: 'About', href: '/about' },
+    { label: t.navbar.works, href: '/works' },
+    { label: t.navbar.services, href: '/services' },
+    { label: t.navbar.about, href: '/about' },
   ]
 
   // --- LOGIQUE GSAP DESKTOP (Inchangée) ---
@@ -228,7 +235,7 @@ export default function Navbar() {
 
   return (
     <>
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} closeLabel={t.navbar.close} />
 
       {/* --- 1. VERSION MOBILE (VISIBLE UNIQUEMENT SUR < MD) --- */}
       <div className="fixed top-6 left-0 w-full px-6 z-[5000] flex justify-between items-center md:hidden">
@@ -278,12 +285,13 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <div ref={ctaRef} className="flex-shrink-0">
+              <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
+                <LanguageSwitcher />
                 <Magnetic disabled={isNavigatingRef.current}>
-                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-4 px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
+                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
-                      <span>Let's talk</span>
+                      <span>{t.navbar.letsTalk}</span>
                     </span>
                   </Link>
                 </Magnetic>

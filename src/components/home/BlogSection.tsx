@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
+import { useLocale } from '@/context/LocaleContext'
 
 // --- 1. CURSEUR DRAG ---
 const DragCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
@@ -126,6 +127,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
 export default function BlogSection({ posts }: { posts: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
+  const { t } = useLocale()
   
   const [sliderWidth, setSliderWidth] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
@@ -183,15 +185,15 @@ export default function BlogSection({ posts }: { posts: any[] }) {
           </div>
           <div className="col-span-1 md:col-span-7 flex flex-col items-start gap-8">
             <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-[#1a1a1a] tracking-tight">
-              Soyez au courant  <br />
-              De nos dernières actus
+              {t.blog.heading[0]}  <br />
+              {t.blog.heading[1]}
             </h2>
-            <Link 
+            <Link
               href="/blog"
               className="group flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
               suppressHydrationWarning
             >
-              <span className="text-sm font-medium">Discover all articles</span>
+              <span className="text-sm font-medium">{t.blog.discoverAll}</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
             </Link>
           </div>
@@ -248,7 +250,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
                   <div className="w-20 h-20 rounded-full border border-black/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-black group-hover:text-white transition-all duration-300">
                      <span className="text-2xl">→</span>
                   </div>
-                  <span className="font-medium text-lg">View all</span>
+                  <span className="font-medium text-lg">{t.blog.viewAll}</span>
                </Link>
             </div>
 
