@@ -11,6 +11,7 @@ import JsonLd from "@/components/seo/JsonLD";
 import GlobalPreloader from "@/components/GlobalPreloader";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -92,6 +93,8 @@ export default async function RootLayout({
             </main>
             <Footer />
           </SmoothScrollWrapper>
+
+          <LanguageSwitcher />
         </LocaleProvider>
 
         {process.env.NEXT_PUBLIC_GA_ID && (

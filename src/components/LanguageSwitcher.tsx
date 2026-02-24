@@ -13,25 +13,24 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-1 text-[13px] font-medium">
+    <div className="fixed bottom-6 left-6 z-[9000] flex items-center gap-0 text-[12px] font-medium bg-black/80 backdrop-blur-md border border-white/10 rounded-full px-1 py-1 shadow-lg">
       <button
         onClick={() => handleSwitch('fr')}
-        className={`px-2 py-1 rounded transition-colors duration-200 ${
+        className={`px-3 py-1.5 rounded-full transition-all duration-200 ${
           locale === 'fr'
-            ? 'text-white'
-            : 'text-white/40 hover:text-white/70'
+            ? 'bg-white text-black'
+            : 'text-white/50 hover:text-white'
         }`}
         aria-label="Français"
       >
         FR
       </button>
-      <span className="text-white/20">|</span>
       <button
         onClick={() => handleSwitch('en')}
-        className={`px-2 py-1 rounded transition-colors duration-200 ${
+        className={`px-3 py-1.5 rounded-full transition-all duration-200 ${
           locale === 'en'
-            ? 'text-white'
-            : 'text-white/40 hover:text-white/70'
+            ? 'bg-white text-black'
+            : 'text-white/50 hover:text-white'
         }`}
         aria-label="English"
       >

@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from '@/context/LocaleContext'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 // --- COMPOSANT MAGNETIC (Inchangé) ---
 const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?: boolean }) => {
@@ -81,10 +80,6 @@ const MobileMenu = ({ isOpen, onClose, closeLabel }: { isOpen: boolean; onClose:
                             </Link>
                         ))}
                     </nav>
-
-                    <div className="absolute bottom-10">
-                        <LanguageSwitcher />
-                    </div>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -286,7 +281,6 @@ export default function Navbar() {
               </div>
 
               <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
-                <LanguageSwitcher />
                 <Magnetic disabled={isNavigatingRef.current}>
                   <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
                     <span className="flex items-center gap-2">
