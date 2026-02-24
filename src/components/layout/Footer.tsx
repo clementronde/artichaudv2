@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
       <div className="footer-spacer pointer-events-none" />
 
       <footer
-        className="footer-container relative flex flex-col justify-between px-6 py-10 md:px-10 md:py-20"
+        className="footer-container relative flex flex-col justify-between"
         style={{
           zIndex: 1,
           backgroundColor: '#000000',
