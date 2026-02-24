@@ -76,7 +76,7 @@ export default function Services() {
             <div className="w-full px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
               
               {/* GRID : 8 Colonnes avec gap 20px */}
-              <div className="grid grid-cols-1 md:grid-cols-8 gap-8 md:gap-[20px] w-full h-full items-stretch">
+              <div className="grid grid-cols-1 md:grid-cols-8 gap-3 md:gap-[20px] w-full h-full items-stretch">
                 
                 {/* --- COLONNE 1 : Numéro --- */}
                 <div className="hidden md:block col-span-1 pt-3 border-t border-transparent">

@@ -168,8 +168,22 @@ html.lenis, html.lenis body {
   background-color: #000;
   color: #fff;
   overflow: hidden;
-  padding: 0; 
+  padding: 0;
   z-index: -1;
+}
+
+/* Mobile : footer en flux normal, non fixe */
+@media (max-width: 767px) {
+  .footer-container {
+    position: relative;
+    height: auto;
+    min-height: unset;
+    overflow: visible;
+    z-index: 1;
+  }
+  .footer-spacer {
+    height: 0 !important;
+  }
 }
 
 
