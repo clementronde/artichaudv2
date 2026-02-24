@@ -77,7 +77,7 @@ export default function Testimonials() {
   }, [])
 
   return (
-    <section className="relative w-full bg-white py-24 z-30 overflow-hidden md:overflow-visible">
+    <section className="relative w-full bg-white py-24 z-30 overflow-x-clip md:overflow-visible">
       
       {/* 1. HALO JAUNE INTENSE */}
       <motion.div 
@@ -99,7 +99,7 @@ export default function Testimonials() {
         }}
       />
 
-      <div className=" px-[40px] relative z-10">
+      <div className="px-6 md:px-[40px] relative z-10">
         
         {/* HEADER */}
         <motion.div 
