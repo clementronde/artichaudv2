@@ -114,8 +114,8 @@ export default function HeroV3() {
               }}
             >
               <span className="block">Artichaud, c'est le</span>
-              <span className="block">studio de création web qui fait</span>
-              <span className="block md:text-left">monter la température.</span>
+              <span className="block">studio de création web qui fait monter</span>
+              <span className="block md:text-left">la température.</span>
             </h1>
         </div>
       </div>

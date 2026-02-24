@@ -56,7 +56,7 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
-  const heights = ['h-[448px]', 'h-[329px]', 'h-[398px]']
+  const heights = ['h-[240px] md:h-[448px]', 'h-[180px] md:h-[329px]', 'h-[210px] md:h-[398px]']
   const currentHeight = heights[index % 3]
 
   const handleClick = (e: React.MouseEvent) => {
