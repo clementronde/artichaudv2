@@ -124,7 +124,7 @@ export default function Testimonials() {
 
             <motion.div variants={fadeInUp}>
               <Link
-                href="/testimonials" // Assurez-vous que cette page existe, sinon mettre /works ou /contact
+                href="/contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 group"
               >
                 <span className="text-sm font-medium">Lire plus d'avis</span>
