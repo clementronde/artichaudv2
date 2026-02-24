@@ -24,26 +24,20 @@ const Footer: React.FC = () => {
       <div className="footer-spacer pointer-events-none" />
 
       <footer
-        className="footer-container relative"
+        className="footer-container relative flex flex-col justify-between px-6 py-10 md:px-10 md:py-20"
         style={{
           zIndex: 1,
           backgroundColor: '#000000',
           color: '#fff',
-          padding: '80px 40px',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          overflow: 'hidden'
         }}
       >
         {/* TOP SECTION */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 max-w-7xl mx-auto w-full">
 
           {/* Colonne 1 - Let's talk */}
           <div className="flex flex-col gap-8">
             <h2
-              className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight"
+              className="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight"
               style={{ color: '#D0FF00' }}
             >
               Let's talk

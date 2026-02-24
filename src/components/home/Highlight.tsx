@@ -132,7 +132,7 @@ const ProjectCard = ({ project }: { project: any }) => {
         href={`/works/${project.id}`}
         ref={containerRef} 
         suppressHydrationWarning={true}
-        className="relative w-full h-[500px] overflow-hidden bg-gray-100 cursor-none block"
+        className="relative w-full h-[240px] md:h-[500px] overflow-hidden bg-gray-100 cursor-none block"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

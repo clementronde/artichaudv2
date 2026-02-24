@@ -23,13 +23,13 @@ export default function HomeClient({ posts }: { posts: BlogPost[] }) {
     <main className="w-full bg-white min-h-screen">
       <HeroV3 />
       <div className="relative z-10">
-        <div className="h-[20vh] bg-transparent" />
+        <div className="h-[5vh] md:h-[20vh] bg-transparent" />
         <Intro />
         <Services />
         <Highlight />
         <Testimonials2 />
         <BlogSection posts={posts} />
-        <div className="h-[20vh] bg-white"></div>
+        <div className="h-[5vh] md:h-[20vh] bg-white"></div>
       </div>
     </main>
   );
