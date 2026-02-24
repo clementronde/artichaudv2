@@ -73,10 +73,10 @@ export default function Services() {
                 - px-[40px] : Marge stricte de 40px à gauche et à droite
                 - Pas de max-w, pas de mx-auto
             */}
-            <div className="w-full px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
+            <div className="w-full px-6 md:px-[40px] py-12 md:py-24 flex flex-col justify-center h-full">
               
               {/* GRID : 8 Colonnes avec gap 20px */}
-              <div className="grid grid-cols-1 md:grid-cols-8 gap-3 md:gap-[20px] w-full h-full items-stretch">
+              <div className="grid grid-cols-1 md:grid-cols-8 gap-3 md:gap-[20px] w-full md:h-full items-stretch">
                 
                 {/* --- COLONNE 1 : Numéro --- */}
                 <div className="hidden md:block col-span-1 pt-3 border-t border-transparent">
@@ -137,11 +137,10 @@ export default function Services() {
 
                 {/* --- COLONNES 5 à 8 : Bloc Droit --- */}
                 {/* Note : md:col-start-5 force le démarrage à la colonne 5 */}
-                <div className="col-span-1 md:col-span-4 md:col-start-5 flex flex-col justify-between h-full z-10 pl-0 md:pl-0">
+                <div className="col-span-1 md:col-span-4 md:col-start-5 flex flex-col md:justify-between md:h-full z-10 pl-0 md:pl-0">
                   
-                  {/* DESCRIPTION : Occupant la largeur de 2 colonnes (50% de l'espace de droite) 
-                      et décalée d'une colonne (ml-[25%]) */}
-                  <div className="pt-2 md:pt-3 md:w-[50%] md:ml-[25%]">
+                  {/* DESCRIPTION : masquée sur mobile, visible desktop uniquement */}
+                  <div className="hidden md:block pt-2 md:pt-3 md:w-[50%] md:ml-[25%]">
                     <p className="text-base md:text-lg text-arti-black/80 font-normal leading-relaxed">
                       {service.description}
                     </p>
@@ -150,7 +149,7 @@ export default function Services() {
                   {/* IMAGE : Occupant 3 colonnes sur 4 (75% de largeur) aligné à droite */}
                   <div className={`
                     relative overflow-hidden bg-black/5 rounded-sm
-                    w-full md:w-[75%] md:ml-auto aspect-[16/10] mt-auto
+                    w-full md:w-[75%] md:ml-auto aspect-[16/10] md:mt-auto
                     shadow-sm
                   `}>
                     <Image

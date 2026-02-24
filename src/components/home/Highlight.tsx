@@ -199,7 +199,7 @@ export default function Highlight() {
 
   return (
     // MODIFICATION MARGES : w-full + px-[40px]
-    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-[40px]">
+    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-[40px]">
       
       <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
