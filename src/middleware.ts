@@ -65,6 +65,7 @@ export function middleware(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 365, // 1 year
       path: '/',
       sameSite: 'lax',
+      secure: true,
     })
   }
 
