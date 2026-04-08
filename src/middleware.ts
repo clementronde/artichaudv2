@@ -20,10 +20,6 @@ function detectLocale(request: NextRequest): Locale {
 
   // 2. Domain-based detection
   const host = request.headers.get('host') || ''
-  // artichaud-studio.com or any .com domain → English
-  if (host.endsWith('.com') || host.includes('.com:')) {
-    return 'en'
-  }
   // artichaud-studio.fr or any .fr domain → French
   if (host.endsWith('.fr') || host.includes('.fr:')) {
     return 'fr'

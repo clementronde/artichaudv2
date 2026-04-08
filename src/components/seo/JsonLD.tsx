@@ -36,8 +36,8 @@ export default function JsonLd() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "48.8566",
-      "longitude": "2.3522"
+      "latitude": "48.8396",
+      "longitude": "2.2400"
     },
     "areaServed": [
       {
@@ -74,16 +74,10 @@ export default function JsonLd() {
       "https://www.linkedin.com/company/artichaud-studio",
       "https://www.instagram.com/artichaud.studio/",
       "https://www.tiktok.com/@artichaud.studio",
+      "https://www.google.com/maps/place/Artichaud+Studio/@48.6807824,2.5026636,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.6807824!4d2.5026636!16s%2Fg%2F11mm8rb1gx",
       "https://artichaud-studio.com"
     ],
-    "priceRange": "€€€",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "12",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
+    "priceRange": "€€"
   }
 
   return (

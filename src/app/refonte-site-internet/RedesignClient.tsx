@@ -135,19 +135,8 @@ const staggerContainer: Variants = { hidden: { opacity: 0 }, visible: { opacity:
 
 export default function RedesignClient() {
   
-  // JSON-LD (Service Refonte)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Refonte de site internet",
-    "provider": { "@type": "LocalBusiness", "name": "Agence Artichaud" },
-    "description": "Service de refonte complète de site web : design, UX, migration SEO et développement sur-mesure.",
-    "areaServed": "France"
-  };
-
   return (
     <main className="w-full bg-white min-h-screen overflow-x-hidden">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-24 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
