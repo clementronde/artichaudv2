@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import CalloutBox from '@/components/mdx/CalloutBox';
+import remarkGfm from 'remark-gfm';
 
 // URL de base de ton site
 const BASE_URL = 'https://artichaud-studio.com';
@@ -237,9 +238,14 @@ export default async function BlogPost(
           prose-thead:bg-gray-50 prose-tbody:bg-white
           prose-th:border-gray-200 prose-td:border-gray-100">
           
-          <MDXRemote 
-            source={post.content} 
-            components={mdxComponents} 
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              }
+            }}
           />
         </div>
 
