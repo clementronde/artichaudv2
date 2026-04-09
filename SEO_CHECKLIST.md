@@ -32,4 +32,4 @@
 - [ ] Collecter de vrais avis clients sur Google Business Profile
 - [ ] Soumettre le site aux annuaires locaux (PagesJaunes, Yelp, annuaires 92)
 - [ ] Revoir la stratégie robots.txt pour les crawlers IA (GPTBot, ClaudeBot) si visibilité IA souhaitée
-- [ ] Mettre en place un maillage interne structuré entre toutes les pages
+- [x] Mettre en place un maillage interne structuré entre toutes les pages

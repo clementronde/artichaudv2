@@ -208,7 +208,7 @@ export default function ParisClient() {
                   Nous ne faisons pas de l'art pour l'art. Nous créons des <strong>machines à croissance</strong>. Chaque pixel et chaque ligne de code a un but précis : crédibiliser votre expertise et transformer vos visiteurs en clients.
                 </p>
                 <p>
-                  En tant qu'<Link href="/contact" className="text-black font-bold underline decoration-[#D0FF00] hover:bg-[#D0FF00] transition-colors">agence de création de site web à Paris</Link>, nous intégrons nativement les standards du marché : rapidité mobile, structure SEO sémantique et UX orientée conversion.
+                  En tant qu'<Link href="/services/creation-site-internet" className="text-black font-bold underline decoration-[#D0FF00] hover:bg-[#D0FF00] transition-colors">agence de création de site web à Paris</Link>, nous intégrons nativement les standards du marché : rapidité mobile, structure SEO sémantique et UX orientée conversion.
                 </p>
                 
                 <div className="pt-6 flex flex-wrap gap-4">
@@ -662,11 +662,13 @@ export default function ParisClient() {
         <div className="container mx-auto px-6 text-center text-xs text-neutral-600">
             <p className="mb-4 uppercase tracking-widest font-bold text-neutral-500">Navigation Rapide Île-de-France</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+                <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Service Création de site</Link>
                 <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne-Billancourt</Link>
-                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">Expertise WordPress & Webflow</Link>
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">WordPress & Webflow</Link>
                 <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
+                <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>
+                <Link href="/tarifs" className="hover:text-white transition-colors">Nos tarifs</Link>
                 <Link href="/blog" className="hover:text-white transition-colors">Blog & Conseils</Link>
-                <Link href="/contact" className="hover:text-white transition-colors">Contact Agence Paris</Link>
             </div>
         </div>
       </div>

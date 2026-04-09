@@ -658,13 +658,13 @@ export default function BoulogneClient() {
       <div className="bg-black py-8 border-t border-neutral-900">
         <div className="container mx-auto px-6 text-center text-xs text-neutral-600">
             <p className="mb-2">Aller plus loin :</p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+                <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Création de site internet</Link>
                 <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Création site internet Paris & IDF</Link>
-                <span>|</span>
-                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">Création site vitrine WordPress / Webflow / Wix</Link>
-                <span>|</span>
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">WordPress / Webflow / Wix</Link>
                 <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
-                <span>|</span>
+                <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>
+                <Link href="/tarifs" className="hover:text-white transition-colors">Nos tarifs</Link>
                 <Link href="/blog" className="hover:text-white transition-colors">Blog Agence</Link>
             </div>
         </div>

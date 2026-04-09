@@ -451,6 +451,36 @@ export default function CreationSiteInternetClient() {
               En savoir plus →
             </span>
           </Link>
+
+          <Link
+            href="/creation-site-internet-paris"
+            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
+          >
+            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
+              Création de site internet à Paris
+            </h3>
+            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
+              Agence web basée à Paris, nous accompagnons les entreprises franciliennes dans leur présence digitale.
+            </p>
+            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
+              Découvrir →
+            </span>
+          </Link>
+
+          <Link
+            href="/creation-site-internet-boulogne-billancourt"
+            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
+          >
+            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
+              Agence web Boulogne-Billancourt
+            </h3>
+            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
+              Nous accompagnons les PME et indépendants des Hauts-de-Seine (92) dans la création de leur site vitrine.
+            </p>
+            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
+              Découvrir →
+            </span>
+          </Link>
         </div>
       </section>
 

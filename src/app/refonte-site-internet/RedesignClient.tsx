@@ -432,9 +432,12 @@ export default function RedesignClient() {
         <div className="container mx-auto px-6 text-center text-xs text-neutral-600">
             <p className="mb-4 uppercase tracking-widest font-bold text-neutral-500">Explorer</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
-                <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Création site internet Paris</Link>
+                <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Création de site internet</Link>
+                <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Agence Web Paris</Link>
                 <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne</Link>
                 <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">Comparatif CMS</Link>
+                <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>
+                <Link href="/tarifs" className="hover:text-white transition-colors">Nos tarifs</Link>
                 <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             </div>
         </div>
