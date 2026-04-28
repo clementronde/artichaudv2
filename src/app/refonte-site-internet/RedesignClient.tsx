@@ -3,16 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import TrustedSection from "@/components/about/TrustedSection";
-import { motion, useMotionTemplate, useMotionValue, useTransform, AnimatePresence, Variants, steps } from "framer-motion";
-import { MouseEvent, useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { useState, useRef } from "react";
 
 // --- COMPOSANTS UI SPECIFIQUES ---
 
 // 1. Slider Avant/Après Interactif
 const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, afterImg: string, label: string }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
@@ -47,8 +45,7 @@ const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, 
             >
                 {/* CORRECTION ICI : On applique la largeur calculée sur cette div wrapper, pas sur l'Image */}
                 <div 
-                    className="relative h-full"
-                    style={{ width: containerRef.current ? containerRef.current.offsetWidth : '100vw' }}
+                    className="relative h-full w-screen"
                 >
                      <Image 
                         src={beforeImg} 
@@ -81,33 +78,10 @@ const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, 
 
 // 2. Glitch Text
 const GlitchText = ({ text }: { text: string }) => {
-  return (
-    <motion.span className="relative inline-block text-[#D0FF00] cursor-pointer" whileHover="hover">
-      <span className="relative z-10">{text}</span>
-      <motion.span className="absolute top-0 left-0 text-white z-[-1] select-none pointer-events-none" variants={{ hover: { opacity: [0, 1, 0, 1, 0], x: [0, -3, 3, -2, 0], y: [0, 2, -2, 0], transition: { repeat: Infinity, duration: 0.2, ease: "linear" } } }}>{text}</motion.span>
-      <motion.span className="absolute top-0 left-0 text-[#D0FF00] z-[-1] select-none pointer-events-none" variants={{ hover: { opacity: [0, 1, 1, 0], clipPath: ["inset(0 0 0 0)", "inset(40% 0 10% 0)", "inset(10% 0 60% 0)", "inset(80% 0 5% 0)"], x: [0, 4, -4, 2], transition: { repeat: Infinity, duration: 0.3, ease: steps(2) } } }}>{text}</motion.span>
-    </motion.span>
-  );
+  return <span className="text-gray-400">{text}</span>;
 };
 
-// 3. Spotlight Card
-function SpotlightCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-  return (
-    <div className={`group relative border border-neutral-200 bg-white overflow-hidden ${className}`} onMouseMove={handleMouseMove}>
-      <motion.div className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100" style={{ background: useMotionTemplate`radial-gradient(650px circle at ${mouseX}px ${mouseY}px, rgba(208, 255, 0, 0.15), transparent 80%)` }} />
-      <div className="relative h-full">{children}</div>
-    </div>
-  );
-}
-
-// 4. Accordion FAQ
+// 3. Accordion FAQ
 const AccordionItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -152,7 +126,7 @@ export default function RedesignClient() {
         >
           <motion.div variants={fadeInUp}>
             <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#D0FF00] animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-[#D0FF00]"></span>
               Expertise Refonte & Migration
             </span>
           </motion.div>
@@ -166,7 +140,7 @@ export default function RedesignClient() {
               Votre site actuel est lent, daté ou ne convertit plus ? Il est temps de changer. Une refonte n'est pas une dépense, c'est un investissement pour rattraper votre retard technologique.
             </p>
             <p>
-              Chez Artichaud, nous transformons les "sites fantômes" en outils de performance. Nous gérons la refonte de A à Z : Design, Développement et surtout <strong>conservation de votre SEO existant</strong>.
+              Chez Artichaud, nous transformons les sites vieillissants en outils de performance. Nous gérons la refonte de A à Z : design, développement et conservation de votre SEO existant.
             </p>
           </motion.div>
 
@@ -183,68 +157,50 @@ export default function RedesignClient() {
         </motion.div>
       </section>
 
-      {/* --- H2: SIGNES D'OBSOLESCENCE --- */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">Quand faut-il refondre un site internet ?</h2>
-            <p className="text-lg text-gray-600">
-              Le web évolue vite. Un site de 2019 peut déjà sembler "vieux" aux yeux de Google et de vos clients. Voici les signes qui ne trompent pas.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-red-200 transition-colors">
-                <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mb-6">📉</div>
-                <h3 className="text-xl font-bold mb-3">Taux de conversion faible</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                    Vous avez du trafic, mais peu de contacts ou de ventes. C'est souvent le signe d'une UX (Expérience Utilisateur) défaillante ou d'un message peu clair.
-                </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-red-200 transition-colors">
-                <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mb-6">📱</div>
-                <h3 className="text-xl font-bold mb-3">Pas Mobile Friendly</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                    Si votre site oblige à "zoomer" sur smartphone ou si les éléments se chevauchent, vous perdez 60% de vos visiteurs instantanément. Google pénalise lourdement ces sites.
-                </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-red-200 transition-colors">
-                <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mb-6">🎨</div>
-                <h3 className="text-xl font-bold mb-3">Design Daté</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                    Votre image ne reflète plus la qualité de vos services actuels. Un design "années 2010" envoie un signal négatif de stagnation à vos prospects.
-                </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-red-200 transition-colors">
-                <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mb-6">🐌</div>
-                <h3 className="text-xl font-bold mb-3">Lenteur Technique</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                    Plus de 3 secondes de chargement ? Le visiteur part. La "dette technique" (plugins inutiles, vieux code) ralentit votre site et nuit à votre SEO.
-                </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-red-200 transition-colors">
-                <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mb-6">🛠️</div>
-                <h3 className="text-xl font-bold mb-3">Impossible à modifier</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                    Vous dépendez d'un développeur pour changer une virgule ou une photo ? Une <strong>refonte site WordPress</strong> ou Webflow vous redonne le contrôle total.
-                </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl bg-black text-white border border-black flex flex-col h-full relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D0FF00]/20 rounded-full blur-3xl pointer-events-none" />
-                <div className="w-12 h-12 bg-[#D0FF00] text-black rounded-full flex items-center justify-center text-2xl mb-6">🚀</div>
-                <h3 className="text-xl font-bold mb-3 text-[#D0FF00]">La solution Artichaud</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                    Nous transformons ces faiblesses en forces. Un site rapide, beau, qui convertit et que vous maîtrisez.
-                </p>
-                <Link href="/contact" className="mt-auto pt-4 text-sm font-bold underline decoration-[#D0FF00] underline-offset-4 hover:text-[#D0FF00] transition-colors">
-                    Demander un diagnostic gratuit
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <span className="text-sm font-medium text-gray-500">Diagnostic</span>
+              <h2 className="mt-4 text-3xl md:text-5xl font-bold text-black leading-tight">
+                Quand faut-il refondre un site internet ?
+              </h2>
+              <p className="mt-6 text-gray-600 leading-relaxed">
+                Une refonte n'est pas seulement un changement de décor. Elle devient utile quand le site freine la conversion, la lecture, le référencement ou l'autonomie de l'équipe.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+                <Link href="/services/seo-referencement-naturel" className="underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                  Vérifier le SEO
                 </Link>
-            </SpotlightCard>
+                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                  Choisir le bon CMS
+                </Link>
+              </div>
+            </div>
+
+            <div className="divide-y divide-black/15 border-y border-black/15">
+              {[
+                ["Conversion faible", "Vous avez du trafic, mais peu de contacts. Le parcours, le message ou les preuves ne donnent pas assez envie de passer à l'action."],
+                ["Mobile fragile", "Le site demande des zooms, coupe certains textes ou rend les formulaires pénibles sur smartphone."],
+                ["Image datée", "La direction artistique ne reflète plus votre niveau de service, votre marché ou vos ambitions commerciales."],
+                ["Performance lente", "Le chargement, les scripts ou les anciens plugins abîment l'expérience et compliquent le référencement naturel."],
+                ["Back-office bloquant", "Chaque modification dépend d'un prestataire. Une refonte WordPress, Webflow ou Wix peut rendre les contenus vraiment pilotables."],
+              ].map(([title, desc]) => (
+                <div key={title} className="py-7 md:grid md:grid-cols-[180px_1fr] md:gap-8">
+                  <h3 className="text-xl font-bold text-black">{title}</h3>
+                  <p className="mt-3 md:mt-0 text-gray-700 leading-relaxed">{desc}</p>
+                </div>
+              ))}
+              <div className="py-8 md:grid md:grid-cols-[180px_1fr_auto] md:items-start md:gap-8">
+                <h3 className="text-xl font-bold text-black">Diagnostic Artichaud</h3>
+                <p className="mt-3 md:mt-0 text-gray-700 leading-relaxed">
+                  Nous auditons le site actuel, isolons ce qu'il faut conserver et priorisons les chantiers : design, contenu, technique, SEO et redirections.
+                </p>
+                <Link href="/contact" className="mt-4 md:mt-0 inline-flex text-sm font-bold underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                  Demander un audit
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -399,8 +355,7 @@ export default function RedesignClient() {
          <motion.div
            className="relative z-10 max-w-4xl mx-auto text-center"
            initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
+           animate={{ opacity: 1, y: 0 }}
            transition={{ duration: 0.8 }}
          >
            <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter text-white">

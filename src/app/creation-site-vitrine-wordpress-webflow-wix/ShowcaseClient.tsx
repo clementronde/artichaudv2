@@ -3,76 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import TrustedSection from "@/components/about/TrustedSection";
-import { motion, useMotionTemplate, useMotionValue, AnimatePresence, Variants, steps } from "framer-motion";
-import { MouseEvent, useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { useState } from "react";
 
 // --- COMPOSANTS UI & MICRO-INTERACTIONS (Identiques page Paris pour cohérence) ---
 
 const GlitchText = ({ text }: { text: string }) => {
-  return (
-    <motion.span 
-      className="relative inline-block text-[#D0FF00] cursor-pointer"
-      whileHover="hover"
-    >
-      <span className="relative z-10">{text}</span>
-      <motion.span
-        className="absolute top-0 left-0 text-white z-[-1] select-none pointer-events-none"
-        variants={{
-          hover: {
-            opacity: [0, 1, 0, 1, 0],
-            x: [0, -3, 3, -2, 0],
-            y: [0, 2, -2, 0],
-            transition: { repeat: Infinity, duration: 0.2, ease: "linear" }
-          }
-        }}
-      >
-        {text}
-      </motion.span>
-      <motion.span
-        className="absolute top-0 left-0 text-[#D0FF00] z-[-1] select-none pointer-events-none"
-        variants={{
-          hover: {
-            opacity: [0, 1, 1, 0],
-            clipPath: ["inset(0 0 0 0)", "inset(40% 0 10% 0)", "inset(10% 0 60% 0)", "inset(80% 0 5% 0)"],
-            x: [0, 4, -4, 2],
-            transition: { repeat: Infinity, duration: 0.3, ease: steps(2) }
-          }
-        }}
-      >
-        {text}
-      </motion.span>
-    </motion.span>
-  );
+  return <span className="text-gray-400">{text}</span>;
 };
-
-function SpotlightCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  return (
-    <div
-      className={`group relative border border-neutral-200 bg-white overflow-hidden ${className}`}
-      onMouseMove={handleMouseMove}
-    >
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(650px circle at ${mouseX}px ${mouseY}px, rgba(208, 255, 0, 0.15), transparent 80%)
-          `,
-        }}
-      />
-      <div className="relative h-full">{children}</div>
-    </div>
-  );
-}
 
 const AccordionItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -142,7 +80,6 @@ export default function ShowcaseClient() {
           <motion.div variants={fadeInUp}>
             <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0FF00] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
               </span>
               Expertise Multi-CMS
@@ -155,10 +92,10 @@ export default function ShowcaseClient() {
 
           <motion.div variants={fadeInUp} className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed space-y-4 text-balance">
             <p>
-              Artichaud est un studio créatif spécialisé dans la conception de <strong>sites vitrines haut de gamme</strong>. Nous ne sommes pas mariés à une seule technologie.
+              Artichaud est un studio créatif spécialisé dans la conception de sites vitrines haut de gamme. Nous ne sommes pas mariés à une seule technologie.
             </p>
             <p>
-              Que vous soyez une TPE cherchant l'efficacité, une PME en pleine croissance ou une Startup visant l'excellence, nous sélectionnons le CMS (WordPress, Webflow ou Wix) qui sert vos objectifs, et non l'inverse.
+              TPE, PME ou startup: nous sélectionnons le CMS qui sert vos objectifs, pas celui qui nous arrange.
             </p>
           </motion.div>
 
@@ -176,286 +113,122 @@ export default function ShowcaseClient() {
       </section>
 
       {/* --- H2: VALORISER VOTRE MARQUE (DASHBOARD VISUAL) --- */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-20 items-center">
-            
-            {/* Texte */}
-            <motion.div 
-              className="w-full lg:w-1/2"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-black leading-tight">
-                Un site vitrine qui valorise <span className="text-gray-400">votre marque.</span>
+      <section className="py-20 md:py-28 bg-white overflow-hidden">
+        <div className="px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10">
+            <div className="hidden md:block md:col-span-1 pt-2">
+              <span className="text-sm font-medium text-gray-500">Vitrine</span>
+            </div>
+            <div className="md:col-span-4 md:col-start-2">
+              <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
+                Un site vitrine qui valorise votre marque.
               </h2>
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-                <p>
-                  Un site vitrine n'est pas une simple brochure numérique. C'est le pilier central de votre écosystème digital. C'est souvent le premier point de contact entre votre entreprise et un prospect qualifié.
-                </p>
-                <p>
-                  Qu'il soit développé sur <strong>WordPress</strong> pour le contenu, <strong>Webflow</strong> pour l'expérience visuelle, ou <strong>Wix</strong> pour la rapidité, l'objectif reste le même : crédibiliser votre savoir-faire et rassurer vos futurs clients.
-                </p>
-                <p>
-                  Chez Artichaud, nous concevons des sites vitrines qui allient esthétique (UI), ergonomie (UX) et performance technique. Nous transformons votre identité en un atout concurrentiel majeur, visible partout en France et optimisé pour le référencement local (Paris & Île-de-France).
-                </p>
-              </div>
-            </motion.div>
-            
-            {/* Visuel Dashboard (Crédibilité Tech) */}
-            <motion.div 
-              className="w-full lg:w-1/2 relative"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-gray-100 to-gray-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
-
-                <div className="relative bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden p-6 z-10">
-                    <div className="flex justify-between items-center mb-8">
-                        <div>
-                            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Impressions Google</p>
-                            <div className="flex items-baseline gap-3">
-                                <span className="text-3xl font-bold text-black">85,200</span>
-                                <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+24%</span>
-                            </div>
-                        </div>
-                        <div className="flex gap-2">
-                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                        </div>
-                    </div>
-                    {/* Graphique SVG */}
-                    <div className="relative h-40 w-full">
-                        <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
-                            <defs>
-                                <linearGradient id="gradientGraph2" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="#000000" stopOpacity="0.1" />
-                                    <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-                                </linearGradient>
-                            </defs>
-                            <motion.path 
-                                d="M0 120 C 80 120, 150 100, 250 50 S 350 60, 500 10" 
-                                fill="none" 
-                                stroke="black" 
-                                strokeWidth="3"
-                                initial={{ pathLength: 0 }}
-                                whileInView={{ pathLength: 1 }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
-                            />
-                            <motion.path 
-                                d="M0 120 C 80 120, 150 100, 250 50 S 350 60, 500 10 V 150 H 0 Z" 
-                                fill="url(#gradientGraph2)" 
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                transition={{ duration: 1.5, delay: 0.5 }}
-                            />
-                        </svg>
-                    </div>
-                </div>
-
-                <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="absolute -bottom-6 -left-4 md:left-[-20px] bg-black text-white p-5 rounded-xl shadow-2xl border border-gray-800 z-20 w-52"
-                >
-                    <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs text-gray-400 uppercase">Core Web Vitals</span>
-                        <svg className="w-4 h-4 text-[#D0FF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    </div>
-                    <div className="flex items-end gap-2">
-                        <span className="text-3xl font-bold text-white">100%</span>
-                        <span className="text-sm text-gray-400 mb-1">Mobile</span>
-                    </div>
-                    <div className="w-full bg-gray-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                        <motion.div className="h-full bg-[#D0FF00]" initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1, delay: 0.5 }} />
-                    </div>
-                </motion.div>
-            </motion.div>
+            </div>
+            <div className="md:col-span-3 space-y-6 text-lg leading-relaxed text-gray-600">
+              <p>
+                Un site vitrine n'est pas une brochure numérique. C'est souvent le premier point de contact entre votre entreprise et un prospect qualifié.
+              </p>
+              <p>
+                WordPress, Webflow ou Wix: la technologie vient après le positionnement, le contenu et l'expérience attendue.
+              </p>
+              <p>
+                Nous cherchons le bon équilibre entre esthétique, autonomie, performance et référencement.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* --- H2: COMPARATIF TECHNIQUE (CMS) --- */}
-      <section className="py-24 bg-gray-50" id="comparatif">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">WordPress, Webflow ou Wix : lequel choisir ?</h2>
-            <p className="text-lg text-gray-600">
-              Chaque plateforme a ses forces. Voici notre guide pour vous aider à décider en fonction de vos priorités (budget, design, autonomie).
-            </p>
+      <section className="py-24 bg-[#F6F6F3]" id="comparatif">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <span className="text-sm font-medium text-gray-500">Comparatif CMS</span>
+              <h2 className="mt-4 text-3xl md:text-5xl font-bold text-black leading-tight">
+                WordPress, Webflow ou Wix : choisir sans subir la techno.
+              </h2>
+            </div>
+            <div className="space-y-8">
+              {[
+                {
+                  id: "wordpress",
+                  name: "WordPress",
+                  desc: "Pour les sites éditoriaux, les blogs actifs et les projets qui demandent une vraie propriété du contenu.",
+                  links: [
+                    { href: "/services/seo-referencement-naturel", label: "Préparer le référencement" },
+                    { href: "/refonte-site-internet", label: "Refondre un WordPress existant" },
+                  ],
+                },
+                {
+                  id: "webflow",
+                  name: "Webflow",
+                  desc: "Pour les marques qui veulent une direction artistique très précise, de bonnes performances et peu de maintenance technique.",
+                  links: [
+                    { href: "/works", label: "Voir nos réalisations" },
+                    { href: "/services/creation-site-internet", label: "Voir le service création" },
+                  ],
+                },
+                {
+                  id: "wix",
+                  name: "Wix Studio",
+                  desc: "Pour lancer vite, garder une administration simple et maîtriser le budget sans partir sur un template impersonnel.",
+                  links: [
+                    { href: "/tarifs", label: "Comparer les budgets" },
+                    { href: "/contact", label: "Valider le bon CMS" },
+                  ],
+                },
+              ].map((cms) => (
+                <div key={cms.name} id={cms.id} className="border-t border-black/15 pt-8">
+                  <div className="grid gap-5 md:grid-cols-[180px_1fr]">
+                    <h3 className="text-2xl font-bold text-black">{cms.name}</h3>
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">{cms.desc}</p>
+                      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+                        {cms.links.map((link) => (
+                          <Link key={link.href} href={link.href} className="underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                            {link.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          {/* SECTION 1: WORDPRESS */}
-          <div className="mb-16 bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 flex flex-col lg:flex-row gap-12 items-center" id="wordpress">
-             <div className="lg:w-1/3 text-center lg:text-left">
-                <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto lg:mx-0">WP</div>
-                <h3 className="text-3xl font-bold mb-4 text-black">WordPress</h3>
-                <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full mb-6">Le standard Open Source</span>
-             </div>
-             <div className="lg:w-2/3 space-y-6 text-gray-600 leading-relaxed">
-                <p>
-                    WordPress propulse plus de 43% du web. C'est la solution idéale pour la <strong>création de site vitrine WordPress</strong> si vous visez une stratégie de contenu agressive (Blog, Actualités) ou si vous avez besoin d'évolutivité à long terme.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <ul className="space-y-2">
-                        <li className="font-bold text-black mb-2">✅ Avantages</li>
-                        <li className="text-sm">• Écosystème de plugins infini</li>
-                        <li className="text-sm">• Propriété totale du code et des données</li>
-                        <li className="text-sm">• Excellent pour le SEO éditorial</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-bold text-black mb-2">⚠️ Points d'attention</li>
-                        <li className="text-sm">• Demande une maintenance technique (Mises à jour)</li>
-                        <li className="text-sm">• Peut devenir lent si mal optimisé</li>
-                    </ul>
-                </div>
-                <div className="pt-4">
-                    <a href="https://wordpress.org" target="_blank" rel="nofollow" className="text-black font-bold underline hover:text-blue-600 transition-colors">Documentation officielle WordPress ↗</a>
-                </div>
-             </div>
-          </div>
-
-          {/* SECTION 2: WEBFLOW */}
-          <div className="mb-16 bg-black text-white rounded-3xl p-8 lg:p-12 shadow-xl ring-4 ring-[#D0FF00]/20 flex flex-col lg:flex-row gap-12 items-center" id="webflow">
-             <div className="lg:w-1/3 text-center lg:text-left">
-                <div className="w-20 h-20 bg-white/20 text-[#D0FF00] rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto lg:mx-0">Wf</div>
-                <h3 className="text-3xl font-bold mb-4 text-white">Webflow</h3>
-                <span className="inline-block px-3 py-1 bg-[#D0FF00] text-black text-xs font-bold uppercase tracking-wider rounded-full mb-6">Design & Performance</span>
-             </div>
-             <div className="lg:w-2/3 space-y-6 text-neutral-300 leading-relaxed">
-                <p>
-                    La <strong>création de site vitrine Webflow</strong> est le choix des marques premium et des startups. Il permet un design "pixel-perfect" sans les contraintes des templates classiques. Le code généré est ultra-propre, garantissant des performances (vitesse) exceptionnelles.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <ul className="space-y-2">
-                        <li className="font-bold text-white mb-2">✅ Avantages</li>
-                        <li className="text-sm">• Liberté créative totale (Animations 3D, Parallaxe)</li>
-                        <li className="text-sm">• Hébergement AWS ultra-rapide inclus</li>
-                        <li className="text-sm">• Sécurité maximale (Pas de failles plugins)</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-bold text-white mb-2">⚠️ Points d'attention</li>
-                        <li className="text-sm">• Courbe d'apprentissage pour l'admin</li>
-                        <li className="text-sm">• Budget généralement plus élevé</li>
-                    </ul>
-                </div>
-                <div className="pt-4">
-                    <a href="https://webflow.com" target="_blank" rel="nofollow" className="text-white font-bold underline hover:text-[#D0FF00] transition-colors">Site officiel Webflow ↗</a>
-                </div>
-             </div>
-          </div>
-
-          {/* SECTION 3: WIX */}
-          <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 flex flex-col lg:flex-row gap-12 items-center" id="wix">
-             <div className="lg:w-1/3 text-center lg:text-left">
-                <div className="w-20 h-20 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto lg:mx-0">Wx</div>
-                <h3 className="text-3xl font-bold mb-4 text-black">Wix Studio</h3>
-                <span className="inline-block px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wider rounded-full mb-6">Tout-en-un & Agile</span>
-             </div>
-             <div className="lg:w-2/3 space-y-6 text-gray-600 leading-relaxed">
-                <p>
-                    Avec l'arrivée de <strong>Wix Studio</strong>, la plateforme est devenue une option sérieuse pour un <strong>site vitrine Wix</strong> professionnel. C'est la solution parfaite pour les lancements rapides avec un budget maîtrisé, sans sacrifier l'esthétique.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <ul className="space-y-2">
-                        <li className="font-bold text-black mb-2">✅ Avantages</li>
-                        <li className="text-sm">• Interface Drag & Drop très intuitive</li>
-                        <li className="text-sm">• Maintenance technique gérée par Wix</li>
-                        <li className="text-sm">• Outils marketing intégrés (Newsletter, CRM)</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-bold text-black mb-2">⚠️ Points d'attention</li>
-                        <li className="text-sm">• Moins flexible pour le code sur-mesure</li>
-                        <li className="text-sm">• Migration vers un autre CMS difficile</li>
-                    </ul>
-                </div>
-                <div className="pt-4">
-                    <a href="https://fr.wix.com" target="_blank" rel="nofollow" className="text-black font-bold underline hover:text-purple-600 transition-colors">Découvrir Wix ↗</a>
-                </div>
-             </div>
-          </div>
-
         </div>
       </section>
 
-      {/* --- H2: PACKS (TECHNO FOCUSED) --- */}
       <section className="py-24 bg-white" id="offres">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">Nos packs site vitrine</h2>
-            <p className="text-lg text-gray-600">
-              Des solutions packagées pour démarrer sereinement, quelle que soit la techno choisie.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-black transition-colors">
-                <h3 className="text-xl font-bold text-gray-500 mb-2">Starter</h3>
-                <div className="text-3xl font-bold mb-4 text-black">Vitrine Essentiel</div>
-                <p className="text-sm text-gray-600 mb-6">Pour exister proprement sur le web.</p>
-                
-                <div className="mb-6 p-3 bg-gray-50 rounded-lg text-xs font-bold uppercase tracking-wide text-center text-gray-500">
-                    Techno : Wix ou WP Starter
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <span className="text-sm font-medium text-gray-500">Offres</span>
+              <h2 className="mt-4 text-3xl md:text-5xl font-bold text-black leading-tight">
+                Des formats clairs, ajustés au niveau d'ambition.
+              </h2>
+              <p className="mt-6 text-gray-600 leading-relaxed">
+                Le cadrage final dépend du contenu, du niveau de design et de l'autonomie souhaitée. Les fourchettes détaillées sont disponibles sur la page tarifs.
+              </p>
+              <Link href="/tarifs" className="mt-6 inline-flex text-sm font-bold underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                Consulter les tarifs
+              </Link>
+            </div>
+            <div className="divide-y divide-black/15 border-y border-black/15">
+              {[
+                ["Vitrine essentiel", "Une présence propre, rapide et administrable pour présenter une activité ou une offre ciblée."],
+                ["Vitrine créatif", "Un site plus incarné, avec direction artistique, pages stratégiques et socle SEO complet."],
+                ["Site + branding", "Une expérience de marque globale quand l'identité, le discours et le site doivent avancer ensemble."],
+              ].map(([title, desc]) => (
+                <div key={title} className="py-8 md:grid md:grid-cols-[180px_1fr_auto] md:items-start md:gap-8">
+                  <h3 className="text-xl font-bold text-black">{title}</h3>
+                  <p className="mt-3 md:mt-0 text-gray-700 leading-relaxed">{desc}</p>
+                  <Link href="/contact" className="mt-4 md:mt-0 inline-flex text-sm font-bold underline underline-offset-4 hover:text-[#7A9600] transition-colors">
+                    Devis
+                  </Link>
                 </div>
-
-                <ul className="space-y-3 mb-8 flex-grow">
-                    <li className="flex items-center gap-2 text-sm">✓ Page d'accueil + Contact</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Design Responsive</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Mentions légales</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Formation prise en main</li>
-                </ul>
-                <Link href="/contact" className="group relative block w-full py-3 bg-black text-white font-bold text-center rounded-lg overflow-hidden">
-                    <span className="relative z-10 group-hover:text-black transition-colors">Demander un devis</span>
-                    <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-                </Link>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl bg-black text-white border border-black flex flex-col h-full relative z-10 transform lg:scale-105 shadow-2xl">
-                <div className="absolute top-0 right-0 bg-[#D0FF00] text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase">Recommandé</div>
-                <h3 className="text-xl font-bold text-[#D0FF00] mb-2">Business</h3>
-                <div className="text-3xl font-bold mb-4 text-black">Vitrine Créatif</div>
-                <p className="text-sm text-neutral-400 mb-6">Pour se différencier et convertir.</p>
-                
-                <div className="mb-6 p-3 bg-black/50 rounded-lg text-xs font-bold uppercase tracking-wide text-center text-[#D0FF00] border border-white/20">
-                    Techno : Webflow ou WP Custom
-                </div>
-
-                <ul className="space-y-3 mb-8 flex-grow">
-                    <li className="flex items-center gap-2 text-sm text-black">✓ 5 à 10 pages stratégiques</li>
-                    <li className="flex items-center gap-2 text-sm text-black">✓ Webdesign Sur-Mesure</li>
-                    <li className="flex items-center gap-2 text-sm text-black">✓ Animations & Interactions</li>
-                    <li className="flex items-center gap-2 text-sm text-black">✓ SEO Technique avancé</li>
-                </ul>
-                <Link href="/contact" className="group relative block w-full py-3 bg-[#D0FF00] text-black font-bold text-center rounded-lg overflow-hidden">
-                    <span className="relative z-10 transition-colors">Lancer le projet</span>
-                    <div className="absolute inset-0 bg-white opacity-30 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-                </Link>
-            </SpotlightCard>
-
-            <SpotlightCard className="p-8 rounded-2xl border border-gray-200 flex flex-col h-full hover:border-black transition-colors">
-                <h3 className="text-xl font-bold text-gray-500 mb-2">Premium</h3>
-                <div className="text-3xl font-bold mb-4 text-black">Site + Branding</div>
-                <p className="text-sm text-gray-600 mb-6">L'expérience de marque totale.</p>
-                
-                <div className="mb-6 p-3 bg-gray-50 rounded-lg text-xs font-bold uppercase tracking-wide text-center text-gray-500">
-                    Techno : Webflow Advanced
-                </div>
-
-                <ul className="space-y-3 mb-8 flex-grow">
-                    <li className="flex items-center gap-2 text-sm">✓ Direction Artistique 360</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Copywriting & Storytelling</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Intégrations CRM / API</li>
-                    <li className="flex items-center gap-2 text-sm">✓ Support prioritaire</li>
-                </ul>
-                <Link href="/contact" className="group relative block w-full py-3 bg-black text-white font-bold text-center rounded-lg overflow-hidden">
-                    <span className="relative z-10 group-hover:text-black transition-colors">Contacter l'équipe</span>
-                    <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-                </Link>
-            </SpotlightCard>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -472,8 +245,7 @@ export default function ShowcaseClient() {
                  <Link href="/works/lumyn" className="group block">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
                         <Image src="/projects/Lumyn.avif" alt="Site internet agence digitale Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -493,8 +265,7 @@ export default function ShowcaseClient() {
                  <Link href="/works/disobey" className="group block">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
@@ -515,8 +286,7 @@ export default function ShowcaseClient() {
                  <Link href="/works/keleti" className="group block">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
                         <Image src="/projects/Keleti.avif" alt="Webdesign portfolio architecte IDF" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -536,8 +306,7 @@ export default function ShowcaseClient() {
                  <Link href="/works/rockstar" className="group block">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
@@ -632,8 +401,7 @@ export default function ShowcaseClient() {
          <motion.div
            className="relative z-10 max-w-4xl mx-auto text-center"
            initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
+           animate={{ opacity: 1, y: 0 }}
            transition={{ duration: 0.8 }}
          >
            <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter text-white">

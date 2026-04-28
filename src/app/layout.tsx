@@ -71,7 +71,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Read locale from cookie (set by middleware based on domain / Accept-Language)
+  // Read locale from cookie (set by proxy based on domain / Accept-Language)
   const cookieStore = await cookies()
   const rawLocale = cookieStore.get('NEXT_LOCALE')?.value
   const locale: Locale = rawLocale && SUPPORTED_LOCALES.includes(rawLocale as Locale)

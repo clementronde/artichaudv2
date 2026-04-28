@@ -32,15 +32,9 @@ const nextConfig = {
   },
   // Compression
   compress: true,
-  // Optimisation des polices
-  optimizeFonts: true,
   typescript: {
     // Ignore les erreurs TypeScript lors du déploiement Vercel
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    // Ignore les erreurs ESLint lors du déploiement Vercel
-    ignoreDuringBuilds: true,
   },
 };
 

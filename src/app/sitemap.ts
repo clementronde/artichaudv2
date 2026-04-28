@@ -4,6 +4,7 @@ import { getAllPosts } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://artichaud-studio.com'
+  const lastModified = new Date('2026-04-28')
 
   // 1. Pages principales (haute priorité)
   const mainPages = [
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/contact', priority: 0.85, changeFreq: 'monthly' as const }, // Contact
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: page.changeFreq,
     priority: page.priority,
   }))
@@ -26,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/services/seo-referencement-naturel', priority: 0.92, changeFreq: 'weekly' as const },
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: page.changeFreq,
     priority: page.priority,
   }))
@@ -42,20 +43,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/artichaud-studio-orthographe', priority: 0.65, changeFreq: 'yearly' as const }, // Page SEO orthographe
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: page.changeFreq,
     priority: page.priority,
   }))
 
   // 4. Pages SEO locales (importantes pour référencement local)
   const localSeoPages = [
-    { route: '/creation-site-internet-paris', priority: 0.85, changeFreq: 'monthly' as const },
-    { route: '/creation-site-internet-boulogne-billancourt', priority: 0.75, changeFreq: 'monthly' as const },
-    { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.8, changeFreq: 'monthly' as const },
-    { route: '/refonte-site-internet', priority: 0.8, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-paris', priority: 0.9, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-boulogne-billancourt', priority: 0.85, changeFreq: 'monthly' as const },
+    { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.86, changeFreq: 'monthly' as const },
+    { route: '/refonte-site-internet', priority: 0.86, changeFreq: 'monthly' as const },
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: page.changeFreq,
     priority: page.priority,
   }))
@@ -65,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: project.slug.startsWith('/')
       ? `${baseUrl}${project.slug}`
       : `${baseUrl}/works/${project.slug}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: 'monthly' as const,
     priority: 0.7, // Projets individuels moins prioritaires que pages principales
   }))

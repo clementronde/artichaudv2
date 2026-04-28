@@ -18,7 +18,7 @@ export interface Post {
     readingTime: string; // utilisé dans slug/page.tsx
     readTime?: string;   // utilisé dans blog/page.tsx
     tags: string[];
-    [key: string]: any;
+    [key: string]: unknown;
   };
   content: string;
 }
@@ -37,6 +37,31 @@ const stripExt = (filename: string) => filename.replace(/\.mdx?$/, '');
 
 const stripDatePrefix = (nameNoExt: string) =>
   nameNoExt.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+
+const fallbackImages = [
+  '/blog/refonte-site-internet-guide/cover.avif',
+  '/blog/prix-site-vitrine-idf-2026/cover.avif',
+  '/blog/seo/5piliers-seo-strategy.avif',
+  '/blog/impact-ui-design.avif',
+  '/blog/quel-stack-nous-utilisons.avif',
+  '/blog/guide-rebranding/test.avif',
+  '/projects/yumdeal/yumdealprojet1.avif',
+];
+
+const localImageExists = (image: string) => {
+  if (!image || image.startsWith('http')) return true;
+  return fs.existsSync(path.join(root, 'public', image.replace(/^\//, '')));
+};
+
+const resolvePostImage = (image: string, slug: string) => {
+  if (localImageExists(image)) return image;
+
+  const index = Math.abs(
+    slug.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)
+  ) % fallbackImages.length;
+
+  return fallbackImages[index];
+};
 
 let indexBuilt = false;
 let slugToFile = new Map<string, string>();
@@ -135,6 +160,7 @@ export const getPostBySlug = (slug: string): Post => {
 
   // slug final = frontmatter.slug si présent, sinon dérivé du filename
   const finalSlug = (typeof data.slug === 'string' && data.slug) ? data.slug : derivedSlug;
+  meta.image = resolvePostImage(meta.image, finalSlug);
 
   return {
     slug: finalSlug,
