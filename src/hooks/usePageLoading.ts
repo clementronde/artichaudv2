@@ -28,11 +28,26 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
     const startTime = Date.now();
     let animationFrameId: number;
     let timeoutId: NodeJS.Timeout;
+    let loadListener: (() => void) | null = null;
+
+    const getHasSeenPreloader = () => {
+      try {
+        return window.sessionStorage.getItem('hasSeenPreloader') === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    const markPreloaderAsSeen = () => {
+      try {
+        window.sessionStorage.setItem('hasSeenPreloader', 'true');
+      } catch {
+        // Storage can be unavailable in private/locked-down browsers.
+      }
+    };
 
     // Vérifier si la session a déjà vu le preloader
-    const hasSeenPreloader = sessionStorage.getItem('hasSeenPreloader');
-
-    if (hasSeenPreloader === 'true') {
+    if (getHasSeenPreloader()) {
       // Si déjà vu, on skip le preloader
       setProgress(100);
       setIsLoading(false);
@@ -72,7 +87,7 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
         // Petit délai à 100% avant de fermer
         setTimeout(() => {
           setIsLoading(false);
-          sessionStorage.setItem('hasSeenPreloader', 'true');
+          markPreloaderAsSeen();
         }, 300);
       } else if (elapsedTime < maxDuration) {
         // Continue la mise à jour
@@ -82,7 +97,7 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
         setProgress(100);
         setTimeout(() => {
           setIsLoading(false);
-          sessionStorage.setItem('hasSeenPreloader', 'true');
+          markPreloaderAsSeen();
         }, 300);
       }
     };
@@ -94,6 +109,7 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
       const handleDOMLoad = () => {
         resources.dom = true;
       };
+      loadListener = handleDOMLoad;
       window.addEventListener('load', handleDOMLoad);
     }
 
@@ -133,6 +149,8 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
     if ('fonts' in document) {
       document.fonts.ready.then(() => {
         resources.fonts = true;
+      }).catch(() => {
+        resources.fonts = true;
       });
     } else {
       // Fallback si l'API Fonts n'est pas disponible
@@ -157,13 +175,16 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
       setProgress(100);
       setTimeout(() => {
         setIsLoading(false);
-        sessionStorage.setItem('hasSeenPreloader', 'true');
+        markPreloaderAsSeen();
       }, 300);
     }, maxDuration + 500);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearTimeout(timeoutId);
+      if (loadListener) {
+        window.removeEventListener('load', loadListener);
+      }
     };
   }, [minDuration, maxDuration]);
 
