@@ -26,8 +26,8 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
 
   useEffect(() => {
     const startTime = Date.now();
-    let animationFrameId: number;
-    let timeoutId: NodeJS.Timeout;
+    let animationFrameId = 0;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
     let loadListener: (() => void) | null = null;
 
     const getHasSeenPreloader = () => {
@@ -49,9 +49,11 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
     // Vérifier si la session a déjà vu le preloader
     if (getHasSeenPreloader()) {
       // Si déjà vu, on skip le preloader
-      setProgress(100);
-      setIsLoading(false);
-      return;
+      animationFrameId = requestAnimationFrame(() => {
+        setProgress(100);
+        setIsLoading(false);
+      });
+      return () => cancelAnimationFrame(animationFrameId);
     }
 
     // Tracker les ressources
@@ -181,7 +183,9 @@ export function usePageLoading(options: UsePageLoadingOptions = {}) {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       if (loadListener) {
         window.removeEventListener('load', loadListener);
       }
