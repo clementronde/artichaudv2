@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPosts } from '@/lib/mdx';
+import { getPublishedPostBySlug, getAllPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   try {
     const params = await props.params;
-    const post = getPostBySlug(params.slug);
+    const post = getPublishedPostBySlug(params.slug);
     
     const ogImage = post.meta.image.startsWith('http') 
       ? post.meta.image 
@@ -78,7 +78,7 @@ export default async function BlogPost(
   
   let post;
   try {
-    post = getPostBySlug(params.slug);
+    post = getPublishedPostBySlug(params.slug);
   } catch (e) {
     notFound();
   }

@@ -63,6 +63,20 @@ const resolvePostImage = (image: string, slug: string) => {
   return fallbackImages[index];
 };
 
+const parsePublishDate = (date: string) => {
+  const parsed = new Date(date);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
+
+export const isPostPublished = (post: Post, now = new Date()): boolean => {
+  if (post.meta.draft === true) return false;
+
+  const publishDate = parsePublishDate(post.meta.date);
+  if (!publishDate) return false;
+
+  return publishDate.getTime() <= now.getTime();
+};
+
 let indexBuilt = false;
 let slugToFile = new Map<string, string>();
 
@@ -169,6 +183,16 @@ export const getPostBySlug = (slug: string): Post => {
   };
 };
 
+export const getPublishedPostBySlug = (slug: string): Post => {
+  const post = getPostBySlug(slug);
+
+  if (!isPostPublished(post)) {
+    throw new Error(`Post not published for slug: ${slug}`);
+  }
+
+  return post;
+};
+
 export const getAllPosts = (): Post[] => {
   if (!indexBuilt) buildIndex();
 
@@ -189,6 +213,7 @@ export const getAllPosts = (): Post[] => {
       }
     })
     .filter((p): p is Post => p !== null)
+    .filter((post) => isPostPublished(post))
     .sort((a, b) => (a.meta.date > b.meta.date ? -1 : 1));
 
   return posts;
