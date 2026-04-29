@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AboutClient from "@/components/about/AboutClient"
 // On utilise getAllPosts car c'est le nom de la fonction dans votre lib/mdx
 import { getAllPosts } from "@/lib/mdx" 
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks"
 
 export const metadata: Metadata = {
   title: "À Propos | Notre Histoire & Vision - Artichaud Studio Paris",
@@ -38,6 +39,17 @@ export default async function AboutPage() {
   // Récupération des données côté serveur
   const posts = await getAllPosts()
 
-  // On passe les données au client
-  return <AboutClient posts={posts} />
+  return (
+    <>
+      <AboutClient posts={posts} />
+      <RelatedLinks
+        title="Découvrir notre façon de travailler"
+        links={[
+          ...relatedLinkGroups.serviceBranding.slice(0, 2),
+          ...relatedLinkGroups.serviceWeb.slice(0, 1),
+          ...relatedLinkGroups.editorial.slice(0, 1),
+        ]}
+      />
+    </>
+  )
 }

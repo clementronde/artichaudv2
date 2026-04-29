@@ -6,6 +6,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import { useLocale } from '@/context/LocaleContext'
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
 
 // --- TYPES ---
 interface FormData {
@@ -802,6 +803,15 @@ export default function ContactPage() {
         )}
 
       </div>
+      <RelatedLinks
+        title="Préparer l’échange avant de nous écrire"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
     </main>
   )
 }

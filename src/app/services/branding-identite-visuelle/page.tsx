@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BrandingIdentiteVisuelleClient from "./BrandingIdentiteVisuelleClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Branding & Identité Visuelle Paris | Agence Design de Marque - Artichaud Studio",
@@ -39,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function BrandingIdentiteVisuellePage() {
-  return <BrandingIdentiteVisuelleClient />;
+  return (
+    <>
+      <BrandingIdentiteVisuelleClient />
+      <RelatedLinks
+        title="Faire vivre l’identité sur tous les supports"
+        links={relatedLinkGroups.serviceBranding}
+      />
+    </>
+  );
 }

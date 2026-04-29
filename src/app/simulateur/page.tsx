@@ -3,6 +3,7 @@
 import { useState, useMemo, MouseEvent } from 'react'
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence, steps } from 'framer-motion'
 import Link from 'next/link'
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
 
 // --- 1. COMPOSANTS UI (DESIGN SYSTEM DARK/NEON) ---
 
@@ -449,6 +450,15 @@ export default function SimulatorPage() {
         </div>
       </div>
 
+      <RelatedLinks
+        title="Passer de l’estimation au cadrage"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.cms[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
     </main>
   )
 }

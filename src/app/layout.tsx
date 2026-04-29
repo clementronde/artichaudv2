@@ -80,7 +80,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={helvetica.variable}>
-      <body className="text-arti-black font-sans antialiased overflow-x-hidden">
+      <body className="text-arti-black font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
           <GlobalPreloader />
           <JsonLd />

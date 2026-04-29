@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx'
 import ServicesClient from '@/components/services/ServicesClient'
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
 
 export const metadata: Metadata = {
   title: "Nos Services | Branding, Webdesign & Stratégie Digitale - Artichaud",
@@ -50,6 +51,17 @@ export default function ServicesPage() {
     tags: post.meta.tags || []
   }))
 
-  // 3. On passe le tout au composant Client
-  return <ServicesClient posts={posts} />
+  return (
+    <>
+      <ServicesClient posts={posts} />
+      <RelatedLinks
+        title="Choisir le bon point d’entrée"
+        links={[
+          ...relatedLinkGroups.serviceWeb.slice(0, 2),
+          ...relatedLinkGroups.serviceSeo.slice(0, 1),
+          ...relatedLinkGroups.serviceBranding.slice(0, 1),
+        ]}
+      />
+    </>
+  )
 }

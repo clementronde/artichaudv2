@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import CalloutBox from '@/components/mdx/CalloutBox';
 import remarkGfm from 'remark-gfm';
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
 // URL de base de ton site
 const BASE_URL = 'https://artichaud-studio.com';
@@ -164,11 +165,12 @@ export default async function BlogPost(
   };
 
   return (
-    <main className="bg-white min-h-screen pt-32 pb-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <>
+      <main className="bg-white min-h-screen pt-32 pb-20">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
       <article className="container mx-auto px-6 md:px-12 max-w-4xl">
         
@@ -266,5 +268,10 @@ export default async function BlogPost(
 
       </article>
     </main>
+    <RelatedLinks
+      title="Mettre ce sujet en pratique"
+      links={relatedLinkGroups.editorial}
+    />
+  </>
   );
 }

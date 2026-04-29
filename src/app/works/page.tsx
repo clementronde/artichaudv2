@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx'
 import WorkClient from '@/components/works/WorkClient'
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
 
 export const metadata: Metadata = {
   title: "Portfolio | Nos Projets Web & Branding - Artichaud Studio Paris",
@@ -48,6 +49,17 @@ export default function WorkPage() {
     tags: post.meta.tags || []
   }))
 
-  // 3. On passe le tout au composant Client
-  return <WorkClient posts={posts} />
+  return (
+    <>
+      <WorkClient posts={posts} />
+      <RelatedLinks
+        title="Transformer une référence en projet concret"
+        links={[
+          ...relatedLinkGroups.serviceBranding.slice(0, 2),
+          ...relatedLinkGroups.serviceWeb.slice(0, 1),
+          ...relatedLinkGroups.serviceSeo.slice(0, 1),
+        ]}
+      />
+    </>
+  )
 }

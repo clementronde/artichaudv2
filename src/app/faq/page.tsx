@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "FAQ | Questions Fréquentes - Artichaud Studio",
@@ -131,6 +132,15 @@ export default function FAQPage() {
 
         </div>
       </main>
+      <RelatedLinks
+        title="Approfondir les sujets fréquents"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.cms[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
     </>
   );
 }

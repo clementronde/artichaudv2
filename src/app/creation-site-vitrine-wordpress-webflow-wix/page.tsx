@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ShowcaseClient from "./ShowcaseClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Création site vitrine WordPress, Webflow & Wix | Studio créatif",
@@ -36,5 +37,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ShowcaseClient />;
+  return (
+    <>
+      <ShowcaseClient />
+      <RelatedLinks
+        title="Aller plus loin après le choix du CMS"
+        links={relatedLinkGroups.cms}
+      />
+    </>
+  );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ParisClient from "./ParisClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Création de site internet Paris | Studio web & branding",
@@ -99,6 +100,10 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <ParisClient />
+      <RelatedLinks
+        title="Préparer votre création de site à Paris"
+        links={relatedLinkGroups.localSite}
+      />
     </>
   );
 }

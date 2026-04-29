@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BoulogneClient from "./BoulogneClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Création de site internet Boulogne-Billancourt | Agence web créative",
@@ -99,6 +100,10 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <BoulogneClient />
+      <RelatedLinks
+        title="Compléter votre projet web à Boulogne"
+        links={relatedLinkGroups.localSite}
+      />
     </>
   );
 }

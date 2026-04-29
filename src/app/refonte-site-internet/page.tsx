@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import RedesignClient from "./RedesignClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Refonte de site internet | Modernisez votre site vitrine & SEO",
@@ -142,6 +143,10 @@ export default function Page() {
         />
       ))}
       <RedesignClient />
+      <RelatedLinks
+        title="Préparer une refonte solide"
+        links={relatedLinkGroups.redesign}
+      />
     </>
   );
 }

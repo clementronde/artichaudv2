@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Tarifs & Prix | Création Site Internet Paris - Artichaud Studio",
@@ -114,6 +115,15 @@ export default function TarifsLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}
       />
       {children}
+      <RelatedLinks
+        title="Relier le budget au bon cadrage"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.cms[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.serviceBranding[0],
+        ]}
+      />
     </>
   );
 }

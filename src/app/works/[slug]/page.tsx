@@ -3,6 +3,7 @@ import { getAllPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import ProjectClient from '@/components/Project/ProjectClient';
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
 const BASE_URL = 'https://artichaud-studio.com';
 
@@ -89,5 +90,18 @@ export default async function ProjectPage(
     tags: post.meta.tags || []
   }));
 
-  return <ProjectClient project={project} posts={posts} />;
+  return (
+    <>
+      <ProjectClient project={project} posts={posts} />
+      <RelatedLinks
+        title="Créer un projet du même niveau"
+        links={[
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
+    </>
+  );
 }

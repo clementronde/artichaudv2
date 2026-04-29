@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Artichaud Studio - Orthographe Correcte | Artichaud, Artichaut ?",
@@ -130,6 +131,15 @@ export default function OrthographePage() {
           </div>
         </div>
       </section>
+      <RelatedLinks
+        title="Découvrir le studio Artichaud"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
     </main>
   );
 }

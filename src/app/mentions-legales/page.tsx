@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales | Artichaud Studio',
@@ -11,8 +12,9 @@ export const metadata: Metadata = {
 
 export default function MentionsLegales() {
   return (
-    <main className="bg-black text-white min-h-screen px-6 py-24 md:py-32">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <>
+      <main className="bg-black text-white min-h-screen px-6 py-24 md:py-32">
+        <div className="max-w-4xl mx-auto space-y-12">
         
         {/* En-tête sémantique pour Google */}
         <header className="space-y-4 border-b border-white/20 pb-8">
@@ -65,7 +67,17 @@ export default function MentionsLegales() {
           </div>
 
         </section>
-      </div>
-    </main>
+        </div>
+      </main>
+      <RelatedLinks
+        title="Revenir aux pages utiles"
+        links={[
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.editorial[3],
+          relatedLinkGroups.serviceSeo[0],
+        ]}
+      />
+    </>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { motion } from "framer-motion";
 import CreationSiteInternetClient from "./CreationSiteInternetClient";
+import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
   title: "Création Site Internet Paris | Agence Web & Développement - Artichaud Studio",
@@ -41,5 +40,13 @@ export const metadata: Metadata = {
 };
 
 export default function CreationSiteInternetPage() {
-  return <CreationSiteInternetClient />;
+  return (
+    <>
+      <CreationSiteInternetClient />
+      <RelatedLinks
+        title="Relier la création du site aux bonnes décisions"
+        links={relatedLinkGroups.serviceWeb}
+      />
+    </>
+  );
 }

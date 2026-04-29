@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { motion } from 'framer-motion'
+import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
 
 // --- DONNÉES PROJETS ---
 const allProjects = [
@@ -237,6 +238,15 @@ export default function AllProjectsPage() {
       {/* IMAGE FLOTTANTE */}
       <Modal modal={modal} projects={allProjects} />
 
+      <RelatedLinks
+        title="Relier les projets aux expertises"
+        links={[
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceSeo[0],
+          relatedLinkGroups.editorial[3],
+        ]}
+      />
     </main>
   )
 }
