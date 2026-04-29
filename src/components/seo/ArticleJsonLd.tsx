@@ -20,14 +20,14 @@ export default function ArticleJsonLd(props: ArticleJsonLdProps) {
     "author": {
       "@type": "Organization",
       "name": props.author,
-      "url": "https://artichaud-studio.com"
+      "url": "https://www.artichaud-studio.com"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Artichaud Studio",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://artichaud-studio.com/icon.png"
+        "url": "https://www.artichaud-studio.com/icon.png"
       }
     },
     "mainEntityOfPage": {

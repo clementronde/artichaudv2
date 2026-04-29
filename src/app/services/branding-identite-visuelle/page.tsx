@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Branding & Identité Visuelle Paris - Artichaud Studio",
     description: "Création d'identités visuelles fortes et mémorables. Logo, charte graphique, stratégie de marque. Démarquez-vous avec une identité unique.",
-    url: "https://artichaud-studio.com/services/branding-identite-visuelle",
+    url: "https://www.artichaud-studio.com/services/branding-identite-visuelle",
     images: [
       {
-        url: "https://artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.com/icon.png",
         width: 512,
         height: 512,
         alt: "Branding & Identité Visuelle Paris - Artichaud Studio"
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://artichaud-studio.com/services/branding-identite-visuelle"
+    canonical: "https://www.artichaud-studio.com/services/branding-identite-visuelle"
   }
 };
 

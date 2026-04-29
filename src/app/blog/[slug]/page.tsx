@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
 // URL de base de ton site
-const BASE_URL = 'https://artichaud-studio.com';
+const BASE_URL = 'https://www.artichaud-studio.com';
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {

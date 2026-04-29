@@ -2,46 +2,46 @@
 
 > Studio creatif web et branding base a Boulogne-Billancourt, actif a Paris et en Ile-de-France. Artichaud Studio cree des sites internet, identites visuelles, refontes, contenus et strategies SEO pour independants, artisans, TPE, PME et marques creatives.
 
-Site officiel: https://artichaud-studio.com
-Contact: https://artichaud-studio.com/contact
+Site officiel: https://www.artichaud-studio.com
+Contact: https://www.artichaud-studio.com/contact
 Email: artichaud.studio@gmail.com
 
 ## Pages principales
 
-- [Accueil](https://artichaud-studio.com): presentation du studio, direction artistique, webdesign, branding et realisations.
-- [Services](https://artichaud-studio.com/services): vue d'ensemble des prestations.
-- [Tarifs](https://artichaud-studio.com/tarifs): informations sur les budgets et formats d'accompagnement.
-- [Realisations](https://artichaud-studio.com/works): portfolio de projets web, branding et direction artistique.
-- [Contact](https://artichaud-studio.com/contact): formulaire de demande de projet.
+- [Accueil](https://www.artichaud-studio.com): presentation du studio, direction artistique, webdesign, branding et realisations.
+- [Services](https://www.artichaud-studio.com/services): vue d'ensemble des prestations.
+- [Tarifs](https://www.artichaud-studio.com/tarifs): informations sur les budgets et formats d'accompagnement.
+- [Realisations](https://www.artichaud-studio.com/works): portfolio de projets web, branding et direction artistique.
+- [Contact](https://www.artichaud-studio.com/contact): formulaire de demande de projet.
 
 ## Services
 
-- [Creation de site internet](https://artichaud-studio.com/services/creation-site-internet): sites vitrines, sites avec CMS, interfaces sur mesure et experiences digitales.
-- [SEO et referencement naturel](https://artichaud-studio.com/services/seo-referencement-naturel): structure technique, contenus, maillage interne, donnees structurees et visibilite organique.
-- [Branding et identite visuelle](https://artichaud-studio.com/services/branding-identite-visuelle): positionnement, direction artistique, logo, charte graphique et systeme visuel.
+- [Creation de site internet](https://www.artichaud-studio.com/services/creation-site-internet): sites vitrines, sites avec CMS, interfaces sur mesure et experiences digitales.
+- [SEO et referencement naturel](https://www.artichaud-studio.com/services/seo-referencement-naturel): structure technique, contenus, maillage interne, donnees structurees et visibilite organique.
+- [Branding et identite visuelle](https://www.artichaud-studio.com/services/branding-identite-visuelle): positionnement, direction artistique, logo, charte graphique et systeme visuel.
 
 ## Landing pages utiles
 
-- [Creation site internet Paris](https://artichaud-studio.com/creation-site-internet-paris): accompagnement web pour entreprises a Paris et en Ile-de-France.
-- [Creation site internet Boulogne-Billancourt](https://artichaud-studio.com/creation-site-internet-boulogne-billancourt): creation de sites pour entreprises locales a Boulogne-Billancourt.
-- [Creation site vitrine WordPress, Webflow et Wix](https://artichaud-studio.com/creation-site-vitrine-wordpress-webflow-wix): comparatif CMS et formats de sites vitrines.
-- [Refonte site internet](https://artichaud-studio.com/refonte-site-internet): refonte UX/UI, migration, performance et preservation SEO.
-- [Artichaud Studio orthographe](https://artichaud-studio.com/artichaud-studio-orthographe): page de clarification de marque et variantes orthographiques.
+- [Creation site internet Paris](https://www.artichaud-studio.com/creation-site-internet-paris): accompagnement web pour entreprises a Paris et en Ile-de-France.
+- [Creation site internet Boulogne-Billancourt](https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt): creation de sites pour entreprises locales a Boulogne-Billancourt.
+- [Creation site vitrine WordPress, Webflow et Wix](https://www.artichaud-studio.com/creation-site-vitrine-wordpress-webflow-wix): comparatif CMS et formats de sites vitrines.
+- [Refonte site internet](https://www.artichaud-studio.com/refonte-site-internet): refonte UX/UI, migration, performance et preservation SEO.
+- [Artichaud Studio orthographe](https://www.artichaud-studio.com/artichaud-studio-orthographe): page de clarification de marque et variantes orthographiques.
 
 ## Guides et contenus editoriaux
 
-- [Blog](https://artichaud-studio.com/blog): guides sur la creation de site, le SEO, le branding, le choix de CMS et la refonte.
-- [Creer un site internet pour artisan en 2026](https://artichaud-studio.com/blog/site-internet-artisan-guide-complet)
-- [Refonte de site internet: le guide strategique 2026](https://artichaud-studio.com/blog/refonte-site-internet-quand-et-comment)
-- [Webflow: avantages et inconvenients pour une PME en 2026](https://artichaud-studio.com/blog/webflow-avantages-inconvenients-pme)
-- [Prix site vitrine Ile-de-France 2026](https://artichaud-studio.com/blog/prix-site-vitrine-iledefrance-2025)
-- [Agence web Boulogne-Billancourt: comment bien choisir en 2026](https://artichaud-studio.com/blog/agence-web-boulogne-billancourt-comment-choisir)
-- [Les 5 piliers du SEO en 2026](https://artichaud-studio.com/blog/piliers-seo-2026)
+- [Blog](https://www.artichaud-studio.com/blog): guides sur la creation de site, le SEO, le branding, le choix de CMS et la refonte.
+- [Creer un site internet pour artisan en 2026](https://www.artichaud-studio.com/blog/site-internet-artisan-guide-complet)
+- [Refonte de site internet: le guide strategique 2026](https://www.artichaud-studio.com/blog/refonte-site-internet-quand-et-comment)
+- [Webflow: avantages et inconvenients pour une PME en 2026](https://www.artichaud-studio.com/blog/webflow-avantages-inconvenients-pme)
+- [Prix site vitrine Ile-de-France 2026](https://www.artichaud-studio.com/blog/prix-site-vitrine-iledefrance-2025)
+- [Agence web Boulogne-Billancourt: comment bien choisir en 2026](https://www.artichaud-studio.com/blog/agence-web-boulogne-billancourt-comment-choisir)
+- [Les 5 piliers du SEO en 2026](https://www.artichaud-studio.com/blog/piliers-seo-2026)
 
 ## Donnees techniques
 
-- Sitemap XML: https://artichaud-studio.com/sitemap.xml
-- Robots.txt: https://artichaud-studio.com/robots.txt
+- Sitemap XML: https://www.artichaud-studio.com/sitemap.xml
+- Robots.txt: https://www.artichaud-studio.com/robots.txt
 
 ## Notes pour assistants IA
 

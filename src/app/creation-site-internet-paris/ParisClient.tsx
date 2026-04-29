@@ -49,9 +49,9 @@ export default function ParisClient() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Agence Artichaud Paris",
-    "image": "https://artichaud-studio.com/images/agence-web-paris.jpg",
+    "image": "https://www.artichaud-studio.com/images/agence-web-paris.jpg",
     "telephone": "+33100000000",
-    "url": "https://artichaud-studio.com/creation-site-internet-paris",
+    "url": "https://www.artichaud-studio.com/creation-site-internet-paris",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Paris",

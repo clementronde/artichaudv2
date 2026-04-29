@@ -253,7 +253,7 @@ export async function POST(request: NextRequest) {
 
       <p>
         D'ici là, n'hésitez pas à consulter nos dernières réalisations
-        sur <a href="https://artichaud-studio.com/works" style="color: #191919;">notre portfolio</a>.
+        sur <a href="https://www.artichaud-studio.com/works" style="color: #191919;">notre portfolio</a>.
       </p>
 
       <p style="margin-top: 25px;">
@@ -263,7 +263,7 @@ export async function POST(request: NextRequest) {
       
       <div class="footer">
         Artichaud Studio — Agence Web & Branding Paris<br>
-        <a href="https://artichaud-studio.com" style="color: #999;">artichaud-studio.com</a>
+        <a href="https://www.artichaud-studio.com" style="color: #999;">artichaud-studio.com</a>
       </div>
     </div>
   </div>

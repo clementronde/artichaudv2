@@ -6,17 +6,17 @@ export default function JsonLd() {
     "legalName": "Artichaud Studio",
     "alternateName": "Artichaud",
     "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
-    "image": "https://artichaud-studio.com/icon.png",
+    "image": "https://www.artichaud-studio.com/icon.png",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://artichaud-studio.com/icon.png",
+      "url": "https://www.artichaud-studio.com/icon.png",
       "width": 512,
       "height": 512,
-      "contentUrl": "https://artichaud-studio.com/icon.png",
+      "contentUrl": "https://www.artichaud-studio.com/icon.png",
       "caption": "Artichaud Studio Logo",
       "inLanguage": "fr-FR"
     },
-    "url": "https://artichaud-studio.com",
+    "url": "https://www.artichaud-studio.com",
     "telephone": "+33697538017",
     "email": "artichaud.studio@gmail.com",
     "contactPoint": {
@@ -75,7 +75,7 @@ export default function JsonLd() {
       "https://www.instagram.com/artichaud.studio/",
       "https://www.tiktok.com/@artichaud.studio",
       "https://www.google.com/maps/place/Artichaud+Studio/@48.6807824,2.5026636,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.6807824!4d2.5026636!16s%2Fg%2F11mm8rb1gx",
-      "https://artichaud-studio.com"
+      "https://www.artichaud-studio.com"
     ],
     "priceRange": "€€"
   }

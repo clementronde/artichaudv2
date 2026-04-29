@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tarifs & Prix - Artichaud Studio Paris",
     description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit sous 48h.",
-    url: "https://artichaud-studio.com/tarifs",
+    url: "https://www.artichaud-studio.com/tarifs",
     images: [
       {
-        url: "https://artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.com/icon.png",
         width: 1200,
         height: 630,
         alt: "Tarifs Artichaud Studio"
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tarifs & Prix - Artichaud Studio",
     description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€.",
-    images: ["https://artichaud-studio.com/icon.png"]
+    images: ["https://www.artichaud-studio.com/icon.png"]
   },
   alternates: {
-    canonical: "https://artichaud-studio.com/tarifs"
+    canonical: "https://www.artichaud-studio.com/tarifs"
   }
 };
 
@@ -49,7 +49,7 @@ const offerSchema = {
   "provider": {
     "@type": "DesignAgency",
     "name": "Artichaud Studio",
-    "url": "https://artichaud-studio.com"
+    "url": "https://www.artichaud-studio.com"
   },
   "itemListElement": [
     {

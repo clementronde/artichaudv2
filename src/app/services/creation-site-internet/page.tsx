@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Création Site Internet Paris - Artichaud Studio",
     description: "Création de sites web modernes et performants. Webdesign, développement, SEO. Votre projet digital en mains expertes.",
-    url: "https://artichaud-studio.com/services/creation-site-internet",
+    url: "https://www.artichaud-studio.com/services/creation-site-internet",
     images: [
       {
-        url: "https://artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.com/icon.png",
         width: 512,
         height: 512,
         alt: "Création Site Internet Paris - Artichaud Studio"
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://artichaud-studio.com/services/creation-site-internet"
+    canonical: "https://www.artichaud-studio.com/services/creation-site-internet"
   }
 };
 

@@ -26,21 +26,21 @@ export default function BlogPostSchema({
     "description": description,
     "image": {
       "@type": "ImageObject",
-      "url": image.startsWith('http') ? image : `https://artichaud-studio.com${image}`,
+      "url": image.startsWith('http') ? image : `https://www.artichaud-studio.com${image}`,
       "width": 1200,
       "height": 630
     },
     "author": {
       "@type": "Person",
       "name": author,
-      "url": "https://artichaud-studio.com/about"
+      "url": "https://www.artichaud-studio.com/about"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Artichaud Studio",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://artichaud-studio.com/icon.png",
+        "url": "https://www.artichaud-studio.com/icon.png",
         "width": 512,
         "height": 512
       }
@@ -49,7 +49,7 @@ export default function BlogPostSchema({
     "dateModified": dateModified || datePublished,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://artichaud-studio.com/blog/${slug}`
+      "@id": `https://www.artichaud-studio.com/blog/${slug}`
     },
     "articleSection": "Branding & Web Design",
     "inLanguage": "fr-FR"

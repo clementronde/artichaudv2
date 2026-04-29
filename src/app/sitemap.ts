@@ -3,7 +3,7 @@ import { projects } from '@/data/project'
 import { getAllPosts } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://artichaud-studio.com'
+  const baseUrl = 'https://www.artichaud-studio.com'
   const lastModified = new Date('2026-04-28')
 
   // 1. Pages principales (haute priorité)

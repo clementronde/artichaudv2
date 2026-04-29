@@ -16,18 +16,18 @@ export const metadata: Metadata = {
     "audit site internet"
   ],
   alternates: {
-    canonical: "https://artichaud-studio.com/refonte-site-internet",
+    canonical: "https://www.artichaud-studio.com/refonte-site-internet",
   },
   openGraph: {
     title: "Refonte de Site Internet - Transformez votre présence en ligne",
     description: "Design daté ? Performances lentes ? Découvrez notre approche pour une refonte de site qui booste votre image et votre business.",
-    url: "https://artichaud-studio.com/refonte-site-internet",
+    url: "https://www.artichaud-studio.com/refonte-site-internet",
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://artichaud-studio.com/images/og-refonte.jpg",
+        url: "https://www.artichaud-studio.com/images/og-refonte.jpg",
         width: 1200,
         height: 630,
         alt: "Avant Après Refonte Site Internet Artichaud",
@@ -42,7 +42,7 @@ const schemas = [
     "@type": ["LocalBusiness", "ProfessionalService"],
     "name": "Artichaud Studio",
     "description": "Agence experte en refonte de site internet à Paris. Nouveau design, meilleure UX et SEO conservé. WordPress, Webflow, Wix.",
-    "url": "https://artichaud-studio.com/refonte-site-internet",
+    "url": "https://www.artichaud-studio.com/refonte-site-internet",
     "telephone": "+33697538017",
     "email": "artichaud.studio@gmail.com",
     "address": {

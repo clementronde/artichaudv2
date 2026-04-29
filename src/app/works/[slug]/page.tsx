@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import ProjectClient from '@/components/Project/ProjectClient';
 import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
-const BASE_URL = 'https://artichaud-studio.com';
+const BASE_URL = 'https://www.artichaud-studio.com';
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {

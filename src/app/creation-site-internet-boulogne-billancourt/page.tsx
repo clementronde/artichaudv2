@@ -15,18 +15,18 @@ export const metadata: Metadata = {
     "création site Webflow Boulogne"
   ],
   alternates: {
-    canonical: "https://artichaud-studio.com/creation-site-internet-boulogne-billancourt",
+    canonical: "https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt",
   },
   openGraph: {
     title: "Création de site internet Boulogne-Billancourt | Agence Artichaud",
     description: "Agence web créative à Boulogne-Billancourt. Sites vitrines WordPress, Webflow ou Wix qui valorisent votre marque.",
-    url: "https://artichaud-studio.com/creation-site-internet-boulogne-billancourt",
+    url: "https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt",
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://artichaud-studio.com/images/og-boulogne.jpg",
+        url: "https://www.artichaud-studio.com/images/og-boulogne.jpg",
         width: 1200,
         height: 630,
         alt: "Création site internet Boulogne-Billancourt",
@@ -40,7 +40,7 @@ const localBusinessSchema = {
   "@type": ["LocalBusiness", "ProfessionalService"],
   "name": "Artichaud Studio",
   "description": "Agence web créative à Boulogne-Billancourt. Création de sites vitrines WordPress, Webflow ou sur mesure pour TPE, PME et artisans du 92.",
-  "url": "https://artichaud-studio.com/creation-site-internet-boulogne-billancourt",
+  "url": "https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt",
   "telephone": "+33697538017",
   "email": "artichaud.studio@gmail.com",
   "address": {

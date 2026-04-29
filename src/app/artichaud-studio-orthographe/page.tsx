@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Artichaud Studio - Comment nous écrire correctement",
     description: "Artichaud Studio avec un D. Studio de création web, branding et stratégie digitale à Paris.",
-    url: "https://artichaud-studio.com/artichaud-studio-orthographe",
+    url: "https://www.artichaud-studio.com/artichaud-studio-orthographe",
     images: [
       {
-        url: "https://artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.com/icon.png",
         width: 1200,
         height: 630,
         alt: "Artichaud Studio - Orthographe",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://artichaud-studio.com/artichaud-studio-orthographe",
+    canonical: "https://www.artichaud-studio.com/artichaud-studio-orthographe",
   },
   robots: {
     index: true,
