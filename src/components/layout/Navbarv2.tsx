@@ -124,7 +124,7 @@ export default function Navbar() {
   const isAnimatingInRef = useRef(false)
   const isLoadedRef = useRef(false)
 
-  const DESKTOP_OPEN_WIDTH = 400 
+  const DESKTOP_OPEN_WIDTH = 440
   
   const navLinks = [
     { label: t.navbar.works, href: '/works' },
@@ -287,7 +287,7 @@ export default function Navbar() {
           className="h-[60px] rounded-full bg-[#000000] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center overflow-hidden origin-left z-10 flex-shrink-0"
           style={{ width: DESKTOP_OPEN_WIDTH, marginLeft: 8 }}
         >
-          <div ref={innerRef} className="flex items-center justify-center gap-1 w-full h-full flex-shrink-0 px-2">
+          <div ref={innerRef} className="flex items-center justify-center gap-1 w-full h-full flex-shrink-0 px-3">
               <div ref={linksRef} className="flex items-center gap-1 flex-shrink-0">
                 {navLinks.map((item) => (
                   <Magnetic key={item.label} disabled={isNavigatingRef.current}>
@@ -300,7 +300,7 @@ export default function Navbar() {
 
               <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
                 <Magnetic disabled={isNavigatingRef.current}>
-                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-5 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
+                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-6 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
                       <span>{t.navbar.letsTalk}</span>

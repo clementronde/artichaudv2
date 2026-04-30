@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ImageTrail } from "@/components/ui/image-trail"
 import Image from "next/image"
 import { useLocale } from '@/context/LocaleContext'
@@ -8,6 +8,7 @@ import { useLocale } from '@/context/LocaleContext'
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
+  const [imagesReady, setImagesReady] = useState(false)
   const { t } = useLocale()
 
   const images = [
@@ -22,6 +23,32 @@ export default function HeroV3() {
     "/projects/rockstar/rockstarprojet2.avif",
     "/projects/yumdeal/yumdealprojet2.avif",
   ]
+
+  useEffect(() => {
+    let cancelled = false
+
+    const preload = images.map((url) => {
+      const img = new window.Image()
+      img.src = url
+
+      if ('decode' in img) {
+        return img.decode().catch(() => undefined)
+      }
+
+      return new Promise<void>((resolve) => {
+        img.onload = () => resolve()
+        img.onerror = () => resolve()
+      })
+    })
+
+    Promise.all(preload).then(() => {
+      if (!cancelled) setImagesReady(true)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   return (
     // MODIFICATION ICI : 
@@ -85,7 +112,7 @@ export default function HeroV3() {
           containerRef={ref} 
           interval={100}
           rotationRange={20}
-          active={isActive} 
+          active={isActive && imagesReady}
         >
           {images.map((url, index) => (
             <div
@@ -96,6 +123,7 @@ export default function HeroV3() {
                 src={url}
                 alt={`Project ${index}`}
                 fill
+                priority
                 className="object-cover"
                 sizes="240px"
               />
@@ -143,6 +171,7 @@ export default function HeroV3() {
             alt=""
             loading="eager"
             decoding="async"
+            fetchPriority="high"
             width={1}
             height={1}
           />
