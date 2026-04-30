@@ -5,7 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { motion } from 'framer-motion'
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
+import RelatedLinks from '@/components/seo/RelatedLinks'
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
 // --- DONNÉES PROJETS ---
 const allProjects = [

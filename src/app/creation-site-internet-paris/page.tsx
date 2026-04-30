@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ParisClient from "./ParisClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Création de site internet Paris | Studio web & branding",
@@ -42,7 +43,7 @@ const localBusinessSchema = {
   "name": "Artichaud Studio",
   "description": "Studio web créatif à Paris. Création de sites vitrines WordPress, Webflow et Wix pour TPE, PME et startups en Île-de-France.",
   "url": "https://www.artichaud-studio.com/creation-site-internet-paris",
-  "telephone": "+33697538017",
+  "telephone": "+33687538017",
   "email": "artichaud.studio@gmail.com",
   "address": {
     "@type": "PostalAddress",

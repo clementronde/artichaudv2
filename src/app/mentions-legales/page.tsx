@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
+import RelatedLinks from '@/components/seo/RelatedLinks';
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales | Artichaud Studio',

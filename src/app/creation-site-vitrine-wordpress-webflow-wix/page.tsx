@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ShowcaseClient from "./ShowcaseClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Création site vitrine WordPress, Webflow & Wix | Studio créatif",

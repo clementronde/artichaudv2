@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RedesignClient from "./RedesignClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Refonte de site internet | Modernisez votre site vitrine & SEO",
@@ -43,7 +44,7 @@ const schemas = [
     "name": "Artichaud Studio",
     "description": "Agence experte en refonte de site internet à Paris. Nouveau design, meilleure UX et SEO conservé. WordPress, Webflow, Wix.",
     "url": "https://www.artichaud-studio.com/refonte-site-internet",
-    "telephone": "+33697538017",
+    "telephone": "+33687538017",
     "email": "artichaud.studio@gmail.com",
     "address": {
       "@type": "PostalAddress",

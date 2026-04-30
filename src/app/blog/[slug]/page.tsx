@@ -6,7 +6,8 @@ import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import CalloutBox from '@/components/mdx/CalloutBox';
 import remarkGfm from 'remark-gfm';
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
+import RelatedLinks from '@/components/seo/RelatedLinks';
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 
 // URL de base de ton site
 const BASE_URL = 'https://www.artichaud-studio.com';
@@ -147,6 +148,7 @@ export default async function BlogPost(
           src={props.src} 
           alt={props.alt || "Illustration"} 
           fill 
+          sizes="(max-width: 768px) 100vw, 800px"
           className="object-cover" 
         />
       </span>

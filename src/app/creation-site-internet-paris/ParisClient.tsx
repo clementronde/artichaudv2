@@ -232,7 +232,7 @@ export default function ParisClient() {
                         animate={{ opacity: 1, y: 0 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
-                        <Image src="/projects/Lumyn.avif" alt="Site internet agence digitale Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src="/projects/Lumyn.avif" alt="Site internet agence digitale Paris" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Lumyn Paris</h3>
@@ -253,7 +253,7 @@ export default function ParisClient() {
                         transition={{ delay: 0.1 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
-                        <Image src="/projects/Disobey.avif" alt="Création site e-commerce Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src="/projects/Disobey.avif" alt="Création site e-commerce Paris" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Disobey Apparel</h3>
@@ -273,7 +273,7 @@ export default function ParisClient() {
                         animate={{ opacity: 1, y: 0 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
-                        <Image src="/projects/Keleti.avif" alt="Webdesign portfolio architecte IDF" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src="/projects/Keleti.avif" alt="Webdesign portfolio architecte IDF" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Keleti Tautu</h3>
@@ -294,7 +294,7 @@ export default function ParisClient() {
                         transition={{ delay: 0.1 }}
                         className="relative aspect-video overflow-hidden cursor-pointer"
                     >
-                        <Image src="/projects/rockstar/rockstarprojet1.avif" alt="Site internet Rockstar Paris" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src="/projects/rockstar/rockstarprojet1.avif" alt="Site internet Rockstar Paris" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Rockstar</h3>

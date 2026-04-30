@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import AboutClient from "@/components/about/AboutClient"
 // On utilise getAllPosts car c'est le nom de la fonction dans votre lib/mdx
 import { getAllPosts } from "@/lib/mdx" 
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks"
+import RelatedLinks from "@/components/seo/RelatedLinks"
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData"
 
 export const metadata: Metadata = {
   title: "À Propos | Notre Histoire & Vision - Artichaud Studio Paris",

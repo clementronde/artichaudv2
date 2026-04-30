@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx'
 import WorkClient from '@/components/works/WorkClient'
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
+import RelatedLinks from '@/components/seo/RelatedLinks'
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
 export const metadata: Metadata = {
   title: "Portfolio | Nos Projets Web & Branding - Artichaud Studio Paris",

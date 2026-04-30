@@ -88,6 +88,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
               src={post.image}
               alt={post.title || "Article"}
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               draggable={false} 
               className="object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
             />

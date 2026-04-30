@@ -1,5 +1,6 @@
 'use client'
 import { useRef } from 'react'
+import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -104,10 +105,10 @@ export default function Intro() {
               {t.intro.para2}
             </p>
             <div className="mt-4 pt-4">
-               <button className="group flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
+               <Link href="/services" className="group flex w-fit items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                   {t.intro.cta}
-               </button>
+               </Link>
             </div>
           </div>
         </div>

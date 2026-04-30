@@ -143,6 +143,7 @@ const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) 
           src={project.cover}
           alt={project.client}
           fill
+          sizes={project.fullWidth ? "(max-width: 768px) 100vw, 100vw" : "(max-width: 768px) 100vw, 50vw"}
           className="object-cover transition-transform duration-700"
         />
 
@@ -165,6 +166,7 @@ const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) 
                  src={project.gallery[galleryIndex]}
                  alt="Gallery"
                  fill
+                 sizes="320px"
                  className="object-cover"
                />
             </div>

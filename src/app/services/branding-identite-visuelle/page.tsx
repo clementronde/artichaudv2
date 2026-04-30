@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BrandingIdentiteVisuelleClient from "./BrandingIdentiteVisuelleClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Branding & Identité Visuelle Paris | Agence Design de Marque - Artichaud Studio",

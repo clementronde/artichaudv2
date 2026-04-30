@@ -6,7 +6,8 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import { useLocale } from '@/context/LocaleContext'
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
+import RelatedLinks from '@/components/seo/RelatedLinks'
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
 // --- TYPES ---
 interface FormData {
@@ -506,7 +507,7 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
 
 // --- PAGE PRINCIPALE ---
 export default function ContactPage() {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
   const containerRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
   const [currentStep, setCurrentStep] = useState(0)
@@ -790,11 +791,11 @@ export default function ContactPage() {
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                 </a>
                 <a
-                  href="tel:0697538017"
+                  href="tel:0687538017"
                   className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 
                              text-arti-black font-medium hover:border-arti-black transition-all duration-300"
                 >
-                  <span>06 97 53 80 17</span>
+                  <span>06 87 53 80 17</span>
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                 </a>
               </div>
@@ -804,7 +805,7 @@ export default function ContactPage() {
 
       </div>
       <RelatedLinks
-        title="Préparer l’échange avant de nous écrire"
+        title={locale === 'en' ? 'Prepare the conversation before reaching out' : 'Préparer l’échange avant de nous écrire'}
         links={[
           relatedLinkGroups.serviceWeb[0],
           relatedLinkGroups.serviceBranding[0],

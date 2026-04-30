@@ -62,7 +62,7 @@ const ReviewCard = ({ item, isMobile = false }: { item: typeof testimonials[0], 
       <div className="p-6 md:p-8 flex flex-col gap-5 h-full relative z-10">
         <div className="flex items-center gap-3">
           <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white/10">
-            <Image src={item.avatar} alt={item.name} fill className="object-cover" />
+            <Image src={item.avatar} alt={item.name} fill sizes="48px" className="object-cover" />
           </div>
           <div className="flex flex-col gap-0.5">
             <h4 className="text-base font-bold text-white leading-tight">{item.name}</h4>
@@ -75,7 +75,7 @@ const ReviewCard = ({ item, isMobile = false }: { item: typeof testimonials[0], 
         </p>
 
         <div className="relative w-full aspect-[16/10] mt-auto hover:rounded-full overflow-hidden transition-all duration-500 ease-out border border-white/10">
-          <Image src={item.image} alt={item.name} fill className="object-cover opacity-90 hover:opacity-100 transition-opacity duration-500" />
+          <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-90 hover:opacity-100 transition-opacity duration-500" />
         </div>
       </div>
     </div>

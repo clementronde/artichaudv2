@@ -3,7 +3,8 @@ import { getAllPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import ProjectClient from '@/components/Project/ProjectClient';
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
+import RelatedLinks from '@/components/seo/RelatedLinks';
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 
 const BASE_URL = 'https://www.artichaud-studio.com';
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CreationSiteInternetClient from "./CreationSiteInternetClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Création de site internet sur mesure | Sites vitrines & web apps",

@@ -49,6 +49,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             src={project.image}
             alt={project.client}
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover" 
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />

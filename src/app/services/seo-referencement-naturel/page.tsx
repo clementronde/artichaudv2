@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SeoReferencementNaturelClient from "./SeoReferencementNaturelClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "SEO & Référencement Naturel Paris | Agence SEO Expert - Artichaud Studio",

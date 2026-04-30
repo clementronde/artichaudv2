@@ -157,6 +157,7 @@ export default function BoulogneClient() {
                    src="/LP/creation-site-boulogne-billancourt/google_maps_boulogne_billancourt.avif" 
                    alt="Agence web à Boulogne Billancourt - Quartier Rives de Seine"
                    fill
+                   sizes="(max-width: 768px) 100vw, 50vw"
                    className="object-cover"
                  />
               </div>
@@ -283,6 +284,7 @@ export default function BoulogneClient() {
                                 src={projet.img} 
                                 alt={projet.title} 
                                 fill 
+                                sizes="(max-width: 768px) 100vw, 33vw"
                                 className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
                             />
                             {/* Overlay au survol */}

@@ -17,11 +17,11 @@ export default function JsonLd() {
       "inLanguage": "fr-FR"
     },
     "url": "https://www.artichaud-studio.com",
-    "telephone": "+33697538017",
+    "telephone": "+33687538017",
     "email": "artichaud.studio@gmail.com",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+33697538017",
+      "telephone": "+33687538017",
       "email": "artichaud.studio@gmail.com",
       "contactType": "customer service",
       "areaServed": "FR",

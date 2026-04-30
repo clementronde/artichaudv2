@@ -114,6 +114,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
           src={project.cover}
           alt={project.client}
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 ease-out z-10" />
@@ -130,6 +131,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
                  src={project.gallery[galleryIndex]}
                  alt="Gallery"
                  fill
+                 sizes="320px"
                  className="object-cover"
                />
             </div>

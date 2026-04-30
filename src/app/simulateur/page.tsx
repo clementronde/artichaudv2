@@ -3,7 +3,8 @@
 import { useState, useMemo, MouseEvent } from 'react'
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence, steps } from 'framer-motion'
 import Link from 'next/link'
-import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks'
+import RelatedLinks from '@/components/seo/RelatedLinks'
+import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
 // --- 1. COMPOSANTS UI (DESIGN SYSTEM DARK/NEON) ---
 

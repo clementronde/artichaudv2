@@ -31,7 +31,7 @@ const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, 
             onTouchMove={handleMouseMove}
         >
             {/* Image APRÈS (Fond) */}
-            <Image src={afterImg} alt="Site internet après refonte" fill className="object-cover" />
+            <Image src={afterImg} alt="Site internet après refonte" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             
             {/* Label Après */}
             <div className="absolute top-4 right-4 bg-[#D0FF00] text-black text-xs font-bold px-3 py-1 rounded-full z-10">
@@ -51,6 +51,7 @@ const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, 
                         src={beforeImg} 
                         alt="Site internet avant refonte" 
                         fill 
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                         priority // Optionnel : charge l'image plus vite pour éviter le clignotement
                      />

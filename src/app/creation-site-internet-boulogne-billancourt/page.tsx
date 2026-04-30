@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BoulogneClient from "./BoulogneClient";
-import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
+import RelatedLinks from "@/components/seo/RelatedLinks";
+import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
   title: "Création de site internet Boulogne-Billancourt | Agence web créative",
@@ -41,7 +42,7 @@ const localBusinessSchema = {
   "name": "Artichaud Studio",
   "description": "Agence web créative à Boulogne-Billancourt. Création de sites vitrines WordPress, Webflow ou sur mesure pour TPE, PME et artisans du 92.",
   "url": "https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt",
-  "telephone": "+33697538017",
+  "telephone": "+33687538017",
   "email": "artichaud.studio@gmail.com",
   "address": {
     "@type": "PostalAddress",

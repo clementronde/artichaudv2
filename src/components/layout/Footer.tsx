@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
               artichaud.studio@gmail.com
             </a>
             <a
-              href="tel:0697538017"
+              href="tel:0687538017"
               className="text-white/60 hover:text-white transition-colors text-sm"
             >
               06 87 53 80 17

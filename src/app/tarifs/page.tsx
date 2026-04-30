@@ -352,7 +352,7 @@ export default function TarifsPage() {
                 Demander un devis gratuit
               </Link>
               <a
-                href="tel:0697538017"
+                href="tel:0687538017"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-arti-black transition-all"
               >
                 Appeler maintenant
