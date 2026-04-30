@@ -49,7 +49,22 @@ const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?
 }
 
 // --- MENU MOBILE OVERLAY ---
-const MobileMenu = ({ isOpen, onClose, closeLabel }: { isOpen: boolean; onClose: () => void; closeLabel: string }) => {
+type NavLink = {
+  label: string;
+  href: string;
+};
+
+const MobileMenu = ({
+  isOpen,
+  onClose,
+  closeLabel,
+  links,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  closeLabel: string;
+  links: NavLink[];
+}) => {
     return (
         <AnimatePresence>
             {isOpen && (
@@ -69,14 +84,14 @@ const MobileMenu = ({ isOpen, onClose, closeLabel }: { isOpen: boolean; onClose:
                     </button>
 
                     <nav className="flex flex-col items-center gap-8">
-                        {['Works', 'Services', 'About', 'Contact'].map((item) => (
+                        {links.map((item) => (
                             <Link
-                                key={item}
-                                href={item === 'Contact' ? '/contact' : `/${item.toLowerCase()}`}
+                                key={item.href}
+                                href={item.href}
                                 onClick={onClose}
                                 className="text-4xl font-bold text-white hover:text-[#D0FF00] transition-colors"
                             >
-                                {item}
+                                {item.label}
                             </Link>
                         ))}
                     </nav>
@@ -115,6 +130,11 @@ export default function Navbar() {
     { label: t.navbar.works, href: '/works' },
     { label: t.navbar.services, href: '/services' },
     { label: t.navbar.about, href: '/about' },
+  ]
+
+  const mobileNavLinks = [
+    ...navLinks,
+    { label: t.navbar.contact, href: '/contact' },
   ]
 
   // --- LOGIQUE GSAP DESKTOP (Inchangée) ---
@@ -217,20 +237,18 @@ export default function Navbar() {
   useLayoutEffect(() => { hardReset() }, [pathname, hardReset])
 
   useEffect(() => {
-    const handlePreloaderComplete = () => setTimeout(() => animateIn(), 100)
-    if (pathname === '/') {
-       window.addEventListener('preloaderComplete', handlePreloaderComplete)
-       const fallbackTimer = setTimeout(() => { if (!isLoadedRef.current) animateIn() }, 2500)
-       return () => { window.removeEventListener('preloaderComplete', handlePreloaderComplete); clearTimeout(fallbackTimer) }
-    } else {
-       const t = setTimeout(() => animateIn(), 500)
-       return () => clearTimeout(t)
-    }
+    const t = setTimeout(() => animateIn(), pathname === '/' ? 100 : 500)
+    return () => clearTimeout(t)
   }, [pathname, animateIn])
 
   return (
     <>
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} closeLabel={t.navbar.close} />
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        closeLabel={t.navbar.close}
+        links={mobileNavLinks}
+      />
 
       {/* --- 1. VERSION MOBILE (VISIBLE UNIQUEMENT SUR < MD) --- */}
       <div className="fixed top-6 left-0 w-full px-6 z-[5000] flex justify-between items-center md:hidden">

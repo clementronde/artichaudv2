@@ -35,6 +35,16 @@ export async function generateMetadata(
       title: post.meta.title,
       description: post.meta.excerpt,
       keywords: post.meta.tags,
+      robots: post.meta.noindex === true
+        ? {
+            index: false,
+            follow: true,
+            googleBot: {
+              index: false,
+              follow: true,
+            },
+          }
+        : undefined,
       alternates: {
         canonical: `${BASE_URL}/blog/${post.slug}`,
       },

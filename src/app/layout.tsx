@@ -8,7 +8,6 @@ import Footer from "@/components/layout/Footer";
 import Navbar2 from "@/components/layout/Navbarv2";
 import ScrollToTop from "@/components/ScrollToTop";
 import JsonLd from "@/components/seo/JsonLD";
-import GlobalPreloader from "@/components/GlobalPreloader";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -82,7 +81,6 @@ export default async function RootLayout({
     <html lang={locale} className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
-          <GlobalPreloader />
           <JsonLd />
           <ScrollToTop />
           <Navbar2 />

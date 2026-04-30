@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import RelatedLinks, { relatedLinkGroups } from '@/components/seo/RelatedLinks';
 
 export const metadata: Metadata = {
-  title: 'Le Blog | Conseils Branding, Webdesign & Stratégie Digitale - Artichaud',
+  title: 'Blog création web & branding | Conseils pour PME',
   description: 'Découvrez nos articles sur le branding, le webdesign, le marketing digital et les tendances du design. Conseils pratiques et retours d\'expérience de nos projets à Paris.',
   keywords: [
     'blog branding Paris',

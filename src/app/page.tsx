@@ -3,7 +3,9 @@ import { getAllPosts } from '@/lib/mdx';
 import HomeClient from '@/components/home/HomeClient';
 
 export const metadata: Metadata = {
-  title: "Artichaud Studio | Agence Web & Branding Paris - Design & Stratégie",
+  title: {
+    absolute: "Agence Web & Branding Paris - Design, Stratégie | Artichaud Studio",
+  },
   description: "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
   keywords: [
     "agence branding Paris",
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     "refonte site web Paris"
   ],
   openGraph: {
-    title: "Artichaud Studio - Agence Web & Branding Paris",
+    title: "Agence Web & Branding Paris - Artichaud Studio",
     description: "Nous accompagnons les marques de là où elles sont, vers là où elles méritent d'être. Branding, webdesign et stratégie digitale à Paris.",
     url: "https://www.artichaud-studio.com",
     siteName: "Artichaud Studio",
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Artichaud Studio | Agence Web & Branding Paris",
+    title: "Agence Web & Branding Paris - Artichaud Studio",
     description: "Design d'identité visuelle et création de sites web sur mesure à Paris.",
     images: ["https://www.artichaud-studio.com/icon.png"]
   },

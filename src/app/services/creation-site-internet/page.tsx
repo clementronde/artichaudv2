@@ -3,32 +3,31 @@ import CreationSiteInternetClient from "./CreationSiteInternetClient";
 import RelatedLinks, { relatedLinkGroups } from "@/components/seo/RelatedLinks";
 
 export const metadata: Metadata = {
-  title: "Création Site Internet Paris | Agence Web & Développement - Artichaud Studio",
-  description: "Création de sites internet sur mesure à Paris. Webdesign moderne, développement web performant, SEO optimisé. Artichaud Studio, votre agence web experte pour des sites qui convertissent.",
+  title: "Création de site internet sur mesure | Sites vitrines & web apps",
+  description: "Création de sites internet sur mesure : site vitrine, site corporate, e-commerce et application web. Design, développement, performance et SEO technique intégrés.",
   keywords: [
-    "création site internet Paris",
-    "agence web Paris",
+    "création site internet",
     "développement site web",
-    "webdesign Paris",
+    "webdesign",
     "site web sur mesure",
     "création site vitrine",
-    "site e-commerce Paris",
+    "site e-commerce",
     "développement web React",
-    "agence Next.js Paris",
+    "agence Next.js",
     "refonte site internet",
     "site web responsive",
-    "UX design Paris"
+    "UX design"
   ],
   openGraph: {
-    title: "Création Site Internet Paris - Artichaud Studio",
-    description: "Création de sites web modernes et performants. Webdesign, développement, SEO. Votre projet digital en mains expertes.",
+    title: "Création de site internet sur mesure - Artichaud Studio",
+    description: "Sites vitrines, e-commerce et applications web modernes. Design, développement, performance et SEO technique.",
     url: "https://www.artichaud-studio.com/services/creation-site-internet",
     images: [
       {
         url: "https://www.artichaud-studio.com/icon.png",
         width: 512,
         height: 512,
-        alt: "Création Site Internet Paris - Artichaud Studio"
+        alt: "Création de site internet sur mesure - Artichaud Studio"
       }
     ],
     locale: "fr_FR",

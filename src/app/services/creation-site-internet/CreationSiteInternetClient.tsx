@@ -188,7 +188,7 @@ export default function CreationSiteInternetClient() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[32px] md:text-[48px] lg:text-[64px] leading-[1.05] font-normal text-arti-black tracking-tight mb-8"
             >
-              Création de site internet à Paris
+              Création de site internet sur mesure
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -460,7 +460,7 @@ export default function CreationSiteInternetClient() {
               Création de site internet à Paris
             </h3>
             <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
-              Agence web basée à Paris, nous accompagnons les entreprises franciliennes dans leur présence digitale.
+              Une page dédiée aux entreprises parisiennes, avec un angle local et des réponses adaptées aux recherches géographiques.
             </p>
             <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
               Découvrir →

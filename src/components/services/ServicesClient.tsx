@@ -35,17 +35,17 @@ const capabilities = [
   {
     category: "Réseaux sociaux",
     items: [
-      { title: "Stratégie & pilotage social media", description: "Ateliers de marque, Stratégie & Positionnement, Développement de baseline & slogan, Storytelling, Ton de voix." },
-      { title: "Création de contenu", description: "Logo, Palette de couleurs, Typographie, Graphismes & Illustrations de marque, Design System." },
-      { title: "Captation", description: "Design de pitch deck, Vidéo produit, Support événementiel, Merchandising, Contenu digital." }
+      { title: "Stratégie social media", description: "Choix des plateformes, lignes éditoriales, calendrier de publication, piliers de contenu et objectifs par canal." },
+      { title: "Création de contenu", description: "Posts, carrousels, stories, reels, templates de marque, déclinaisons de campagnes et contenus courts adaptés aux usages sociaux." },
+      { title: "Pilotage & reporting", description: "Suivi des performances, analyse des formats qui engagent, recommandations mensuelles et ajustements du calendrier éditorial." }
     ]
   },
   {
     category: "Webmarketing",
     items: [
-      { title: "Stratégie & pilotage social media", description: "Ateliers de marque, Stratégie & Positionnement, Développement de baseline & slogan, Storytelling." },
-      { title: "Création de contenu", description: "Logo, Palette de couleurs, Typographie, Graphismes & Illustrations de marque, Design System." },
-      { title: "Captation", description: "Design de pitch deck, Vidéo produit, Support événementiel, Merchandising, Contenu digital." }
+      { title: "Acquisition & conversion", description: "SEO, SEA, landing pages, tunnels de conversion, campagnes email et optimisation des points de contact clés." },
+      { title: "Tracking & analytics", description: "Plan de mesure, configuration des événements, tableaux de bord, lecture des parcours utilisateurs et priorisation des actions." },
+      { title: "Contenus marketing", description: "Pages de vente, lead magnets, séquences email, contenus SEO et supports de campagne conçus pour générer des demandes qualifiées." }
     ]
   }
 ]
