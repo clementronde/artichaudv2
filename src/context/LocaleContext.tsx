@@ -21,7 +21,8 @@ export function LocaleProvider({
   const t = translations[locale]
 
   const switchLocale = (newLocale: Locale) => {
-    document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; path=/; SameSite=Lax`
+    const secure = location.protocol === 'https:' ? '; Secure' : ''
+    document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; path=/; SameSite=Lax${secure}`
     window.location.reload()
   }
 
