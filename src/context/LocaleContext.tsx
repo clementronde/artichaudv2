@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode } from 'react'
 import { type Locale, translations } from '@/lib/i18n/translations'
 
 interface LocaleContextValue {
@@ -12,18 +12,19 @@ interface LocaleContextValue {
 const LocaleContext = createContext<LocaleContextValue | null>(null)
 
 export function LocaleProvider({
-  locale,
+  locale: initialLocale,
   children,
 }: {
   locale: Locale
   children: ReactNode
 }) {
+  const [locale, setLocale] = useState<Locale>(initialLocale)
   const t = translations[locale]
 
   const switchLocale = (newLocale: Locale) => {
     const secure = location.protocol === 'https:' ? '; Secure' : ''
     document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; path=/; SameSite=Lax${secure}`
-    window.location.reload()
+    setLocale(newLocale)
   }
 
   return (
