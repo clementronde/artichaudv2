@@ -62,7 +62,7 @@ export default function Testimonials() {
                   bottom-[-20%] left-1/2 -translate-x-1/2 
                   md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 md:bottom-auto"
         style={{
-          background: 'radial-gradient(circle, rgba(208,255,0) 0%, rgba(208,255,0,0) 70%)',
+          background: 'radial-gradient(circle, rgba(247,0,70,1) 0%, rgba(247,0,70,0) 70%)',
           filter: 'blur(40px)', 
         }}
       />

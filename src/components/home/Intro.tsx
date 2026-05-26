@@ -14,7 +14,7 @@ const HighlightTitle = ({ text }: { text: string }) => {
     <span>
       {text.split(" ").map((word, i) => (
         <span key={i} className="title-word inline-block mr-[0.25em] text-white/30 opacity-50">
-          {word}
+          {word}{" "}
         </span>
       ))}
     </span>
@@ -105,7 +105,7 @@ export default function Intro() {
               {t.intro.para2}
             </p>
             <div className="mt-4 pt-4">
-               <Link href="/services" className="group flex w-fit items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
+               <Link href="/services" className="group flex w-fit items-center gap-2 px-6 py-3 bg-[#F70046] border border-[#F70046] rounded-full text-white text-sm font-bold hover:bg-[#d4003c] hover:border-[#d4003c] transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                   {t.intro.cta}
                </Link>

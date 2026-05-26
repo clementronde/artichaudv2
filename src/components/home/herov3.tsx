@@ -69,7 +69,7 @@ export default function HeroV3() {
             style={{
               width: '1560px', height: '1560px', right: '-400px', top: '-800px',
               borderRadius: '50%', background: 'transparent',
-              border: '250px solid #D0FF00', filter: 'blur(250px)',
+              border: '250px solid #F70046', filter: 'blur(250px)',
               opacity: 1, willChange: 'transform'
             }}
           />
@@ -79,7 +79,7 @@ export default function HeroV3() {
             style={{
               width: '1560px', height: '1560px', right: '-400px', top: '-800px',
               borderRadius: '50%', background: 'transparent',
-              border: '350px solid #D0FF00', filter: 'blur(20px)',
+              border: '350px solid #F70046', filter: 'blur(20px)',
               opacity: 0.6, willChange: 'transform'
             }}
           />
@@ -90,7 +90,7 @@ export default function HeroV3() {
                 width: '560px', height: '560px', // Taille réduite (était 800px)
                 right: '-300px', top: '-150px',   // Coin supérieur droit
                 borderRadius: '50%', background: 'transparent',
-                border: '100px solid #D0FF00',     // Bordure plus fine
+                border: '100px solid #F70046',     // Bordure plus fine
                 filter: 'blur(80px)', opacity: 0.8
               }}
             />
@@ -101,7 +101,7 @@ export default function HeroV3() {
                 width: '560px', height: '560px', 
                 right: '-300px', top: '-150px',
                 borderRadius: '50%', background: 'transparent',
-                border: '60px solid #D0FF00', filter: 'blur(10px)', opacity: 0.3
+                border: '60px solid #F70046', filter: 'blur(10px)', opacity: 0.3
               }}
             />
       </div>

@@ -72,7 +72,7 @@ export default function Services() {
                           key={i} 
                           className="group/item relative flex items-center cursor-pointer transition-all duration-300 hover:!opacity-100 group-hover:opacity-30"
                         >
-                          <span className="absolute right-full mr-6 w-1.5 h-1.5 rounded-full bg-arti-black opacity-0 transition-all duration-300 ease-out 
+                          <span className="absolute right-full mr-6 w-1.5 h-1.5 rounded-full bg-[#F70046] opacity-0 transition-all duration-300 ease-out
                             group-hover/item:opacity-100 group-hover/item:translate-x-2">
                           </span>
                           <span className="text-base md:text-lg font-light text-arti-black leading-normal">

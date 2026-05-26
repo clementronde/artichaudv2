@@ -20,7 +20,7 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
     <div className="border-b border-gray-100 last:border-0">
       <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
         <span className={`text-lg font-medium ${isOpen ? 'text-black' : 'text-gray-800'}`}>{question}</span>
-        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#F70046] group-hover:bg-[#F70046] group-hover:text-white">
           <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500 group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
@@ -90,9 +90,9 @@ export default function BoulogneClient() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
+            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F70046]"></span>
               </span>
               Agence Web Boulogne-Billancourt (92)
             </span>
@@ -112,11 +112,11 @@ export default function BoulogneClient() {
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="group relative px-8 py-4 bg-[#D0FF00] text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105">
+            <Link href="/contact" className="group relative px-8 py-4 bg-[#F70046] text-white font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105">
               <span className="relative z-10">Demander un devis</span>
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
             </Link>
-            <Link href="#offres" className="px-8 py-4 text-white font-medium hover:text-[#D0FF00] transition-colors underline-offset-4 hover:underline">
+            <Link href="#offres" className="px-8 py-4 text-white font-medium hover:text-[#F70046] transition-colors underline-offset-4 hover:underline">
               Découvrir nos offres
             </Link>
           </motion.div>
@@ -214,7 +214,7 @@ export default function BoulogneClient() {
           </div>
 
           <div className="md:ml-[calc(12.5%+0.625rem)] mt-10">
-            <Link href="/contact" className="inline-flex rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-colors hover:bg-[#D0FF00] hover:text-black">
+            <Link href="/contact" className="inline-flex rounded-full bg-black px-7 py-4 text-sm font-medium text-white transition-colors hover:bg-[#F70046] hover:text-white">
               Demander un devis
             </Link>
           </div>
@@ -245,11 +245,11 @@ export default function BoulogneClient() {
                     transition={{ delay: idx * 0.1 }}
                     className="flex gap-6 md:gap-8 group p-6 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
                   >
-                      <div className="flex-shrink-0 w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-xl font-bold text-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black transition-colors duration-300">
+                      <div className="flex-shrink-0 w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-xl font-bold text-[#F70046] group-hover:bg-[#F70046] group-hover:text-white transition-colors duration-300">
                           {step.id}
                       </div>
                       <div>
-                          <h3 className="text-xl font-bold mb-2 group-hover:text-[#D0FF00] transition-colors">{step.title}</h3>
+                          <h3 className="text-xl font-bold mb-2 group-hover:text-[#F70046] transition-colors">{step.title}</h3>
                           <p className="text-neutral-400 leading-relaxed text-sm md:text-base">
                               {step.desc}
                           </p>
@@ -392,9 +392,9 @@ export default function BoulogneClient() {
                 className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105"
               >
                 <span className="relative z-10 group-hover:text-black">Demander un devis</span>
-                <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
+                <div className="absolute inset-0 bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
               </Link>
-              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#D0FF00] transition-colors">
+              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#F70046] transition-colors">
                 Réserver un appel découverte
               </Link>
            </div>

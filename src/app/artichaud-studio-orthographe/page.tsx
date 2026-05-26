@@ -119,7 +119,7 @@ export default function OrthographePage() {
               Le plus simple maintenant: voir notre travail ou nous parler de votre projet.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
-              <Link href="/works" className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#D0FF00] hover:text-black">
+              <Link href="/works" className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#F70046] hover:text-white">
                 Voir les projets
               </Link>
               <Link href="/services" className="rounded-full border border-black/15 px-6 py-3 text-sm font-medium transition-colors hover:border-black hover:bg-black hover:text-white">

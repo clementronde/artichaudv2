@@ -139,9 +139,9 @@ export function CanvasEffect() {
       ctx.globalCompositeOperation = "lighter"
 
       // --- MODIFICATION COULEUR ICI ---
-      // Couleur D0FF00 (RGB: 208, 255, 0)
+      // Couleur F70046 (RGB: 247, 0, 70)
       // L'opacité (0.025) est très basse volontairement pour créer l'effet de traînée
-      ctx.strokeStyle = "rgba(208, 255, 0, 0.025)" 
+      ctx.strokeStyle = "rgba(247, 0, 70, 0.025)" 
       
       ctx.lineWidth = 10
 
@@ -184,7 +184,7 @@ export function CanvasEffect() {
     <canvas
       ref={canvasRef}
       // J'ai aussi ajouté une légère ombre portée via Tailwind (drop-shadow) pour renforcer l'effet néon si le fond est sombre
-      className="pointer-events-none absolute inset-0 z-0 mx-auto w-full h-full opacity-60 drop-shadow-[0_0_10px_rgba(208,255,0,0.5)]"
+      className="pointer-events-none absolute inset-0 z-0 mx-auto w-full h-full opacity-60 drop-shadow-[0_0_10px_rgba(247,0,70,0.5)]"
     />
   )
 }

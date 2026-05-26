@@ -11,7 +11,7 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 const GlitchText = ({ text }: { text: string }) => {
   return (
     <motion.span 
-      className="relative inline-block text-[#D0FF00] cursor-pointer font-bold"
+      className="relative inline-block text-[#F70046] cursor-pointer font-bold"
       whileHover="hover"
     >
       <span className="relative z-10">{text}</span>
@@ -29,7 +29,7 @@ const GlitchText = ({ text }: { text: string }) => {
         {text}
       </motion.span>
       <motion.span
-        className="absolute top-0 left-0 text-[#D0FF00] z-[-1] select-none pointer-events-none"
+        className="absolute top-0 left-0 text-[#F70046] z-[-1] select-none pointer-events-none"
         variants={{
           hover: {
             opacity: [0, 1, 1, 0],
@@ -142,7 +142,7 @@ function PriceSimulatorWidget() {
                 {/* 1. Type */}
                 <div>
                     <h3 className="text-white font-bold text-sm mb-4 uppercase tracking-widest flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#D0FF00] text-black flex items-center justify-center text-xs font-bold">1</span>
+                        <span className="w-6 h-6 rounded-full bg-[#F70046] text-white flex items-center justify-center text-xs font-bold">1</span>
                         Typologie
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -156,13 +156,13 @@ function PriceSimulatorWidget() {
                                 onClick={() => setProjectType(type.id as any)}
                                 className={`p-6 rounded-2xl border text-left transition-all duration-300 group relative overflow-hidden ${
                                     projectType === type.id
-                                    ? 'border-[#D0FF00] bg-[#D0FF00]/10 text-white shadow-[0_0_20px_rgba(208,255,0,0.1)]'
+                                    ? 'border-[#F70046] bg-[#F70046]/10 text-white shadow-[0_0_20px_rgba(247,0,70,0.1)]'
                                     : 'border-white/10 bg-white/5 hover:border-white/30 text-gray-400'
                                 }`}
                             >
                                 <span className={`block text-2xl mb-2 transition-transform duration-300 ${projectType === type.id ? 'scale-110 grayscale-0' : 'grayscale group-hover:grayscale-0'}`}>{type.icon}</span>
-                                <span className={`font-bold text-lg ${projectType === type.id ? 'text-[#D0FF00]' : 'text-white'}`}>{type.label}</span>
-                                {projectType === type.id && <div className="absolute inset-0 bg-[#D0FF00]/5 animate-pulse pointer-events-none"/>}
+                                <span className={`font-bold text-lg ${projectType === type.id ? 'text-[#F70046]' : 'text-white'}`}>{type.label}</span>
+                                {projectType === type.id && <div className="absolute inset-0 bg-[#F70046]/5 animate-pulse pointer-events-none"/>}
                             </button>
                         ))}
                     </div>
@@ -172,10 +172,10 @@ function PriceSimulatorWidget() {
                 <div>
                      <div className="flex justify-between items-end mb-4">
                         <h3 className="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                            <span className="w-6 h-6 rounded-full bg-[#D0FF00] text-black flex items-center justify-center text-xs font-bold">2</span>
+                            <span className="w-6 h-6 rounded-full bg-[#F70046] text-white flex items-center justify-center text-xs font-bold">2</span>
                             Envergure
                         </h3>
-                        <span className="text-[#D0FF00] font-bold text-xl font-mono">
+                        <span className="text-[#F70046] font-bold text-xl font-mono">
                             {pages} {projectType === 'custom' ? 'Fonctionnalités' : 'Pages'}
                         </span>
                     </div>
@@ -185,7 +185,7 @@ function PriceSimulatorWidget() {
                         max={50}
                         value={pages}
                         onChange={(e) => setPages(parseInt(e.target.value))}
-                        className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#D0FF00]"
+                        className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#F70046]"
                     />
                     <div className="flex justify-between text-xs text-neutral-500 mt-2 font-medium uppercase">
                         <span>Petit projet</span>
@@ -196,7 +196,7 @@ function PriceSimulatorWidget() {
                 {/* 3. Features */}
                 <div>
                     <h3 className="text-white font-bold text-sm mb-4 uppercase tracking-widest flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#D0FF00] text-black flex items-center justify-center text-xs font-bold">3</span>
+                        <span className="w-6 h-6 rounded-full bg-[#F70046] text-white flex items-center justify-center text-xs font-bold">3</span>
                         Options & Modules
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -206,13 +206,13 @@ function PriceSimulatorWidget() {
                                 onClick={() => toggleFeature(feature.id)}
                                 className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
                                     selectedFeatures.includes(feature.id)
-                                    ? 'border-[#D0FF00] bg-[#D0FF00]/10'
+                                    ? 'border-[#F70046] bg-[#F70046]/10'
                                     : 'border-white/10 bg-white/5 hover:border-white/30'
                                 }`}
                             >
                                 <span className={`font-medium ${selectedFeatures.includes(feature.id) ? 'text-white' : 'text-gray-400'}`}>{feature.label}</span>
                                 <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
-                                    selectedFeatures.includes(feature.id) ? 'bg-[#D0FF00] border-[#D0FF00] text-black' : 'border-gray-600'
+                                    selectedFeatures.includes(feature.id) ? 'bg-[#F70046] border-[#F70046] text-white' : 'border-gray-600'
                                 }`}>
                                     {selectedFeatures.includes(feature.id) && (
                                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -233,7 +233,7 @@ function PriceSimulatorWidget() {
                     
                     {/* Decorative Icon Background */}
                     <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                         <svg className="w-32 h-32 text-[#D0FF00]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39h-2.01c-.06-.89-.48-1.54-2.04-1.54-1.24 0-1.92.56-1.92 1.34 0 .73.55 1.25 2.47 1.77 2.7.74 4.38 1.63 4.38 3.74 0 1.82-1.39 2.98-3.32 3.44z"/></svg>
+                         <svg className="w-32 h-32 text-[#F70046]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39h-2.01c-.06-.89-.48-1.54-2.04-1.54-1.24 0-1.92.56-1.92 1.34 0 .73.55 1.25 2.47 1.77 2.7.74 4.38 1.63 4.38 3.74 0 1.82-1.39 2.98-3.32 3.44z"/></svg>
                     </div>
 
                     <h3 className="text-white text-xl font-bold mb-8 relative z-10 border-b border-white/10 pb-4">Estimation</h3>
@@ -267,19 +267,19 @@ function PriceSimulatorWidget() {
                                 key={totalPrice}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-[#D0FF00]"
+                                className="text-[#F70046]"
                                 suppressHydrationWarning
                             >
                                 {totalPrice.toLocaleString('fr-FR')}
                             </motion.span>
                             
-                            <span className="text-2xl mt-1 text-[#D0FF00]">€</span>
+                            <span className="text-2xl mt-1 text-[#F70046]">€</span>
                         </div>
                     </div>
 
                     <Link
                         href={`/contact?plan=${projectType}&budget=${totalPrice}`}
-                        className="block w-full py-4 bg-[#D0FF00] text-black font-bold text-center rounded-lg hover:bg-white transition-colors relative z-10"
+                        className="block w-full py-4 bg-[#F70046] text-white font-bold text-center rounded-lg hover:bg-white transition-colors relative z-10"
                     >
                         Valider mon budget
                     </Link>
@@ -323,10 +323,10 @@ export default function SimulatorPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
             >
-                <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
+                <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
                     <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D0FF00] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F70046] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F70046]"></span>
                     </span>
                     Outil Gratuit & Immédiat
                 </span>
@@ -428,7 +428,7 @@ export default function SimulatorPage() {
       <div className="container mx-auto px-6 md:px-12 pb-24">
         <div className="bg-neutral-950 rounded-[2rem] p-12 md:p-20 text-center text-white relative overflow-hidden group">
           {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D0FF00] opacity-10 blur-[100px] rounded-full pointer-events-none group-hover:opacity-20 transition-opacity duration-700" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#F70046] opacity-10 blur-[100px] rounded-full pointer-events-none group-hover:opacity-20 transition-opacity duration-700" />
           
           <h2 className="text-3xl md:text-5xl font-bold mb-6 relative z-10">Vous avez une idée du budget ?</h2>
           <p className="text-neutral-400 max-w-xl mx-auto mb-10 text-lg relative z-10">
@@ -437,7 +437,7 @@ export default function SimulatorPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
              <Link 
                 href="/contact" 
-                className="inline-block bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-[#D0FF00] transition-colors"
+                className="inline-block bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-[#F70046] hover:text-white transition-colors"
             >
                 Discuter avec un développeur
             </Link>

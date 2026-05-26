@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col gap-8">
             <h2
               className="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight"
-              style={{ color: '#D0FF00' }}
+              style={{ color: '#F70046' }}
             >
               {t.footer.letsTalk}
             </h2>
@@ -49,10 +49,10 @@ const Footer: React.FC = () => {
               <motion.span
                 className="inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 cursor-pointer text-base font-medium"
                 style={{
-                  borderColor: '#D0FF00',
-                  color: '#D0FF00',
+                  borderColor: '#F70046',
+                  color: '#F70046',
                 }}
-                whileHover={{ scale: 1.05, backgroundColor: 'rgba(208, 255, 0, 0.1)' }}
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(247, 0, 70, 0.1)' }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span>→</span> {t.footer.getInTouch}
@@ -136,7 +136,7 @@ const Footer: React.FC = () => {
             <Link
               href="/mentions-legales"
               suppressHydrationWarning={true}
-              className="text-white/40 hover:text-[#D0FF00] transition-colors text-xs uppercase tracking-wider mt-6"
+              className="text-white/40 hover:text-[#F70046] transition-colors text-xs uppercase tracking-wider mt-6"
             >
               {t.footer.legalNotices}
             </Link>

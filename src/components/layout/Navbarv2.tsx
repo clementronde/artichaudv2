@@ -89,7 +89,7 @@ const MobileMenu = ({
                                 key={item.href}
                                 href={item.href}
                                 onClick={onClose}
-                                className="text-4xl font-bold text-white hover:text-[#D0FF00] transition-colors"
+                                className="text-4xl font-bold text-white hover:text-[#F70046] transition-colors"
                             >
                                 {item.label}
                             </Link>
@@ -253,8 +253,8 @@ export default function Navbar() {
       {/* --- 1. VERSION MOBILE (VISIBLE UNIQUEMENT SUR < MD) --- */}
       <div className="fixed top-6 left-0 w-full px-6 z-[5000] flex justify-between items-center md:hidden">
           {/* Logo Mobile */}
-          <Link href="/" className="h-[50px] w-[50px] rounded-full bg-black flex items-center justify-center shadow-lg">
-             <Image src="/icon.png" alt="Logo" width={28} height={28} className="object-contain" />
+          <Link href="/" className="h-[50px] w-[50px] rounded-full overflow-hidden shadow-lg block relative flex-shrink-0">
+             <Image src="/logonavbar.png" alt="Logo" fill className="object-cover" />
           </Link>
 
           {/* Bouton Burger Mobile */}
@@ -274,10 +274,10 @@ export default function Navbar() {
         {/* LOGO BUBBLE */}
         <div 
           ref={logoWrapperRef}
-          className="h-[60px] w-[60px] rounded-full bg-[#000000] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
+          className="h-[60px] w-[60px] rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
         >
-          <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative h-[30px] w-[30px] flex items-center justify-center hover:scale-105 transition-transform duration-300">
-              <Image src="/Logo_artichaud_Studio_navbar.png" alt="Artichaud Logo" width={36} height={36} className="object-contain" />
+          <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative h-full w-full block hover:scale-105 transition-transform duration-300">
+              <Image src="/logonavbar.png" alt="Artichaud Logo" fill className="object-cover" />
           </Link>
         </div>
 
@@ -300,7 +300,7 @@ export default function Navbar() {
 
               <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
                 <Magnetic disabled={isNavigatingRef.current}>
-                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-6 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-white/10 backdrop-blur-md border border-white/10 text-[#FDF4E7] hover:bg-white/20 hover:border-white/30 hover:text-white">
+                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-6 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-[#F70046] border border-[#F70046] text-white hover:bg-[#d4003c] hover:border-[#d4003c]">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
                       <span>{t.navbar.letsTalk}</span>

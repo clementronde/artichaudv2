@@ -19,7 +19,7 @@ export default function MentionsLegales() {
         
         {/* En-tête sémantique pour Google */}
         <header className="space-y-4 border-b border-white/20 pb-8">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[#D0FF00]">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[#F70046]">
             Mentions Légales
           </h1>
           <p className="text-white/60 text-lg">

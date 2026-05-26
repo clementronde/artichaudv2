@@ -34,7 +34,7 @@ const BeforeAfterSlider = ({ beforeImg, afterImg, label }: { beforeImg: string, 
             <Image src={afterImg} alt="Site internet après refonte" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             
             {/* Label Après */}
-            <div className="absolute top-4 right-4 bg-[#D0FF00] text-black text-xs font-bold px-3 py-1 rounded-full z-10">
+            <div className="absolute top-4 right-4 bg-[#F70046] text-white text-xs font-bold px-3 py-1 rounded-full z-10">
                 APRÈS (Artichaud)
             </div>
 
@@ -89,7 +89,7 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
     <div className="border-b border-gray-100 last:border-0">
       <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
         <span className={`text-lg font-medium ${isOpen ? 'text-black' : 'text-gray-800 '}`}>{question}</span>
-        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#F70046] group-hover:bg-[#F70046] group-hover:text-white">
           <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500 group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
@@ -126,8 +126,8 @@ export default function RedesignClient() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#D0FF00]"></span>
+            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-[#F70046]"></span>
               Expertise Refonte & Migration
             </span>
           </motion.div>
@@ -146,13 +146,13 @@ export default function RedesignClient() {
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="group relative px-8 py-4 bg-[#D0FF00] text-black font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95">
+            <Link href="/contact" className="group relative px-8 py-4 bg-[#F70046] text-white font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95">
               <span className="relative z-10 group-hover:text-black transition-colors">Auditer mon site actuel</span>
               <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
             </Link>
             <Link href="#avant-apres" className="relative px-8 py-4 text-white font-medium group">
               Voir des exemples
-              <span className="absolute bottom-3 left-8 right-8 h-[1px] bg-[#D0FF00] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+              <span className="absolute bottom-3 left-8 right-8 h-[1px] bg-[#F70046] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </Link>
           </motion.div>
         </motion.div>
@@ -229,7 +229,7 @@ export default function RedesignClient() {
                         { step: "05", title: "Lancement", desc: "Mise en ligne, vérification de la Search Console et formation de vos équipes." }
                     ].map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center group">
-                            <div className="w-24 h-24 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-400 group-hover:border-[#D0FF00] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm mb-6">
+                            <div className="w-24 h-24 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-400 group-hover:border-[#F70046] group-hover:text-black group-hover:scale-110 transition-all duration-300 shadow-sm mb-6">
                                 {item.step}
                             </div>
                             <h3 className="text-lg font-bold mb-3 text-black">{item.title}</h3>
@@ -302,21 +302,21 @@ export default function RedesignClient() {
             
             <div className="space-y-10">
                 <div>
-                    <h3 className="text-2xl font-bold text-[#D0FF00] mb-3">Refonte site WordPress</h3>
+                    <h3 className="text-2xl font-bold text-[#F70046] mb-3">Refonte site WordPress</h3>
                     <p className="text-gray-300 leading-relaxed">
                         C'est le cas le plus fréquent. Vous avez un site WordPress lent, avec un thème "usine à gaz" (Divi, Avada) et trop de plugins ? Nous ne nous contentons pas de changer les couleurs. Nous reconstruisons souvent le thème sur des bases saines (Gutenberg ou ACF) pour alléger le code tout en gardant votre base de données d'articles. C'est une cure de jouvence technique.
                     </p>
                 </div>
                 
                 <div>
-                    <h3 className="text-2xl font-bold text-[#D0FF00] mb-3">Migration vers Webflow</h3>
+                    <h3 className="text-2xl font-bold text-[#F70046] mb-3">Migration vers Webflow</h3>
                     <p className="text-gray-300 leading-relaxed">
                         De plus en plus d'entreprises quittent WordPress ou Wix pour Webflow. Pourquoi ? Pour la liberté de design et la sécurité. Lors de cette <strong>migration de site web</strong>, nous exportons vos contenus existants et les réimplantons dans Webflow. Nous configurons méticuleusement les redirections 301 pour que Google comprenne le changement sans pénalité.
                     </p>
                 </div>
 
                 <div>
-                    <h3 className="text-2xl font-bold text-[#D0FF00] mb-3">Modernisation Wix</h3>
+                    <h3 className="text-2xl font-bold text-[#F70046] mb-3">Modernisation Wix</h3>
                     <p className="text-gray-300 leading-relaxed">
                         Si vous êtes attaché à l'écosystème Wix, nous pouvons effectuer une refonte visuelle complète en passant sur le nouvel éditeur <strong>Wix Studio</strong>. Cela permet de garder votre abonnement actuel tout en faisant un bond en avant en termes de design et de responsive.
                     </p>
@@ -373,11 +373,11 @@ export default function RedesignClient() {
                 className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               >
                 <span className="relative z-10 group-hover:text-black">Demander un devis refonte</span>
-                <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
+                <div className="absolute inset-0 bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
               </Link>
-              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#D0FF00] transition-colors relative group">
+              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#F70046] transition-colors relative group">
                 Réserver un audit gratuit
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
            </div>
          </motion.div>

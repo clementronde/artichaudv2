@@ -18,7 +18,7 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
     <div className="border-b border-gray-100 last:border-0">
       <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
         <span className={`text-lg font-medium ${isOpen ? 'text-black' : 'text-gray-800'}`}>{question}</span>
-        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#D0FF00] group-hover:bg-[#D0FF00] group-hover:text-black">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#F70046] group-hover:bg-[#F70046] group-hover:text-white">
           <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500 group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
@@ -86,9 +86,9 @@ export default function ParisClient() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#D0FF00]/10 border border-[#D0FF00]/20 text-[#D0FF00] text-sm font-medium mb-8 backdrop-blur-md">
+            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D0FF00]"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F70046]"></span>
               </span>
               Agence Web Paris & Île-de-France
             </span>
@@ -108,13 +108,13 @@ export default function ParisClient() {
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="group relative px-8 py-4 bg-[#D0FF00] text-black font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(208,255,0,0.3)] hover:shadow-[0_0_30px_rgba(208,255,0,0.6)]">
+            <Link href="/contact" className="group relative px-8 py-4 bg-[#F70046] text-white font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(247,0,70,0.3)] hover:shadow-[0_0_30px_rgba(247,0,70,0.6)]">
               <span className="relative z-10">Lancer mon projet</span>
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm" />
             </Link>
             <Link href="#portfolio" className="relative px-8 py-4 text-white font-medium group">
               Voir nos réalisations
-              <span className="absolute bottom-3 left-8 right-8 h-[1px] bg-[#D0FF00] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+              <span className="absolute bottom-3 left-8 right-8 h-[1px] bg-[#F70046] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </Link>
           </motion.div>
         </motion.div>
@@ -309,7 +309,7 @@ export default function ParisClient() {
 
             </div>
             <div className="text-center">
-                <Link href="/works" className="inline-block px-8 py-3 bg-black text-white font-bold rounded-full hover:bg-[#D0FF00] hover:text-black transition-colors shadow-lg hover:shadow-xl">
+                <Link href="/works" className="inline-block px-8 py-3 bg-black text-white font-bold rounded-full hover:bg-[#F70046] hover:text-white transition-colors shadow-lg hover:shadow-xl">
                     Explorer tous les projets
                 </Link>
             </div>
@@ -328,21 +328,21 @@ export default function ParisClient() {
                         </p>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
-                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">1</span>
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#F70046] rounded-full flex items-center justify-center text-xs font-bold text-white mt-1">1</span>
                                 <div>
                                     <strong className="text-black block">Direction Artistique (DA)</strong>
                                     Nous définissons un univers visuel unique qui incarne vos valeurs et vous distingue de la concurrence parisienne.
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">2</span>
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#F70046] rounded-full flex items-center justify-center text-xs font-bold text-white mt-1">2</span>
                                 <div>
                                     <strong className="text-black block">Expérience Utilisateur (UX)</strong>
                                     Nous concevons des parcours fluides pour guider le visiteur vers l'action (contact, achat, inscription).
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="flex-shrink-0 w-6 h-6 bg-[#D0FF00] rounded-full flex items-center justify-center text-xs font-bold text-black mt-1">3</span>
+                                <span className="flex-shrink-0 w-6 h-6 bg-[#F70046] rounded-full flex items-center justify-center text-xs font-bold text-white mt-1">3</span>
                                 <div>
                                     <strong className="text-black block">SEO Technique</strong>
                                     Nous appliquons les <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=fr" target="_blank" rel="nofollow" className="underline hover:text-black">bonnes pratiques Google</a> (Core Web Vitals) pour assurer votre visibilité durable.
@@ -418,11 +418,11 @@ export default function ParisClient() {
                 className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]"
               >
                 <span className="relative z-10 group-hover:text-black">Demander un devis</span>
-                <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
+                <div className="absolute inset-0 bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
               </Link>
-              <Link href="tel:+33687538017" className="text-white font-medium hover:text-[#D0FF00] transition-colors relative group">
+              <Link href="tel:+33687538017" className="text-white font-medium hover:text-[#F70046] transition-colors relative group">
                 Réserver un appel découverte
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
            </div>
          </motion.div>

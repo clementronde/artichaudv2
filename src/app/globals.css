@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 /* Configuration Lenis (optionnelle pour l'instant si ça bug, mais garde les 3 du dessus) */
 html.lenis, html.lenis body {
   height: auto;

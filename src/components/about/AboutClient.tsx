@@ -55,7 +55,7 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
       {/* --- HERO SECTION --- */}
       <div className="relative pt-32 md:pt-48 pb-20">
         
-        {/* Fond Néon #D0FF00 */}
+        {/* Fond Néon #F70046 */}
         <div className="absolute inset-0 z-0 opacity-50 pointer-events-none">
            <CanvasEffect />
         </div>

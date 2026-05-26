@@ -5,7 +5,8 @@ import "./globals.css";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
 import Navbar2 from "@/components/layout/Navbarv2";
-import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTop from "@/components/ScrollToTop"
+import CustomCursor from "@/components/CustomCursor";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
@@ -72,6 +73,7 @@ export default async function RootLayout({
     <html lang={locale} className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
+          <CustomCursor />
           <JsonLd />
           <ScrollToTop />
           <Navbar2 />
