@@ -46,26 +46,6 @@ export default function Testimonials() {
 
   return (
     <section className="relative w-full bg-white py-24 z-30 overflow-x-clip md:overflow-visible">
-      
-      {/* 1. HALO JAUNE INTENSE */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.1, 1], 
-          opacity: [0.6, 0.4, 0.6] 
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute w-[120vw] h-[120vw] md:w-[80vw] md:h-[80vw] pointer-events-none z-0
-                  bottom-[-20%] left-1/2 -translate-x-1/2 
-                  md:top-[-10%] md:right-[-35%] md:left-auto md:translate-x-0 md:bottom-auto"
-        style={{
-          background: 'radial-gradient(circle, rgba(247,0,70,1) 0%, rgba(247,0,70,0) 70%)',
-          filter: 'blur(40px)', 
-        }}
-      />
 
       <div className="px-6 md:px-[40px] relative z-10">
         

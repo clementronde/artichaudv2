@@ -21,10 +21,12 @@ export default function CustomCursor() {
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX
       mouseY = e.clientY
+      const target = document.elementFromPoint(e.clientX, e.clientY)
+      const shouldHide = target instanceof Element && Boolean(target.closest('[data-hide-custom-cursor]'))
 
-      if (!visible && cursorRef.current) {
-        cursorRef.current.style.opacity = '1'
-        visible = true
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = shouldHide ? '0' : '1'
+        visible = !shouldHide
       }
     }
 

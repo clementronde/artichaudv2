@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react"
 import { ImageTrail } from "@/components/ui/image-trail"
 import Image from "next/image"
-import Link from "next/link"
 import { useLocale } from '@/context/LocaleContext'
 
 export default function HeroV3() {
@@ -52,12 +51,61 @@ export default function HeroV3() {
   }, [])
 
   return (
+    // MODIFICATION ICI : 
+    // 'overflow-hidden' pour le mobile (coupe ce qui dépasse à droite)
+    // 'md:overflow-visible' pour le desktop (laisse les halos/images déborder)
     <section 
       ref={ref}
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
-      className="relative w-full min-h-screen bg-white z-10 overflow-hidden"
+      className="relative w-full h-screen bg-white z-10 overflow-hidden md:overflow-visible"
     >
+      
+      {/* BACKGROUND (Halo / Donuts) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* DONUT Desktop Flou */}
+          <div 
+            className="absolute hidden md:block"
+            style={{
+              width: '1560px', height: '1560px', right: '-400px', top: '-800px',
+              borderRadius: '50%', background: 'transparent',
+              border: '250px solid #F70046', filter: 'blur(250px)',
+              opacity: 1, willChange: 'transform'
+            }}
+          />
+          {/* DONUT Desktop Net */}
+          <div 
+            className="absolute hidden md:block"
+            style={{
+              width: '1560px', height: '1560px', right: '-400px', top: '-800px',
+              borderRadius: '50%', background: 'transparent',
+              border: '350px solid #F70046', filter: 'blur(20px)',
+              opacity: 0.6, willChange: 'transform'
+            }}
+          />
+                      {/* DONUT Mobile Flou - Réduit et déplacé */}
+            <div 
+              className="absolute md:hidden"
+              style={{
+                width: '560px', height: '560px', // Taille réduite (était 800px)
+                right: '-300px', top: '-150px',   // Coin supérieur droit
+                borderRadius: '50%', background: 'transparent',
+                border: '100px solid #F70046',     // Bordure plus fine
+                filter: 'blur(80px)', opacity: 0.8
+              }}
+            />
+            {/* DONUT Mobile Net - Réduit et déplacé */}
+            <div 
+              className="absolute md:hidden"
+              style={{
+                width: '560px', height: '560px', 
+                right: '-300px', top: '-150px',
+                borderRadius: '50%', background: 'transparent',
+                border: '60px solid #F70046', filter: 'blur(10px)', opacity: 0.3
+              }}
+            />
+      </div>
+
       {/* TRAIL CONTAINER */}
       <div className="absolute inset-0 z-[100] pointer-events-none overflow-visible">
         <ImageTrail 
@@ -84,36 +132,20 @@ export default function HeroV3() {
         </ImageTrail>
       </div>
 
-      {/* TEXTE PRINCIPAL */}
-      <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex flex-col justify-end items-start px-6 pb-28 md:px-[7vw] md:pb-[12vh]">
-        <div className="max-w-[980px] text-left">
+     {/* TEXTE PRINCIPAL */}
+      <div className="absolute inset-0 z-20 w-full h-full pointer-events-none flex flex-col justify-end items-end p-6 md:p-12 pb-32">
+        <div className="text-right">
             <h1
               className="font-normal text-black tracking-tight"
               style={{
                 fontFamily: "Helvetica, Arial, sans-serif",
-                fontSize: 'clamp(42px, 5.4vw, 86px)',
-                lineHeight: 1.18,
+                fontSize: 'clamp(40px, 5.5vw, 80px)',
               }}
             >
               <span className="block">{t.hero.title[0]}</span>
               <span className="block">{t.hero.title[1]}</span>
-              <span className="block">{t.hero.title[2]}</span>
+              <span className="block md:text-left">{t.hero.title[2]}</span>
             </h1>
-            <div className="mt-8 flex flex-col gap-3 pointer-events-auto sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#4A0017] px-7 text-base font-medium text-white transition-colors duration-300 hover:bg-[#F70046]"
-              >
-                <span>→</span>
-                <span>{t.hero.ctaDiscuss}</span>
-              </Link>
-              <Link
-                href="/works"
-                className="inline-flex min-h-14 items-center justify-center rounded-full border border-black/15 px-7 text-base font-medium text-black transition-colors duration-300 hover:border-black hover:bg-black hover:text-white"
-              >
-                {t.hero.ctaProjects}
-              </Link>
-            </div>
         </div>
       </div>
       

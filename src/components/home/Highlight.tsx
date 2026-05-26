@@ -133,6 +133,7 @@ const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) 
         href={`/works/${project.id}`}
         ref={containerRef} 
         suppressHydrationWarning={true}
+        data-hide-custom-cursor
         className="relative w-full h-[240px] md:h-[500px] overflow-hidden bg-gray-100 cursor-none block"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
@@ -203,13 +204,13 @@ export default function Highlight() {
 
   return (
     // MODIFICATION MARGES : w-full + px-[40px]
-    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-[40px]">
+    <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-[40px] cursor-none">
       
       <div className="flex justify-between items-end mb-8 ">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
           {t.highlight.title}
         </h2>
-        <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
+        <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300 cursor-none">
           <span className="text-sm font-bold">{t.highlight.viewAll}</span>
           <span>→</span>
         </Link>

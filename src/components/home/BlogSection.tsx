@@ -79,9 +79,12 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
         suppressHydrationWarning
         draggable={false}
       >
-        <div className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
+        <div
+          data-hide-custom-cursor
+          className={`w-full ${currentHeight} mb-6 overflow-hidden bg-gray-100 relative
                         rounded-none transition-all duration-500 ease-out 
-                        group-hover:rounded-[250px]`}> 
+                        group-hover:rounded-[250px]`}
+        > 
           
           {post.image ? (
             <Image
@@ -174,7 +177,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
   const onDragEnd = () => setTimeout(() => setIsDragging(false), 150)
 
   return (
-    <section className="relative w-full bg-white py-12 md:py-32 overflow-hidden mt-12">
+    <section className="relative w-full bg-white py-12 md:py-32 overflow-hidden mt-12 !cursor-none">
       
       {/* HEADER */}
       <div className="w-full px-6 md:px-[40px] mb-8 md:mb-32">
@@ -191,7 +194,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
             </h2>
             <Link
               href="/blog"
-              className="group flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
+              className="group flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 !cursor-none"
               suppressHydrationWarning
             >
               <span className="text-sm font-medium">{t.blog.discoverAll}</span>
@@ -203,7 +206,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
 
       {/* ZONE SLIDER */}
       <div className="w-full px-6 md:px-[40px] mb-6 md:mb-32">
-        <div ref={containerRef} className="relative w-full !cursor-none">
+        <div ref={containerRef} data-hide-custom-cursor className="relative w-full !cursor-none">
           <DragCursor containerRef={containerRef} />
 
           <motion.div 

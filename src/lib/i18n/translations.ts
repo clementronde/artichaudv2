@@ -9,6 +9,8 @@ export const translations = {
         "la température.",
       ],
       scroll: "SCROLL",
+      ctaDiscuss: "On en discute",
+      ctaProjects: "Voir nos projets",
     },
     intro: {
       tagline: "Notre approche",
@@ -257,6 +259,8 @@ export const translations = {
         "the heat.",
       ],
       scroll: "SCROLL",
+      ctaDiscuss: "Let's talk",
+      ctaProjects: "View our projects",
     },
     intro: {
       tagline: "Our approach",
