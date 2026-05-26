@@ -102,7 +102,7 @@ export default function HeroV3() {
             <div className="mt-8 flex flex-col gap-3 pointer-events-auto sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#4A0017] px-7 text-base font-medium text-white transition-colors duration-300 hover:bg-[#F70046]"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-black px-7 text-base font-medium text-white transition-colors duration-300 hover:bg-[#F70046]"
               >
                 <span>→</span>
                 <span>{t.hero.ctaDiscuss}</span>
