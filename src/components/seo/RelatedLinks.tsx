@@ -133,7 +133,7 @@ export default function RelatedLinks({
                 href={link.href}
                 className="group block border-b border-black/15 py-6 md:border-b-0 md:border-t md:border-black/15 md:pr-10 lg:min-h-[150px]"
               >
-                <span className="text-xl font-semibold text-black transition-colors group-hover:text-[#7A9600]">
+                <span className="text-xl font-semibold text-black transition-colors group-hover:text-[#F70046]">
                   {link.label}
                 </span>
                 <p className="mt-3 text-sm leading-relaxed text-gray-600">

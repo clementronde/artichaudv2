@@ -272,7 +272,7 @@ export default async function BlogPost(
           <Link 
             href="/contact" 
             suppressHydrationWarning
-            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-amber-500 hover:text-white transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-[#F70046] hover:text-white transition-all duration-300"
           >
             Lancer mon projet <span>→</span>
           </Link>
