@@ -23,10 +23,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SEO & Référencement Naturel Paris - Artichaud Studio",
     description: "Améliorez votre visibilité sur Google. Audit SEO, stratégie de contenu, optimisations techniques. Générez du trafic qualifié.",
-    url: "https://www.artichaud-studio.com/services/seo-referencement-naturel",
+    url: "https://www.artichaud-studio.fr/services/seo-referencement-naturel",
     images: [
       {
-        url: "https://www.artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.fr/icon.png",
         width: 512,
         height: 512,
         alt: "SEO & Référencement Naturel Paris - Artichaud Studio"
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.com/services/seo-referencement-naturel"
+    canonical: "https://www.artichaud-studio.fr/services/seo-referencement-naturel"
   }
 };
 

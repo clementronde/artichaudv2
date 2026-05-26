@@ -5,6 +5,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { cleanSeoText } from '@/lib/seo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,6 +32,8 @@ interface ProjectIntroProps {
 export default function ProjectIntro({ description, services, year, client }: ProjectIntroProps) {
   const container = useRef(null)
   const blackBox = useRef(null)
+  const intro = cleanSeoText(description[0])
+  const paragraphs = description.slice(1).map(cleanSeoText)
 
   useGSAP(() => {
     // 1. Expansion du bloc noir (85% -> 100%)
@@ -98,7 +101,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
           {/* TITRE PRINCIPAL (Première phrase de la description) */}
           <div className="col-span-12 md:col-span-10">
             <h2 className="text-[28px] md:text-[45px] lg:text-[50px] leading-[1.1] font-normal">
-              <HighlightTitle text={description[0]} />
+              <HighlightTitle text={intro} />
             </h2>
           </div>
 
@@ -125,7 +128,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
 
           {/* COLONNE DROITE : Paragraphes suivants + CTA */}
           <div className="col-span-12 md:col-span-6 flex flex-col gap-8 mt-auto">
-            {description.slice(1).map((para, i) => (
+            {paragraphs.map((para, i) => (
               <p key={i} className="anim-fade text-white/40 opacity-0 text-lg md:text-xl font-light leading-relaxed">
                 {para}
               </p>

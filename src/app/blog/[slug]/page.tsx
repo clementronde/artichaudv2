@@ -10,7 +10,7 @@ import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 
 // URL de base de ton site
-const BASE_URL = 'https://www.artichaud-studio.com';
+const BASE_URL = 'https://www.artichaud-studio.fr';
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {

@@ -17,18 +17,18 @@ export const metadata: Metadata = {
     "refonte site internet Paris"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.com/creation-site-internet-paris",
+    canonical: "https://www.artichaud-studio.fr/creation-site-internet-paris",
   },
   openGraph: {
     title: "Agence Web Paris - Création de Sites Internet Uniques",
     description: "Votre partenaire digital à Paris. Design, stratégie et performance pour les marques qui veulent se démarquer.",
-    url: "https://www.artichaud-studio.com/creation-site-internet-paris",
+    url: "https://www.artichaud-studio.fr/creation-site-internet-paris",
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://www.artichaud-studio.com/images/og-paris.jpg",
+        url: "https://www.artichaud-studio.fr/images/og-paris.jpg",
         width: 1200,
         height: 630,
         alt: "Création site internet Paris Artichaud",
@@ -42,7 +42,7 @@ const localBusinessSchema = {
   "@type": ["LocalBusiness", "ProfessionalService"],
   "name": "Artichaud Studio",
   "description": "Studio web créatif à Paris. Création de sites vitrines WordPress, Webflow et Wix pour TPE, PME et startups en Île-de-France.",
-  "url": "https://www.artichaud-studio.com/creation-site-internet-paris",
+  "url": "https://www.artichaud-studio.fr/creation-site-internet-paris",
   "telephone": "+33687538017",
   "email": "artichaud.studio@gmail.com",
   "address": {

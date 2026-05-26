@@ -5,8 +5,9 @@ import { Metadata } from 'next';
 import ProjectClient from '@/components/Project/ProjectClient';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
+import { SITE_NAME, SITE_URL, truncateSeoDescription } from '@/lib/seo';
 
-const BASE_URL = 'https://www.artichaud-studio.com';
+const BASE_URL = SITE_URL;
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {
@@ -28,20 +29,21 @@ export async function generateMetadata(
     const ogImage = project.cover.startsWith('http')
       ? project.cover
       : `${BASE_URL}${project.cover}`;
+    const description = truncateSeoDescription(project.description.join(' '));
 
     return {
-      title: `${project.client} - ${project.category} | Artichaud Studio`,
-      description: project.description[0],
+      title: `${project.client} - ${project.category} | ${SITE_NAME}`,
+      description,
       keywords: [...project.services, project.category, project.client],
       alternates: {
         canonical: `${BASE_URL}/works/${project.slug}`,
       },
       openGraph: {
         title: `${project.client} - ${project.category}`,
-        description: project.description[0],
+        description,
         type: 'website',
         url: `${BASE_URL}/works/${project.slug}`,
-        siteName: 'Artichaud Studio',
+        siteName: SITE_NAME,
         locale: 'fr_FR',
         images: [
           {
@@ -55,7 +57,7 @@ export async function generateMetadata(
       twitter: {
         card: 'summary_large_image',
         title: `${project.client} - ${project.category}`,
-        description: project.description[0],
+        description,
         images: [ogImage],
         creator: '@artichaudstudio',
       },

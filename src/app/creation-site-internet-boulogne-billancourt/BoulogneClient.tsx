@@ -51,10 +51,10 @@ export default function BoulogneClient() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Agence Artichaud Boulogne",
-    "image": "https://www.artichaud-studio.com/images/agence-web-boulogne.jpg",
-    "telephone": "+33100000000",
-    "url": "https://www.artichaud-studio.com/creation-site-internet-boulogne-billancourt",
+    "name": "Artichaud Studio",
+    "image": "https://www.artichaud-studio.fr/icon.png",
+    "telephone": "+33687538017",
+    "url": "https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Boulogne-Billancourt",

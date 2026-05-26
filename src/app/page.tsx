@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx';
 import HomeClient from '@/components/home/HomeClient';
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence Web & Branding Paris - Design, Stratégie | Artichaud Studio",
+    absolute: "Artichaud Studio | Agence web, branding & SEO à Paris",
   },
-  description: "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
+  description: "Artichaud Studio accompagne les marques ambitieuses en branding, création de sites web, webdesign et SEO à Paris et en Île-de-France.",
   keywords: [
     "agence branding Paris",
     "agence web Paris",
@@ -18,16 +19,16 @@ export const metadata: Metadata = {
     "refonte site web Paris"
   ],
   openGraph: {
-    title: "Agence Web & Branding Paris - Artichaud Studio",
-    description: "Nous accompagnons les marques de là où elles sont, vers là où elles méritent d'être. Branding, webdesign et stratégie digitale à Paris.",
-    url: "https://www.artichaud-studio.com",
-    siteName: "Artichaud Studio",
+    title: "Artichaud Studio - Agence web & branding Paris",
+    description: "Branding, sites web sur mesure, webdesign et SEO pour marques ambitieuses à Paris et en Île-de-France.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
-        url: "https://www.artichaud-studio.com/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 512,
         height: 512,
-        alt: "Artichaud Studio - Agence Branding Paris"
+        alt: "Artichaud Studio - Agence web et branding Paris"
       }
     ],
     locale: "fr_FR",
@@ -35,12 +36,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Agence Web & Branding Paris - Artichaud Studio",
-    description: "Design d'identité visuelle et création de sites web sur mesure à Paris.",
-    images: ["https://www.artichaud-studio.com/icon.png"]
+    title: "Artichaud Studio - Agence web & branding Paris",
+    description: "Branding, sites web sur mesure, webdesign et SEO à Paris.",
+    images: [`${SITE_URL}/icon.png`]
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.com"
+    canonical: SITE_URL
   }
 };
 

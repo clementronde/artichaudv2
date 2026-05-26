@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Création de site internet sur mesure - Artichaud Studio",
     description: "Sites vitrines, e-commerce et applications web modernes. Design, développement, performance et SEO technique.",
-    url: "https://www.artichaud-studio.com/services/creation-site-internet",
+    url: "https://www.artichaud-studio.fr/services/creation-site-internet",
     images: [
       {
-        url: "https://www.artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.fr/icon.png",
         width: 512,
         height: 512,
         alt: "Création de site internet sur mesure - Artichaud Studio"
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.com/services/creation-site-internet"
+    canonical: "https://www.artichaud-studio.fr/services/creation-site-internet"
   }
 };
 

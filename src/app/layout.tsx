@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
-import { cookies } from 'next/headers';
 import "./globals.css";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
@@ -10,7 +9,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -28,7 +26,7 @@ const helvetica = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.artichaud-studio.com'),
+  metadataBase: new URL('https://www.artichaud-studio.fr'),
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
@@ -63,19 +61,12 @@ export const viewport = {
   themeColor: '#000000',
 };
 
-const SUPPORTED_LOCALES: Locale[] = ['fr', 'en']
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Read locale from cookie (set by proxy based on domain / Accept-Language)
-  const cookieStore = await cookies()
-  const rawLocale = cookieStore.get('NEXT_LOCALE')?.value
-  const locale: Locale = rawLocale && SUPPORTED_LOCALES.includes(rawLocale as Locale)
-    ? (rawLocale as Locale)
-    : 'fr'
+  const locale: Locale = 'fr'
 
   return (
     <html lang={locale} className={helvetica.variable}>
@@ -92,7 +83,6 @@ export default async function RootLayout({
             <Footer />
           </SmoothScrollWrapper>
 
-          <LanguageSwitcher />
         </LocaleProvider>
 
         {process.env.NEXT_PUBLIC_GA_ID && (

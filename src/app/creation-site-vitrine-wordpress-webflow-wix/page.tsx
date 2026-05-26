@@ -17,18 +17,18 @@ export const metadata: Metadata = {
     "prix site vitrine wordpress"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.com/creation-site-vitrine-wordpress-webflow-wix",
+    canonical: "https://www.artichaud-studio.fr/creation-site-vitrine-wordpress-webflow-wix",
   },
   openGraph: {
     title: "Création Site Vitrine : WordPress, Webflow ou Wix ?",
     description: "Ne vous trompez pas de technologie. Découvrez notre comparatif expert et nos packs de création de sites vitrines performants.",
-    url: "https://www.artichaud-studio.com/creation-site-vitrine-wordpress-webflow-wix",
+    url: "https://www.artichaud-studio.fr/creation-site-vitrine-wordpress-webflow-wix",
     siteName: "Agence Artichaud",
     locale: "fr_FR",
     type: "website",
     images: [
       {
-        url: "https://www.artichaud-studio.com/images/og-cms-vitrine.jpg",
+        url: "https://www.artichaud-studio.fr/images/og-cms-vitrine.jpg",
         width: 1200,
         height: 630,
         alt: "Comparatif WordPress Webflow Wix Agence Artichaud",

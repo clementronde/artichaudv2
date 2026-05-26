@@ -48,10 +48,10 @@ export default function ParisClient() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Agence Artichaud Paris",
-    "image": "https://www.artichaud-studio.com/images/agence-web-paris.jpg",
-    "telephone": "+33100000000",
-    "url": "https://www.artichaud-studio.com/creation-site-internet-paris",
+    "name": "Artichaud Studio",
+    "image": "https://www.artichaud-studio.fr/icon.png",
+    "telephone": "+33687538017",
+    "url": "https://www.artichaud-studio.fr/creation-site-internet-paris",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Paris",
@@ -420,7 +420,7 @@ export default function ParisClient() {
                 <span className="relative z-10 group-hover:text-black">Demander un devis</span>
                 <div className="absolute inset-0 bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
               </Link>
-              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#D0FF00] transition-colors relative group">
+              <Link href="tel:+33687538017" className="text-white font-medium hover:text-[#D0FF00] transition-colors relative group">
                 Réserver un appel découverte
                 <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D0FF00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>

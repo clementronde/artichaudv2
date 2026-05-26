@@ -1,31 +1,34 @@
+import { SITE_NAME, SITE_URL } from "@/lib/seo"
+
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["Organization", "DesignAgency", "LocalBusiness"],
-    "name": "Artichaud Studio",
-    "legalName": "Artichaud Studio",
+    "@id": `${SITE_URL}/#organization`,
+    "name": SITE_NAME,
+    "legalName": SITE_NAME,
     "alternateName": "Artichaud",
     "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
-    "image": "https://www.artichaud-studio.com/icon.png",
+    "image": `${SITE_URL}/icon.png`,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.artichaud-studio.com/icon.png",
+      "url": `${SITE_URL}/icon.png`,
       "width": 512,
       "height": 512,
-      "contentUrl": "https://www.artichaud-studio.com/icon.png",
+      "contentUrl": `${SITE_URL}/icon.png`,
       "caption": "Artichaud Studio Logo",
       "inLanguage": "fr-FR"
     },
-    "url": "https://www.artichaud-studio.com",
+    "url": SITE_URL,
     "telephone": "+33687538017",
-    "email": "artichaud.studio@gmail.com",
+    "email": "hello@artichaud-studio.com",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+33687538017",
-      "email": "artichaud.studio@gmail.com",
+      "email": "hello@artichaud-studio.com",
       "contactType": "customer service",
       "areaServed": "FR",
-      "availableLanguage": ["French", "English"]
+      "availableLanguage": ["French"]
     },
     "address": {
       "@type": "PostalAddress",
@@ -36,8 +39,8 @@ export default function JsonLd() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "48.8396",
-      "longitude": "2.2400"
+      "latitude": "48.8374942",
+      "longitude": "2.2428601"
     },
     "areaServed": [
       {
@@ -74,9 +77,10 @@ export default function JsonLd() {
       "https://www.linkedin.com/company/artichaud-studio",
       "https://www.instagram.com/artichaud.studio/",
       "https://www.tiktok.com/@artichaud.studio",
-      "https://www.google.com/maps/place/Artichaud+Studio/@48.6807824,2.5026636,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.6807824!4d2.5026636!16s%2Fg%2F11mm8rb1gx",
-      "https://www.artichaud-studio.com"
+      "https://www.google.com/maps/place/Artichaud+Studio/@48.8374942,2.2428601,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.8374942!4d2.2428601!16s%2Fg%2F11mm8rb1gx",
+      SITE_URL
     ],
+    "hasMap": "https://www.google.com/maps/place/Artichaud+Studio/@48.8374942,2.2428601,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.8374942!4d2.2428601!16s%2Fg%2F11mm8rb1gx",
     "priceRange": "€€"
   }
 

@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Artichaud Studio - Comment nous écrire correctement",
     description: "Artichaud Studio avec un D. Studio de création web, branding et stratégie digitale à Paris.",
-    url: "https://www.artichaud-studio.com/artichaud-studio-orthographe",
+    url: "https://www.artichaud-studio.fr/artichaud-studio-orthographe",
     images: [
       {
-        url: "https://www.artichaud-studio.com/icon.png",
+        url: "https://www.artichaud-studio.fr/icon.png",
         width: 1200,
         height: 630,
         alt: "Artichaud Studio - Orthographe",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.com/artichaud-studio-orthographe",
+    canonical: "https://www.artichaud-studio.fr/artichaud-studio-orthographe",
   },
   robots: {
     index: true,
@@ -43,7 +43,7 @@ const commonMisspellings = [
   { wrong: "artichaut-studio", correct: "artichaud-studio" },
   { wrong: "artichaut", correct: "artichaud" },
   { wrong: "studio artichaut", correct: "studio artichaud" },
-  { wrong: "artichaud studio.com", correct: "artichaud-studio.com" },
+  { wrong: "artichaud studio.com", correct: "artichaud-studio.fr" },
   { wrong: "artishaud studio", correct: "artichaud studio" },
 ];
 
@@ -71,7 +71,7 @@ export default function OrthographePage() {
               </p>
               <div className="md:col-span-2 border-t md:border-t-0 md:border-l border-black/10 pt-6 md:pt-0 md:pl-8">
                 <p className="text-sm uppercase tracking-wider text-gray-400 mb-3">Adresse officielle</p>
-                <p className="text-2xl md:text-3xl font-medium break-words">artichaud-studio.com</p>
+                <p className="text-2xl md:text-3xl font-medium break-words">artichaud-studio.fr</p>
               </div>
             </div>
           </div>
