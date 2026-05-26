@@ -7,11 +7,11 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 const testimonials = [
   {
     id: 1,
-    name: "Sara Al Jamal",
-    role: "Founder, Charit.IO",
-    text: "Artichaud helped us find our voice. We stripped away the noise to focus on human connection.",
-    avatar: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop", 
-    image: "/projects/Charit.avif" 
+    name: "Victoria Lauro",
+    role: "Fondatrice, Chez June",
+    text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2070&auto=format&fit=crop",
+    image: "/projects/Charit.avif"
   },
   {
     id: 2,

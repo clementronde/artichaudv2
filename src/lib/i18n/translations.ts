@@ -107,9 +107,9 @@ export const translations = {
       items: [
         {
           id: 1,
-          name: "Claire Martin",
-          role: "Fondatrice, Maison Brume",
-          text: "On avait déjà une identité assez claire, mais notre site ne racontait pas bien ce que l'on faisait. Artichaud nous a aidés à remettre de l'ordre dans les pages, les messages et le parcours. Le résultat est plus simple, plus élégant, et surtout plus facile à comprendre pour nos clients.",
+          name: "Victoria Lauro",
+          role: "Fondatrice, Chez June",
+          text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
         },
         {
           id: 2,
