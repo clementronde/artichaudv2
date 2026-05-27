@@ -6,29 +6,48 @@ import Image from "next/image"
 import Link from "next/link"
 import { useLocale } from '@/context/LocaleContext'
 
+const HERO_TRAIL_IMAGES = [
+  "/projects/charitio/charitioprojet2.avif",
+  "/projects/cherico/chericoprojet2.avif",
+  "/projects/comon/comonprojet2.avif",
+  "/projects/disobey/disobeyprojet2.avif",
+  "/projects/jobmi/jobmiprojet2.avif",
+  "/projects/keleti/keletiprojet2.avif",
+  "/projects/lumyn/Lumynprojet2.avif",
+  "/projects/multiface/multifaceprojet2.avif",
+  "/projects/rockstar/rockstarprojet2.avif",
+  "/projects/yumdeal/yumdealprojet2.avif",
+]
+
+const TRAIL_INTERVAL_MS = 180
+const HERO_TRAIL_ANIMATION_SEQUENCE = [
+  [
+    { scale: 1, opacity: 1, y: 0 },
+    {
+      duration: 0.4,
+      ease: [0.23, 1, 0.32, 1],
+    },
+  ],
+  [
+    { scale: 0.8, opacity: 0, y: 40 },
+    {
+      duration: 1.2,
+      ease: "easeOut",
+    },
+  ],
+]
+
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
+  const [isCtaHovered, setIsCtaHovered] = useState(false)
   const [imagesReady, setImagesReady] = useState(false)
   const { t } = useLocale()
-
-  const images = [
-    "/projects/charitio/charitioprojet2.avif",
-    "/projects/cherico/chericoprojet2.avif",
-    "/projects/comon/comonprojet2.avif",
-    "/projects/disobey/disobeyprojet2.avif",
-    "/projects/jobmi/jobmiprojet2.avif",
-    "/projects/keleti/keletiprojet2.avif",
-    "/projects/lumyn/Lumynprojet2.avif",
-    "/projects/multiface/multifaceprojet2.avif",
-    "/projects/rockstar/rockstarprojet2.avif",
-    "/projects/yumdeal/yumdealprojet2.avif",
-  ]
 
   useEffect(() => {
     let cancelled = false
 
-    const preload = images.map((url) => {
+    const preload = HERO_TRAIL_IMAGES.map((url) => {
       const img = new window.Image()
       img.src = url
 
@@ -56,17 +75,18 @@ export default function HeroV3() {
       ref={ref}
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
-      className="relative w-full min-h-screen bg-white z-10 overflow-hidden"
+      className="relative z-20 w-full min-h-screen overflow-visible bg-white"
     >
       {/* TRAIL CONTAINER */}
       <div className="absolute inset-0 z-[100] pointer-events-none overflow-visible">
         <ImageTrail 
           containerRef={ref} 
-          interval={100}
+          interval={TRAIL_INTERVAL_MS}
           rotationRange={20}
-          active={isActive && imagesReady}
+          animationSequence={HERO_TRAIL_ANIMATION_SEQUENCE}
+          active={isActive && imagesReady && !isCtaHovered}
         >
-          {images.map((url, index) => (
+          {HERO_TRAIL_IMAGES.map((url, index) => (
             <div
               key={index}
               className="relative w-[180px] h-[180px] md:w-[240px] md:h-[240px] overflow-hidden shadow-2xl"
@@ -99,7 +119,11 @@ export default function HeroV3() {
               <span className="block">{t.hero.title[1]}</span>
               <span className="block">{t.hero.title[2]}</span>
             </h1>
-            <div className="mt-8 flex flex-col gap-3 pointer-events-auto sm:flex-row">
+            <div
+              onMouseEnter={() => setIsCtaHovered(true)}
+              onMouseLeave={() => setIsCtaHovered(false)}
+              className="mt-8 flex flex-col gap-3 pointer-events-auto sm:flex-row"
+            >
               <Link
                 href="/contact"
                 className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-black px-7 text-base font-medium text-white transition-colors duration-300 hover:bg-[#F70046]"
@@ -132,7 +156,8 @@ export default function HeroV3() {
 
       {/* PRELOAD IMAGES - Hidden images so the preloader tracks them via document.images */}
       <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden pointer-events-none">
-        {images.map((url, index) => (
+        {HERO_TRAIL_IMAGES.map((url, index) => (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             key={index}
             src={url}

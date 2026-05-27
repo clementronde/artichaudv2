@@ -5,8 +5,8 @@ export const translations = {
     hero: {
       title: [
         "Artichaud, c'est le",
-        "studio de création web qui fait monter",
-        "la température.",
+        "studio de création web qui",
+        "fait monter la température.",
       ],
       scroll: "SCROLL",
       ctaDiscuss: "On en discute",
@@ -255,8 +255,8 @@ export const translations = {
     hero: {
       title: [
         "Artichaud is the",
-        "web creation studio that turns up",
-        "the heat.",
+        "web creation studio that",
+        "turns up the heat.",
       ],
       scroll: "SCROLL",
       ctaDiscuss: "Let's talk",

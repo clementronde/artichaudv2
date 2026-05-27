@@ -254,7 +254,7 @@ export default function Navbar() {
       <div className="fixed top-6 left-0 w-full px-6 z-[5000] flex justify-between items-center md:hidden">
           {/* Logo Mobile */}
           <Link href="/" className="h-[50px] w-[50px] rounded-full overflow-hidden shadow-lg block relative flex-shrink-0">
-             <Image src="/logonavbar.png" alt="Logo" fill className="object-cover" />
+             <Image src="/logonavbar.png" alt="Logo" fill sizes="50px" className="object-cover" />
           </Link>
 
           {/* Bouton Burger Mobile */}
@@ -277,7 +277,7 @@ export default function Navbar() {
           className="h-[60px] w-[60px] rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
         >
           <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative h-full w-full block hover:scale-105 transition-transform duration-300">
-              <Image src="/logonavbar.png" alt="Artichaud Logo" fill className="object-cover" />
+              <Image src="/logonavbar.png" alt="Artichaud Logo" fill sizes="60px" className="object-cover" />
           </Link>
         </div>
 
@@ -290,7 +290,7 @@ export default function Navbar() {
           <div ref={innerRef} className="flex items-center justify-center gap-1 w-full h-full flex-shrink-0 px-3">
               <div ref={linksRef} className="flex items-center gap-1 flex-shrink-0">
                 {navLinks.map((item) => (
-                  <Magnetic key={item.label} disabled={isNavigatingRef.current}>
+                  <Magnetic key={item.label}>
                     <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="relative px-4 py-2 text-[15px] font-medium text-[#FDF4E7] hover:text-white transition-colors duration-300 rounded-full whitespace-nowrap pointer-events-auto block">
                       {item.label}
                     </Link>
@@ -299,7 +299,7 @@ export default function Navbar() {
               </div>
 
               <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
-                <Magnetic disabled={isNavigatingRef.current}>
+                <Magnetic>
                   <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-6 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-[#F70046] border border-[#F70046] text-white hover:bg-[#d4003c] hover:border-[#d4003c]">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
