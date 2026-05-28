@@ -15,26 +15,40 @@ html.lenis, html.lenis body {
 
 
 .footer-spacer {
-  height: 100vh;
+  height: 100svh;
   width: 100%;
-  pointer-events: none; /* AJOUT: Laisser passer les clics vers le footer */
+  pointer-events: none;
 }
 
 .footer-container {
   position: fixed;
   bottom: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 100svh;
+  min-height: 680px;
   background-color: #000;
   color: #fff;
   overflow: hidden;
-  padding: 4rem 2rem 2rem;
+  padding: clamp(3rem, 7vh, 6rem) clamp(1.5rem, 4vw, 4rem) 0;
   z-index: -1;
-  
-  @media (min-width: 768px) {
-    padding: 6rem 4rem 3rem;
-  }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: clamp(8rem, 18vw, 17rem);
+}
+
+.footer-wordmark {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  pointer-events: none;
 }
 
 .background-text {
@@ -165,28 +179,29 @@ html.lenis, html.lenis body {
   }
 }
 
-.footer-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: #000;
-  color: #fff;
-  overflow: hidden;
-  z-index: -1;
-}
-
-/* Mobile : footer en flux normal, non fixe, scrollable */
-@media (max-width: 767px) {
+/* Mobile/tablette : footer en flux normal, non fixe, scrollable */
+@media (max-width: 1023px), (max-height: 760px) {
   .footer-container {
     position: relative;
     height: auto;
-    min-height: unset;
-    overflow: visible;
+    min-height: 100svh;
+    overflow: hidden;
     z-index: 1;
-    padding: 2.5rem 1.5rem 3rem;
+    padding: 2.5rem 1.5rem 0;
   }
+
+  .footer-content {
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-wordmark {
+    position: relative;
+    inset-inline: auto;
+    bottom: auto;
+    width: calc(100% + 3rem);
+    margin: 2.5rem -1.5rem 0;
+  }
+
   .footer-spacer {
     height: 0 !important;
   }

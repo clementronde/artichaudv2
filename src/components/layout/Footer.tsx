@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLocale } from '@/context/LocaleContext';
 
 const socialLinks = [
@@ -35,7 +36,7 @@ const Footer: React.FC = () => {
         }}
       >
         {/* TOP SECTION */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 max-w-7xl mx-auto w-full">
+        <div className="footer-content grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 max-w-7xl mx-auto w-full">
 
           {/* Colonne 1 - Let's talk */}
           <div className="flex flex-col gap-8">
@@ -152,16 +153,20 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* BOTTOM SECTION - Giant Artichaud text */}
+        {/* BOTTOM SECTION - Giant Artichaud wordmark */}
         <div 
-          className="relative w-full mt-auto"
-          style={{
-             marginLeft: '-40px', 
-             marginRight: '-40px', 
-             width: 'calc(100% + 80px)' 
-          }}
+          className="footer-wordmark"
+          aria-label="Artichaud"
         >
-          
+          <Image
+            src="/artichaud.png"
+            alt="Artichaud"
+            width={1430}
+            height={297}
+            className="block h-auto w-full select-none"
+            priority={false}
+            sizes="100vw"
+          />
         </div>
       </footer>
     </>

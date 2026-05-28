@@ -183,7 +183,7 @@ export default function CreationSiteInternetClient() {
           </div>
           <div className="col-span-1 md:col-span-4">
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[32px] md:text-[48px] lg:text-[64px] leading-[1.05] font-normal text-arti-black tracking-tight mb-8"
@@ -191,7 +191,7 @@ export default function CreationSiteInternetClient() {
               Création de site internet sur mesure
             </motion.h1>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-xl text-gray-600 font-light leading-relaxed"
@@ -201,14 +201,14 @@ export default function CreationSiteInternetClient() {
           </div>
           <div className="col-span-1 md:col-span-3 md:col-start-6 flex flex-col gap-8 md:mt-24">
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-base text-gray-500 font-light leading-relaxed"
             >
               Votre site web est votre premier vendeur. Il doit refléter votre identité, capter l'attention et convertir vos visiteurs en clients. Nous créons des sites qui font tout ça.
             </motion.p>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
+            <motion.div initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
                 <Link href="/contact" className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
                     <span className="relative z-10 font-medium text-sm">Discutons de votre projet</span>
@@ -233,7 +233,7 @@ export default function CreationSiteInternetClient() {
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -261,7 +261,7 @@ export default function CreationSiteInternetClient() {
           {projectTypes.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -349,7 +349,7 @@ export default function CreationSiteInternetClient() {
           {technologies.map((tech, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}

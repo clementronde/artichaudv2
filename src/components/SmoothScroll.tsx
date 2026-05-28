@@ -8,15 +8,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // Composant interne pour la synchronisation et les ancres
-function ScrollSync() {
+function ScrollSync({ enabled }: { enabled: boolean }) {
   // Récupération de l'instance Lenis
   const lenis = useLenis(({ scroll }) => {
-    ScrollTrigger.update()
+    if (enabled) {
+      ScrollTrigger.update()
+    }
   })
 
   useEffect(() => {
     ScrollTrigger.refresh()
   }, [])
+
+  useEffect(() => {
+    if (!lenis) return
+
+    lenis.start()
+
+    if (enabled) {
+      ScrollTrigger.refresh()
+    }
+  }, [enabled, lenis])
 
   // --- NOUVEAU : Interception des clics sur les ancres ---
   useEffect(() => {
@@ -26,7 +38,7 @@ function ScrollSync() {
       const href = link?.getAttribute('href')
 
       // Si c'est un lien d'ancrage valide (commence par #) et que Lenis est prêt
-      if (link && href?.startsWith('#') && href.length > 1 && lenis) {
+      if (enabled && link && href?.startsWith('#') && href.length > 1 && lenis) {
         e.preventDefault()
         
         lenis.scrollTo(href, {
@@ -40,23 +52,24 @@ function ScrollSync() {
     // On écoute tous les clics sur la page
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
-  }, [lenis])
+  }, [enabled, lenis])
 
   return null
 }
 
 // 'any' pour contourner le conflit React 18/19
-export default function SmoothScroll({ children }: { children: any }) {
+export default function SmoothScroll({ children, enabled = true }: { children: any, enabled?: boolean }) {
   return (
     <ReactLenis 
       root 
       options={{ 
         lerp: 0.1, 
         duration: 1.5, 
-        smoothWheel: true,
+        smoothWheel: enabled,
+        smoothTouch: enabled,
       }}
     >
-      <ScrollSync />
+      <ScrollSync enabled={enabled} />
       {children}
     </ReactLenis>
   )
