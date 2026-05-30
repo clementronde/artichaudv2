@@ -29,17 +29,21 @@ export async function generateMetadata(
     const ogImage = project.cover.startsWith('http')
       ? project.cover
       : `${BASE_URL}${project.cover}`;
-    const description = truncateSeoDescription(project.description.join(' '));
+    const description = project.seoDescription ?? truncateSeoDescription(project.description.join(' '));
+    const title = project.seoTitle
+      ? `${project.seoTitle} | ${SITE_NAME}`
+      : `${project.client} - ${project.category} | ${SITE_NAME}`;
+    const socialTitle = project.seoTitle ?? `${project.client} - ${project.category}`;
 
     return {
-      title: `${project.client} - ${project.category} | ${SITE_NAME}`,
+      title,
       description,
-      keywords: [...project.services, project.category, project.client],
+      keywords: [...project.services, project.category, project.client, ...(project.seoKeywords ?? [])],
       alternates: {
         canonical: `${BASE_URL}/works/${project.slug}`,
       },
       openGraph: {
-        title: `${project.client} - ${project.category}`,
+        title: socialTitle,
         description,
         type: 'website',
         url: `${BASE_URL}/works/${project.slug}`,
@@ -56,7 +60,7 @@ export async function generateMetadata(
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${project.client} - ${project.category}`,
+        title: socialTitle,
         description,
         images: [ogImage],
         creator: '@artichaudstudio',
@@ -81,6 +85,28 @@ export default async function ProjectPage(
     notFound();
   }
 
+  const description = project.seoDescription ?? truncateSeoDescription(project.description.join(' '));
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    '@id': `${BASE_URL}/works/${project.slug}#creativework`,
+    name: `${project.client} - ${project.category}`,
+    headline: project.seoTitle ?? `${project.client} - ${project.category}`,
+    description,
+    url: `${BASE_URL}/works/${project.slug}`,
+    image: project.cover.startsWith('http') ? project.cover : `${BASE_URL}${project.cover}`,
+    dateCreated: project.year,
+    inLanguage: 'fr-FR',
+    creator: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: SITE_NAME,
+      url: BASE_URL,
+    },
+    about: project.services,
+    keywords: [...project.services, project.category, project.client, ...(project.seoKeywords ?? [])].join(', '),
+  };
+
   // Récupération des articles de blog pour la section blog
   const rawPosts = getAllPosts();
   const posts = rawPosts.map((post) => ({
@@ -95,6 +121,10 @@ export default async function ProjectPage(
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ProjectClient project={project} posts={posts} />
       <RelatedLinks
         title="Créer un projet du même niveau"

@@ -1,6 +1,22 @@
 // Fichier : src/data/project.ts
 
-export const projects = [
+export interface Project {
+  id: number;
+  slug: string;
+  client: string;
+  category: string;
+  year: string;
+  services: string[];
+  description: string[];
+  cover: string;
+  images: string[];
+  colors: { hex: string; name: string }[];
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string[];
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     slug: "charitio",
@@ -80,12 +96,22 @@ export const projects = [
     id: 4,
     slug: "jobmi",
     client: "Jobmi",
-    category: "Brand Strategy",
+    category: "Identité de marque",
     year: "2023",
-    services: ["Naming", "Tone of Voice", "Identity"],
+    services: ["Naming", "Brand strategy", "Identité visuelle", "Tone of voice"],
+    seoTitle: "Jobmi - Identité de marque pour plateforme emploi",
+    seoDescription: "Découvrez le projet Jobmi : naming, stratégie de marque, identité visuelle et ton éditorial pour une plateforme emploi moderne, claire et rassurante.",
+    seoKeywords: [
+      "Jobmi",
+      "identité de marque plateforme emploi",
+      "branding startup recrutement",
+      "naming application emploi",
+      "Artichaud Studio Jobmi"
+    ],
     description: [
-      "Connecting talent with opportunity. Jobmi needed a friendly yet professional face.",
-      "We created a brand identity that feels approachable, trustworthy, and modern."
+      "Jobmi rapproche les talents et les opportunités avec une identité de marque claire, accessible et professionnelle.",
+      "Pour cette plateforme dédiée à l'emploi et au recrutement, nous avons travaillé le naming, la stratégie de marque, le ton éditorial et les premiers codes visuels afin de créer une expérience immédiatement compréhensible.",
+      "L'objectif était de rendre la recherche d'opportunités plus humaine : un univers rassurant pour les candidats, crédible pour les recruteurs, et suffisamment flexible pour accompagner l'évolution du service sur le web."
     ],
     cover: "/projects/jobmi/jobmiprojet1.avif",
     images: [

@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
     ` : ''}
 
     <div class="footer">
-      Envoyé depuis le formulaire de contact artichaud-studio.com
+      Envoyé depuis le formulaire de contact artichaud-studio.fr
     </div>
   </div>
 </body>
@@ -263,7 +263,7 @@ export async function POST(request: NextRequest) {
       
       <div class="footer">
         Artichaud Studio — Agence Web & Branding Paris<br>
-        <a href="https://www.artichaud-studio.fr" style="color: #999;">artichaud-studio.com</a>
+        <a href="https://www.artichaud-studio.fr" style="color: #999;">artichaud-studio.fr</a>
       </div>
     </div>
   </div>

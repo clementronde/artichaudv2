@@ -1,489 +1,305 @@
 'use client'
 
-import { useRef } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
-
-const processSteps = [
+const essentials = [
   {
-    number: "01",
-    title: "Audit & Stratégie",
-    description: "Analyse de vos besoins, de votre cible et de la concurrence. Définition de la stratégie UX et de l'architecture de l'information.",
-    deliverables: ["Brief détaillé", "Benchmark concurrentiel", "Arborescence du site", "User personas"]
+    title: 'Positionnement',
+    text: 'On clarifie ce que vous vendez, à qui, et pourquoi votre offre mérite d’être choisie.',
   },
   {
-    number: "02",
-    title: "UX & Wireframing",
-    description: "Conception de l'expérience utilisateur et création de wireframes pour valider la structure avant le design.",
-    deliverables: ["Wireframes interactifs", "User flows", "Cartographie du contenu", "Prototype basse fidélité"]
+    title: 'Parcours',
+    text: 'Chaque page guide le visiteur vers une action logique : comprendre, comparer, demander un devis.',
   },
   {
-    number: "03",
-    title: "Webdesign",
-    description: "Création d'une interface moderne, sur mesure et alignée avec votre identité de marque.",
-    deliverables: ["Maquettes Figma", "Design System", "Déclinaisons responsive", "Micro-interactions"]
+    title: 'SEO technique',
+    text: 'Structure Hn, métadonnées, performance, données structurées et maillage interne sont intégrés dès la conception.',
   },
   {
-    number: "04",
-    title: "Développement",
-    description: "Développement sur mesure avec les technologies les plus performantes (Next.js, React, TypeScript).",
-    deliverables: ["Site web codé", "SEO technique", "Optimisations performance", "Intégrations API"]
+    title: 'Direction artistique',
+    text: 'Le site doit être reconnaissable, pas seulement propre. La forme sert la confiance et la mémorisation.',
   },
-  {
-    number: "05",
-    title: "Tests & Lancement",
-    description: "Tests rigoureux sur tous les devices, optimisation finale et mise en ligne avec accompagnement.",
-    deliverables: ["QA complète", "Formation client", "Documentation", "Support post-lancement"]
-  }
 ]
 
-const technologies = [
-  { name: "Next.js", description: "Framework React pour des sites ultra-rapides" },
-  { name: "React", description: "Bibliothèque JavaScript pour des interfaces modernes" },
-  { name: "TypeScript", description: "Code robuste et maintenable" },
-  { name: "Tailwind CSS", description: "Design system flexible et performant" },
-  { name: "Framer Motion", description: "Animations fluides et engageantes" },
-  { name: "Headless CMS", description: "Gestion de contenu flexible (Sanity, Contentful)" }
+const formats = [
+  {
+    title: 'Site vitrine',
+    description: 'Pour présenter une activité, rassurer et générer des demandes qualifiées.',
+    details: ['Pages services', 'Formulaire', 'SEO technique', 'Preuves et réalisations'],
+  },
+  {
+    title: 'Site avec CMS',
+    description: 'Pour publier régulièrement sans dépendre du studio à chaque modification.',
+    details: ['Blog', 'Pages éditables', 'Formation', 'Structure évolutive'],
+  },
+  {
+    title: 'Refonte',
+    description: 'Pour améliorer un site existant sans perdre ce qui fonctionne déjà côté SEO.',
+    details: ['Audit', 'Migration', 'Redirections', 'Nouvelle direction UI'],
+  },
+  {
+    title: 'Expérience sur mesure',
+    description: 'Pour une marque, un service ou un produit qui demande une interface plus spécifique.',
+    details: ['Next.js', 'Interactions', 'API', 'Performance avancée'],
+  },
 ]
 
-const benefits = [
+const process = [
+  ['01', 'Cadrer', 'Objectifs, audience, concurrence, pages prioritaires et contraintes techniques.'],
+  ['02', 'Écrire', 'Structure, messages, titres, CTA et maillage interne avant de penser aux effets.'],
+  ['03', 'Designer', 'Direction artistique, maquettes, responsive et système visuel cohérent.'],
+  ['04', 'Développer', 'Intégration propre, rapide, maintenable et prête pour l’indexation.'],
+  ['05', 'Lancer', 'Recette, tracking, Search Console, formation et recommandations post-lancement.'],
+]
+
+const proofLinks = [
   {
-    title: "Design sur mesure",
-    description: "Chaque projet est unique. Nous créons des interfaces qui reflètent parfaitement votre identité de marque et captivent votre audience."
+    href: '/works/lumyn',
+    label: 'Lumyn',
+    text: 'Plateforme créative, direction artistique et développement.',
   },
   {
-    title: "Performance optimale",
-    description: "Sites ultra-rapides, optimisés pour le SEO et pour tous les devices. Temps de chargement minimal garanti."
+    href: '/works/jobmi',
+    label: 'Jobmi',
+    text: 'Naming et identité pour une plateforme emploi.',
   },
-  {
-    title: "SEO technique intégré",
-    description: "Architecture SEO-friendly dès la conception. Métadonnées optimisées, données structurées, Core Web Vitals maîtrisés."
-  },
-  {
-    title: "Responsive design",
-    description: "Expérience parfaite sur mobile, tablette et desktop. Mobile-first approach pour s'adapter aux usages actuels."
-  },
-  {
-    title: "Animations & Interactions",
-    description: "Micro-interactions soignées et animations fluides pour une expérience utilisateur mémorable."
-  },
-  {
-    title: "Évolutif & Maintenable",
-    description: "Code propre et documenté. Architecture évolutive qui grandit avec votre business."
-  }
 ]
 
 const faqItems = [
   {
-    question: "Combien coûte la création d'un site internet ?",
-    answer: "Le prix varie selon la complexité du projet. Un site vitrine démarre à partir de 3 500€, un site avec CMS à partir de 6 000€, et un site e-commerce à partir de 10 000€. Chaque projet étant unique, nous établissons un devis sur mesure après l'étude de vos besoins."
+    question: 'Combien coûte la création d’un site internet ?',
+    answer: 'Le budget dépend du nombre de pages, du niveau de direction artistique, du CMS, des contenus et des besoins SEO. Un site vitrine professionnel démarre généralement autour de 3 500 euros.',
   },
   {
-    question: "Quel est le délai pour créer un site web ?",
-    answer: "Un site vitrine classique prend 4-6 semaines. Un site avec fonctionnalités avancées ou e-commerce nécessite 8-12 semaines. Le délai dépend de la complexité, du nombre de pages et de la disponibilité du contenu."
+    question: 'Combien de temps faut-il prévoir ?',
+    answer: 'Un site vitrine demande souvent 4 à 6 semaines. Une refonte ou un site avec CMS peut demander 8 à 12 semaines selon les contenus, les validations et les intégrations.',
   },
   {
-    question: "Mon site sera-t-il optimisé pour le référencement Google ?",
-    answer: "Absolument ! Nous intégrons le SEO technique dès la conception : architecture optimisée, temps de chargement rapide, métadonnées, données structurées, responsive design, Core Web Vitals. Votre site est prêt à être bien référencé dès le lancement."
+    question: 'Le site sera-t-il optimisé pour Google ?',
+    answer: 'Oui. Nous travaillons la structure technique, les métadonnées, le responsive, la performance, les données structurées et le maillage interne dès le départ.',
   },
   {
-    question: "Puis-je gérer mon contenu moi-même après la livraison ?",
-    answer: "Oui ! Nous intégrons des CMS headless (Sanity, Contentful) ou WordPress selon vos besoins. Nous vous formons à la gestion de contenu et fournissons une documentation complète. Vous restez autonome sur les mises à jour quotidiennes."
+    question: 'Puis-je modifier mon site après livraison ?',
+    answer: 'Oui, si le projet le nécessite. Nous pouvons intégrer un CMS adapté et vous former pour gérer les contenus courants en autonomie.',
   },
-  {
-    question: "Quelles technologies utilisez-vous ?",
-    answer: "Nous développons avec Next.js/React pour des sites modernes et performants. TypeScript pour la robustesse, Tailwind CSS pour le design, Framer Motion pour les animations. Nous choisissons toujours les technologies les plus adaptées à votre projet."
-  },
-  {
-    question: "Proposez-vous de la maintenance après le lancement ?",
-    answer: "Oui, nous proposons des contrats de maintenance mensuels incluant : mises à jour de sécurité, monitoring, sauvegardes, support technique, évolutions mineures. Vous avez l'esprit tranquille et votre site reste performant."
-  }
-]
-
-const projectTypes = [
-  {
-    title: "Site Vitrine",
-    description: "Présentez votre activité avec élégance et professionnalisme.",
-    features: ["Design sur mesure", "5-10 pages", "Formulaire de contact", "SEO optimisé", "Responsive design", "Animations"],
-    ideal: "PME, artisans, professions libérales"
-  },
-  {
-    title: "Site Corporate",
-    description: "Valorisez votre entreprise et votre expertise métier.",
-    features: ["Architecture complexe", "CMS intégré", "Espace presse", "Multilingue", "Blog", "Intégrations API"],
-    ideal: "Grandes entreprises, groupes, scale-ups"
-  },
-  {
-    title: "Site E-commerce",
-    description: "Vendez en ligne avec une expérience d'achat optimale.",
-    features: ["Catalogue produits", "Paiement sécurisé", "Gestion commandes", "Tunnel de conversion optimisé", "Intégrations (CRM, ERP)", "Analytics avancés"],
-    ideal: "Marques, retailers, créateurs"
-  },
-  {
-    title: "Application Web",
-    description: "Développez des interfaces complexes et interactives.",
-    features: ["Interface personnalisée", "Dashboard analytics", "Authentification", "Base de données", "API REST/GraphQL", "Architecture scalable"],
-    ideal: "SaaS, startups, produits digitaux"
-  }
 ]
 
 export default function CreationSiteInternetClient() {
-  const containerRef = useRef(null)
-  const blackBoxRef = useRef(null)
-
-  useGSAP(() => {
-    if (!blackBoxRef.current || !containerRef.current) return;
-
-    gsap.fromTo(blackBoxRef.current,
-      { width: "85%" },
-      {
-        width: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "top 60%",
-          scrub: 0.5,
-        }
-      }
-    )
-
-    gsap.to(blackBoxRef.current, {
-      y: '10%',
-      scale: 0.98,
-      opacity: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "bottom bottom",
-        end: "bottom top",
-        scrub: true,
-      }
-    })
-
-  }, { scope: containerRef })
-
   return (
-    <main className="w-full bg-white min-h-screen pt-40 pb-32 overflow-x-hidden">
-
-      {/* 1. HERO SECTION */}
-      <div className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-12 items-start">
-          <div className="hidden md:block col-span-1 pt-2">
-            <Link href="/services" className="text-sm font-medium text-gray-400 hover:text-arti-black transition-colors">
+    <main className="w-full overflow-x-hidden bg-white text-black">
+      <section className="relative min-h-[92vh] bg-[#050505] px-6 pt-32 pb-10 text-white md:px-10 md:pt-40">
+        <div className="flex min-h-[calc(92vh-10rem)] flex-col justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Link href="/services" className="mb-8 inline-flex text-sm font-medium text-white/45 transition-colors hover:text-white">
               ← Services
             </Link>
-          </div>
-          <div className="col-span-1 md:col-span-4">
-            <motion.h1
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[32px] md:text-[48px] lg:text-[64px] leading-[1.05] font-normal text-arti-black tracking-tight mb-8"
-            >
-              Création de site internet sur mesure
-            </motion.h1>
-            <motion.p
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-xl text-gray-600 font-light leading-relaxed"
-            >
-              Des sites web modernes, performants et pensés pour convertir. Design sur mesure, développement de pointe et SEO intégré.
-            </motion.p>
-          </div>
-          <div className="col-span-1 md:col-span-3 md:col-start-6 flex flex-col gap-8 md:mt-24">
-            <motion.p
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-base text-gray-500 font-light leading-relaxed"
-            >
-              Votre site web est votre premier vendeur. Il doit refléter votre identité, capter l'attention et convertir vos visiteurs en clients. Nous créons des sites qui font tout ça.
-            </motion.p>
-            <motion.div initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
-                <Link href="/contact" className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
-                    <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    <span className="relative z-10 font-medium text-sm">Discutons de votre projet</span>
-                </Link>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. BÉNÉFICES - GRID */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
-            Pourquoi créer votre site web avec Artichaud Studio ?
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-3xl">
-            Nous combinons design d'exception, développement de pointe et stratégie digitale pour créer des sites qui marquent les esprits et génèrent des résultats.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {benefits.map((benefit, index) => (
-            <motion.div
-              key={index}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="border border-black/10 rounded-2xl p-8 hover:border-black/30 transition-all duration-300 hover:shadow-lg"
-            >
-              <h3 className="text-2xl font-medium text-arti-black mb-3">{benefit.title}</h3>
-              <p className="text-base text-gray-600 font-light leading-relaxed">{benefit.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. TYPES DE PROJETS */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
-            Quel type de site web créer ?
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-3xl">
-            Chaque projet est unique. Nous adaptons notre approche à vos objectifs, votre cible et votre budget.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projectTypes.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-gray-50 rounded-2xl p-8 hover:bg-gray-100 transition-all duration-300"
-            >
-              <h3 className="text-3xl font-medium text-arti-black mb-3">{project.title}</h3>
-              <p className="text-base text-gray-600 font-light leading-relaxed mb-6">{project.description}</p>
-
-              <div className="mb-6">
-                <h4 className="text-sm font-medium text-arti-black mb-3 uppercase tracking-wide">Fonctionnalités</h4>
-                <ul className="space-y-2">
-                  {project.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="text-green-600 mt-0.5">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-4 border-t border-black/10">
-                <p className="text-sm text-gray-500">
-                  <span className="font-medium text-arti-black">Idéal pour : </span>
-                  {project.ideal}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. PROCESSUS (SECTION NOIRE ANIMÉE) */}
-      <section ref={containerRef} className="relative z-0 w-full mb-32 flex justify-center overflow-hidden">
-        <div
-            ref={blackBoxRef}
-            className="bg-[#0a0a0a] text-white rounded-[40px] p-8 md:p-12 lg:p-20 mx-auto will-change-transform"
-        >
-            <h2 className="text-[40px] md:text-[60px] font-normal mb-8 tracking-tight">Notre processus de création</h2>
-            <p className="text-lg text-white/60 font-light mb-20 max-w-2xl">
-              Une méthodologie éprouvée en 5 étapes pour garantir le succès de votre projet web.
+            <p className="mb-6 max-w-xl text-sm font-medium uppercase tracking-wide text-white/45">
+              Création de site internet · UX/UI · SEO technique
             </p>
+            <h1 className="max-w-[1220px] text-[50px] font-normal leading-[0.92] tracking-tight text-balance md:text-[100px] lg:text-[138px]">
+              Un site qui travaille autant que votre équipe.
+            </h1>
+          </motion.div>
 
-            <div className="flex flex-col">
-                {processSteps.map((step, index) => (
-                    <div
-                      key={index}
-                      className={`grid grid-cols-1 md:grid-cols-12 gap-x-5 gap-y-6 py-12 md:py-16 border-t border-white/20 ${index === processSteps.length - 1 ? 'border-b border-white/20' : ''}`}
-                    >
-                        <div className="col-span-1 md:col-span-1">
-                            <span className="text-4xl md:text-5xl font-light text-white/40">{step.number}</span>
-                        </div>
-                        <div className="col-span-1 md:col-span-4 mb-4 md:mb-0">
-                            <h3 className="text-2xl md:text-3xl font-medium text-white mb-3">{step.title}</h3>
-                            <p className="text-base text-white/60 font-light leading-relaxed">{step.description}</p>
-                        </div>
-                        <div className="col-span-1 md:col-span-6 md:col-start-7">
-                            <h4 className="text-sm font-medium text-white/60 mb-4 uppercase tracking-wide">Livrables</h4>
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {step.deliverables.map((deliverable, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-sm text-white/80">
-                                        <span className="text-green-400 mt-0.5">✓</span>
-                                        {deliverable}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-16 grid grid-cols-1 gap-8 border-t border-white/15 pt-8 md:grid-cols-8 md:gap-x-5"
+          >
+            <p className="max-w-2xl text-lg leading-relaxed text-white/65 md:col-span-4 md:text-xl">
+              Nous créons des sites vitrines, refontes et expériences web qui clarifient votre offre, renforcent votre image et transforment les visiteurs en demandes qualifiées.
+            </p>
+            <div className="flex flex-col gap-3 md:col-span-2 md:col-start-6">
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-colors hover:bg-[#F70046] hover:text-white">
+                Demander un devis
+              </Link>
+              <Link href="/works" className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black">
+                Voir les réalisations
+              </Link>
+            </div>
+            <p className="text-sm leading-relaxed text-white/45 md:col-span-1">
+              Site vitrine, refonte, CMS, interface sur mesure.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-gray-400">Approche</span>
+          </div>
+          <div className="md:col-span-4 md:col-start-2">
+            <h2 className="text-[38px] font-normal leading-[1.02] tracking-tight md:text-[64px]">
+              Pas un site vitrine décoratif. Un outil de confiance, de recherche et de conversion.
+            </h2>
+          </div>
+          <div className="space-y-6 text-lg leading-relaxed text-gray-600 md:col-span-3">
+            <p>
+              Une belle interface ne suffit pas. Votre site doit expliquer vite, prouver votre sérieux, charger rapidement, être lisible sur mobile et donner envie de passer à l’action.
+            </p>
+            <p>
+              Notre travail relie stratégie, webdesign, développement et SEO pour éviter les sites jolis mais muets.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-black/15 md:ml-[calc(12.5%+0.625rem)]">
+          {essentials.map((item, index) => (
+            <div key={item.title} className="grid grid-cols-1 gap-y-3 border-b border-black/15 py-8 md:grid-cols-7 md:gap-x-5">
+              <span className="text-sm text-gray-400 md:col-span-1">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="text-2xl font-normal md:col-span-2">{item.title}</h3>
+              <p className="text-lg leading-relaxed text-gray-600 md:col-span-4">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#F6F6F3] px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-gray-500">Formats</span>
+          </div>
+          <div className="md:col-span-5 md:col-start-2">
+            <h2 className="text-[38px] font-normal leading-[1.02] tracking-tight md:text-[64px]">
+              Le bon format dépend de ce que le site doit produire.
+            </h2>
+          </div>
+          <p className="text-lg leading-relaxed text-gray-600 md:col-span-2">
+            Crédibilité, génération de leads, autonomie éditoriale ou expérience produit : on choisit le périmètre avant la technologie. Pour une recherche géographique, consultez notre page dédiée à la{' '}
+            <Link href="/creation-site-internet-boulogne-billancourt" className="font-medium text-black underline decoration-black/20 underline-offset-4 transition-colors hover:text-[#F70046]">
+              création de site internet à Boulogne-Billancourt
+            </Link>
+            .
+          </p>
+        </div>
+
+        <div className="mt-16 border-t border-black/15 md:ml-[calc(12.5%+0.625rem)]">
+          {formats.map((format) => (
+            <div key={format.title} className="grid grid-cols-1 gap-y-6 border-b border-black/15 py-10 md:grid-cols-7 md:gap-x-5">
+              <div className="md:col-span-2">
+                <h3 className="text-3xl font-normal">{format.title}</h3>
+              </div>
+              <p className="text-lg leading-relaxed text-gray-600 md:col-span-3">{format.description}</p>
+              <ul className="space-y-2 text-sm font-medium md:col-span-2">
+                {format.details.map((detail) => (
+                  <li key={detail}>{detail}</li>
                 ))}
-            </div>
-        </div>
-      </section>
-
-      {/* 5. TECHNOLOGIES */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
-            Technologies modernes et performantes
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-3xl">
-            Nous travaillons avec les meilleurs outils pour garantir rapidité, sécurité et évolutivité.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {technologies.map((tech, index) => (
-            <motion.div
-              key={index}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="flex flex-col gap-2 p-6 border border-black/10 rounded-xl hover:border-black/30 transition-all"
-            >
-              <h3 className="text-xl font-medium text-arti-black">{tech.name}</h3>
-              <p className="text-sm text-gray-600 font-light">{tech.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. FAQ */}
-      <section className="container mx-auto px-6 md:px-12 mb-32">
-        <div className="mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-normal text-arti-black tracking-tight mb-4">
-            Questions fréquentes
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-3xl">
-            Tout ce que vous devez savoir sur la création d'un site internet avec Artichaud Studio.
-          </p>
-        </div>
-
-        <div className="max-w-4xl">
-          {faqItems.map((item, index) => (
-            <div
-              key={index}
-              className="border-t border-black/10 py-8 last:border-b"
-            >
-              <h3 className="text-xl md:text-2xl font-medium text-arti-black mb-4">{item.question}</h3>
-              <p className="text-base text-gray-600 font-light leading-relaxed">{item.answer}</p>
+              </ul>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 7. CTA FINAL */}
-      <section className="container mx-auto px-6 md:px-12">
-        <div className="bg-arti-black text-white rounded-[40px] p-12 md:p-20 text-center">
-          <h2 className="text-[32px] md:text-[56px] font-normal mb-6 tracking-tight">
-            Prêt à créer votre site web ?
-          </h2>
-          <p className="text-lg text-white/60 font-light mb-8 max-w-2xl mx-auto">
-            Discutons de votre projet et créons ensemble un site qui vous ressemble et qui performe.
+      <section className="bg-[#050505] px-6 py-20 text-white md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-white/40">Méthode</span>
+          </div>
+          <div className="md:col-span-4 md:col-start-2">
+            <h2 className="text-[38px] font-normal leading-[1.02] tracking-tight md:text-[64px]">
+              Une création cadrée, pas un empilement de pages.
+            </h2>
+          </div>
+          <p className="text-lg leading-relaxed text-white/60 md:col-span-3">
+            Le projet avance par décisions courtes : ce que la page doit dire, ce que l’utilisateur doit comprendre, ce que Google doit identifier.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-arti-black rounded-full hover:bg-gray-100 transition-all duration-300 font-medium"
-            >
-              Démarrer un projet
-              <span>→</span>
+        </div>
+
+        <div className="mt-16 border-t border-white/15 md:ml-[calc(12.5%+0.625rem)]">
+          {process.map(([number, title, text]) => (
+            <div key={number} className="grid grid-cols-1 gap-y-4 border-b border-white/15 py-9 md:grid-cols-7 md:gap-x-5">
+              <span className="text-white/35 md:col-span-1">{number}</span>
+              <h3 className="text-2xl font-normal md:col-span-2">{title}</h3>
+              <p className="text-lg leading-relaxed text-white/60 md:col-span-4">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-gray-400">Preuves</span>
+          </div>
+          <div className="md:col-span-4 md:col-start-2">
+            <h2 className="text-[38px] font-normal leading-[1.02] tracking-tight md:text-[64px]">
+              Une page doit donner envie de continuer.
+            </h2>
+          </div>
+          <div className="space-y-6 text-lg leading-relaxed text-gray-600 md:col-span-3">
+            <p>
+              C’est aussi le rôle du maillage interne : orienter vers les bons exemples, la bonne zone géographique ou le bon service complémentaire.
+            </p>
+            <Link href="/services/seo-referencement-naturel" className="inline-flex text-sm font-medium text-black transition-colors hover:text-[#F70046]">
+              Voir notre approche SEO →
             </Link>
-            <Link
-              href="/works"
-              className="inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-all duration-300 font-medium"
-            >
-              Voir nos réalisations
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-black/15 md:ml-[calc(12.5%+0.625rem)]">
+          {proofLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="group grid grid-cols-1 gap-y-3 border-b border-black/15 py-8 md:grid-cols-7 md:gap-x-5">
+              <h3 className="text-2xl font-normal transition-colors group-hover:text-[#F70046] md:col-span-2">{link.label}</h3>
+              <p className="text-lg leading-relaxed text-gray-600 md:col-span-4">{link.text}</p>
+              <span className="text-sm font-medium md:col-span-1 md:text-right">Voir →</span>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-gray-400">FAQ</span>
+          </div>
+          <div className="md:col-span-3 md:col-start-2">
+            <h2 className="text-[38px] font-normal leading-[1.02] tracking-tight md:text-[56px]">
+              Questions fréquentes.
+            </h2>
+          </div>
+          <div className="md:col-span-4">
+            {faqItems.map((item) => (
+              <div key={item.question} className="border-t border-black/15 py-7 last:border-b">
+                <h3 className="text-xl font-normal">{item.question}</h3>
+                <p className="mt-4 text-base leading-relaxed text-gray-600">{item.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 8. MAILLAGE INTERNE - AUTRES SERVICES */}
-      <section className="container mx-auto px-6 md:px-12 mt-32">
-        <div className="mb-12">
-          <h2 className="text-[28px] md:text-[40px] font-normal text-arti-black tracking-tight">
-            Nos autres services
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link
-            href="/services/branding-identite-visuelle"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
-          >
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              Branding & Identité Visuelle
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
-              Créez une identité de marque forte et mémorable qui vous distingue de la concurrence.
+      <section className="bg-[#050505] px-6 py-24 text-white md:px-10 md:py-32">
+        <div className="grid grid-cols-1 gap-y-10 md:grid-cols-8 md:gap-x-5">
+          <div className="hidden md:block md:col-span-1">
+            <span className="text-sm font-medium text-white/40">Contact</span>
+          </div>
+          <div className="md:col-span-4 md:col-start-2">
+            <h2 className="text-[44px] font-normal leading-[0.98] tracking-tight md:text-[82px]">
+              On construit quelque chose qui sert vraiment.
+            </h2>
+          </div>
+          <div className="space-y-6 md:col-span-3 md:pt-24">
+            <p className="text-lg leading-relaxed text-white/60">
+              On peut cadrer votre besoin, identifier les pages prioritaires et vous dire quel format de site a le plus de sens.
             </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              En savoir plus →
-            </span>
-          </Link>
-
-          <Link
-            href="/services/seo-referencement-naturel"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
-          >
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              SEO & Référencement Naturel
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
-              Améliorez votre visibilité sur Google et générez du trafic qualifié vers votre site.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              En savoir plus →
-            </span>
-          </Link>
-
-          <Link
-            href="/creation-site-internet-paris"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
-          >
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              Création de site internet à Paris
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
-              Une page dédiée aux entreprises parisiennes, avec un angle local et des réponses adaptées aux recherches géographiques.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              Découvrir →
-            </span>
-          </Link>
-
-          <Link
-            href="/creation-site-internet-boulogne-billancourt"
-            className="group border border-black/10 rounded-2xl p-8 hover:border-black/30 hover:bg-gray-50 transition-all duration-300"
-          >
-            <h3 className="text-2xl font-medium text-arti-black mb-3 group-hover:text-amber-600 transition-colors">
-              Agence web Boulogne-Billancourt
-            </h3>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-4">
-              Nous accompagnons les PME et indépendants des Hauts-de-Seine (92) dans la création de leur site vitrine.
-            </p>
-            <span className="text-sm font-medium text-arti-black group-hover:translate-x-2 inline-block transition-transform">
-              Découvrir →
-            </span>
-          </Link>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-colors hover:bg-[#F70046] hover:text-white">
+                Démarrer le projet
+              </Link>
+              <Link href="/tarifs" className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black">
+                Voir les tarifs
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-
     </main>
   )
 }

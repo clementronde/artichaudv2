@@ -4,8 +4,8 @@ import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 
 export const metadata: Metadata = {
-  title: "Création de site internet sur mesure | Sites vitrines & web apps",
-  description: "Création de sites internet sur mesure : site vitrine, site corporate, e-commerce et application web. Design, développement, performance et SEO technique intégrés.",
+  title: "Création de site internet | Site vitrine, SEO & design sur mesure",
+  description: "Création de site internet professionnel : stratégie, UX/UI, développement, SEO technique et contenus pensés pour convertir vos visiteurs en demandes qualifiées.",
   keywords: [
     "création site internet",
     "développement site web",
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     "UX design"
   ],
   openGraph: {
-    title: "Création de site internet sur mesure - Artichaud Studio",
-    description: "Sites vitrines, e-commerce et applications web modernes. Design, développement, performance et SEO technique.",
+    title: "Création de site internet professionnel - Artichaud Studio",
+    description: "Sites vitrines, e-commerce et applications web pensés pour votre image, votre visibilité Google et vos conversions.",
     url: "https://www.artichaud-studio.fr/services/creation-site-internet",
     images: [
       {

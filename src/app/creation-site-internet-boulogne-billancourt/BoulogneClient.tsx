@@ -1,17 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import Image from "next/image";
-import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
 
 // --- COMPOSANTS UI & MICRO-INTERACTIONS ---
-
-// 1. Texte Glitch (Effet Cyberpunk/Tech)
-const GlitchText = ({ text }: { text: string }) => {
-  return <span className="text-gray-400">{text}</span>;
-};
 
 // 2. Accordéon FAQ Fluide
 const AccordionItem = ({ question, answer }: { question: string, answer: string }) => {
@@ -46,84 +39,48 @@ const staggerContainer: Variants = {
 };
 
 export default function BoulogneClient() {
-  
-  // JSON-LD Local Business
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Artichaud Studio",
-    "image": "https://www.artichaud-studio.fr/icon.png",
-    "telephone": "+33687538017",
-    "url": "https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Boulogne-Billancourt",
-      "postalCode": "92100",
-      "addressRegion": "Hauts-de-Seine",
-      "addressCountry": "FR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.8397,
-      "longitude": 2.2399
-    },
-    "priceRange": "€€-€€€"
-  };
-
   return (
     <main className="w-full bg-white min-h-screen overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-24 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
-        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-           <CanvasEffect />
-        </div>
-        
-        <motion.div 
-          className="relative z-10 max-w-5xl mx-auto text-center"
+      <section className="relative min-h-[88vh] bg-[#050505] px-6 pt-32 pb-10 text-white md:px-10 md:pt-40">
+        <motion.div
+          className="flex min-h-[calc(88vh-10rem)] flex-col justify-between"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F70046]"></span>
-              </span>
-              Agence Web Boulogne-Billancourt (92)
-            </span>
-          </motion.div>
+          <div>
+            <motion.div variants={fadeInUp} className="mb-8 flex flex-wrap gap-3 text-xs font-medium uppercase tracking-wide text-white/50">
+              <span>Boulogne-Billancourt</span>
+              <span>Hauts-de-Seine</span>
+              <span>Site vitrine & SEO local</span>
+            </motion.div>
 
-          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 text-balance">
-            Création de site internet à <br className="hidden md:block"/> Boulogne-Billancourt pour marques qui <GlitchText text="se démarquent" />.
-          </motion.h1>
+            <motion.h1 variants={fadeInUp} className="max-w-[1180px] text-[48px] font-normal leading-[0.94] tracking-tight text-balance md:text-[92px] lg:text-[128px]">
+              Création de site internet à Boulogne-Billancourt.
+            </motion.h1>
+          </div>
 
-          <motion.div variants={fadeInUp} className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed space-y-4 text-balance">
-            <p>
-              Vous cherchez une <strong>agence web à Boulogne-Billancourt</strong> capable de traduire votre expertise en une expérience digitale mémorable ? Bienvenue chez le studio Artichaud.
+          <motion.div variants={fadeInUp} className="mt-16 grid grid-cols-1 gap-8 border-t border-white/15 pt-8 md:grid-cols-8 md:gap-x-5">
+            <p className="max-w-2xl text-lg leading-relaxed text-white/65 md:col-span-4 md:text-xl">
+              Artichaud Studio accompagne les entreprises de Boulogne, Paris Ouest et des Hauts-de-Seine avec des sites vitrines pensés pour convertir les recherches locales en demandes qualifiées.
             </p>
-            <p>
-              Nous accompagnons les entreprises des Hauts-de-Seine dans la création de sites internet vitrines performants, pensés pour capter une audience locale et qualifiée.
-            </p>
-          </motion.div>
-
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/contact" className="group relative px-8 py-4 bg-[#F70046] text-white font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105">
-              <span className="relative z-10">Demander un devis</span>
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
-            </Link>
-            <Link href="#offres" className="px-8 py-4 text-white font-medium hover:text-[#F70046] transition-colors underline-offset-4 hover:underline">
-              Découvrir nos offres
-            </Link>
+            <div className="flex flex-col gap-3 md:col-span-2 md:col-start-6">
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-sm font-medium text-black transition-colors hover:bg-[#F70046] hover:text-white">
+                Demander un devis
+              </Link>
+              <Link href="/works" className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black">
+                Voir les réalisations
+              </Link>
+            </div>
+            <div className="text-sm leading-relaxed text-white/45 md:col-span-1">
+              Boulogne, Issy-les-Moulineaux, Saint-Cloud, Sèvres, Paris 16.
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* --- H2: AGENCE CRÉATIVE (NOUVELLE MISE EN PAGE) --- */}
+      {/* --- H2: AGENCE CRÉATIVE --- */}
       <section className="py-20 md:py-28 bg-white">
         <div className="px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-12 items-start">
@@ -133,33 +90,24 @@ export default function BoulogneClient() {
 
             <div className="md:col-span-4 md:col-start-2">
               <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
-                Une agence web créative ancrée à Boulogne-Billancourt.
+                Une agence web à Boulogne-Billancourt pour les entreprises du 92.
               </h2>
             </div>
 
             <div className="md:col-span-3 space-y-6 text-lg leading-relaxed text-gray-600">
               <p>
-                Installée au cœur de l'écosystème dynamique du 92, Artichaud n'est pas une simple agence de développement. Nous sommes des artisans du web.
+                Installée au cœur de l’écosystème du 92, Artichaud accompagne les entreprises de Boulogne-Billancourt qui veulent être plus visibles sur Google et plus convaincantes avant le premier échange commercial.
               </p>
               <p>
-                Notre force: faire dialoguer branding stratégique, webdesign et excellence technique pour créer un site qui porte vraiment votre positionnement.
+                Notre force : faire dialoguer branding, webdesign, développement et SEO local pour créer une présence digitale cohérente, de la page d’accueil jusqu’au formulaire.
               </p>
               <p>
-                Cabinet, commerce, PME ou startup: nous construisons une présence digitale claire, locale et crédible.
+                Cabinet, commerce, PME ou startup locale : nous adaptons la structure du site à vos recherches prioritaires, notamment création site internet Boulogne-Billancourt, agence web Boulogne ou vos propres requêtes métier dans les Hauts-de-Seine.
               </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 mt-16">
-            <div className="md:col-span-7 md:col-start-2">
-              <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden bg-gray-100">
-                 <Image 
-                   src="/LP/creation-site-boulogne-billancourt/google_maps_boulogne_billancourt.avif" 
-                   alt="Agence web à Boulogne Billancourt - Quartier Rives de Seine"
-                   fill
-                   sizes="(max-width: 768px) 100vw, 50vw"
-                   className="object-cover"
-                 />
+              <div className="flex flex-wrap gap-x-5 gap-y-3 pt-2 text-sm font-medium">
+                <Link href="/services/creation-site-internet" className="hover:text-[#F70046] transition-colors">Notre méthode générale →</Link>
+                <Link href="/services/seo-referencement-naturel" className="hover:text-[#F70046] transition-colors">SEO local →</Link>
+                <Link href="/tarifs" className="hover:text-[#F70046] transition-colors">Voir les tarifs →</Link>
               </div>
             </div>
           </div>
@@ -175,11 +123,11 @@ export default function BoulogneClient() {
             </div>
             <div className="md:col-span-5 md:col-start-2">
               <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
-                Des formats de collaboration clairs, adaptés à votre maturité digitale.
+                Des formats adaptés aux entreprises de Boulogne-Billancourt.
               </h2>
             </div>
             <p className="md:col-span-2 text-lg leading-relaxed text-gray-600">
-              Pas de pack artificiel ni de fausse promo. On calibre le périmètre selon votre besoin réel.
+              On calibre le périmètre selon votre besoin réel : visibilité sur Boulogne, refonte, génération de leads, autonomie de contenu ou repositionnement.
             </p>
           </div>
 
@@ -187,17 +135,17 @@ export default function BoulogneClient() {
             {[
               {
                 name: "Vitrine essentiel",
-                detail: "Pour présenter une activité, rassurer et générer les premiers contacts.",
-                items: ["Structure courte", "Design responsive", "Formulaire", "Socle technique SEO"],
+                detail: "Pour présenter une activité locale, rassurer vite et générer les premiers contacts qualifiés.",
+                items: ["Structure courte", "Design responsive", "Formulaire", "SEO local"],
               },
               {
                 name: "Vitrine créatif",
-                detail: "Pour une entreprise qui veut une présence plus distinctive et plus orientée conversion.",
-                items: ["Direction artistique", "UX/UI sur-mesure", "CMS adapté", "SEO local avancé"],
+                detail: "Pour une entreprise du 92 qui veut une présence plus distinctive, plus éditoriale et plus orientée conversion.",
+                items: ["Direction artistique", "UX/UI sur-mesure", "CMS adapté", "Pages locales"],
               },
               {
                 name: "Site + branding",
-                detail: "Pour aligner l'identité, le discours et l'expérience web dans une même refonte.",
+                detail: "Pour aligner l'identité, le discours commercial et l'expérience web dans une même refonte locale.",
                 items: ["Logo et charte", "Site premium", "Copywriting", "Accompagnement lancement"],
               },
             ].map((offer) => (
@@ -222,35 +170,38 @@ export default function BoulogneClient() {
       </section>
 
       {/* --- H2: PROCESSUS --- */}
-      <section className="py-24 bg-neutral-950 text-white overflow-hidden relative">
-        <div className="container mx-auto px-6 relative z-10">
-           <div className="text-center max-w-3xl mx-auto mb-16">
-             <h2 className="text-3xl md:text-5xl font-bold mb-6">Un processus clair</h2>
-             <p className="text-neutral-400 text-lg">
-               Nous ne laissons rien au hasard. Voici comment nous collaborons pour garantir le succès de votre projet.
+      <section className="py-20 md:py-28 bg-neutral-950 text-white overflow-hidden relative">
+        <div className="px-6 md:px-10 relative z-10">
+           <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10 mb-14">
+             <div className="hidden md:block md:col-span-1 pt-2">
+               <span className="text-sm font-medium text-white/40">Méthode</span>
+             </div>
+             <div className="md:col-span-4 md:col-start-2">
+               <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight">Un processus clair, sans tunnel opaque.</h2>
+             </div>
+             <p className="md:col-span-3 text-lg leading-relaxed text-white/60">
+               Vous savez ce qui est travaillé, pourquoi, et comment chaque décision sert votre visibilité à Boulogne-Billancourt ou votre conversion.
              </p>
            </div>
-           
-           <div className="space-y-8 max-w-4xl mx-auto">
+
+           <div className="md:ml-[calc(12.5%+0.625rem)] border-t border-white/15">
               {[
-                  { id: "01", title: "Découverte & Audit", desc: "Rencontre (visio ou café à Boulogne) pour analyser vos besoins et votre marché." },
-                  { id: "02", title: "UX/UI Design", desc: "Création de l'arborescence et des maquettes graphiques haute fidélité." },
-                  { id: "03", title: "Développement", desc: "Intégration pixel-perfect sur le CMS choisi avec optimisations techniques." },
-                  { id: "04", title: "Mise en ligne", desc: "Tests, formation à l'administration et lancement officiel." }
+                  { id: "01", title: "Diagnostic local", desc: "Objectifs, concurrence à Boulogne et Paris Ouest, pages prioritaires et parcours de contact." },
+                  { id: "02", title: "Structure SEO locale", desc: "Arborescence, messages clés, maillage interne et priorités de recherche géographique." },
+                  { id: "03", title: "Design & développement", desc: "Interface sur mesure, responsive, rapide et adaptée à votre CMS ou stack." },
+                  { id: "04", title: "Mise en ligne", desc: "Tests, indexation, tracking, formation et prochaines actions éditoriales." }
               ].map((step, idx) => (
                   <motion.div 
                     key={idx}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="flex gap-6 md:gap-8 group p-6 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
+                    className="grid grid-cols-1 md:grid-cols-7 gap-x-5 gap-y-4 py-9 border-b border-white/15"
                   >
-                      <div className="flex-shrink-0 w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-xl font-bold text-[#F70046] group-hover:bg-[#F70046] group-hover:text-white transition-colors duration-300">
-                          {step.id}
-                      </div>
-                      <div>
-                          <h3 className="text-xl font-bold mb-2 group-hover:text-[#F70046] transition-colors">{step.title}</h3>
-                          <p className="text-neutral-400 leading-relaxed text-sm md:text-base">
+                      <span className="md:col-span-1 text-white/35">{step.id}</span>
+                      <h3 className="md:col-span-2 text-2xl font-normal text-white">{step.title}</h3>
+                      <div className="md:col-span-4">
+                          <p className="text-white/60 leading-relaxed text-base md:text-lg">
                               {step.desc}
                           </p>
                       </div>
@@ -261,47 +212,44 @@ export default function BoulogneClient() {
       </section>
 
       {/* --- H2: EXEMPLES DE PROJETS --- */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-black">
-                Projets récents
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="py-20 md:py-28 bg-white">
+        <div className="px-6 md:px-10">
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10 mb-14">
+              <div className="hidden md:block md:col-span-1 pt-2">
+                <span className="text-sm font-medium text-gray-500">Preuves</span>
+              </div>
+              <div className="md:col-span-4 md:col-start-2">
+                <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
+                  Des références pour évaluer le niveau avant de lancer votre site local.
+                </h2>
+              </div>
+              <p className="md:col-span-3 text-lg leading-relaxed text-gray-600">
+                Quelques projets pour évaluer notre direction artistique, notre sens de la structure et notre capacité à rendre une offre lisible.
+              </p>
+            </div>
+            <div className="md:ml-[calc(12.5%+0.625rem)] border-t border-black/15">
                 {[
-                    { title: "Lumyn - Agence Digitale", cat: "Webflow & 3D", img: "/projects/Lumyn.avif" },
-                    { title: "Keleti Design", cat: "Portfolio Minimaliste", img: "/projects/Keleti.avif" },
-                    { title: "Disobey Apparel", cat: "E-shop Shopify", img: "/projects/Disobey.avif" }
+                    { title: "Lumyn", cat: "Plateforme créative, branding et développement", href: "/works/lumyn" },
+                    { title: "Keleti Design", cat: "Identité premium et expérience éditoriale", href: "/works/keleti" },
+                    { title: "Jobmi", cat: "Naming et identité pour plateforme emploi", href: "/works/jobmi" }
                 ].map((projet, i) => (
-                    <motion.div 
+                    <motion.div
                         key={i} 
-                        className="group cursor-pointer"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
                     >
-                        <div className="relative h-72 w-full bg-gray-100 rounded-2xl overflow-hidden mb-4 border border-gray-200">
-                            <Image 
-                                src={projet.img} 
-                                alt={projet.title} 
-                                fill 
-                                sizes="(max-width: 768px) 100vw, 33vw"
-                                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
-                            />
-                            {/* Overlay au survol */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <span className="px-6 py-2 bg-white text-black font-bold rounded-full text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                    Voir le projet
-                                </span>
-                            </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-black group-hover:text-blue-600 transition-colors">{projet.title}</h3>
-                        <p className="text-sm text-gray-500 mt-1">{projet.cat}</p>
+                        <Link href={projet.href} className="group grid grid-cols-1 md:grid-cols-7 gap-x-5 gap-y-3 py-8 border-b border-black/15">
+                          <h3 className="md:col-span-2 text-2xl md:text-3xl font-normal text-black group-hover:text-[#F70046] transition-colors">{projet.title}</h3>
+                          <p className="md:col-span-4 text-lg text-gray-600 leading-relaxed">{projet.cat}</p>
+                          <span className="md:col-span-1 text-sm font-medium text-black md:text-right">Voir →</span>
+                        </Link>
                     </motion.div>
                 ))}
             </div>
-            <div className="text-center mt-12">
-                <Link href="/works" className="inline-block px-8 py-3 border border-black text-black font-bold rounded-full hover:bg-black hover:text-white transition-colors">
-                    Voir tous nos projets
+            <div className="md:ml-[calc(12.5%+0.625rem)] mt-10">
+                <Link href="/works" className="inline-flex rounded-full border border-black/15 px-7 py-4 text-sm font-medium text-black hover:bg-black hover:text-white transition-colors">
+                    Voir toutes les réalisations
                 </Link>
             </div>
         </div>
@@ -316,20 +264,20 @@ export default function BoulogneClient() {
             </div>
             <div className="md:col-span-4 md:col-start-2">
               <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
-                Pourquoi choisir Artichaud à Boulogne ?
+                Pourquoi choisir une agence web locale à Boulogne ?
               </h2>
             </div>
             <p className="md:col-span-3 text-lg leading-relaxed text-gray-600">
-              Plus qu'un prestataire, nous sommes un partenaire de proximité: disponible, lisible dans sa méthode, et exigeant sur la qualité du rendu.
+              Plus qu’un prestataire, nous sommes un partenaire de proximité : disponible, lisible dans sa méthode, et attentif aux enjeux des entreprises de Boulogne-Billancourt.
             </p>
           </div>
 
           <div className="md:ml-[calc(12.5%+0.625rem)] mt-14 border-t border-black/15">
             {[
-              ["Réactivité & proximité", "Un interlocuteur direct, des échanges simples, et la possibilité d'organiser rapidement un point de travail."],
+              ["Réactivité & proximité", "Un interlocuteur direct, des échanges simples, et la possibilité d'organiser rapidement un point de travail autour de Boulogne ou Paris Ouest."],
               ["Excellence technique", "Webflow, WordPress, Next.js: nous choisissons la technologie selon l'objectif, pas selon une habitude d'agence."],
               ["Relation humaine", "Pas de ticket anonyme ni de tunnel opaque. Vous savez ce qui est fait, pourquoi, et dans quel ordre."],
-              ["Culture locale 92", "Nous comprenons les codes d'une clientèle exigeante, entre B2B, commerces de proximité et entreprises en croissance."],
+              ["Culture locale 92", "Nous comprenons les codes d'une clientèle exigeante entre Boulogne, Issy-les-Moulineaux, Saint-Cloud, Sèvres et Paris 16."],
             ].map(([title, text]) => (
               <div key={title} className="grid grid-cols-1 md:grid-cols-7 gap-x-5 gap-y-4 py-9 border-b border-black/15">
                 <h3 className="md:col-span-2 text-2xl font-normal text-black">{title}</h3>
@@ -370,52 +318,39 @@ export default function BoulogneClient() {
       </section>
 
       {/* --- CONCLUSION + CTA --- */}
-      <section className="relative py-40 px-6 overflow-hidden bg-[#050505] text-white">
-         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <section className="relative py-28 md:py-36 px-6 md:px-10 overflow-hidden bg-[#050505] text-white">
          <motion.div
-           className="relative z-10 max-w-4xl mx-auto text-center"
+           className="relative z-10 grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10"
            initial={{ opacity: 0, y: 30 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ duration: 0.8 }}
          >
-           <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter text-white">
-             Prêt à digitaliser <br/> 
-             <GlitchText text="votre activité ?" />
-           </h2>
-           <p className="text-xl mb-12 text-neutral-400 max-w-2xl mx-auto font-light">
-             Ne laissez pas vos concurrents prendre toute la place sur le web local. Un site vitrine performant est le meilleur investissement pour votre croissance à Boulogne-Billancourt.
-           </p>
-           
-           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+           <div className="hidden md:block md:col-span-1 pt-2">
+             <span className="text-sm font-medium text-white/40">Contact</span>
+           </div>
+           <div className="md:col-span-4">
+             <h2 className="text-[42px] md:text-[72px] leading-[1] font-normal tracking-tight text-white">
+               Parlons de votre futur site.
+             </h2>
+           </div>
+           <div className="md:col-span-3 md:pt-20">
+             <p className="text-lg mb-8 text-neutral-400 font-light leading-relaxed">
+               Si vous voulez améliorer votre visibilité à Boulogne-Billancourt ou créer un site plus crédible avant vos prochains rendez-vous commerciaux, on peut cadrer les priorités ensemble.
+             </p>
+             <div className="flex flex-col sm:flex-row gap-4">
               <Link 
                 href="/contact" 
-                className="group relative px-10 py-5 bg-white text-black font-bold rounded-full text-lg overflow-hidden transition-all hover:scale-105"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-medium rounded-full transition-colors hover:bg-[#F70046] hover:text-white"
               >
-                <span className="relative z-10 group-hover:text-black">Demander un devis</span>
-                <div className="absolute inset-0 bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
+                Demander un devis
               </Link>
-              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#F70046] transition-colors">
-                Réserver un appel découverte
+              <Link href="/tarifs" className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white hover:text-black transition-colors">
+                Voir les tarifs
               </Link>
+             </div>
            </div>
          </motion.div>
       </section>
-
-      {/* --- LIENS INTERNES SEO --- */}
-      <div className="bg-black py-8 border-t border-neutral-900">
-        <div className="container mx-auto px-6 text-center text-xs text-neutral-600">
-            <p className="mb-2">Aller plus loin :</p>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
-                <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Création de site internet</Link>
-                <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Création site internet Paris & IDF</Link>
-                <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">WordPress / Webflow / Wix</Link>
-                <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
-                <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>
-                <Link href="/tarifs" className="hover:text-white transition-colors">Nos tarifs</Link>
-                <Link href="/blog" className="hover:text-white transition-colors">Blog Agence</Link>
-            </div>
-        </div>
-      </div>
 
     </main>
   );
