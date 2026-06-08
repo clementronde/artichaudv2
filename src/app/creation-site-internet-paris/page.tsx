@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ParisClient from "./ParisClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création de site internet Paris | Studio web & branding",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "refonte site internet Paris"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/creation-site-internet-paris",
+    canonical: `${SITE_URL}/creation-site-internet-paris`,
   },
   openGraph: {
     title: "Agence Web Paris - Création de Sites Internet Uniques",
     description: "Votre partenaire digital à Paris. Design, stratégie et performance pour les marques qui veulent se démarquer.",
-    url: "https://www.artichaud-studio.fr/creation-site-internet-paris",
+    url: `${SITE_URL}/creation-site-internet-paris`,
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",
@@ -103,7 +104,10 @@ export default function Page() {
       <ParisClient />
       <RelatedLinks
         title="Préparer votre création de site à Paris"
-        links={relatedLinkGroups.localSite}
+        links={[
+          relatedLinkGroups.serviceWeb[1],
+          ...relatedLinkGroups.localSite.slice(0, 3),
+        ]}
       />
     </>
   );

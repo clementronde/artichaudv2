@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "FAQ | Questions Fréquentes - Artichaud Studio",
@@ -13,12 +14,12 @@ export const metadata: Metadata = {
     "agence branding questions"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/faq"
+    canonical: `${SITE_URL}/faq`
   },
   openGraph: {
     title: "FAQ - Artichaud Studio",
     description: "Questions fréquentes sur nos services de branding et création web à Paris.",
-    url: "https://www.artichaud-studio.fr/faq"
+    url: `${SITE_URL}/faq`
   }
 };
 

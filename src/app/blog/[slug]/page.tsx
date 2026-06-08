@@ -8,9 +8,7 @@ import CalloutBox from '@/components/mdx/CalloutBox';
 import remarkGfm from 'remark-gfm';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
-
-// URL de base de ton site
-const BASE_URL = 'https://www.artichaud-studio.fr';
+import { SITE_URL as BASE_URL } from '@/lib/seo';
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {

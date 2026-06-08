@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import AboutClient from "@/components/about/AboutClient"
-// On utilise getAllPosts car c'est le nom de la fonction dans votre lib/mdx
-import { getAllPosts } from "@/lib/mdx" 
+import { getAllPosts } from "@/lib/mdx"
 import RelatedLinks from "@/components/seo/RelatedLinks"
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData"
+import { SITE_URL } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "À Propos | Notre Histoire & Vision - Artichaud Studio Paris",
@@ -19,10 +19,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "À Propos - Artichaud Studio Paris",
     description: "L'équipe, notre vision et notre approche pour faire grandir votre marque.",
-    url: "https://www.artichaud-studio.fr/about",
+    url: `${SITE_URL}/about`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: "À Propos Artichaud Studio"
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/about"
+    canonical: `${SITE_URL}/about`
   }
 }
 

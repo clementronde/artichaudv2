@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ShowcaseClient from "./ShowcaseClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création site vitrine WordPress, Webflow & Wix | Studio créatif",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "prix site vitrine wordpress"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/creation-site-vitrine-wordpress-webflow-wix",
+    canonical: `${SITE_URL}/creation-site-vitrine-wordpress-webflow-wix`,
   },
   openGraph: {
     title: "Création Site Vitrine : WordPress, Webflow ou Wix ?",
     description: "Ne vous trompez pas de technologie. Découvrez notre comparatif expert et nos packs de création de sites vitrines performants.",
-    url: "https://www.artichaud-studio.fr/creation-site-vitrine-wordpress-webflow-wix",
+    url: `${SITE_URL}/creation-site-vitrine-wordpress-webflow-wix`,
     siteName: "Agence Artichaud",
     locale: "fr_FR",
     type: "website",

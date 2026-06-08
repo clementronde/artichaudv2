@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Artichaud Studio - Orthographe Correcte | Artichaud, Artichaut ?",
@@ -17,10 +18,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Artichaud Studio - Comment nous écrire correctement",
     description: "Artichaud Studio avec un D. Studio de création web, branding et stratégie digitale à Paris.",
-    url: "https://www.artichaud-studio.fr/artichaud-studio-orthographe",
+    url: `${SITE_URL}/artichaud-studio-orthographe`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: "Artichaud Studio - Orthographe",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/artichaud-studio-orthographe",
+    canonical: `${SITE_URL}/artichaud-studio-orthographe`,
   },
   robots: {
     index: true,

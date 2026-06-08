@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import RedesignClient from "./RedesignClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Refonte de site internet | Modernisez votre site vitrine & SEO",
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
     "audit site internet"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/refonte-site-internet",
+    canonical: `${SITE_URL}/refonte-site-internet`,
   },
   openGraph: {
     title: "Refonte de Site Internet - Transformez votre présence en ligne",
     description: "Design daté ? Performances lentes ? Découvrez notre approche pour une refonte de site qui booste votre image et votre business.",
-    url: "https://www.artichaud-studio.fr/refonte-site-internet",
+    url: `${SITE_URL}/refonte-site-internet`,
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",

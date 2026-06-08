@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import BrandingIdentiteVisuelleClient from "./BrandingIdentiteVisuelleClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Branding & Identité Visuelle Paris | Agence Design de Marque - Artichaud Studio",
@@ -23,10 +24,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Branding & Identité Visuelle Paris - Artichaud Studio",
     description: "Création d'identités visuelles fortes et mémorables. Logo, charte graphique, stratégie de marque. Démarquez-vous avec une identité unique.",
-    url: "https://www.artichaud-studio.fr/services/branding-identite-visuelle",
+    url: `${SITE_URL}/services/branding-identite-visuelle`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 512,
         height: 512,
         alt: "Branding & Identité Visuelle Paris - Artichaud Studio"
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/services/branding-identite-visuelle"
+    canonical: `${SITE_URL}/services/branding-identite-visuelle`
   }
 };
 

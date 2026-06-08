@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SeoReferencementNaturelClient from "./SeoReferencementNaturelClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "SEO & Référencement Naturel Paris | Agence SEO Expert - Artichaud Studio",
@@ -23,10 +24,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SEO & Référencement Naturel Paris - Artichaud Studio",
     description: "Améliorez votre visibilité sur Google. Audit SEO, stratégie de contenu, optimisations techniques. Générez du trafic qualifié.",
-    url: "https://www.artichaud-studio.fr/services/seo-referencement-naturel",
+    url: `${SITE_URL}/services/seo-referencement-naturel`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 512,
         height: 512,
         alt: "SEO & Référencement Naturel Paris - Artichaud Studio"
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/services/seo-referencement-naturel"
+    canonical: `${SITE_URL}/services/seo-referencement-naturel`
   }
 };
 

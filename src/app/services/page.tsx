@@ -3,6 +3,7 @@ import { getAllPosts } from '@/lib/mdx'
 import ServicesClient from '@/components/services/ServicesClient'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
+import { SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: "Nos Services | Branding, Webdesign & Stratégie Digitale - Artichaud",
@@ -20,10 +21,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Services - Artichaud Studio Paris",
     description: "Stratégie de marque, identité visuelle, webdesign, webmarketing et shooting produit. Nos expertises pour faire grandir votre marque.",
-    url: "https://www.artichaud-studio.fr/services",
+    url: `${SITE_URL}/services`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: "Services Artichaud Studio Paris"
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/services"
+    canonical: `${SITE_URL}/services`
   }
 };
 

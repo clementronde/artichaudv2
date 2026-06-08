@@ -1,49 +1,130 @@
 ---
-title: "Sous le capot d'Artichaud : Pourquoi nous parions sur Next.js et React"
+title: "Notre stack web en 2026 : pourquoi et quand utiliser Next.js"
 date: "2026-01-19"
-noindex: true
-description: "Découvrez la stack technique que nous utilisons pour créer des sites web ultra-rapides, sécurisés et évolutifs. Zoom sur Next.js, React et le Jamstack."
-tags: ["tech", "développement", "nextjs", "performance"]
+modifiedDate: "2026-06-08"
+description: "Découvrez comment Artichaud Studio choisit sa stack web en 2026 et dans quels cas Next.js, React et un CMS headless sont réellement pertinents."
+tags: ["Next.js", "React", "développement web", "performance", "CMS headless"]
 image: "/blog/quel-stack-nous-utilisons.avif"
 ---
 
-Quand un client pousse la porte du studio, la question technique arrive souvent en second plan. D'abord, on parle design, marque, message. Pourtant, le moteur qui propulse votre site est déterminant pour votre succès.
+Le choix d'une technologie influence la performance, la maintenance et la capacité d'un site à évoluer. Pourtant, ce choix ne devrait jamais être guidé uniquement par la popularité d'un framework.
 
-Chez **Artichaud Studio**, nous avons fait un choix radical : nous avons abandonné les constructeurs de pages lourds (comme les vieux thèmes WordPress surchargés) pour adopter une architecture moderne, souvent appelée **Jamstack**.
+Chez **Artichaud Studio**, nous utilisons fréquemment Next.js et React pour construire des sites sur mesure. Mais nous pouvons aussi recommander une solution plus simple lorsque le projet ne justifie pas cette architecture.
 
-Voici pourquoi nous construisons le web de demain avec **Next.js** et **React**.
+Voici comment nous raisonnons en 2026.
 
-## 1. Next.js : La vitesse n'est pas une option
+## La stack doit servir le projet
 
-Nous utilisons **Next.js**, un framework basé sur React. Pour faire simple : c'est la structure qui permet à votre site d'être non seulement affiché, mais *compris* par les moteurs de recherche.
+Avant de choisir les outils, nous évaluons :
 
-### Les avantages pour votre business :
-* **Vitesse fulgurante :** Grâce au *Static Site Generation* (SSG), vos pages sont pré-générées. Le serveur ne "réfléchit" pas à chaque visite, il sert la page instantanément.
-* **SEO Friendly :** Contrairement à certaines applications web classiques, Google lit le contenu de nos sites sans effort.
+- le type de contenu et sa fréquence de mise à jour ;
+- les fonctionnalités attendues ;
+- le niveau d'autonomie nécessaire ;
+- les intégrations avec des services externes ;
+- les exigences de performance et de sécurité ;
+- le budget disponible pour la maintenance ;
+- les compétences de l'équipe qui reprendra le site.
 
-> **Le saviez-vous ?** Un retard d'une seconde dans le chargement d'une page peut réduire les conversions de 7%. La vitesse est le premier pilier dont nous parlons dans notre guide sur **[les 5 piliers du SEO](/blog/piliers-seo-2026)**.
+Un site vitrine de quelques pages, une plateforme avec espace connecté et un média publiant chaque jour n'ont pas les mêmes contraintes. La meilleure stack est celle qui répond au besoin sans créer de complexité inutile.
 
-## 2. React : Une interface modulaire et vivante
+## Pourquoi utiliser Next.js
 
-React est la librairie créée par Facebook (Meta). Elle nous permet de construire votre site comme un jeu de LEGO.
+Next.js est un framework basé sur React. Son App Router permet notamment d'organiser les pages, les mises en page, les composants serveur et les métadonnées dans une même architecture.
 
-Au lieu de copier-coller du code, nous créons des **composants** réutilisables (un bouton, une carte produit, un menu).
-* **Maintenance facilitée :** On modifie le composant une fois, il se met à jour partout.
-* **Interactivité :** Des animations fluides et des transitions sans rechargement de page.
+Il est particulièrement intéressant lorsqu'un projet combine contenu éditorial, interface sur mesure et fonctionnalités applicatives.
 
-C'est cette modularité qui nous permet de soigner les moindres détails visuels, un point clé pour renforcer **[l'impact de l'UI sur la confiance client](/blog/impact-ui-confiance)**.
+### Plusieurs stratégies de rendu
 
-## 3. Le mot de la fin sur le CMS (Gestion de contenu)
+Toutes les pages n'ont pas besoin d'être générées de la même manière. Next.js permet de pré-générer un contenu stable, de mettre certaines données en cache, ou de produire une réponse dynamique lorsque les informations doivent être actualisées à chaque requête.
 
-"Mais est-ce que je pourrai modifier mes textes ?"
-**Absolument.**
+Cette flexibilité permet d'éviter deux extrêmes : recalculer inutilement une page qui change rarement, ou figer une donnée qui doit rester à jour.
 
-Nous découplons le "front-end" (ce que l'on voit) du "back-end" (l'administration). Nous connectons votre site Next.js à des CMS "Headless" (comme Sanity, Strapi, ou même WordPress en mode API). Vous gardez une interface simple pour écrire vos articles, et nous nous occupons d'afficher le tout avec notre code performant.
+### Des composants serveur par défaut
+
+Avec l'App Router, les composants peuvent être rendus côté serveur par défaut. Le navigateur reçoit ainsi le contenu nécessaire sans devoir télécharger tout le code utilisé pour le produire.
+
+Les composants interactifs restent possibles côté client, mais ils peuvent être limités aux zones qui en ont réellement besoin. Cette séparation aide à maîtriser le JavaScript envoyé au visiteur.
+
+### Une gestion intégrée des routes et métadonnées
+
+Les conventions de fichiers de Next.js permettent de gérer les routes, les titres, descriptions, images sociales, fichiers robots et sitemaps. Cela ne garantit pas un bon référencement à lui seul, mais fournit une base structurée pour l'implémenter correctement.
+
+## Le rôle de React
+
+React permet de construire l'interface à partir de composants réutilisables : boutons, cartes, formulaires, sections ou éléments de navigation.
+
+Cette approche est utile lorsqu'elle crée un véritable système :
+
+- les comportements restent cohérents ;
+- une amélioration peut être appliquée à plusieurs pages ;
+- les variantes sont documentées ;
+- les éléments sont plus faciles à tester et maintenir.
+
+La réutilisation ne signifie pas que toutes les pages doivent se ressembler. Un système de composants bien conçu laisse de la place à la direction artistique tout en protégeant les règles essentielles d'accessibilité et d'ergonomie.
+
+## CMS headless ou contenu dans le code ?
+
+Le CMS dépend de la fréquence de publication et des personnes qui administrent le site.
+
+### Contenu dans le code
+
+Pour un petit site mis à jour par une équipe technique, conserver certains contenus dans le projet peut être simple et robuste. Cela évite d'ajouter un service supplémentaire.
+
+### CMS headless
+
+Un CMS headless sépare l'interface d'administration du site visible. Il devient pertinent lorsque plusieurs personnes publient, lorsque les contenus suivent une structure précise ou lorsqu'ils doivent alimenter plusieurs canaux.
+
+Il faut toutefois prévoir la modélisation, les droits d'accès, les aperçus et la maintenance du service. « Headless » n'est pas automatiquement synonyme de plus simple.
+
+### WordPress, Webflow ou Wix
+
+Ces plateformes restent pertinentes dans de nombreux cas. Elles peuvent offrir davantage d'autonomie ou accélérer certains projets. Le choix dépend moins d'une opposition entre « ancien » et « moderne » que des contraintes réelles.
+
+Notre comparatif [WordPress, Webflow ou Wix](/creation-site-vitrine-wordpress-webflow-wix) aide à choisir selon le contexte.
+
+## La performance ne dépend pas seulement du framework
+
+Utiliser Next.js ne rend pas automatiquement un site rapide. Une page peut rester lourde si elle charge trop d'images, de polices, de scripts marketing ou d'animations.
+
+Nous surveillons notamment :
+
+- le poids et les dimensions des images ;
+- le JavaScript réellement nécessaire ;
+- le chargement des polices ;
+- la stabilité visuelle ;
+- la réactivité des interactions ;
+- les scripts tiers ;
+- le comportement sur un téléphone et un réseau moyens.
+
+Les Core Web Vitals sont utiles pour mesurer certains aspects, mais la performance doit aussi être testée dans le parcours réel.
+
+## Ce que nous prévoyons pour la maintenance
+
+Une stack durable doit pouvoir être reprise. Nous cherchons donc à livrer :
+
+1. une structure de projet compréhensible ;
+2. des dépendances limitées et justifiées ;
+3. des composants cohérents ;
+4. des commandes de build et de contrôle reproductibles ;
+5. une documentation adaptée au projet ;
+6. un plan pour les mises à jour et la surveillance.
+
+Le coût d'un site ne s'arrête pas à sa mise en ligne. Une architecture inutilement complexe peut ralentir chaque évolution future.
+
+## Quand nous déconseillons Next.js
+
+Nous ne recommandons pas Next.js lorsque :
+
+- une plateforme existante répond déjà parfaitement au besoin ;
+- l'équipe doit modifier seule une mise en page complexe sans aide technique ;
+- le budget ne permet pas d'assurer la maintenance d'un développement sur mesure ;
+- le projet est une expérimentation très courte ;
+- les fonctionnalités attendues sont principalement couvertes par un outil spécialisé.
+
+Dire non à une technologie fait partie du conseil.
 
 ## Conclusion
 
-Notre stack technique n'est pas juste une lubie de développeur. C'est la garantie d'avoir un site **durable**, **sécurisé** et **performant**.
+Next.js et React offrent une base puissante pour construire des expériences rapides, évolutives et sur mesure. Leur valeur apparaît surtout lorsque l'architecture reste proportionnée au projet et que la performance est travaillée concrètement.
 
-Chez Artichaud Studio, nous aimons la technique, mais seulement quand elle sert votre croissance.
-
----
+Pour cadrer votre besoin, consultez notre service de [création de site internet](/services/creation-site-internet) ou [échangeons sur votre projet](/contact).

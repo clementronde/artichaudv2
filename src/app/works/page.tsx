@@ -3,6 +3,7 @@ import { getAllPosts } from '@/lib/mdx'
 import WorkClient from '@/components/works/WorkClient'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
+import { SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: "Portfolio | Nos Projets Web & Branding - Artichaud Studio Paris",
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Portfolio - Artichaud Studio Paris",
     description: "Nos projets de branding et webdesign pour des marques qui osent se démarquer.",
-    url: "https://www.artichaud-studio.fr/works",
+    url: `${SITE_URL}/works`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: "Portfolio Artichaud Studio"
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/works"
+    canonical: `${SITE_URL}/works`
   }
 };
 

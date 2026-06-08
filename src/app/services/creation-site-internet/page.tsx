@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CreationSiteInternetClient from "./CreationSiteInternetClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création de site internet | Site vitrine, SEO & design sur mesure",
@@ -22,10 +23,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Création de site internet professionnel - Artichaud Studio",
     description: "Sites vitrines, e-commerce et applications web pensés pour votre image, votre visibilité Google et vos conversions.",
-    url: "https://www.artichaud-studio.fr/services/creation-site-internet",
+    url: `${SITE_URL}/services/creation-site-internet`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 512,
         height: 512,
         alt: "Création de site internet sur mesure - Artichaud Studio"
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/services/creation-site-internet"
+    canonical: `${SITE_URL}/services/creation-site-internet`
   }
 };
 

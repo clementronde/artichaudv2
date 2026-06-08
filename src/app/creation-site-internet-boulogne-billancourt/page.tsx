@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import BoulogneClient from "./BoulogneClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création site internet Boulogne-Billancourt | Agence web 92",
@@ -16,12 +17,12 @@ export const metadata: Metadata = {
     "création site Webflow Boulogne"
   ],
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt",
+    canonical: `${SITE_URL}/creation-site-internet-boulogne-billancourt`,
   },
   openGraph: {
     title: "Création de site internet Boulogne-Billancourt | Artichaud Studio",
     description: "Agence web à Boulogne-Billancourt pour sites vitrines, refontes, SEO local et design sur mesure.",
-    url: "https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt",
+    url: `${SITE_URL}/creation-site-internet-boulogne-billancourt`,
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",

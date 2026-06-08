@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
+import { SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales | Artichaud Studio',
   description: 'Mentions légales, politique de confidentialité et conditions d\'utilisation du site Artichaud Studio.',
   robots: {
-    index: true, // On veut que Google indexe cette page pour la confiance
+    index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/mentions-legales`,
   },
 };
 

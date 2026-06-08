@@ -10,6 +10,7 @@ import CustomCursor from "@/components/CustomCursor";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
+import { SITE_URL } from "@/lib/seo";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -27,16 +28,13 @@ const helvetica = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.artichaud-studio.fr'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Artichaud Studio | Agence Web & Branding Paris",
     template: "%s | Artichaud Studio"
   },
   icons: {
-    icon: [
-      { url: '/icon.ico', sizes: '48x48', type: 'image/x-icon' },
-      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
-    ],
+    icon: '/logonavbar.png',
     apple: '/apple-touch-icon.png',
   },
   description: "Artichaud Studio transforme votre marque avec du branding percutant et des sites web sur mesure. Agence créative à Paris spécialisée en identité visuelle, webdesign et stratégie digitale.",

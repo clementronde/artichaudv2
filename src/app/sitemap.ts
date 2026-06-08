@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/data/project'
 import { getAllPosts } from '@/lib/mdx';
+import { SITE_URL as baseUrl } from '@/lib/seo';
+
+export const dynamic = 'force-dynamic'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.artichaud-studio.fr'
   const lastModified = new Date('2026-05-29')
 
   // 1. Pages principales (haute priorité)

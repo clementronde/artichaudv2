@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Tarifs & Prix | Création Site Internet Paris - Artichaud Studio",
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tarifs & Prix - Artichaud Studio Paris",
     description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit sous 48h.",
-    url: "https://www.artichaud-studio.fr/tarifs",
+    url: `${SITE_URL}/tarifs`,
     images: [
       {
-        url: "https://www.artichaud-studio.fr/icon.png",
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: "Tarifs Artichaud Studio"
@@ -34,10 +35,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tarifs & Prix - Artichaud Studio",
     description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€.",
-    images: ["https://www.artichaud-studio.fr/icon.png"]
+    images: [`${SITE_URL}/icon.png`]
   },
   alternates: {
-    canonical: "https://www.artichaud-studio.fr/tarifs"
+    canonical: `${SITE_URL}/tarifs`
   }
 };
 
@@ -50,7 +51,7 @@ const offerSchema = {
   "provider": {
     "@type": "DesignAgency",
     "name": "Artichaud Studio",
-    "url": "https://www.artichaud-studio.fr"
+    "url": SITE_URL
   },
   "itemListElement": [
     {

@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllPosts } from '@/lib/mdx'; // On utilise notre nouvelle lib
+import { getAllPosts } from '@/lib/mdx';
 import { Metadata } from 'next';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
+import { SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Blog création web & branding | Conseils pour PME',
@@ -19,10 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blog - Artichaud Studio Paris',
     description: 'Nos articles sur le branding, le webdesign et la stratégie digitale.',
-    url: 'https://www.artichaud-studio.fr/blog',
+    url: `${SITE_URL}/blog`,
     images: [
       {
-        url: 'https://www.artichaud-studio.fr/icon.png',
+        url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
         alt: 'Blog Artichaud Studio'
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website'
   },
   alternates: {
-    canonical: 'https://www.artichaud-studio.fr/blog'
+    canonical: `${SITE_URL}/blog`
   }
 };
 
