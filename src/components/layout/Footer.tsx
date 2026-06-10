@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
         className="footer-container relative flex flex-col justify-between"
         style={{
           zIndex: 1,
-          backgroundColor: '#000000',
+          backgroundColor: '#30041B',
           color: '#fff',
         }}
       >

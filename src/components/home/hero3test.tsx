@@ -492,7 +492,7 @@ export default function Hero3Test() {
     gsap.killTweensOf([button, ...heatChars, ...ctaChars])
 
     gsap.to(button, {
-      backgroundColor: "#000000",
+      backgroundColor: "#30041B",
       boxShadow: "0 0 0 rgba(0,0,0,0)",
       scale: 1,
       duration: 0.42,
@@ -510,7 +510,7 @@ export default function Hero3Test() {
     })
 
     gsap.to(heatChars, {
-      color: "#000000",
+      color: "#30041B",
       opacity: 1, x: 0, y: 0, rotate: 0, scale: 1,
       filter: "blur(0px)",
       textShadow: "0px 0px 0px rgba(0,0,0,0)",

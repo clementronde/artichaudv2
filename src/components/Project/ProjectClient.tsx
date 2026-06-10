@@ -39,7 +39,7 @@ function getContrastColor(hexColor: string) {
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
   
   // Si > 128 c'est clair -> texte noir, sinon texte blanc
-  return yiq >= 128 ? '#000000' : '#FFFFFF';
+  return yiq >= 128 ? '#30041B' : '#FFFFFF';
 }
 
 export default function ProjectClient({ project, posts }: ProjectClientProps) {

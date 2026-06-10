@@ -146,7 +146,7 @@ export const projects: Project[] = [
       "/projects/multiface/multifaceprojet5.avif"
     ],
     colors: [
-      { hex: "#000000", name: "Black" },
+      { hex: "#30041B", name: "Black" },
       { hex: "#FFFFFF", name: "White" },
       { hex: "#FF5733", name: "Orange" },
       { hex: "#C70039", name: "Deep Red" }

@@ -41,6 +41,7 @@ const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?
         ref={magneticRef} 
         onMouseMove={handleMouseMove} 
         onMouseLeave={handleMouseLeave} 
+        data-magnetic="true"
         className="w-fit h-fit pointer-events-auto cursor-pointer flex-shrink-0"
     >
       {children}
@@ -124,7 +125,7 @@ export default function Navbar() {
   const isAnimatingInRef = useRef(false)
   const isLoadedRef = useRef(false)
 
-  const DESKTOP_OPEN_WIDTH = 440
+  const DESKTOP_OPEN_WIDTH = 375
   
   const navLinks = [
     { label: t.navbar.works, href: '/works' },
@@ -137,19 +138,31 @@ export default function Navbar() {
     { label: t.navbar.contact, href: '/contact' },
   ]
 
+  const resetMagneticTransforms = useCallback(() => {
+    if (!navRef.current) return
+
+    navRef.current.querySelectorAll('[data-magnetic="true"]').forEach((item) => {
+      gsap.killTweensOf(item)
+      gsap.set(item, { x: 0, y: 0 })
+    })
+  }, [])
+
   // --- LOGIQUE GSAP DESKTOP (Inchangée) ---
   const hardReset = useCallback(() => {
     // Cette fonction ne s'exécute que si les refs existent (donc sur desktop)
     if (!navRef.current) return;
-    
+
     gsap.killTweensOf([navRef.current, innerRef.current, linksRef.current, ctaRef.current, logoWrapperRef.current])
+    resetMagneticTransforms()
     gsap.set([navRef.current, logoWrapperRef.current], { y: -100, autoAlpha: 0 })
-    gsap.set(navRef.current, { width: DESKTOP_OPEN_WIDTH, display: 'flex', marginLeft: 8, pointerEvents: 'none' })
+    gsap.set(navRef.current, { width: DESKTOP_OPEN_WIDTH, display: 'flex', marginLeft: 8, pointerEvents: 'none', paddingLeft: 0, paddingRight: 0 })
+    gsap.set(innerRef.current, { width: '100%' })
     gsap.set([linksRef.current, ctaRef.current], { autoAlpha: 1, x: 0, display: 'flex' })
+    gsap.set(ctaRef.current, { marginLeft: 'auto' })
     isCollapsedRef.current = false
     isNavigatingRef.current = false
     isLoadedRef.current = false
-  }, [])
+  }, [resetMagneticTransforms])
 
   const animateIn = useCallback(() => {
     if (isAnimatingInRef.current || !navRef.current) return
@@ -184,22 +197,26 @@ export default function Navbar() {
     if (isCollapsedRef.current || isNavigatingRef.current || !isLoadedRef.current || !navRef.current) return
     isCollapsedRef.current = true
     if (tlRef.current) tlRef.current.kill()
+    resetMagneticTransforms()
     const tl = gsap.timeline()
     tl.to([linksRef.current, ctaRef.current], { autoAlpha: 0, x: -20, duration: 0.2, ease: "power2.in" }, 0)
-    tl.to(navRef.current, { width: 0, marginLeft: 0, paddingLeft: 0, paddingRight: 0, autoAlpha: 0, duration: 0.5, ease: "back.in(1.5)", pointerEvents: 'none' }, 0.1)
+    tl.to(navRef.current, { width: 0, marginLeft: 0, autoAlpha: 0, duration: 0.5, ease: "back.in(1.5)", pointerEvents: 'none' }, 0.1)
     tl.to(logoWrapperRef.current, { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out" }, 0.4)
     tlRef.current = tl
-  }, [])
+  }, [resetMagneticTransforms])
 
   const animateExpand = useCallback(() => {
     if (!isCollapsedRef.current || isNavigatingRef.current || !isLoadedRef.current || !navRef.current) return
     isCollapsedRef.current = false
     if (tlRef.current) tlRef.current.kill()
+    resetMagneticTransforms()
     const tl = gsap.timeline()
-    tl.to(navRef.current, { width: DESKTOP_OPEN_WIDTH, marginLeft: 8, paddingLeft: 8, paddingRight: 8, autoAlpha: 1, duration: 0.9, ease: "elastic.out(1, 0.6)", pointerEvents: 'auto' }, 0)
+    tl.to(navRef.current, { width: DESKTOP_OPEN_WIDTH, marginLeft: 8, autoAlpha: 1, duration: 0.9, ease: "elastic.out(1, 0.6)", pointerEvents: 'auto' }, 0)
+    tl.set(innerRef.current, { width: '100%' }, 0)
+    tl.set(ctaRef.current, { marginLeft: 'auto' }, 0)
     tl.fromTo([linksRef.current, ctaRef.current], { autoAlpha: 0, x: -15 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "power2.out", stagger: 0.05 }, 0.2)
     tlRef.current = tl
-  }, [])
+  }, [resetMagneticTransforms])
 
   // --- HOOKS ---
   useEffect(() => {
@@ -269,12 +286,12 @@ export default function Navbar() {
       {/* --- 2. VERSION DESKTOP (VISIBLE UNIQUEMENT SUR MD+) --- */}
       <div 
         ref={containerRef}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-[5000] hidden md:flex items-center h-[60px]"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-[5000] hidden md:flex items-center h-[52px]"
       >
         {/* LOGO BUBBLE */}
         <div 
           ref={logoWrapperRef}
-          className="h-[60px] w-[60px] rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
+          className="h-[52px] w-[52px] rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex-shrink-0 cursor-pointer overflow-hidden relative z-20 pointer-events-auto"
         >
           <Link href="/" onClick={(e) => handleLinkClick(e, '/')} className="relative h-full w-full block hover:scale-105 transition-transform duration-300">
               <Image src="/logonavbar.png" alt="Artichaud Logo" fill sizes="60px" className="object-cover" />
@@ -284,23 +301,23 @@ export default function Navbar() {
         {/* CAPSULE NAVIGATION */}
         <nav 
           ref={navRef}
-          className="h-[60px] rounded-full bg-[#000000] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center overflow-hidden origin-left z-10 flex-shrink-0"
+          className="h-[52px] rounded-full bg-[#30041B] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center justify-between overflow-hidden origin-left z-10 flex-shrink-0"
           style={{ width: DESKTOP_OPEN_WIDTH, marginLeft: 8 }}
         >
-          <div ref={innerRef} className="flex items-center justify-center gap-1 w-full h-full flex-shrink-0 px-3">
-              <div ref={linksRef} className="flex items-center gap-1 flex-shrink-0">
+          <div ref={innerRef} className="flex items-center w-full h-full flex-shrink-0 gap-3 px-1.5">
+              <div ref={linksRef} className="flex items-center gap-2 flex-1 min-w-0 pl-1.5">
                 {navLinks.map((item) => (
                   <Magnetic key={item.label}>
-                    <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="relative px-4 py-2 text-[15px] font-medium text-[#FDF4E7] hover:text-white transition-colors duration-300 rounded-full whitespace-nowrap pointer-events-auto block">
+                    <Link href={item.href} onClick={(e) => handleLinkClick(e, item.href)} className="relative px-3 py-1.5 text-[14px] font-medium text-[#FDF4E7] hover:text-white transition-colors duration-300 rounded-full whitespace-nowrap pointer-events-auto block ml-0.5">
                       {item.label}
                     </Link>
                   </Magnetic>
                 ))}
               </div>
 
-              <div ref={ctaRef} className="flex items-center gap-2 flex-shrink-0">
+              <div ref={ctaRef} className="ml-auto flex items-center gap-1 flex-shrink-0 pr-1 pl-1">
                 <Magnetic>
-                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-2 px-6 py-3 rounded-full text-[15px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-[#F70046] border border-[#F70046] text-white hover:bg-[#d4003c] hover:border-[#d4003c]">
+                  <Link href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="group relative overflow-hidden inline-flex items-center justify-center ml-0 mr-0 px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-300 whitespace-nowrap pointer-events-auto bg-[#F70046] border border-[#F70046] text-white hover:bg-[#d4003c] hover:border-[#d4003c] shadow-sm">
                     <span className="flex items-center gap-2">
                       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
                       <span>{t.navbar.letsTalk}</span>

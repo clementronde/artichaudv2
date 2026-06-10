@@ -12,10 +12,11 @@ const config: Config = {
         sans: ['var(--font-helvetica)', 'sans-serif'],
       },
       colors: {
-        'arti-black': '#191919',
-        'arti-dark': '#272626',
+        'arti-black': '#30041B',
+        'arti-dark': '#30041B',
         'arti-gray': '#656565',
         'arti-light': '#F2F2F2',
+        'black': '#30041B',
         'white': '#FFFFFF',
       },
       // Vos tailles de police

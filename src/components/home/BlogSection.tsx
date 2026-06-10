@@ -118,7 +118,7 @@ const BlogCard = ({ post, index, isDragging, pixelWidth }: BlogCardProps) => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-normal leading-tight text-[#1a1a1a] group-hover:text-amber-600 transition-colors duration-300">
+            <h3 className="text-2xl font-normal leading-tight text-[#1a1a1a] group-hover:text-[#F70046] transition-colors duration-300">
               {post.title}
             </h3>
         </div>
