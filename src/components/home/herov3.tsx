@@ -60,11 +60,17 @@ function MobileFloatingImages() {
       const vw = window.innerWidth
       const vh = window.innerHeight
 
+      // Zone réservée en bas : titre (≈150px) + boutons (≈125px) + pb-28 (112px) + marge
+      const BOTTOM_RESERVED = 450
+      const maxYpx = vh - BOTTOM_RESERVED - FLOAT_IMG_SIZE
+      if (maxYpx < 50) return  // écran trop petit pour placer une image sans chevaucher le texte
+      const maxYPercent = (maxYpx / vh) * 100
+
       let x = 0, y = 0, placed = false
 
       for (let attempt = 0; attempt < 15; attempt++) {
         x = Math.random() * 90 - 12  // -12–78% (débordement possible gauche/droite)
-        y = Math.random() * 38 + 3   // 3–41% — au-dessus du texte/boutons
+        y = Math.random() * (maxYPercent - 3) + 3  // dynamique : jamais sous le texte
 
         const nx = (x / 100) * vw
         const ny = (y / 100) * vh
