@@ -57,9 +57,10 @@ export default function WorkPage() {
       <RelatedLinks
         title="Transformer une référence en projet concret"
         links={[
-          ...relatedLinkGroups.serviceBranding.slice(0, 2),
-          ...relatedLinkGroups.serviceWeb.slice(0, 1),
-          ...relatedLinkGroups.serviceSeo.slice(0, 1),
+          relatedLinkGroups.serviceBranding[0],
+          relatedLinkGroups.serviceBranding[2],
+          relatedLinkGroups.serviceWeb[0],
+          relatedLinkGroups.serviceSeo[1],
         ]}
       />
     </>

@@ -219,9 +219,9 @@ export default function HeroV3() {
                 lineHeight: 1.18,
               }}
             >
-              <span className="block">{t.hero.title[0]}</span>
-              <span className="block">{t.hero.title[1]}</span>
-              <span className="block">{t.hero.title[2]}</span>
+              <span className="inline lg:block">{t.hero.title[0]} </span>
+              <span className="inline lg:block">{t.hero.title[1]} </span>
+              <span className="inline lg:block">{t.hero.title[2]}</span>
             </h1>
             <div
               onMouseEnter={() => setIsCtaHovered(true)}

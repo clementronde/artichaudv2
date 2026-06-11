@@ -23,7 +23,7 @@ export default function RelatedLinks({
         </h2>
 
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl bg-black/10 md:grid-cols-2 lg:grid-cols-4">
-          {links.map((link) => (
+          {links.filter((link, i, arr) => arr.findIndex(l => l.href === link.href) === i).map((link) => (
             <Link
               key={link.href}
               href={link.href}
