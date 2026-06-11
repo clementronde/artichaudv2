@@ -37,6 +37,99 @@ const HERO_TRAIL_ANIMATION_SEQUENCE = [
   ],
 ]
 
+type FloatingItem = { id: number; url: string; x: number; y: number }
+
+const FLOAT_IMG_SIZE = 150
+const FLOAT_IMG_MARGIN = 20
+
+function MobileFloatingImages() {
+  const [items, setItems] = useState<FloatingItem[]>([])
+  const counter = useRef(0)
+  const activeUrls = useRef<Set<string>>(new Set())
+  const activeItems = useRef<FloatingItem[]>([])
+
+  useEffect(() => {
+    const DURATION = 3200
+
+    const spawn = () => {
+      const available = HERO_TRAIL_IMAGES.filter(url => !activeUrls.current.has(url))
+      if (available.length === 0) return
+
+      const url = available[Math.floor(Math.random() * available.length)]
+      const id = counter.current++
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+
+      let x = 0, y = 0, placed = false
+
+      for (let attempt = 0; attempt < 15; attempt++) {
+        x = Math.random() * 90 - 12  // -12–78% (débordement possible gauche/droite)
+        y = Math.random() * 38 + 3   // 3–41% — au-dessus du texte/boutons
+
+        const nx = (x / 100) * vw
+        const ny = (y / 100) * vh
+
+        const overlaps = activeItems.current.some(item => {
+          const ix = (item.x / 100) * vw
+          const iy = (item.y / 100) * vh
+          return !(
+            nx + FLOAT_IMG_SIZE + FLOAT_IMG_MARGIN <= ix ||
+            ix + FLOAT_IMG_SIZE + FLOAT_IMG_MARGIN <= nx ||
+            ny + FLOAT_IMG_SIZE + FLOAT_IMG_MARGIN <= iy ||
+            iy + FLOAT_IMG_SIZE + FLOAT_IMG_MARGIN <= ny
+          )
+        })
+
+        if (!overlaps) { placed = true; break }
+      }
+
+      if (!placed) return
+
+      const item: FloatingItem = { id, url, x, y }
+      activeUrls.current.add(url)
+      activeItems.current = [...activeItems.current, item]
+      setItems(prev => [...prev, item])
+
+      setTimeout(() => {
+        activeUrls.current.delete(url)
+        activeItems.current = activeItems.current.filter(i => i.id !== id)
+        setItems(prev => prev.filter(i => i.id !== id))
+      }, DURATION)
+    }
+
+    spawn()
+    const t1 = setTimeout(spawn, 500)
+    const t2 = setTimeout(spawn, 1100)
+    const interval = setInterval(spawn, 950)
+
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearInterval(interval)
+    }
+  }, [])
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {items.map(item => (
+        <div
+          key={item.id}
+          className="absolute overflow-hidden shadow-2xl"
+          style={{
+            left: `${item.x}%`,
+            top: `${item.y}%`,
+            width: FLOAT_IMG_SIZE,
+            height: FLOAT_IMG_SIZE,
+            animation: 'floatImageIn 3.2s ease-in-out forwards',
+          }}
+        >
+          <Image src={item.url} alt="" fill className="object-cover" sizes="150px" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
@@ -77,10 +170,10 @@ export default function HeroV3() {
       onMouseLeave={() => setIsActive(false)}
       className="relative z-20 w-full min-h-screen overflow-visible bg-white"
     >
-      {/* TRAIL CONTAINER */}
-      <div className="absolute inset-0 z-[100] pointer-events-none overflow-visible">
-        <ImageTrail 
-          containerRef={ref} 
+      {/* TRAIL CONTAINER - desktop only */}
+      <div className="hidden lg:block absolute inset-0 z-[100] pointer-events-none overflow-visible">
+        <ImageTrail
+          containerRef={ref}
           interval={TRAIL_INTERVAL_MS}
           rotationRange={20}
           animationSequence={HERO_TRAIL_ANIMATION_SEQUENCE}
@@ -89,7 +182,7 @@ export default function HeroV3() {
           {HERO_TRAIL_IMAGES.map((url, index) => (
             <div
               key={index}
-              className="relative w-[180px] h-[180px] md:w-[240px] md:h-[240px] overflow-hidden shadow-2xl"
+              className="relative w-[240px] h-[240px] overflow-hidden shadow-2xl"
             >
               <Image
                 src={url}
@@ -102,6 +195,11 @@ export default function HeroV3() {
             </div>
           ))}
         </ImageTrail>
+      </div>
+
+      {/* FLOATING IMAGES - mobile & tablet only */}
+      <div className="lg:hidden absolute inset-0 z-[5]">
+        <MobileFloatingImages />
       </div>
 
       {/* TEXTE PRINCIPAL */}
