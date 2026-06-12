@@ -21,37 +21,31 @@ const HighlightTitle = ({ text }: { text: string }) => {
   )
 }
 
-// Données des témoignages (mêmes que la home)
+// Données des témoignages
 const testimonials = [
   {
     id: 1,
-    text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien.",
-    author: "Victoria Lauro",
-    role: "Fondatrice, Chez June"
+    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
+    author: "Tobias Schaller",
+    role: "Directeur Général, Charit.io"
   },
   {
     id: 2,
-    text: "It's time to start showing up with clarity. This team is a game changer for our brand identity.",
+    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
     author: "Kiera Monaghan",
-    role: "CEO, Disobey"
+    role: "PDG, Disobey"
   },
   {
     id: 3,
-    text: "The rebranding process was seamless. We take brands from where they are, to where they deserve to be.",
+    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
     author: "David Laroche",
-    role: "Founder, Paradox"
+    role: "Fondateur, Paradox"
   },
   {
     id: 4,
-    text: "We push pixels until it feels right. Artichaud pushed us further than we thought possible.",
+    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
     author: "Elena Rodriguez",
-    role: "CMO, TechFlow"
-  },
-  {
-    id: 5,
-    text: "A truly 360 agency. From strategy to execution, every detail was handled with care.",
-    author: "Marc Dupont",
-    role: "Director, Studio A"
+    role: "Directrice Marketing, TechFlow"
   }
 ]
 
@@ -159,7 +153,7 @@ export default function AboutIntro() {
                   Chez Artichaud, tout part d'une conviction simple : un projet réussi ne peut pas se permettre de cloisonner création, technologie et stratégie. Côté développement, marketing et data, nous comprenons comment votre marque performera, comment elle sera trouvée, et comment elle convertira. Côté direction artistique, nous façonnons son identité visuelle, son âme, sa manière de se présenter au monde.
                 </p>
                 <p className="para-block transition-colors">
-                  Cette complémentarité n'est pas un hasard — c'est notre force. Chaque projet bénéficie d'une vision à la fois technique et créative, portée de bout en bout. Pas de brief perdu dans la traduction entre équipes. Deux expertises qui se parlent, pour un résultat cohérent, complet et vraiment à votre image.
+                  Cette complémentarité n'est pas un hasard, c'est notre force. Chaque projet bénéficie d'une vision à la fois technique et créative, portée de bout en bout. Pas de brief perdu dans la traduction entre équipes. Deux expertises qui se parlent, pour un résultat cohérent, complet et vraiment à votre image.
                 </p>
              </div>
           </div>
