@@ -1,33 +1,41 @@
 'use client'
 
+import Image from "next/image"
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating"
 
 export default function VisionSection() {
   return (
     <section className="relative w-full h-screen bg-[#FFFFFF] overflow-hidden flex items-center justify-center">
-      
-      {/* 1. ÉLÉMENTS FLOTTANTS (Les rectangles gris) */}
-      {/* z-0 pour être en fond. sensitivity négatif pour un effet de profondeur inversé */}
+
+      {/* 1. ÉLÉMENTS FLOTTANTS — remplacer les src par tes images */}
       <Floating sensitivity={-1.5} className="z-0 pointer-events-none">
-        
-        {/* Rectangle Haut Gauche */}
+
+        {/* Image Haut Gauche — format paysage */}
         <FloatingElement depth={0.5} className="top-[15%] left-[-5%] md:left-[5%]">
-          <div className="w-[150px] h-[100px] md:w-[300px] md:h-[200px] bg-[#DBC8C3]/50 blur-[1px]" />
+          <div className="relative w-[150px] h-[100px] md:w-[300px] md:h-[200px] overflow-hidden ">
+            <Image src="/charlotte_chevre.png" alt="" fill className="object-cover" sizes="300px" />
+          </div>
         </FloatingElement>
 
-        {/* Rectangle Bas Gauche */}
+        {/* Image Bas Gauche — format portrait */}
         <FloatingElement depth={1} className="bottom-[20%] left-[5%] md:left-[15%]">
-          <div className="w-[180px] h-[220px] md:w-[250px] md:h-[300px] bg-[#DBC8C3]/50" />
+          <div className="relative w-[180px] h-[220px] md:w-[250px] md:h-[300px] overflow-hidden">
+            <Image src="/clement_profil.png" alt="" fill className="object-cover" sizes="250px" />
+          </div>
         </FloatingElement>
 
-        {/* Rectangle Haut Droite */}
+        {/* Image Haut Droite — format portrait */}
         <FloatingElement depth={2} className="top-[10%] right-[-5%] md:right-[5%]">
-          <div className="w-[160px] h-[200px] md:w-[280px] md:h-[350px] bg-[#DBC8C3]/50" />
+          <div className="relative w-[160px] h-[200px] md:w-[280px] md:h-[350px] overflow-hidden">
+            <Image src="/clement_heureux.png" alt="" fill className="object-cover" sizes="280px" />
+          </div>
         </FloatingElement>
 
-        {/* Rectangle Bas Droite */}
+        {/* Image Bas Droite — format paysage */}
         <FloatingElement depth={1.5} className="bottom-[10%] right-[5%] md:right-[20%]">
-          <div className="w-[200px] h-[120px] md:w-[350px] md:h-[220px] bg-[#DBC8C3]/50" />
+          <div className="relative w-[200px] h-[120px] md:w-[350px] md:h-[220px] overflow-hidden">
+            <Image src="/clement_charlotte.png" alt="" fill className="object-cover" sizes="350px" />
+          </div>
         </FloatingElement>
 
       </Floating>

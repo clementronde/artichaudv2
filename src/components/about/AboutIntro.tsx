@@ -21,31 +21,37 @@ const HighlightTitle = ({ text }: { text: string }) => {
   )
 }
 
-// Données des témoignages
+// Données des témoignages (mêmes que la home)
 const testimonials = [
   {
     id: 1,
-    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
-    author: "Tobias Schaller",
-    role: "Directeur Général, Charit.io"
+    text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien.",
+    author: "Victoria Lauro",
+    role: "Fondatrice, Chez June"
   },
   {
     id: 2,
-    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
+    text: "It's time to start showing up with clarity. This team is a game changer for our brand identity.",
     author: "Kiera Monaghan",
-    role: "PDG, Disobey"
+    role: "CEO, Disobey"
   },
   {
     id: 3,
-    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
+    text: "The rebranding process was seamless. We take brands from where they are, to where they deserve to be.",
     author: "David Laroche",
-    role: "Fondateur, Paradox"
+    role: "Founder, Paradox"
   },
   {
     id: 4,
-    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
+    text: "We push pixels until it feels right. Artichaud pushed us further than we thought possible.",
     author: "Elena Rodriguez",
-    role: "Directrice Marketing, TechFlow"
+    role: "CMO, TechFlow"
+  },
+  {
+    id: 5,
+    text: "A truly 360 agency. From strategy to execution, every detail was handled with care.",
+    author: "Marc Dupont",
+    role: "Director, Studio A"
   }
 ]
 
@@ -140,20 +146,20 @@ export default function AboutIntro() {
              {/* Titre Principal (HighlightTitle intégré ici) */}
              <div className="md:col-span-5 mb-10 md:mb-0">
                 <h2 className="text-[32px] md:text-[50px] leading-[1.1] font-normal">
-                  <HighlightTitle text="Nous sommes Artichaud Studio - une agence de branding et design à Paris. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être." />
+                  <HighlightTitle text="Nous sommes Artichaud Studio — l'alliance d'un développeur-marketeur et d'une directrice artistique qui construisent ensemble des marques pensées dans leur globalité." />
                 </h2>
              </div>
 
              {/* Espace vide grid */}
              <div className="hidden md:block md:col-span-2"></div>
 
-             {/* Paragraphes (Ajout de la classe 'para-container' sur le parent et 'para-block' sur les <p>) */}
+             {/* Paragraphes */}
              <div className="para-container md:col-start-4 md:col-span-4 text-white/40 text-lg font-light leading-relaxed space-y-6">
                 <p className="para-block transition-colors">
-                  Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise. Peut-être que votre message ne résonne pas comme vous le souhaitez. Ou peut-être êtes-vous simplement fatigué de justifier l'apparence de votre marque.
+                  Chez Artichaud, tout part d'une conviction simple : un projet réussi ne peut pas se permettre de cloisonner création, technologie et stratégie. Côté développement, marketing et data, nous comprenons comment votre marque performera, comment elle sera trouvée, et comment elle convertira. Côté direction artistique, nous façonnons son identité visuelle, son âme, sa manière de se présenter au monde.
                 </p>
                 <p className="para-block transition-colors">
-                  Il est temps de vous présenter avec la clarté et la confiance que vous méritez. Et c'est là que nous intervenons.
+                  Cette complémentarité n'est pas un hasard — c'est notre force. Chaque projet bénéficie d'une vision à la fois technique et créative, portée de bout en bout. Pas de brief perdu dans la traduction entre équipes. Deux expertises qui se parlent, pour un résultat cohérent, complet et vraiment à votre image.
                 </p>
              </div>
           </div>

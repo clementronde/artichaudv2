@@ -51,25 +51,25 @@ const imageReveal: Variants = {
 export default function AboutClient({ posts }: { posts: BlogPost[] }) {
   return (
     <main className="w-full bg-[#FFFFFF] min-h-screen overflow-x-hidden">
-      
+
       {/* --- HERO SECTION --- */}
       <div className="relative pt-32 md:pt-48 pb-20">
-        
-        {/* Fond Néon #F70046 */}
+
+        {/* Canvas background */}
         <div className="absolute inset-0 z-0 opacity-50 pointer-events-none">
            <CanvasEffect />
         </div>
 
-        {/* Textes Animés */}
-        <motion.div 
-          className="relative z-10 w-full px-5 md:px-10 mb-20 md:mb-32"
+        {/* Header text */}
+        <motion.div
+          className="relative z-10 w-full px-5 md:px-10 mb-10 md:mb-16"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
         >
           <div className="grid grid-cols-4 md:grid-cols-8 gap-5 w-full">
-            
-            {/* Label Services */}
+
+            {/* Label */}
             <div className="col-span-4 md:col-span-1 flex flex-col items-start">
               <motion.div
                 variants={fadeInUp}
@@ -79,12 +79,12 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
               </motion.div>
             </div>
 
-            {/* Titre Principal */}
-            <div className="col-span-4 md:col-span-3 mt-4 md:mt-0">
+            {/* Titre principal */}
+            <div className="col-span-4 md:col-span-5 mt-4 md:mt-0">
               <motion.h1
                 variants={fadeInUp}
-                className="text-black leading-[1.4] font-normal"
-                style={{ fontSize: 'clamp(32px, 4vw, 45px)' }}
+                className="text-black leading-[1.3] font-normal"
+                style={{ fontSize: 'clamp(32px, 3.8vw, 52px)' }}
               >
                 Une agence 360 qui réunit tous les métiers de la création. C'est mieux pour penser chaque idée.
               </motion.h1>
@@ -92,24 +92,22 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
           </div>
         </motion.div>
 
-        {/* Image Hero */}
-        <div className="relative z-10 w-full h-[50vh] md:h-[80vh] overflow-hidden">
-          <motion.div 
-            className="w-full h-full relative"
-            initial="hidden"
-            animate="visible"
-            variants={imageReveal}
-          >
-            <Image 
-              src="/images/office-team.jpg" 
-              alt="Agence Artichaud Team"
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-          </motion.div>
-        </div>
+        {/* Hero image — pleine largeur */}
+        <motion.div
+          className="relative z-10 w-full h-[55vh] md:h-[80vh] overflow-hidden"
+          initial="hidden"
+          animate="visible"
+          variants={imageReveal}
+        >
+          <Image
+            src="/image_hero_about.png"
+            alt="Artichaud Studio"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
       </div>
 
       {/* --- AUTRES SECTIONS --- */}
