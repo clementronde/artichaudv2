@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import AboutClient from "@/components/about/AboutClient"
 import { getAllPosts } from "@/lib/mdx"
-import RelatedLinks from "@/components/seo/RelatedLinks"
-import { relatedLinkGroups } from "@/components/seo/relatedLinksData"
 import { SITE_URL } from "@/lib/seo"
 
 export const metadata: Metadata = {
@@ -40,17 +38,5 @@ export default async function AboutPage() {
   // Récupération des données côté serveur
   const posts = await getAllPosts()
 
-  return (
-    <>
-      <AboutClient posts={posts} />
-      <RelatedLinks
-        title="Découvrir notre façon de travailler"
-        links={[
-          ...relatedLinkGroups.serviceBranding.slice(0, 2),
-          ...relatedLinkGroups.serviceWeb.slice(0, 1),
-          ...relatedLinkGroups.editorial.slice(0, 1),
-        ]}
-      />
-    </>
-  )
+  return <AboutClient posts={posts} />
 }
