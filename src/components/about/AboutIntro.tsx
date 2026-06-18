@@ -140,7 +140,7 @@ export default function AboutIntro() {
              {/* Titre Principal (HighlightTitle intégré ici) */}
              <div className="md:col-span-5 mb-10 md:mb-0">
                 <h2 className="text-[32px] md:text-[50px] leading-[1.1] font-normal">
-                  <HighlightTitle text="Nous sommes Artichaud Studio — l'alliance d'un développeur-marketeur et d'une directrice artistique qui construisent ensemble des marques pensées dans leur globalité." />
+                  <HighlightTitle text="Nous sommes Artichaud Studio, l'alliance d'un développeur-marketeur et d'une directrice artistique qui construisent ensemble des marques pensées dans leur globalité." />
                 </h2>
              </div>
 
