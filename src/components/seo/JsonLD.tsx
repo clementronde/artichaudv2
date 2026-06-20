@@ -32,6 +32,7 @@ export default function JsonLd() {
     },
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "18 rue d'Aguesseau",
       "addressLocality": "Boulogne-Billancourt",
       "addressRegion": "Île-de-France",
       "postalCode": "92100",

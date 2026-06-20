@@ -255,6 +255,50 @@ export default function BoulogneClient() {
         </div>
       </section>
 
+      {/* --- H2: TÉMOIGNAGES --- */}
+      <section className="py-20 md:py-28 bg-[#F6F6F3]">
+        <div className="px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10 mb-14">
+            <div className="hidden md:block md:col-span-1 pt-2">
+              <span className="text-sm font-medium text-gray-500">Avis clients</span>
+            </div>
+            <div className="md:col-span-4 md:col-start-2">
+              <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
+                Ce que nos clients disent de nous.
+              </h2>
+            </div>
+          </div>
+
+          <div className="md:ml-[calc(12.5%+0.625rem)] grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                name: "Victoria Lauro",
+                role: "Fondatrice, Chez June",
+                text: "Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien.",
+              },
+              {
+                name: "Nicolas Perrin",
+                role: "Co-fondateur, Atelier Nova",
+                text: "La capacité à traduire nos idées en maquettes concrètes sans partir dans tous les sens. Les échanges étaient directs, les choix expliqués, et on a pu garder la main sur les contenus après la mise en ligne.",
+              },
+              {
+                name: "Sophie Lambert",
+                role: "Directrice, Studio Lignes",
+                text: "L'équipe a pris le temps de regarder les anciennes pages, de prévoir les redirections et de clarifier les priorités. La transition s'est faite beaucoup plus sereinement que prévu.",
+              },
+            ].map((t) => (
+              <div key={t.name} className="bg-white rounded-2xl p-8 flex flex-col gap-6">
+                <p className="text-lg leading-relaxed text-gray-700 flex-1">&ldquo;{t.text}&rdquo;</p>
+                <div>
+                  <p className="font-medium text-black">{t.name}</p>
+                  <p className="text-sm text-gray-500">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* --- H2: POURQUOI UNE AGENCE LOCALE (VERSION PRO + SVG) --- */}
       <section className="py-20 md:py-28 bg-white">
         <div className="px-6 md:px-10">
@@ -288,6 +332,84 @@ export default function BoulogneClient() {
         </div>
       </section>
 
+      {/* --- H2: TISSU ÉCONOMIQUE LOCAL --- */}
+      <section className="py-20 md:py-28 bg-[#F6F6F3]">
+        <div className="px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10 mb-14">
+            <div className="hidden md:block md:col-span-1 pt-2">
+              <span className="text-sm font-medium text-gray-500">Territoire</span>
+            </div>
+            <div className="md:col-span-4 md:col-start-2">
+              <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
+                À deux pas d&apos;un tissu économique unique en France.
+              </h2>
+            </div>
+            <p className="md:col-span-3 text-lg leading-relaxed text-gray-600">
+              Boulogne-Billancourt concentre des sièges de grands groupes et un tissu de PME et d&apos;indépendants ambitieux que nous accompagnons au quotidien.
+            </p>
+          </div>
+
+          <div className="md:ml-[calc(12.5%+0.625rem)] border-t border-black/15">
+            {[
+              ["TF1 & Havas Group", "Boulogne abrite les sièges sociaux de TF1 et Havas Group. L'exigence créative est inscrite dans l'ADN du territoire — et nos clients boulonnais l'ont intégrée dans leurs propres attentes visuelles et éditoriales."],
+              ["Deezer & startups tech", "L'écosystème tech s'est développé autour de la ZAC Seguin-Rives de Seine, avec des startups et scale-ups qui ont des standards élevés en termes de produit digital et d'expérience utilisateur."],
+              ["PME & commerce local", "Au-delà des grands groupes, nous travaillons avec des cabinets, des commerces de la rue de Silly, des studios créatifs et des indépendants installés dans les quartiers résidentiels du 92100."],
+              ["ZAC Seguin-Rives de Seine", "La transformation de l'île Seguin attire de nouveaux acteurs culturels et économiques. Un territoire en mutation qui crée de nouvelles opportunités de visibilité digitale pour ceux qui s'y installent."],
+            ].map(([title, text]) => (
+              <div key={title} className="grid grid-cols-1 md:grid-cols-7 gap-x-5 gap-y-4 py-9 border-b border-black/15">
+                <h3 className="md:col-span-2 text-2xl font-normal text-black">{title}</h3>
+                <p className="md:col-span-4 text-lg leading-relaxed text-gray-600">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- ADRESSE & CARTE --- */}
+      <section className="py-20 md:py-28 bg-white">
+        <div className="px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10 mb-14">
+            <div className="hidden md:block md:col-span-1 pt-2">
+              <span className="text-sm font-medium text-gray-500">Adresse</span>
+            </div>
+            <div className="md:col-span-4 md:col-start-2">
+              <h2 className="text-[36px] md:text-[56px] leading-[1.05] font-normal tracking-tight text-black">
+                Notre studio au cœur de Boulogne-Billancourt.
+              </h2>
+            </div>
+            <div className="md:col-span-3 space-y-4 text-lg leading-relaxed text-gray-600">
+              <p>
+                18 rue d&apos;Aguesseau<br />
+                92100 Boulogne-Billancourt<br />
+                <span className="text-sm text-gray-500">Métro Marcel Sembat (ligne 9) — 5 min à pied</span>
+              </p>
+              <p>Réunions en présentiel possibles sur rendez-vous.</p>
+              <a
+                href="https://www.google.com/maps/place/Artichaud+Studio/@48.8374942,2.2428601,17z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-[#F70046] transition-colors"
+              >
+                Voir sur Google Maps →
+              </a>
+            </div>
+          </div>
+
+          <div className="md:ml-[calc(12.5%+0.625rem)] overflow-hidden rounded-2xl h-[380px] md:h-[480px]">
+            <iframe
+              src="https://maps.google.com/maps?q=18+rue+d+Aguesseau+Boulogne-Billancourt+92100&output=embed&z=16"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Artichaud Studio — 18 rue d'Aguesseau, Boulogne-Billancourt"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* --- H2: FAQ --- */}
       <section className="py-24 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6 max-w-3xl">
@@ -309,9 +431,17 @@ export default function BoulogneClient() {
                 question="Dois-je payer un abonnement mensuel ?" 
                 answer="Non, chez Artichaud, vous payez la création du site une fois pour toutes (ou en plusieurs fois selon devis). Les seuls frais récurrents obligatoires sont l'hébergement et le nom de domaine (environ 50€ à 150€/an selon l'hébergeur). Nous proposons des forfaits de maintenance optionnels." 
             />
-            <AccordionItem 
-                question="Intervenez-vous ailleurs qu'à Boulogne ?" 
-                answer="Bien sûr. Notre cœur bat à Boulogne-Billancourt, mais nous accompagnons des clients dans tout le 92 (Issy-les-Moulineaux, Neuilly, Saint-Cloud) et bien sûr à Paris et en Île-de-France. Le digital n'a pas de frontières, mais la proximité reste notre atout." 
+            <AccordionItem
+                question="Intervenez-vous ailleurs qu'à Boulogne ?"
+                answer="Bien sûr. Notre cœur bat à Boulogne-Billancourt, mais nous accompagnons des clients dans tout le 92 (Issy-les-Moulineaux, Neuilly, Saint-Cloud) et bien sûr à Paris et en Île-de-France. Le digital n'a pas de frontières, mais la proximité reste notre atout."
+            />
+            <AccordionItem
+                question="Où sont situés vos bureaux ?"
+                answer="Notre studio est situé au 18 rue d'Aguesseau à Boulogne-Billancourt (92100), à 5 minutes à pied du métro Marcel Sembat (ligne 9). Nous recevons sur rendez-vous, en semaine."
+            />
+            <AccordionItem
+                question="Proposez-vous des réunions en présentiel ?"
+                answer="Oui. Les réunions en présentiel sont possibles dans notre studio à Boulogne-Billancourt ou chez vous si vous êtes dans le 92 ou à Paris. Pour les clients en dehors d'Île-de-France, nous travaillons facilement en visioconférence avec des points réguliers."
             />
           </div>
         </div>
