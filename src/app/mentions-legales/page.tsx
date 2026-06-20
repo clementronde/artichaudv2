@@ -42,7 +42,7 @@ export default function MentionsLegales() {
               <strong>Forme juridique :</strong> Micro entreprise<br />
               <strong>Siège social :</strong> 18 rue d'aguesseau, Boulogne-Billancourt<br />
               <strong>SIRET :</strong> 93470685400015<br />
-              <strong>Email :</strong> artichaud.studio@gmail.com<br />
+              <strong>Email :</strong> hello@artichaud-studio.com<br />
               <strong>Téléphone :</strong> 07 66 48 99 82
             </p>
           </div>

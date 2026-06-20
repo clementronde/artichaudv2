@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     "artichaud-studio",
     "artichaut-studio",
     "orthographe artichaud",
-    "agence artichaud Paris",
+    "agence artichaud Boulogne-Billancourt",
   ],
   openGraph: {
     title: "Artichaud Studio - Comment nous écrire correctement",
-    description: "Artichaud Studio avec un D. Studio de création web, branding et stratégie digitale à Paris.",
+    description: "Artichaud Studio avec un D. Studio de création web, branding et stratégie digitale à Boulogne-Billancourt.",
     url: `${SITE_URL}/artichaud-studio-orthographe`,
     images: [
       {

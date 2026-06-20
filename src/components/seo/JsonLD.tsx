@@ -8,7 +8,7 @@ export default function JsonLd() {
     "name": SITE_NAME,
     "legalName": SITE_NAME,
     "alternateName": "Artichaud",
-    "description": "Agence de branding et création de sites web à Paris. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
+    "description": "Agence de branding et création de sites web à Boulogne-Billancourt. Design d'identité visuelle, développement web sur mesure et stratégie digitale pour marques ambitieuses.",
     "image": `${SITE_URL}/icon.png`,
     "logo": {
       "@type": "ImageObject",
@@ -20,11 +20,11 @@ export default function JsonLd() {
       "inLanguage": "fr-FR"
     },
     "url": SITE_URL,
-    "telephone": "+33687538017",
+    "telephone": "+33766489982",
     "email": "hello@artichaud-studio.com",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+33687538017",
+      "telephone": "+33766489982",
       "email": "hello@artichaud-studio.com",
       "contactType": "customer service",
       "areaServed": "FR",

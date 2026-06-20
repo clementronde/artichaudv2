@@ -1,14 +1,5 @@
-'use client'
-
-import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
-import type { Metadata } from 'next'
-
-// Métadonnées SEO (doivent être dans un fichier séparé en Server Component)
-// Voir tarifs/metadata.ts
+import TarifsAnimations from './TarifsAnimations'
 
 const pricingPlans = [
   {
@@ -110,32 +101,9 @@ const faqsPricing = [
 ]
 
 export default function TarifsPage() {
-  const containerRef = useRef<HTMLElement>(null)
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
-
-  // Animation d'entrée GSAP
-  useGSAP(() => {
-    const tl = gsap.timeline()
-
-    tl.from('.tarifs-header-line', {
-      y: 120,
-      opacity: 0,
-      duration: 1,
-      ease: 'power4.out',
-      stagger: 0.1
-    })
-    .from('.tarifs-card', {
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.15
-    }, '-=0.5')
-
-  }, { scope: containerRef })
-
   return (
-    <main ref={containerRef} className="w-full bg-white min-h-screen pt-32 md:pt-40 pb-24">
+    <main className="w-full bg-white min-h-screen pt-32 md:pt-40 pb-24">
+      <TarifsAnimations />
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header */}
@@ -154,16 +122,14 @@ export default function TarifsPage() {
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
-          {pricingPlans.map((plan, index) => (
-            <motion.div
+          {pricingPlans.map((plan) => (
+            <div
               key={plan.id}
-              className={`tarifs-card relative rounded-2xl border transition-all duration-500 ${
+              className={`tarifs-card relative rounded-2xl border transition-all duration-500 hover:-translate-y-2 ${
                 plan.highlight
                   ? 'border-arti-black bg-arti-black text-white shadow-2xl md:scale-105'
                   : 'border-black/10 bg-white hover:border-black/30'
               }`}
-              whileHover={{ y: -8 }}
-              onClick={() => setSelectedPlan(plan.id)}
             >
               {plan.highlight && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-arti-black text-sm font-medium rounded-full">
@@ -218,7 +184,7 @@ export default function TarifsPage() {
 
                 {/* Timeline */}
                 <div className={`text-sm mb-8 ${plan.highlight ? 'text-white/70' : 'text-arti-gray'}`}>
-                  ⏱️ Délai : {plan.timeline}
+                  Délai : {plan.timeline}
                 </div>
 
                 {/* CTA */}
@@ -233,7 +199,7 @@ export default function TarifsPage() {
                   {plan.cta}
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -352,7 +318,7 @@ export default function TarifsPage() {
                 Demander un devis gratuit
               </Link>
               <a
-                href="tel:0687538017"
+                href="tel:0766489982"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-arti-black transition-all"
               >
                 Appeler maintenant

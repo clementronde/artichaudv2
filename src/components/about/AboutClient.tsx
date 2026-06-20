@@ -75,7 +75,7 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
                 variants={fadeInUp}
                 className="text-black uppercase md:normal-case text-base font-normal"
               >
-                Services
+                Studio
               </motion.div>
             </div>
 
@@ -86,7 +86,7 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
                 className="text-black leading-[1.3] font-normal"
                 style={{ fontSize: 'clamp(32px, 3.8vw, 52px)' }}
               >
-                Une agence 360 qui réunit tous les métiers de la création. C'est mieux pour penser chaque idée.
+                Une agence créative indépendante à Boulogne-Billancourt, convaincue que la marque précède le design.
               </motion.h1>
             </div>
           </div>

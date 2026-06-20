@@ -4,20 +4,22 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Tarifs & Prix | Création Site Internet Paris - Artichaud Studio",
-  description: "Découvrez nos tarifs transparents : Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit en 24h. Paiement échelonné disponible.",
+  title: {
+    absolute: "Tarifs & Prix Création Site Internet Boulogne-Billancourt | Artichaud Studio"
+  },
+  description: "Tarifs transparents : Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Agence web à Boulogne-Billancourt. Devis gratuit en 24h.",
   keywords: [
-    "prix création site internet",
-    "tarif agence web Paris",
+    "prix création site internet Boulogne-Billancourt",
+    "tarif agence web 92",
     "combien coûte un site vitrine",
     "prix site e-commerce",
-    "devis site web Paris",
+    "devis site web Île-de-France",
     "tarif développement web",
-    "prix agence digitale",
+    "prix agence digitale Boulogne-Billancourt",
     "cout site internet sur mesure"
   ],
   openGraph: {
-    title: "Tarifs & Prix - Artichaud Studio Paris",
+    title: "Tarifs & Prix - Artichaud Studio Boulogne-Billancourt",
     description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit sous 48h.",
     url: `${SITE_URL}/tarifs`,
     images: [
@@ -41,6 +43,74 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/tarifs`
   }
 };
+
+// Schema.org FAQPage pour rich snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Pourquoi une telle fourchette de prix ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 3000€, tandis qu'un site de 20 pages avec animations avancées sera à 8000€."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le prix inclut-il l'hébergement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, l'hébergement est facturé séparément (40-100€/an selon vos besoins). Nous vous conseillons les meilleurs hébergeurs et pouvons gérer la configuration pour vous."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proposez-vous un paiement échelonné ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui ! Nous fonctionnons par jalons : 30% à la signature, 40% à la validation des maquettes, 30% à la livraison. Pour les projets >15000€, un échelonnement sur 3-4 mois est possible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y a-t-il des frais cachés ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aucun frais caché. Le devis détaille tous les coûts : conception, développement, intégrations. Seuls l'hébergement, le nom de domaine et les éventuelles licences tierces sont en sus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je avoir un devis gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolument ! Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis nous vous envoyons un devis détaillé sous 48h."
+      }
+    }
+  ]
+}
+
+// Schema.org BreadcrumbList
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": SITE_URL
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tarifs",
+      "item": `${SITE_URL}/tarifs`
+    }
+  ]
+}
 
 // Schema.org Offer pour SEO
 const offerSchema = {
@@ -112,6 +182,14 @@ export default function TarifsLayout({
 }) {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}

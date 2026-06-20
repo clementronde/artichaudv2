@@ -6,28 +6,30 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 import { SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: "Nos Services | Branding, Webdesign & Stratégie Digitale - Artichaud",
-  description: "Découvrez nos services : Stratégie de marque, Identité visuelle, Webdesign, Webmarketing et Shooting Produit. Une agence 360 qui réunit tous les métiers de la création à Paris.",
+  title: {
+    absolute: "Agence Web, Branding & SEO à Boulogne-Billancourt | Artichaud Studio"
+  },
+  description: "Création de site internet, identité visuelle, branding et SEO à Boulogne-Billancourt. Une agence créative 360 qui réunit tous les métiers de la marque et du web en Île-de-France.",
   keywords: [
-    "services agence web Paris",
-    "stratégie de marque",
-    "création identité visuelle",
-    "webdesign Paris",
+    "agence web Boulogne-Billancourt",
+    "création site internet Boulogne-Billancourt",
+    "branding identité visuelle",
+    "webdesign Île-de-France",
+    "agence SEO Boulogne-Billancourt",
     "refonte site internet",
-    "webmarketing Paris",
-    "shooting produit Paris",
-    "agence 360 Paris"
+    "stratégie digitale",
+    "agence créative 92"
   ],
   openGraph: {
-    title: "Services - Artichaud Studio Paris",
-    description: "Stratégie de marque, identité visuelle, webdesign, webmarketing et shooting produit. Nos expertises pour faire grandir votre marque.",
+    title: "Agence Web, Branding & SEO — Artichaud Studio Boulogne-Billancourt",
+    description: "Création de site internet, identité visuelle, branding et SEO à Boulogne-Billancourt. Nos expertises pour faire grandir votre marque.",
     url: `${SITE_URL}/services`,
     images: [
       {
         url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
-        alt: "Services Artichaud Studio Paris"
+        alt: "Services Artichaud Studio Boulogne-Billancourt"
       }
     ],
     locale: "fr_FR",

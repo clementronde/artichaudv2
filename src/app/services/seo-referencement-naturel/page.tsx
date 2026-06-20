@@ -5,32 +5,34 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "SEO & Référencement Naturel Paris | Agence SEO Expert - Artichaud Studio",
-  description: "Référencement naturel et SEO à Paris. Audit SEO, stratégie de contenu, netlinking, optimisations techniques. Artichaud Studio, votre agence SEO pour booster votre visibilité Google.",
+  title: {
+    absolute: "Agence SEO & Référencement Naturel à Boulogne-Billancourt | Artichaud Studio"
+  },
+  description: "Agence SEO à Boulogne-Billancourt. Audit SEO, stratégie de contenu, netlinking, optimisations techniques. Boostez votre visibilité Google et générez du trafic qualifié.",
   keywords: [
-    "SEO Paris",
-    "référencement naturel Paris",
-    "agence SEO Paris",
+    "agence SEO Boulogne-Billancourt",
+    "référencement naturel Île-de-France",
+    "agence SEO 92",
     "consultant SEO",
     "audit SEO",
     "stratégie SEO",
     "référencement Google",
     "optimisation SEO",
     "netlinking",
-    "contenu SEO",
+    "SEO local Boulogne-Billancourt",
     "SEO technique",
-    "agence référencement Paris"
+    "agence référencement Île-de-France"
   ],
   openGraph: {
-    title: "SEO & Référencement Naturel Paris - Artichaud Studio",
-    description: "Améliorez votre visibilité sur Google. Audit SEO, stratégie de contenu, optimisations techniques. Générez du trafic qualifié.",
+    title: "Agence SEO & Référencement Naturel — Artichaud Studio Boulogne-Billancourt",
+    description: "Améliorez votre visibilité sur Google. Audit SEO, stratégie de contenu, optimisations techniques. Agence SEO à Boulogne-Billancourt.",
     url: `${SITE_URL}/services/seo-referencement-naturel`,
     images: [
       {
         url: `${SITE_URL}/icon.png`,
         width: 512,
         height: 512,
-        alt: "SEO & Référencement Naturel Paris - Artichaud Studio"
+        alt: "Agence SEO Boulogne-Billancourt - Artichaud Studio"
       }
     ],
     locale: "fr_FR",

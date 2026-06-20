@@ -783,19 +783,19 @@ export default function ContactPage() {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="mailto:artichaud.studio@gmail.com"
-                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 
+                  href="mailto:hello@artichaud-studio.com"
+                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10
                              text-arti-black font-medium hover:border-arti-black transition-all duration-300"
                 >
-                  <span>artichaud.studio@gmail.com</span>
+                  <span>hello@artichaud-studio.com</span>
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                 </a>
                 <a
-                  href="tel:0687538017"
-                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10 
+                  href="tel:0766489982"
+                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/10
                              text-arti-black font-medium hover:border-arti-black transition-all duration-300"
                 >
-                  <span>06 87 53 80 17</span>
+                  <span>07 66 48 99 82</span>
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                 </a>
               </div>

@@ -247,7 +247,7 @@ export default function BrandingIdentiteVisuelleClient() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[32px] md:text-[48px] lg:text-[64px] leading-[1.05] font-normal text-arti-black tracking-tight mb-8"
             >
-              Branding & Identité Visuelle à Paris
+              Branding & Identité Visuelle à Boulogne-Billancourt
             </motion.h1>
             <motion.p
               initial={false}

@@ -4,26 +4,28 @@ import { getAllPosts } from "@/lib/mdx"
 import { SITE_URL } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "À Propos | Notre Histoire & Vision - Artichaud Studio Paris",
-  description: "Découvrez Artichaud Studio : une agence de branding et création web parisienne qui accompagne les marques ambitieuses dans leur transformation digitale et visuelle.",
+  title: {
+    absolute: "À Propos | Artichaud Studio — Agence créative à Boulogne-Billancourt"
+  },
+  description: "Artichaud Studio : l'agence créative indépendante à Boulogne-Billancourt qui pense la marque avant le design. Branding, création web et SEO pour marques ambitieuses.",
   keywords: [
-    "agence branding Paris",
-    "équipe créative Paris",
-    "studio design Paris",
-    "agence web Paris équipe",
-    "qui sommes-nous Artichaud",
-    "histoire agence Paris"
+    "agence créative Boulogne-Billancourt",
+    "studio design Île-de-France",
+    "agence branding indépendante",
+    "qui sommes-nous Artichaud Studio",
+    "agence web Boulogne-Billancourt équipe",
+    "histoire agence créative 92"
   ],
   openGraph: {
-    title: "À Propos - Artichaud Studio Paris",
-    description: "L'équipe, notre vision et notre approche pour faire grandir votre marque.",
+    title: "À Propos — Artichaud Studio, agence créative à Boulogne-Billancourt",
+    description: "L'agence créative indépendante qui pense la marque avant le design. Notre équipe, notre vision, notre approche.",
     url: `${SITE_URL}/about`,
     images: [
       {
         url: `${SITE_URL}/icon.png`,
         width: 1200,
         height: 630,
-        alt: "À Propos Artichaud Studio"
+        alt: "À Propos Artichaud Studio Boulogne-Billancourt"
       }
     ],
     locale: "fr_FR",

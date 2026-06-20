@@ -4,9 +4,9 @@ export const translations = {
   fr: {
     hero: {
       title: [
-        "Artichaud, c'est le",
-        "studio de création web qui",
-        "fait monter la température.",
+        "Artichaud, l'agence web",
+        "& branding à Boulogne-Billancourt",
+        "qui fait monter la température.",
       ],
       scroll: "SCROLL",
       ctaDiscuss: "On en discute",
@@ -254,9 +254,9 @@ export const translations = {
   en: {
     hero: {
       title: [
-        "Artichaud is the",
-        "web creation studio that",
-        "turns up the heat.",
+        "Artichaud, the web",
+        "& branding agency in Boulogne,",
+        "turning up the heat.",
       ],
       scroll: "SCROLL",
       ctaDiscuss: "Let's talk",

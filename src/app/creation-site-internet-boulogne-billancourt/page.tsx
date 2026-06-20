@@ -43,8 +43,8 @@ const localBusinessSchema = {
   "name": "Artichaud Studio",
   "description": "Agence web à Boulogne-Billancourt. Création de sites vitrines, refontes, SEO local et design sur mesure pour TPE, PME et indépendants du 92.",
   "url": "https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt",
-  "telephone": "+33687538017",
-  "email": "artichaud.studio@gmail.com",
+  "telephone": "+33766489982",
+  "email": "hello@artichaud-studio.com",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Boulogne-Billancourt",

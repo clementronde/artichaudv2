@@ -65,17 +65,17 @@ const Footer: React.FC = () => {
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-medium text-white mb-2">{t.footer.contactTitle}</h3>
             <a
-              href="mailto:artichaud.studio@gmail.com"
+              href="mailto:hello@artichaud-studio.com"
               className="text-white/60 hover:text-white transition-colors text-sm"
               suppressHydrationWarning={true}
             >
-              artichaud.studio@gmail.com
+              hello@artichaud-studio.com
             </a>
             <a
-              href="tel:0687538017"
+              href="tel:0766489982"
               className="text-white/60 hover:text-white transition-colors text-sm"
             >
-              06 87 53 80 17
+              07 66 48 99 82
             </a>
           </div>
 

@@ -8,17 +8,17 @@ import { SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Blog création web & branding | Conseils pour PME',
-  description: 'Découvrez nos articles sur le branding, le webdesign, le marketing digital et les tendances du design. Conseils pratiques et retours d\'expérience de nos projets à Paris.',
+  description: 'Découvrez nos articles sur le branding, le webdesign, le marketing digital et les tendances du design. Conseils pratiques et retours d\'expérience de nos projets à Boulogne-Billancourt.',
   keywords: [
-    'blog branding Paris',
+    'blog branding Boulogne-Billancourt',
     'conseils webdesign',
     'stratégie digitale',
     'tendances design',
-    'actualités web Paris',
+    'actualités web Île-de-France',
     'articles marketing digital'
   ],
   openGraph: {
-    title: 'Blog - Artichaud Studio Paris',
+    title: 'Blog — Artichaud Studio Boulogne-Billancourt',
     description: 'Nos articles sur le branding, le webdesign et la stratégie digitale.',
     url: `${SITE_URL}/blog`,
     images: [

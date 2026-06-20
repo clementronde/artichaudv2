@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
 const serviceContent = {
   fr: {
     label: 'Services',
-    heroTitle: "Une agence 360 qui réunit tous les métiers de la création. C'est mieux pour penser chaque idée.",
+    heroTitle: "Création de site internet, branding & SEO à Boulogne-Billancourt. Tous les métiers de la création réunis.",
     heroText: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention.",
     cta: 'Parlons-en',
     expertiseTitle: 'Nos expertises',
@@ -83,7 +83,7 @@ const serviceContent = {
   },
   en: {
     label: 'Services',
-    heroTitle: 'A 360 digital studio bringing every creative discipline together. Better thinking for every idea.',
+    heroTitle: 'Web design, branding & SEO in Boulogne-Billancourt. Every creative discipline under one roof.',
     heroText: 'You have built something strong. Now the challenge is clearer: earning attention, explaining your value and turning interest into action.',
     cta: "Let's talk",
     expertiseTitle: 'Our expertise',

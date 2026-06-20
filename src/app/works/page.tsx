@@ -6,18 +6,20 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 import { SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: "Portfolio | Nos Projets Web & Branding - Artichaud Studio Paris",
+  title: {
+    absolute: "Portfolio — Projets Web & Branding | Artichaud Studio Boulogne-Billancourt"
+  },
   description: "Découvrez nos réalisations : branding, sites web et stratégies digitales pour Charit.io, Disobey, Paradox, Lumyn et autres marques ambitieuses.",
   keywords: [
-    "portfolio agence web Paris",
+    "portfolio agence web Boulogne-Billancourt",
     "projets branding",
     "réalisations webdesign",
     "case studies design",
     "portfolio identité visuelle",
-    "références clients agence Paris"
+    "références clients agence 92"
   ],
   openGraph: {
-    title: "Portfolio - Artichaud Studio Paris",
+    title: "Portfolio — Artichaud Studio Boulogne-Billancourt",
     description: "Nos projets de branding et webdesign pour des marques qui osent se démarquer.",
     url: `${SITE_URL}/works`,
     images: [

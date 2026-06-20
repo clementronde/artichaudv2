@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
         },
         to: [
           {
-            email: process.env.CONTACT_EMAIL || 'artichaud.studio@gmail.com',
+            email: process.env.CONTACT_EMAIL || 'hello@artichaud-studio.com',
             name: 'Artichaud Studio',
           },
         ],
