@@ -54,6 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const localSeoPages = [
     { route: '/creation-site-internet-paris', priority: 0.9, changeFreq: 'monthly' as const },
     { route: '/creation-site-internet-boulogne-billancourt', priority: 0.85, changeFreq: 'monthly' as const },
+    { route: '/boulogne-billancourt', priority: 0.80, changeFreq: 'monthly' as const },
     { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.86, changeFreq: 'monthly' as const },
     { route: '/refonte-site-internet', priority: 0.86, changeFreq: 'monthly' as const },
   ].map((page) => ({
