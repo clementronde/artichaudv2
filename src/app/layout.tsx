@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import "./globals.css";
@@ -93,6 +94,10 @@ export default async function RootLayout({
         {process.env.NEXT_PUBLIC_GTM_ID && (
            <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         )}
+        <Script
+          src="https://www.lafabriquedunet.fr/agences/badge/artichaud-studio/badge.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
