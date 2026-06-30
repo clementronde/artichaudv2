@@ -213,7 +213,7 @@ export const projects: Project[] = [
     year: "2024",
     services: ["Mascot Design", "Visual Identity", "Illustration"],
     description: [
-      "Rockstar est un collectif musical rock qui organise des des concerts et fédère une communauté autour d’un univers visuel fort, entre énergie live et culture club. À l’agence, nous avons conçu",
+      "Rockstar est un collectif musical rock qui organise des concerts et fédère une communauté autour d’un univers visuel fort, entre énergie live et culture club. À l’agence, nous avons conçu",
       "l’écosystème complet de la marque : charte graphique, site web, merchandising, menus et contenus print/digitaux, ainsi qu’une collection de NFT. Le site a été pensé comme une vitrine et un point de conversion : faire connaître le collectif, centraliser les informations des events, et vendre à la fois NFT et merch via une expérience simple, immersive et cohérente. L’identité s’appuie sur une esthétique nocturne et électrique dominée par un violet profond et des illustrations pop assumées, pour traduire l’attitude “rockstar” et créer une signature immédiatement reconnaissable sur scène comme en ligne."
     ],
     cover: "/projects/rockstar/rockstarprojet1.avif",
