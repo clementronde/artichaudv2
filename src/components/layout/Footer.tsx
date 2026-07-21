@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useLocale } from '@/context/LocaleContext';
 
 const socialLinks = [
-  { label: 'Instagram', href: 'https://www.instagram.com/artichaud.studio/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/artichaud_studio/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/artichaud-studio' },
   { label: 'Tiktok', href: 'https://www.tiktok.com/@artichaud.studio' },
 ];

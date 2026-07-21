@@ -76,7 +76,7 @@ export default function JsonLd() {
     },
     "sameAs": [
       "https://www.linkedin.com/company/artichaud-studio",
-      "https://www.instagram.com/artichaud.studio/",
+      "https://www.instagram.com/artichaud_studio/",
       "https://www.tiktok.com/@artichaud.studio",
       "https://www.google.com/maps/place/Artichaud+Studio/@48.8374942,2.2428601,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.8374942!4d2.2428601!16s%2Fg%2F11mm8rb1gx",
       SITE_URL
