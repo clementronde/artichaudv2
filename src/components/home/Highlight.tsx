@@ -165,7 +165,7 @@ const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) 
             <div className="relative w-full h-full bg-gray-200 overflow-hidden">
                <Image
                  src={project.gallery[galleryIndex]}
-                 alt="Gallery"
+                 alt={`${project.client} — aperçu du projet`}
                  fill
                  sizes="320px"
                  className="object-cover"

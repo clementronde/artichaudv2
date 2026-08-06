@@ -13,28 +13,28 @@ export default function VisionSection() {
         {/* Image Haut Gauche — format paysage */}
         <FloatingElement depth={0.5} className="top-[15%] left-[-5%] md:left-[5%]">
           <div className="relative w-[150px] h-[100px] md:w-[300px] md:h-[200px] overflow-hidden ">
-            <Image src="/charlotte_chevre.png" alt="" fill className="object-cover" sizes="300px" />
+            <Image src="/charlotte_chevre.png" alt="Charlotte, Artichaud Studio" fill className="object-cover" sizes="300px" />
           </div>
         </FloatingElement>
 
         {/* Image Bas Gauche — format portrait */}
         <FloatingElement depth={1} className="bottom-[20%] left-[5%] md:left-[15%]">
           <div className="relative w-[180px] h-[220px] md:w-[250px] md:h-[300px] overflow-hidden">
-            <Image src="/clement_profil.png" alt="" fill className="object-cover" sizes="250px" />
+            <Image src="/clement_profil.png" alt="Clément, Artichaud Studio" fill className="object-cover" sizes="250px" />
           </div>
         </FloatingElement>
 
         {/* Image Haut Droite — format portrait */}
         <FloatingElement depth={2} className="top-[10%] right-[-5%] md:right-[5%]">
           <div className="relative w-[160px] h-[200px] md:w-[280px] md:h-[350px] overflow-hidden">
-            <Image src="/clement_heureux.png" alt="" fill className="object-cover" sizes="280px" />
+            <Image src="/clement_heureux.png" alt="Clément, Artichaud Studio" fill className="object-cover" sizes="280px" />
           </div>
         </FloatingElement>
 
         {/* Image Bas Droite — format paysage */}
         <FloatingElement depth={1.5} className="bottom-[10%] right-[5%] md:right-[20%]">
           <div className="relative w-[200px] h-[120px] md:w-[350px] md:h-[220px] overflow-hidden">
-            <Image src="/clement_charlotte.png" alt="" fill className="object-cover" sizes="350px" />
+            <Image src="/clement_charlotte.png" alt="Clément et Charlotte, l'équipe d'Artichaud Studio" fill className="object-cover" sizes="350px" />
           </div>
         </FloatingElement>
 

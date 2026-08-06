@@ -271,7 +271,7 @@ export default function Navbar() {
       <div className="fixed top-6 left-0 w-full px-6 z-[5000] flex justify-between items-center md:hidden">
           {/* Logo Mobile */}
           <Link href="/" className="h-[50px] w-[50px] rounded-full overflow-hidden shadow-lg block relative flex-shrink-0">
-             <Image src="/logonavbar.png" alt="Logo" fill sizes="50px" className="object-cover" />
+             <Image src="/logonavbar.png" alt="Artichaud Studio" fill sizes="50px" className="object-cover" />
           </Link>
 
           {/* Bouton Burger Mobile */}
