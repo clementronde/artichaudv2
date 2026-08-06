@@ -44,53 +44,10 @@ export const metadata: Metadata = {
   }
 };
 
-// Schema.org FAQPage pour rich snippets
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Pourquoi une telle fourchette de prix ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 3000€, tandis qu'un site de 20 pages avec animations avancées sera à 8000€."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Le prix inclut-il l'hébergement ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Non, l'hébergement est facturé séparément (40-100€/an selon vos besoins). Nous vous conseillons les meilleurs hébergeurs et pouvons gérer la configuration pour vous."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Proposez-vous un paiement échelonné ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui ! Nous fonctionnons par jalons : 30% à la signature, 40% à la validation des maquettes, 30% à la livraison. Pour les projets >15000€, un échelonnement sur 3-4 mois est possible."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Y a-t-il des frais cachés ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Aucun frais caché. Le devis détaille tous les coûts : conception, développement, intégrations. Seuls l'hébergement, le nom de domaine et les éventuelles licences tierces sont en sus."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Puis-je avoir un devis gratuit ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolument ! Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis nous vous envoyons un devis détaillé sous 48h."
-      }
-    }
-  ]
-}
+// Note SEO : pas de schema FAQPage ici — restreint par Google aux sites
+// gouvernementaux/santé depuis août 2023, aucun rich snippet possible pour
+// ce site. Les questions restent traitées dans le contenu visible de /tarifs
+// et sur /faq (avec balisage Offer/BreadcrumbList ci-dessous, eux valides).
 
 // Schema.org BreadcrumbList
 const breadcrumbSchema = {
@@ -182,10 +139,6 @@ export default function TarifsLayout({
 }) {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

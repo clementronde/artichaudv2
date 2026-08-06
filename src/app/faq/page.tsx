@@ -66,28 +66,14 @@ const faqs = [
   }
 ];
 
-// Schema.org FAQ
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
+// Note SEO : le schema FAQPage n'est plus émis ici. Google restreint le rich
+// snippet FAQ aux sites gouvernementaux et de santé depuis août 2023 — ce
+// balisage ne produit donc aucun résultat enrichi pour ce site. Le contenu
+// FAQ reste affiché normalement (utile pour les moteurs IA / GEO).
 
 export default function FAQPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       <main className="w-full bg-white min-h-screen pt-32 pb-20">
         <div className="container mx-auto px-6 md:px-12">
 

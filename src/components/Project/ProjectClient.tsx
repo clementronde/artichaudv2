@@ -92,7 +92,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
             <div className="relative h-full w-full bg-gray-100 overflow-hidden rounded-sm">
               <Image
                 src={project.images[0]}
-                alt="Project Detail 1"
+                alt={`${project.client} — ${project.category}, détail du projet`}
                 fill
                 className="object-cover"
                 sizes="50vw"
@@ -139,7 +139,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
           <div className="relative w-full aspect-[21/10] bg-gray-100 overflow-hidden rounded-sm">
             <Image
               src={project.images[1]}
-              alt="Project Full Width"
+              alt={`${project.client} — ${project.category}, vue d'ensemble`}
               fill
               className="object-cover"
               sizes="100vw"
@@ -155,7 +155,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
             <div className="relative w-full aspect-[4/5] bg-gray-100 overflow-hidden rounded-sm">
               <Image
                 src={project.images[2]}
-                alt="Project Grid 1"
+                alt={`${project.client} — ${project.category}, aperçu 1`}
                 fill
                 className="object-cover"
                 sizes="50vw"
@@ -167,7 +167,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
             <div className="relative w-full aspect-[4/5] bg-gray-100 overflow-hidden rounded-sm">
               <Image
                 src={project.images[3]}
-                alt="Project Grid 2"
+                alt={`${project.client} — ${project.category}, aperçu 2`}
                 fill
                 className="object-cover"
                 sizes="50vw"

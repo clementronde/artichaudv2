@@ -9,22 +9,25 @@ import { useGSAP } from '@gsap/react'
 const projects = [
   {
     id: 1,
+    slug: "charitio",
     client: "Charit.io",
     category: "Brand Identity",
     cover: "/projects/Charitio1.png", // Vérifiez vos chemins d'images
     gallery: ["/projects/Charitio1.png", "/projects/Tautu2.png", "/projects/Tautu1.png"],
-    fullWidth: false 
+    fullWidth: false
   },
   {
     id: 2,
+    slug: "keleti",
     client: "Keleti Design",
     category: "Mobile Design",
     cover: "/projects/Tautu1.png",
     gallery: ["/projects/Tautu1.png", "/projects/Tautu2.png", "/projects/Charitio1.png"],
-    fullWidth: false 
+    fullWidth: false
   },
   {
     id: 3,
+    slug: "disobey",
     client: "Disobey",
     category: "Brand Identity",
     cover: "/projects/Tautu2.png",
@@ -33,6 +36,7 @@ const projects = [
   },
   {
     id: 4,
+    slug: "lumyn",
     client: "Lumyn",
     category: "Web Marketing",
     cover: "/projects/Charitio1.png",
@@ -102,9 +106,9 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
 
   return (
     <div className="flex flex-col gap-4 col-span-1">
-      <Link 
-        href={`/works/${project.id}`}
-        ref={containerRef} 
+      <Link
+        href={`/works/${project.slug}`}
+        ref={containerRef}
         className="relative w-full h-[400px] md:h-[500px] overflow-hidden bg-gray-100 cursor-none block group"
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}

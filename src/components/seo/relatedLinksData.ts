@@ -136,6 +136,11 @@ export const relatedLinkGroups = {
       label: 'Parler d’un projet de marque',
       description: 'Cadrer une identité visuelle, un logo ou une refonte de marque.',
     },
+    {
+      href: '/works/all',
+      label: 'Tous nos projets',
+      description: 'L’ensemble de nos réalisations en branding, webdesign et développement.',
+    },
   ],
   editorial: [
     {
@@ -157,6 +162,26 @@ export const relatedLinkGroups = {
       href: '/tarifs',
       label: 'Comparer les budgets',
       description: 'Relier vos objectifs aux bons niveaux d’investissement.',
+    },
+    {
+      href: '/blog/agence-web-boulogne-billancourt-comment-choisir',
+      label: 'Bien choisir son agence web',
+      description: 'Les critères essentiels pour choisir la bonne agence web à Boulogne-Billancourt.',
+    },
+    {
+      href: '/blog/site-internet-artisan-guide-complet',
+      label: 'Site internet pour artisans',
+      description: 'Le guide complet pour un site qui génère des demandes de devis.',
+    },
+    {
+      href: '/blog/site-vitrine-ou-ecommerce-quelle-difference',
+      label: 'Site vitrine ou e-commerce ?',
+      description: 'Comprendre la différence pour choisir le bon format de site.',
+    },
+    {
+      href: '/blog/delai-creation-site-internet',
+      label: 'Délai de création d’un site internet',
+      description: 'Combien de temps prévoir, étape par étape, pour un projet web.',
     },
   ],
 } satisfies Record<string, RelatedLink[]>

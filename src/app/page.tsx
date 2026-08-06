@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "refonte site web Boulogne-Billancourt"
   ],
   openGraph: {
-    title: "Artichaud Studio - Agence web & branding Boulogne-Billancourt",
+    title: "Artichaud Studio - Web & branding à Boulogne-Billancourt",
     description: "Branding, sites web sur mesure, webdesign et SEO pour marques ambitieuses à Boulogne-Billancourt et en Île-de-France.",
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Artichaud Studio - Agence web & branding Boulogne-Billancourt",
+    title: "Artichaud Studio - Web & branding à Boulogne-Billancourt",
     description: "Branding, sites web sur mesure, webdesign et SEO à Boulogne-Billancourt.",
     images: [`${SITE_URL}/icon.png`]
   },

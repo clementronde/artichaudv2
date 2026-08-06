@@ -280,7 +280,7 @@ export default async function BlogPost(
     </main>
     <RelatedLinks
       title="Mettre ce sujet en pratique"
-      links={relatedLinkGroups.editorial}
+      links={relatedLinkGroups.editorial.filter((link) => link.href !== `/blog/${post.slug}`)}
     />
   </>
   );

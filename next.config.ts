@@ -14,6 +14,21 @@ const nextConfig: NextConfig = {
             { key: 'X-XSS-Protection', value: '1; mode=block' },
             { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
             { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+            {
+              key: 'Content-Security-Policy',
+              value: [
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://www.lafabriquedunet.fr https://va.vercel-scripts.com",
+                "style-src 'self' 'unsafe-inline'",
+                "img-src 'self' data: blob: https:",
+                "font-src 'self' data:",
+                "connect-src 'self' https://*.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+                "frame-src https://maps.google.com https://www.google.com",
+                "object-src 'none'",
+                "base-uri 'self'",
+                "frame-ancestors 'self'",
+              ].join('; '),
+            },
           ],
         },
       ]

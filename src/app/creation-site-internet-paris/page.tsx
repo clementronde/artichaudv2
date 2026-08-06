@@ -27,14 +27,7 @@ export const metadata: Metadata = {
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",
-    images: [
-      {
-        url: "https://www.artichaud-studio.fr/images/og-paris.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Création site internet Paris Artichaud",
-      },
-    ],
+    // Image OG générée dynamiquement par opengraph-image.tsx dans ce dossier.
   },
 };
 
