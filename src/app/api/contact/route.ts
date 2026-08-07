@@ -168,13 +168,14 @@ export async function POST(request: NextRequest) {
     if (!emailResponse.ok) {
       const errorData = await emailResponse.json().catch(() => null) as { message?: string; code?: string } | null
       const brevoMessage = errorData?.message || 'Réponse inconnue de Brevo'
+      const safeBrevoMessage = brevoMessage.replace(/[\r\n]/g, ' ').slice(0, 240)
 
       console.error(JSON.stringify({
         level: 'error',
         message: 'Erreur Brevo email',
         status: emailResponse.status,
         brevoCode: errorData?.code,
-        brevoMessage,
+        brevoMessage: safeBrevoMessage,
       }))
 
       let publicMessage = `Brevo a refusé l’envoi (${emailResponse.status}).`
@@ -187,7 +188,11 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json(
-        { error: publicMessage, code: 'BREVO_EMAIL_REJECTED' },
+        {
+          error: `${publicMessage} Détail Brevo : ${safeBrevoMessage}`,
+          code: errorData?.code || 'BREVO_EMAIL_REJECTED',
+          providerStatus: emailResponse.status,
+        },
         { status: 502 }
       )
     }
