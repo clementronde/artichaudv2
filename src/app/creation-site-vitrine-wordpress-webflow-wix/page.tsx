@@ -27,14 +27,7 @@ export const metadata: Metadata = {
     siteName: "Agence Artichaud",
     locale: "fr_FR",
     type: "website",
-    images: [
-      {
-        url: "https://www.artichaud-studio.fr/images/og-cms-vitrine.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Comparatif WordPress Webflow Wix Agence Artichaud",
-      },
-    ],
+    // Image OG générée dynamiquement par opengraph-image.tsx dans ce dossier.
   },
 };
 

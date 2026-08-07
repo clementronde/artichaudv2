@@ -44,35 +44,14 @@ const staggerContainer: Variants = {
 };
 
 export default function ParisClient() {
-  
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Artichaud Studio",
-    "image": "https://www.artichaud-studio.fr/icon.png",
-    "telephone": "+33687538017",
-    "url": "https://www.artichaud-studio.fr/creation-site-internet-paris",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Paris",
-      "addressRegion": "Île-de-France",
-      "addressCountry": "FR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.8566,
-      "longitude": 2.3522
-    },
-    "priceRange": "€€-€€€"
-  };
+  // Note SEO : le schema LocalBusiness de cette page est déjà émis par
+  // page.tsx (localBusinessSchema, NAP cohérent avec le reste du site).
+  // Un second schema était dupliqué ici avec un téléphone différent
+  // (+33687538017 au lieu de +33766489982) et une URL en www — retiré pour
+  // éviter toute incohérence NAP (Name-Address-Phone) aux yeux de Google.
 
   return (
     <main className="w-full bg-white min-h-screen overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-24 md:pb-40 px-6 overflow-hidden bg-neutral-950 text-white">
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">

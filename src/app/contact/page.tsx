@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
+import { sendGAEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
@@ -628,6 +629,14 @@ export default function ContactPage() {
       }
 
       setIsSubmitted(true)
+
+      // Conversion GA4 : suivi des demandes de contact générées par le site
+      sendGAEvent('event', 'generate_lead', {
+        event_category: 'contact_form',
+        event_label: formData.services.join(', '),
+        value: formData.budget,
+      })
+
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {

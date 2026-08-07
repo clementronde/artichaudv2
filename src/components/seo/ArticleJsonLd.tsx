@@ -1,3 +1,5 @@
+import { SITE_URL } from '@/lib/seo';
+
 interface ArticleJsonLdProps {
   title: string
   description: string
@@ -20,14 +22,14 @@ export default function ArticleJsonLd(props: ArticleJsonLdProps) {
     "author": {
       "@type": "Organization",
       "name": props.author,
-      "url": "https://www.artichaud-studio.fr"
+      "url": SITE_URL
     },
     "publisher": {
       "@type": "Organization",
       "name": "Artichaud Studio",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.artichaud-studio.fr/icon.png"
+        "url": `${SITE_URL}/icon.png`
       }
     },
     "mainEntityOfPage": {

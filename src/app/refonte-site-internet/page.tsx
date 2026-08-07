@@ -37,7 +37,7 @@ const schemas = [
     "@type": ["LocalBusiness", "ProfessionalService"],
     "name": "Artichaud Studio",
     "description": "Agence experte en refonte de site internet à Boulogne-Billancourt et en Île-de-France. Nouveau design, meilleure UX et SEO conservé. WordPress, Webflow, Wix.",
-    "url": "https://www.artichaud-studio.fr/refonte-site-internet",
+    "url": `${SITE_URL}/refonte-site-internet`,
     "telephone": "+33766489982",
     "email": "hello@artichaud-studio.com",
     "address": {

@@ -36,7 +36,7 @@ const localBusinessSchema = {
   "@type": ["LocalBusiness", "ProfessionalService"],
   "name": "Artichaud Studio",
   "description": "Studio web créatif à Paris. Création de sites vitrines WordPress, Webflow et Wix pour TPE, PME et startups en Île-de-France.",
-  "url": "https://www.artichaud-studio.fr/creation-site-internet-paris",
+  "url": `${SITE_URL}/creation-site-internet-paris`,
   "telephone": "+33766489982",
   "email": "hello@artichaud-studio.com",
   "address": {

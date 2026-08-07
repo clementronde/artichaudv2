@@ -1,4 +1,5 @@
 import React from 'react';
+import { SITE_URL } from '@/lib/seo';
 
 interface BlogPostSchemaProps {
   title: string;
@@ -26,21 +27,21 @@ export default function BlogPostSchema({
     "description": description,
     "image": {
       "@type": "ImageObject",
-      "url": image.startsWith('http') ? image : `https://www.artichaud-studio.fr${image}`,
+      "url": image.startsWith('http') ? image : `${SITE_URL}${image}`,
       "width": 1200,
       "height": 630
     },
     "author": {
       "@type": "Person",
       "name": author,
-      "url": "https://www.artichaud-studio.fr/about"
+      "url": `${SITE_URL}/about`
     },
     "publisher": {
       "@type": "Organization",
       "name": "Artichaud Studio",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.artichaud-studio.fr/icon.png",
+        "url": `${SITE_URL}/icon.png`,
         "width": 512,
         "height": 512
       }
@@ -49,7 +50,7 @@ export default function BlogPostSchema({
     "dateModified": dateModified || datePublished,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.artichaud-studio.fr/blog/${slug}`
+      "@id": `${SITE_URL}/blog/${slug}`
     },
     "articleSection": "Branding & Web Design",
     "inLanguage": "fr-FR"
