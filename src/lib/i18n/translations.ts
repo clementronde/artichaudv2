@@ -227,12 +227,12 @@ export const translations = {
         subheading: "Parfois un appel vaut mieux qu'un formulaire.",
       },
       services: [
-        { id: "branding", label: "Brand Identity", description: "Logo, charte graphique, direction artistique" },
-        { id: "webdesign", label: "Web Design", description: "UX/UI, maquettes, prototypes interactifs" },
-        { id: "webdev", label: "Développement Web", description: "Site vitrine, e-commerce, application sur-mesure" },
-        { id: "social", label: "Social Media", description: "Stratégie, création de contenu, community management" },
-        { id: "marketing", label: "Webmarketing", description: "SEO, SEA, emailing, analytics & reporting" },
-        { id: "photo", label: "Shooting Photo & Vidéo", description: "Packshot produit, lifestyle, motion design" },
+        { id: "branding", label: "Logo & identité visuelle", description: "Logo, charte graphique, direction artistique" },
+        { id: "webdesign", label: "Design du site (UX/UI)", description: "Maquettes et prototypes de votre futur site" },
+        { id: "webdev", label: "Création de site internet", description: "Site vitrine, e-commerce, application sur-mesure" },
+        { id: "social", label: "Réseaux sociaux", description: "Stratégie, création de contenu, community management" },
+        { id: "marketing", label: "Référencement (SEO) & webmarketing", description: "SEO, SEA, emailing, analytics & reporting" },
+        { id: "photo", label: "Photo & vidéo", description: "Packshot produit, lifestyle, motion design" },
       ],
       budgets: [
         { id: "small", label: "Moins de 3 000 €", hint: "Projet simple" },
