@@ -624,8 +624,10 @@ export default function ContactPage() {
         body: JSON.stringify(formData),
       })
 
+      const responseData = await response.json().catch(() => null) as { error?: string } | null
+
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi')
+        throw new Error(responseData?.error || 'Erreur lors de l\'envoi')
       }
 
       setIsSubmitted(true)
@@ -641,7 +643,7 @@ export default function ContactPage() {
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
-      setSubmitError(t.contact.errors.submitError)
+      setSubmitError(error instanceof Error ? error.message : t.contact.errors.submitError)
     } finally {
       setIsSubmitting(false)
     }

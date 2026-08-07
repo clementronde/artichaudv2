@@ -166,9 +166,30 @@ export async function POST(request: NextRequest) {
     })
 
     if (!emailResponse.ok) {
-      const errorData = await emailResponse.json()
-      console.error('Erreur Brevo email:', errorData)
-      throw new Error('Erreur envoi email')
+      const errorData = await emailResponse.json().catch(() => null) as { message?: string; code?: string } | null
+      const brevoMessage = errorData?.message || 'Réponse inconnue de Brevo'
+
+      console.error(JSON.stringify({
+        level: 'error',
+        message: 'Erreur Brevo email',
+        status: emailResponse.status,
+        brevoCode: errorData?.code,
+        brevoMessage,
+      }))
+
+      let publicMessage = `Brevo a refusé l’envoi (${emailResponse.status}).`
+      if (emailResponse.status === 401 || emailResponse.status === 403) {
+        publicMessage = 'La clé API Brevo est invalide, inactive ou sans autorisation.'
+      } else if (emailResponse.status === 429) {
+        publicMessage = 'Le quota d’envoi Brevo est temporairement dépassé.'
+      } else if (/sender|expéditeur|not verified|not valid/i.test(brevoMessage)) {
+        publicMessage = 'L’adresse expéditrice configurée n’est pas vérifiée dans Brevo.'
+      }
+
+      return NextResponse.json(
+        { error: publicMessage, code: 'BREVO_EMAIL_REJECTED' },
+        { status: 502 }
+      )
     }
 
     // 2. AJOUTER LE CONTACT À LA LISTE BREVO (optionnel)
