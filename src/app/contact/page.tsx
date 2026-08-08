@@ -569,7 +569,9 @@ export default function ContactPage() {
   })
 
   const totalSteps = 3
+  const stepNames = ['services', 'budget', 'contact'] as const
   const prevStepRef = useRef<number | null>(null)
+  const formStartSentRef = useRef(false)
 
   // Scroll vers le haut du formulaire uniquement lors des vrais changements d'étape
   useEffect(() => {
@@ -588,6 +590,13 @@ export default function ContactPage() {
     
     prevStepRef.current = currentStep
   }, [currentStep, isSubmitted])
+
+  // Funnel GA4 : premier engagement avec le formulaire (sélection d'un service)
+  useEffect(() => {
+    if (formStartSentRef.current || formData.services.length === 0) return
+    formStartSentRef.current = true
+    sendGTMEvent({ event: 'form_start', form_name: 'contact' })
+  }, [formData.services])
 
   // Rendu du widget Turnstile une fois arrivé à l'étape contact
   useEffect(() => {
@@ -647,6 +656,14 @@ export default function ContactPage() {
   // Navigation
   const nextStep = () => {
     if (validateStep(currentStep)) {
+      // Funnel GA4 : étape complétée avant de passer à la suivante
+      sendGTMEvent({
+        event: 'form_step_complete',
+        form_name: 'contact',
+        step_number: currentStep + 1,
+        step_name: stepNames[currentStep],
+      })
+
       if (currentStep < totalSteps - 1) {
         setCurrentStep(prev => prev + 1)
       } else {
