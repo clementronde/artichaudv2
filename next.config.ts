@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
                 "style-src 'self' 'unsafe-inline'",
                 "img-src 'self' data: blob: https:",
                 "font-src 'self' data:",
-                "connect-src 'self' https://*.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+                "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
                 "frame-src https://maps.google.com https://www.google.com",
                 "object-src 'none'",
                 "base-uri 'self'",
