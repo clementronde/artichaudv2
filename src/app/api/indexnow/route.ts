@@ -47,7 +47,12 @@ export async function POST(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
   const expectedSecret = process.env.INDEXNOW_SECRET
 
-  if (expectedSecret && authHeader !== `Bearer ${expectedSecret}`) {
+  if (!expectedSecret) {
+    console.error('INDEXNOW_SECRET non configurée')
+    return NextResponse.json({ error: 'Configuration serveur manquante' }, { status: 500 })
+  }
+
+  if (authHeader !== `Bearer ${expectedSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

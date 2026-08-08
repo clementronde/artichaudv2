@@ -13,6 +13,34 @@ interface FormData {
   website: string
   message: string
   howFound: string
+  hp?: string
+  turnstileToken?: string
+}
+
+async function verifyTurnstile(token: string, remoteIp: string | null): Promise<boolean> {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY
+  if (!secretKey) {
+    console.error('TURNSTILE_SECRET_KEY non configurée')
+    return false
+  }
+
+  const params = new URLSearchParams()
+  params.set('secret', secretKey)
+  params.set('response', token)
+  if (remoteIp) params.set('remoteip', remoteIp)
+
+  try {
+    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params,
+    })
+    const result = await verifyResponse.json() as { success: boolean }
+    return result.success === true
+  } catch (error) {
+    console.error('Erreur vérification Turnstile:', error)
+    return false
+  }
 }
 
 // Mapping des IDs vers les labels lisibles
@@ -40,14 +68,54 @@ const timelinesMap: Record<string, string> = {
   flexible: 'Pas de contrainte',
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function safeHttpUrl(value: string): string | null {
+  try {
+    const url = new URL(value)
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString() : null
+  } catch {
+    return null
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const data: FormData = await request.json()
+
+    // Honeypot : champ invisible pour les humains, rempli uniquement par les bots.
+    // On répond succès sans rien envoyer, pour ne pas révéler la détection.
+    if (data.hp) {
+      return NextResponse.json({ success: true })
+    }
 
     // Validation basique
     if (!data.name || !data.email || !data.message) {
       return NextResponse.json(
         { error: 'Champs requis manquants' },
+        { status: 400 }
+      )
+    }
+
+    // Vérification anti-spam Cloudflare Turnstile
+    if (!data.turnstileToken) {
+      return NextResponse.json(
+        { error: 'Vérification anti-spam manquante' },
+        { status: 400 }
+      )
+    }
+    const remoteIp = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for')
+    const turnstileValid = await verifyTurnstile(data.turnstileToken, remoteIp)
+    if (!turnstileValid) {
+      return NextResponse.json(
+        { error: 'Vérification anti-spam échouée, merci de réessayer' },
         { status: 400 }
       )
     }
@@ -62,10 +130,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Préparer les données lisibles
+    // Préparer les données lisibles (échappées pour l'injection HTML dans les emails)
+    const safeName = escapeHtml(data.name)
+    const safeEmail = escapeHtml(data.email)
+    const safeCompany = data.company ? escapeHtml(data.company) : ''
+    const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br>')
+    const safeHowFound = data.howFound ? escapeHtml(data.howFound) : ''
+    const safeWebsite = data.website ? safeHttpUrl(data.website) : null
+
     const servicesLabels = data.services.map(s => servicesMap[s] || s).join(', ')
+    const safeServicesBadges = data.services.map(s => `<span class="badge">${escapeHtml(servicesMap[s] || s)}</span>`).join('')
     const budgetLabel = budgetsMap[data.budget] || data.budget || 'Non spécifié'
     const timelineLabel = timelinesMap[data.timeline] || data.timeline || 'Non spécifié'
+    const safeServicesLabels = escapeHtml(servicesLabels)
+    const safeBudgetLabel = escapeHtml(budgetLabel)
+    const safeTimelineLabel = escapeHtml(timelineLabel)
 
     // 1. ENVOYER L'EMAIL DE NOTIFICATION À L'ÉQUIPE
     const emailContent = `
@@ -94,38 +173,38 @@ export async function POST(request: NextRequest) {
     
     <div class="section">
       <div class="label">Contact</div>
-      <div class="value"><strong>${data.name}</strong></div>
-      <div class="value">${data.email}</div>
-      ${data.company ? `<div class="value">${data.company}</div>` : ''}
-      ${data.website ? `<div class="value"><a href="${data.website}">${data.website}</a></div>` : ''}
+      <div class="value"><strong>${safeName}</strong></div>
+      <div class="value">${safeEmail}</div>
+      ${safeCompany ? `<div class="value">${safeCompany}</div>` : ''}
+      ${safeWebsite ? `<div class="value"><a href="${safeWebsite}">${escapeHtml(safeWebsite)}</a></div>` : ''}
     </div>
 
     <div class="section">
       <div class="label">Services demandés</div>
       <div class="value">
-        ${data.services.map(s => `<span class="badge">${servicesMap[s] || s}</span>`).join('')}
+        ${safeServicesBadges}
       </div>
     </div>
 
     <div class="section">
       <div class="label">Budget</div>
-      <div class="value">${budgetLabel}</div>
+      <div class="value">${safeBudgetLabel}</div>
     </div>
 
     <div class="section">
       <div class="label">Délai souhaité</div>
-      <div class="value">${timelineLabel}</div>
+      <div class="value">${safeTimelineLabel}</div>
     </div>
 
     <div class="section">
       <div class="label">Description du projet</div>
-      <div class="message-box">${data.message.replace(/\n/g, '<br>')}</div>
+      <div class="message-box">${safeMessage}</div>
     </div>
 
-    ${data.howFound ? `
+    ${safeHowFound ? `
     <div class="section">
       <div class="label">Source</div>
-      <div class="value">${data.howFound}</div>
+      <div class="value">${safeHowFound}</div>
     </div>
     ` : ''}
 
@@ -189,9 +268,8 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(
         {
-          error: `${publicMessage} Détail Brevo : ${safeBrevoMessage}`,
+          error: publicMessage,
           code: errorData?.code || 'BREVO_EMAIL_REJECTED',
-          providerStatus: emailResponse.status,
         },
         { status: 502 }
       )
@@ -254,7 +332,7 @@ export async function POST(request: NextRequest) {
     <div class="card">
       <div class="logo">Artichaud.</div>
       
-      <h1>Merci ${data.name.split(' ')[0]} !</h1>
+      <h1>Merci ${escapeHtml(data.name.split(' ')[0])} !</h1>
       
       <p>
         Nous avons bien reçu votre demande et nous en sommes ravis.
@@ -265,15 +343,15 @@ export async function POST(request: NextRequest) {
       <div class="recap">
         <div class="recap-item">
           <span class="recap-label">Services</span>
-          <span class="recap-value">${servicesLabels}</span>
+          <span class="recap-value">${safeServicesLabels}</span>
         </div>
         <div class="recap-item">
           <span class="recap-label">Budget</span>
-          <span class="recap-value">${budgetLabel}</span>
+          <span class="recap-value">${safeBudgetLabel}</span>
         </div>
         <div class="recap-item">
           <span class="recap-label">Délai</span>
-          <span class="recap-value">${timelineLabel}</span>
+          <span class="recap-value">${safeTimelineLabel}</span>
         </div>
       </div>
 

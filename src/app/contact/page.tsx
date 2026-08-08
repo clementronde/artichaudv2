@@ -5,10 +5,23 @@ import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
+import Script from 'next/script'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: string | HTMLElement,
+        options: { sitekey: string; callback: (token: string) => void; 'expired-callback'?: () => void }
+      ) => string
+      reset: (widgetId?: string) => void
+    }
+  }
+}
 
 // --- TYPES ---
 interface FormData {
@@ -302,11 +315,17 @@ const Step2Budget = ({
 const Step3Contact = ({
   formData,
   setFormData,
-  errors
+  errors,
+  honeypot,
+  setHoneypot,
+  turnstileContainerRef
 }: {
   formData: FormData
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
   errors: Record<string, string>
+  honeypot: string
+  setHoneypot: (value: string) => void
+  turnstileContainerRef: React.RefObject<HTMLDivElement | null>
 }) => {
   const { t } = useLocale()
   const sources = t.contact.sources
@@ -395,6 +414,21 @@ const Step3Contact = ({
           ))}
         </div>
       </div>
+
+      {/* Honeypot anti-bot : invisible et ignoré par les humains */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 0, height: 0, overflow: 'hidden' }}>
+        <label htmlFor="hp-field">Ne pas remplir ce champ</label>
+        <input
+          id="hp-field"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
+      <div ref={turnstileContainerRef} className="flex justify-center md:justify-start" />
     </motion.div>
   )
 }
@@ -516,6 +550,11 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [honeypot, setHoneypot] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetId = useRef<string | null>(null)
 
   const [formData, setFormData] = useState<FormData>({
     services: [],
@@ -549,6 +588,19 @@ export default function ContactPage() {
     
     prevStepRef.current = currentStep
   }, [currentStep, isSubmitted])
+
+  // Rendu du widget Turnstile une fois arrivé à l'étape contact
+  useEffect(() => {
+    if (currentStep !== 2 || isSubmitted || !turnstileReady || turnstileWidgetId.current) return
+    const sitekey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    if (!sitekey || !turnstileContainerRef.current || !window.turnstile) return
+
+    turnstileWidgetId.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey,
+      callback: (token: string) => setTurnstileToken(token),
+      'expired-callback': () => setTurnstileToken(''),
+    })
+  }, [currentStep, isSubmitted, turnstileReady])
 
   // Animation d'entrée GSAP
   useGSAP(() => {
@@ -614,6 +666,11 @@ export default function ContactPage() {
   const handleSubmit = async () => {
     if (!validateStep(currentStep)) return
 
+    if (!turnstileToken) {
+      setSubmitError(t.contact.errors.submitError)
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitError(null)
 
@@ -621,7 +678,7 @@ export default function ContactPage() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, hp: honeypot, turnstileToken }),
       })
 
       const responseData = await response.json().catch(() => null) as { error?: string } | null
@@ -644,6 +701,10 @@ export default function ContactPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : t.contact.errors.submitError)
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetId.current)
+      }
+      setTurnstileToken('')
     } finally {
       setIsSubmitting(false)
     }
@@ -652,12 +713,17 @@ export default function ContactPage() {
   const canProceed = () => {
     if (currentStep === 0) return formData.services.length > 0
     if (currentStep === 1) return formData.budget !== ''
-    if (currentStep === 2) return formData.name && formData.email && formData.message
+    if (currentStep === 2) return Boolean(formData.name && formData.email && formData.message && turnstileToken)
     return true
   }
 
   return (
     <main ref={containerRef} className="w-full bg-white min-h-screen pt-32 md:pt-40 pb-24">
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="lazyOnload"
+        onLoad={() => setTurnstileReady(true)}
+      />
       <div className="container mx-auto px-6 md:px-12">
         
         {/* Header */}
@@ -706,11 +772,14 @@ export default function ContactPage() {
                   />
                 )}
                 {currentStep === 2 && (
-                  <Step3Contact 
-                    key="step3" 
-                    formData={formData} 
+                  <Step3Contact
+                    key="step3"
+                    formData={formData}
                     setFormData={setFormData}
                     errors={errors}
+                    honeypot={honeypot}
+                    setHoneypot={setHoneypot}
+                    turnstileContainerRef={turnstileContainerRef}
                   />
                 )}
               </>
