@@ -53,7 +53,7 @@ export async function generateMetadata(
         type: 'article',
         publishedTime: post.meta.date,
         modifiedTime: post.meta.modifiedDate,
-        authors: ['Artichaud Studio'],
+        authors: ['Clément Rondepierre'],
         url: `${BASE_URL}/blog/${post.slug}`,
         siteName: 'Artichaud Studio',
         locale: 'fr_FR',
@@ -106,9 +106,15 @@ export default async function BlogPost(
     datePublished: post.meta.date,
     dateModified: post.meta.modifiedDate,
     author: {
-      '@type': 'Organization',
-      name: 'Artichaud Studio',
-      url: BASE_URL,
+      '@type': 'Person',
+      name: 'Clément Rondepierre',
+      jobTitle: 'CEO & Co-fondateur',
+      url: `${BASE_URL}/about`,
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Artichaud Studio',
+        url: BASE_URL,
+      },
     },
     publisher: {
       '@type': 'Organization',
@@ -210,14 +216,31 @@ export default async function BlogPost(
             {post.meta.title}
           </h1>
           
-          <div className="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-100 pb-8">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                 <Image src="/icon.png" width={32} height={32} alt="Author" />
-              </div>
-              <span className="font-medium text-black">Artichaud Team</span>
+          <Link
+            href="/about"
+            suppressHydrationWarning
+            className="flex items-center gap-4 group mb-6 -mx-2 px-2 py-2 rounded-xl transition-colors hover:bg-amber-50/60"
+          >
+            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-white shadow-sm shrink-0">
+              <Image
+                src="/clement_profil.png"
+                width={48}
+                height={48}
+                alt="Clément Rondepierre, CEO et co-fondateur d'Artichaud Studio"
+                className="object-cover w-full h-full"
+              />
             </div>
-            <span>•</span>
+            <div className="leading-tight">
+              <span className="block font-semibold text-black group-hover:text-amber-700 transition-colors">
+                Clément Rondepierre
+              </span>
+              <span className="block text-sm text-gray-500">
+                CEO &amp; Co-fondateur, Artichaud Studio
+              </span>
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-100 pb-8">
             <time dateTime={post.meta.date}>
               {new Date(post.meta.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
             </time>

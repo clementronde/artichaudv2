@@ -72,7 +72,7 @@ export default function Testimonials() {
               ))}
             </motion.h2>
 
-            <motion.div variants={fadeInUp}>
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 group"
@@ -80,6 +80,26 @@ export default function Testimonials() {
                 <span className="text-sm font-medium">{t.testimonials.readMore}</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
+
+              <a
+                href="https://share.google/pqV5pn37o5Em33Hdt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 hover:border-black/30 transition-colors duration-300"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                  <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.42 3.58v3h3.91c2.29-2.11 3.53-5.22 3.53-8.82z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.91-3c-1.08.72-2.45 1.16-4.02 1.16-3.09 0-5.71-2.09-6.65-4.9H1.32v3.09C3.29 21.3 7.31 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.35 14.35c-.24-.72-.38-1.49-.38-2.28s.14-1.56.38-2.28V6.7H1.32C.48 8.35 0 10.12 0 12s.48 3.65 1.32 5.3z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.76 0 3.35.61 4.6 1.8l3.45-3.45C17.94 1.19 15.24 0 12 0 7.31 0 3.29 2.7 1.32 6.7l4.03 3.09c.94-2.81 3.56-5.04 6.65-5.04z"/>
+                </svg>
+                <span className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-3.5 h-3.5 fill-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  ))}
+                </span>
+                <span className="text-sm font-medium text-black">5.0 sur Google</span>
+              </a>
             </motion.div>
           </div>
         </motion.div>

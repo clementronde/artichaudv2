@@ -105,37 +105,13 @@ export const translations = {
     testimonials: {
       tagline: "Témoignages",
       heading: "Ce que nos clients\ndisent de nous",
-      readMore: "Lire plus d'avis",
+      readMore: "Discuter de mon projet",
       items: [
         {
           id: 1,
           name: "Victoria Lauro",
           role: "Fondatrice, Chez June",
           text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
-        },
-        {
-          id: 2,
-          name: "Nicolas Perrin",
-          role: "Co-fondateur, Atelier Nova",
-          text: "Ce qu'on a apprécié, c'est la capacité à traduire nos idées en maquettes concrètes sans partir dans tous les sens. Les échanges étaient directs, les choix expliqués, et on a pu garder la main sur les contenus après la mise en ligne.",
-        },
-        {
-          id: 3,
-          name: "Sophie Lambert",
-          role: "Directrice, Studio Lignes",
-          text: "Nous avions besoin d'une refonte propre, sans perdre notre référencement existant. L'équipe a pris le temps de regarder les anciennes pages, de prévoir les redirections et de clarifier les priorités. La transition s'est faite beaucoup plus sereinement que prévu.",
-        },
-        {
-          id: 4,
-          name: "Hugo Morel",
-          role: "Responsable marketing, Comète",
-          text: "On ne voulait pas seulement un beau site, mais un support clair pour nos campagnes. Les landing pages sont plus lisibles, les formulaires mieux placés, et notre équipe commerciale utilise maintenant le site comme un vrai point d'appui.",
-        },
-        {
-          id: 5,
-          name: "Amélie Roussel",
-          role: "Gérante, Le Comptoir Vert",
-          text: "Le projet a avancé étape par étape, avec des points réguliers et des retours faciles à faire. On a particulièrement apprécié les conseils sur les textes et les appels à l'action. Le site nous ressemble davantage et les demandes entrantes sont mieux qualifiées.",
         },
       ],
     },
@@ -355,37 +331,13 @@ export const translations = {
     testimonials: {
       tagline: "Testimonials",
       heading: "What our clients\nsay about us",
-      readMore: "Read more reviews",
+      readMore: "Discuss my project",
       items: [
         {
           id: 1,
-          name: "Claire Martin",
-          role: "Founder, Maison Brume",
-          text: "We already had a fairly clear identity, but our website wasn't explaining what we did well enough. Artichaud helped us reorganise the pages, messaging and user journey. The result is simpler, more elegant and much easier for our clients to understand.",
-        },
-        {
-          id: 2,
-          name: "Nicolas Perrin",
-          role: "Co-founder, Atelier Nova",
-          text: "What we appreciated most was their ability to turn our ideas into concrete mockups without making the project feel scattered. The discussions were direct, the choices were explained, and we kept control of the content after launch.",
-        },
-        {
-          id: 3,
-          name: "Sophie Lambert",
-          role: "Director, Studio Lignes",
-          text: "We needed a clean redesign without losing our existing SEO. The team took the time to review the old pages, plan redirects and clarify priorities. The transition felt much smoother than we expected.",
-        },
-        {
-          id: 4,
-          name: "Hugo Morel",
-          role: "Marketing Manager, Comète",
-          text: "We didn't just want a nice website, we needed a clear support for our campaigns. The landing pages are easier to read, the forms are better placed, and our sales team now uses the website as a real asset.",
-        },
-        {
-          id: 5,
-          name: "Amélie Roussel",
-          role: "Owner, Le Comptoir Vert",
-          text: "The project moved forward step by step, with regular check-ins and an easy feedback process. We especially appreciated the advice on copy and calls to action. The website feels more like us, and incoming requests are more qualified.",
+          name: "Victoria Lauro",
+          role: "Founder, Chez June",
+          text: "Really happy to work with Clément on the maintenance and evolution of our Chez June and June Chez Vous websites. Responsive, professional, efficient and always available to find solutions tailored to our needs. A genuine, trustworthy partner day to day. Thank you 🙏",
         },
       ],
     },
