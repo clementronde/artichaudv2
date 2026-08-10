@@ -99,16 +99,6 @@ const testimonials = [
     role: "Fondatrice, Chez June",
     text: "Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien.",
   },
-  {
-    name: "Nicolas Perrin",
-    role: "Co-fondateur, Atelier Nova",
-    text: "La capacité à traduire nos idées en maquettes concrètes sans partir dans tous les sens. Les échanges étaient directs, les choix expliqués.",
-  },
-  {
-    name: "Sophie Lambert",
-    role: "Directrice, Studio Lignes",
-    text: "L'équipe a pris le temps de regarder les anciennes pages, de prévoir les redirections et de clarifier les priorités. La transition s'est faite bien plus sereinement que prévu.",
-  },
 ];
 
 // --- TISSU ÉCO ---

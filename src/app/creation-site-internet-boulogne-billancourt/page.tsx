@@ -5,8 +5,8 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Création site internet Boulogne-Billancourt | Agence web 92",
-  description: "Création de site internet à Boulogne-Billancourt : site vitrine, refonte, SEO local, design sur mesure et accompagnement pour entreprises du 92.",
+  title: "Création site internet Boulogne-Billancourt (92) — Devis gratuit | Artichaud Studio",
+  description: "Agence web basée à Boulogne-Billancourt, notée 5/5 sur Google. Site vitrine, refonte et SEO local pour TPE, PME et indépendants du 92. Devis gratuit et sans engagement.",
   keywords: [
     "création site internet Boulogne-Billancourt",
     "agence web Boulogne-Billancourt",

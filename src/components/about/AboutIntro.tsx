@@ -25,27 +25,9 @@ const HighlightTitle = ({ text }: { text: string }) => {
 const testimonials = [
   {
     id: 1,
-    text: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention, ou même le bon type d'attention. Peut-être que votre marque semble un peu décalée par rapport à la direction de votre entreprise.",
-    author: "Tobias Schaller",
-    role: "Directeur Général, Charit.io"
-  },
-  {
-    id: 2,
-    text: "Il est temps de se présenter avec clarté. Cette équipe change la donne. Nous avons éliminé le bruit pour nous concentrer sur la connexion humaine et cela a porté ses fruits immédiatement.",
-    author: "Kiera Monaghan",
-    role: "PDG, Disobey"
-  },
-  {
-    id: 3,
-    text: "Le processus de rebranding s'est déroulé sans accroc. Nous accompagnons les marques là où elles sont, vers là où elles méritent d'être. La profondeur stratégique qu'ils ont apportée était impressionnante.",
-    author: "David Laroche",
-    role: "Fondateur, Paradox"
-  },
-  {
-    id: 4,
-    text: "Nous ajustons chaque pixel jusqu'à ce que ce soit parfait. Artichaud nous a poussés plus loin que nous ne le pensions possible. Une véritable agence 360, de la stratégie à l'exécution.",
-    author: "Elena Rodriguez",
-    role: "Directrice Marketing, TechFlow"
+    text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
+    author: "Victoria Lauro",
+    role: "Fondatrice, Chez June"
   }
 ]
 
