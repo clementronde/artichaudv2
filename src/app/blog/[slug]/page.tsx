@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import CalloutBox from '@/components/mdx/CalloutBox';
+import ContactCTA from '@/components/mdx/ContactCTA';
 import remarkGfm from 'remark-gfm';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
@@ -145,6 +146,7 @@ export default async function BlogPost(
 
   const mdxComponents = {
     CalloutBox,
+    ContactCTA,
     a: (props: any) => <a {...props} suppressHydrationWarning className="text-amber-600 hover:text-amber-700 underline underline-offset-2" />, 
     img: (props: any) => (
       <span className="block my-8 relative w-full aspect-video rounded-xl overflow-hidden bg-gray-50">

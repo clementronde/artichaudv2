@@ -244,7 +244,7 @@ export default function Navbar() {
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
     if (href === pathname) { e.preventDefault(); return }
     e.preventDefault()
-    isNavigatingRef.current = true 
+    isNavigatingRef.current = true
     gsap.to([navRef.current, logoWrapperRef.current], {
       y: -100, autoAlpha: 0, duration: 0.4, stagger: 0.05, ease: "power2.in",
       onComplete: () => router.push(href)
@@ -274,13 +274,26 @@ export default function Navbar() {
              <Image src="/logonavbar.png" alt="Artichaud Studio" fill sizes="50px" className="object-cover" />
           </Link>
 
-          {/* Bouton Burger Mobile */}
-          <button 
-             onClick={() => setIsMobileMenuOpen(true)}
-             className="h-[50px] px-6 rounded-full bg-black text-[#FDF4E7] font-medium shadow-lg flex items-center justify-center"
-          >
-             Menu
-          </button>
+          {/* CTA Contact + Burger, toujours visibles */}
+          <div className="flex items-center gap-2">
+            <Link
+               href="/contact"
+               className="h-[50px] px-5 rounded-full bg-[#F70046] text-white text-sm font-medium shadow-lg flex items-center justify-center whitespace-nowrap flex-shrink-0"
+            >
+               {t.navbar.letsTalk}
+            </Link>
+            <button
+               onClick={() => setIsMobileMenuOpen(true)}
+               aria-label={t.navbar.close === 'Fermer' ? 'Ouvrir le menu' : 'Open menu'}
+               className="h-[50px] w-[50px] rounded-full bg-black text-[#FDF4E7] shadow-lg flex items-center justify-center flex-shrink-0"
+            >
+               <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M0 1H18" stroke="currentColor" strokeWidth="1.5" />
+                 <path d="M0 7H18" stroke="currentColor" strokeWidth="1.5" />
+                 <path d="M0 13H18" stroke="currentColor" strokeWidth="1.5" />
+               </svg>
+            </button>
+          </div>
       </div>
 
       {/* --- 2. VERSION DESKTOP (VISIBLE UNIQUEMENT SUR MD+) --- */}
@@ -299,7 +312,7 @@ export default function Navbar() {
         </div>
 
         {/* CAPSULE NAVIGATION */}
-        <nav 
+        <nav
           ref={navRef}
           className="h-[52px] rounded-full bg-[#30041B] border border-white/5 shadow-[0_8px_20px_rgba(0,0,0,0.2)] flex items-center justify-between overflow-hidden origin-left z-10 flex-shrink-0"
           style={{ width: DESKTOP_OPEN_WIDTH, marginLeft: 8 }}

@@ -375,7 +375,7 @@ export default function RedesignClient() {
                 <span className="relative z-10 group-hover:text-black">Demander un devis refonte</span>
                 <div className="absolute inset-0 bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
               </Link>
-              <Link href="tel:+33100000000" className="text-white font-medium hover:text-[#F70046] transition-colors relative group">
+              <Link href="tel:+33766489982" className="text-white font-medium hover:text-[#F70046] transition-colors relative group">
                 Réserver un audit gratuit
                 <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#F70046] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
