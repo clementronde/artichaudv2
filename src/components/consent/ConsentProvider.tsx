@@ -1,16 +1,16 @@
 'use client'
 
 import { createContext, useCallback, useContext, useMemo, useState, useSyncExternalStore, ReactNode } from 'react'
+import {
+  CONSENT_MAX_AGE,
+  CONSENT_STORAGE_KEY as STORAGE_KEY,
+  CONSENT_VERSION,
+  type ConsentChoices,
+  type StoredConsent,
+} from '@/lib/consent'
 
-export type ConsentChoices = {
-  analytics: boolean
-  marketing: boolean
-}
+export type { ConsentChoices }
 
-type StoredConsent = ConsentChoices & {
-  version: number
-  date: number
-}
 
 interface ConsentContextValue {
   // null tant que le visiteur n'a pas fait de choix (ou avant hydratation)
@@ -20,11 +20,6 @@ interface ConsentContextValue {
   save: (choices: ConsentChoices) => void
   openPreferences: () => void
 }
-
-const STORAGE_KEY = 'arti-consent'
-const CONSENT_VERSION = 1
-// La CNIL recommande de redemander le consentement au bout de 6 mois
-const CONSENT_MAX_AGE = 1000 * 60 * 60 * 24 * 182
 
 const ConsentContext = createContext<ConsentContextValue | null>(null)
 

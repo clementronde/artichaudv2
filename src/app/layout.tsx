@@ -10,11 +10,13 @@ import ScrollToTop from "@/components/ScrollToTop"
 import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import ConsentScripts from "@/components/consent/ConsentScripts";
 import CookieBanner from "@/components/consent/CookieBanner";
+import ContactClickTracker from "@/components/ContactClickTracker";
 import CustomCursor from "@/components/CustomCursor";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
 import type { Locale } from "@/lib/i18n/translations";
 import { SITE_URL } from "@/lib/seo";
+import { consentDefaultsScript } from "@/lib/consent";
 
 // CHARGEMENT DES POLICES - Optimisé pour mobile
 const helvetica = localFont({
@@ -74,6 +76,10 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
+        {/* Consent Mode v2 : doit s'exécuter avant GA et GTM */}
+        <Script id="consent-defaults" strategy="beforeInteractive">
+          {consentDefaultsScript}
+        </Script>
         <LocaleProvider locale={locale}>
           <ConsentProvider>
           <CustomCursor />
@@ -90,6 +96,7 @@ export default async function RootLayout({
 
           <CookieBanner />
           <ConsentScripts />
+          <ContactClickTracker />
           </ConsentProvider>
         </LocaleProvider>
 
