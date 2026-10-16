@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from '@/context/LocaleContext';
+import { useConsent } from '@/components/consent/ConsentProvider';
 
 const socialLinks = [
   { label: 'Instagram', href: 'https://www.instagram.com/artichaud_studio/' },
@@ -14,6 +15,7 @@ const socialLinks = [
 
 const Footer: React.FC = () => {
   const { t } = useLocale()
+  const { openPreferences } = useConsent()
 
   const navItems = [
     { label: t.navbar.works, href: '/works' },
@@ -141,6 +143,13 @@ const Footer: React.FC = () => {
             >
               {t.footer.legalNotices}
             </Link>
+            <button
+              type="button"
+              onClick={openPreferences}
+              className="text-left text-white/40 hover:text-[#F70046] transition-colors text-xs uppercase tracking-wider"
+            >
+              {t.consent.manage}
+            </button>
 
             {/* Lien SEO Boulogne */}
             <Link

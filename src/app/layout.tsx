@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next"
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import "./globals.css";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
 import Navbar2 from "@/components/layout/Navbarv2";
 import ScrollToTop from "@/components/ScrollToTop"
-import MetaPixel from "@/components/MetaPixel";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
+import ConsentScripts from "@/components/consent/ConsentScripts";
+import CookieBanner from "@/components/consent/CookieBanner";
 import CustomCursor from "@/components/CustomCursor";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
@@ -74,6 +75,7 @@ export default async function RootLayout({
     <html lang={locale} className={helvetica.variable}>
       <body className="text-arti-black font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <LocaleProvider locale={locale}>
+          <ConsentProvider>
           <CustomCursor />
           <JsonLd />
           <ScrollToTop />
@@ -86,16 +88,12 @@ export default async function RootLayout({
             <Footer />
           </SmoothScrollWrapper>
 
+          <CookieBanner />
+          <ConsentScripts />
+          </ConsentProvider>
         </LocaleProvider>
 
         <Analytics />
-        <MetaPixel />
-        {process.env.NEXT_PUBLIC_GA_ID && (
-           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
-        {process.env.NEXT_PUBLIC_GTM_ID && (
-           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
-        )}
         <Script
           src="https://www.lafabriquedunet.fr/agences/badge/artichaud-studio/badge.js"
           strategy="afterInteractive"

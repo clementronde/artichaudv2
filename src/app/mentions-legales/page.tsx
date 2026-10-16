@@ -71,6 +71,16 @@ export default function MentionsLegales() {
             </p>
           </div>
 
+          <div id="cookies" className="space-y-4 scroll-mt-32">
+            <h2 className="text-2xl font-semibold text-white">5. Cookies et traceurs</h2>
+            <p className="text-white/80 leading-relaxed">
+              Les traceurs essentiels (préférence de langue, protection anti-spam du formulaire via Cloudflare Turnstile, mesure d’audience anonyme Vercel Analytics) ne nécessitent pas votre consentement. Les autres ne sont déposés qu’avec votre accord : mesure d’audience (Google Analytics, Google Tag Manager) et marketing (Pixel Meta, pour mesurer nos campagnes Facebook et Instagram).
+            </p>
+            <p className="text-white/80 leading-relaxed">
+              Votre choix est conservé 6 mois. Vous pouvez le modifier à tout moment via le lien « Gérer les cookies » en bas de chaque page.
+            </p>
+          </div>
+
         </section>
         </div>
       </main>
