@@ -8,6 +8,7 @@ import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import Footer from "@/components/layout/Footer";
 import Navbar2 from "@/components/layout/Navbarv2";
 import ScrollToTop from "@/components/ScrollToTop"
+import MetaPixel from "@/components/MetaPixel";
 import CustomCursor from "@/components/CustomCursor";
 import JsonLd from "@/components/seo/JsonLD";
 import { LocaleProvider } from "@/context/LocaleContext";
@@ -88,6 +89,7 @@ export default async function RootLayout({
         </LocaleProvider>
 
         <Analytics />
+        <MetaPixel />
         {process.env.NEXT_PUBLIC_GA_ID && (
            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
