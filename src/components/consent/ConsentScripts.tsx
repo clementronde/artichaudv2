@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { toGoogleConsent } from '@/lib/consent'
 import { trackEvent } from '@/lib/tracking'
 import { useConsent } from './ConsentProvider'
@@ -37,7 +38,16 @@ export default function ConsentScripts() {
   return (
     <>
       {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
-      {process.env.NEXT_PUBLIC_GTM_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        // GTM chargé via le Google tag gateway (/metrics, relayé par src/proxy.ts)
+        <Script id="gtm" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'/metrics/?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');`}
+        </Script>
+      )}
     </>
   )
 }

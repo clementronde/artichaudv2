@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Le Google tag gateway attend /metrics/ avec slash : la redirection du slash final est gérée dans src/proxy.ts
+  skipTrailingSlashRedirect: true,
   turbopack: {
     root: process.cwd(),
   },
