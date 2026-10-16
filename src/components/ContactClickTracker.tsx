@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { trackEvent, trackMetaEvent } from '@/lib/tracking'
+import { trackEvent } from '@/lib/tracking'
 
 // Suit les clics sur les liens email et téléphone de tout le site
 export default function ContactClickTracker() {
@@ -12,7 +12,6 @@ export default function ContactClickTracker() {
       const method = link.getAttribute('href')?.startsWith('mailto:') ? 'email' : 'phone'
 
       trackEvent('contact_click', { method, page_path: window.location.pathname })
-      trackMetaEvent('Contact', { content_category: method })
     }
 
     document.addEventListener('click', onClick, { capture: true })

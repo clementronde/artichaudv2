@@ -714,12 +714,6 @@ export default function ContactPage() {
         budget: formData.budget,
       })
 
-      // Conversion Meta : même demande de contact, remontée au pixel
-      window.fbq?.('track', 'Lead', {
-        content_category: formData.services.join(', '),
-        budget: formData.budget,
-      })
-
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {

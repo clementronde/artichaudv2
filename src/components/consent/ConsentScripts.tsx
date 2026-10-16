@@ -1,25 +1,43 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
-import MetaPixel from '@/components/MetaPixel'
 import { toGoogleConsent } from '@/lib/consent'
+import { trackEvent } from '@/lib/tracking'
 import { useConsent } from './ConsentProvider'
 
-// Les tags Google se chargent toujours en Consent Mode v2 (refusé par défaut, voir ConsentDefaults) ;
-// le pixel Meta, lui, n'est chargé qu'après un consentement marketing explicite
+// GA et GTM se chargent toujours en Consent Mode v2 (refusé par défaut, voir consentDefaultsScript).
+// Le pixel Meta est géré dans GTM et n'y est déclenché qu'avec le consentement ad_storage.
 export default function ConsentScripts() {
-  const { consent } = useConsent()
+  const { consent, ready } = useConsent()
+  const pathname = usePathname()
+  const isFirstPath = useRef(true)
+  const hadMarketing = useRef<boolean | null>(null)
 
   useEffect(() => {
+    if (!ready) return
     if (consent) window.gtag?.('consent', 'update', toGoogleConsent(consent))
-  }, [consent])
+
+    const marketing = Boolean(consent?.marketing)
+    // Accord donné en cours de visite : la page vue n'a pas pu être envoyée au chargement
+    if (hadMarketing.current === false && marketing) trackEvent('page_view')
+    hadMarketing.current = marketing
+  }, [consent, ready])
+
+  // Navigation côté client : GTM ne voit que le premier chargement (DOM prêt)
+  useEffect(() => {
+    if (isFirstPath.current) {
+      isFirstPath.current = false
+      return
+    }
+    trackEvent('page_view')
+  }, [pathname])
 
   return (
     <>
       {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
       {process.env.NEXT_PUBLIC_GTM_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
-      {consent?.marketing && <MetaPixel />}
     </>
   )
 }

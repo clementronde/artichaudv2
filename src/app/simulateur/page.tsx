@@ -4,7 +4,7 @@ import { useState, useMemo, MouseEvent } from 'react'
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence, steps } from 'framer-motion'
 import Link from 'next/link'
 import RelatedLinks from '@/components/seo/RelatedLinks'
-import { trackEvent, trackMetaEvent } from '@/lib/tracking'
+import { trackEvent } from '@/lib/tracking'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
 // --- 1. COMPOSANTS UI (DESIGN SYSTEM DARK/NEON) ---
@@ -282,9 +282,7 @@ function PriceSimulatorWidget() {
                         href={`/contact?plan=${projectType}&budget=${totalPrice}`}
                         onClick={() => {
                             // Micro-conversion : budget estimé envoyé vers le formulaire de contact
-                            const params = { project_type: projectType, pages, value: totalPrice, currency: 'EUR' }
-                            trackEvent('simulator_quote', params)
-                            trackMetaEvent('SimulatorQuote', params, true)
+                            trackEvent('simulator_quote', { project_type: projectType, pages, value: totalPrice, currency: 'EUR' })
                         }}
                         className="block w-full py-4 bg-[#F70046] text-white font-bold text-center rounded-lg hover:bg-white transition-colors relative z-10"
                     >
