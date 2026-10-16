@@ -66,7 +66,7 @@ function CookiePanel() {
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.8, ease: EXPO }}
           data-lenis-prevent
-          className="fixed bottom-4 left-4 right-4 z-[5500] max-h-[calc(100svh-2rem)] overflow-y-auto rounded-[24px] bg-[#30041B] p-5 text-white shadow-[0_24px_80px_rgba(48,4,27,0.35)] md:bottom-6 md:left-6 md:right-auto md:w-[440px] md:p-6"
+          className="fixed bottom-4 left-4 right-4 z-[5500] max-h-[calc(100svh-2rem)] overflow-y-auto rounded-[24px] bg-[#30041B] p-5 text-white shadow-[0_24px_80px_rgba(48,4,27,0.35)] md:bottom-6 md:left-auto md:right-6 md:w-[440px] md:p-6"
         >
           <h2 id="cookie-banner-title" className="mb-2 text-2xl font-normal leading-[1.05] tracking-tight">
             {c.title}
