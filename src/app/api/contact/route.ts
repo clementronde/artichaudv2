@@ -1,6 +1,7 @@
 
 
 import { NextRequest, NextResponse } from 'next/server'
+import { offers, isOfferId } from '@/data/offers'
 
 // Types
 interface FormData {
@@ -13,6 +14,7 @@ interface FormData {
   website: string
   message: string
   howFound: string
+  offer?: string
   hp?: string
   turnstileToken?: string
 }
@@ -145,6 +147,7 @@ export async function POST(request: NextRequest) {
     const safeServicesLabels = escapeHtml(servicesLabels)
     const safeBudgetLabel = escapeHtml(budgetLabel)
     const safeTimelineLabel = escapeHtml(timelineLabel)
+    const offerLabel = isOfferId(data.offer) ? offers[data.offer].label.fr : null
 
     // 1. ENVOYER L'EMAIL DE NOTIFICATION À L'ÉQUIPE
     const emailContent = `
@@ -178,6 +181,13 @@ export async function POST(request: NextRequest) {
       ${safeCompany ? `<div class="value">${safeCompany}</div>` : ''}
       ${safeWebsite ? `<div class="value"><a href="${safeWebsite}">${escapeHtml(safeWebsite)}</a></div>` : ''}
     </div>
+
+    ${offerLabel ? `
+    <div class="section">
+      <div class="label">Offre choisie</div>
+      <div class="value"><strong>${escapeHtml(offerLabel)}</strong></div>
+    </div>
+    ` : ''}
 
     <div class="section">
       <div class="label">Services demandés</div>
@@ -239,7 +249,9 @@ export async function POST(request: NextRequest) {
           email: data.email,
           name: data.name,
         },
-        subject: `[Nouveau projet] ${data.name} - ${servicesLabels.split(',')[0]}`,
+        subject: offerLabel
+          ? `[Offre ${offerLabel}] ${data.name}`
+          : `[Nouveau projet] ${data.name} - ${servicesLabels.split(',')[0]}`,
         htmlContent: emailContent,
       }),
     })

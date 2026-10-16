@@ -12,6 +12,17 @@ export default function RelatedLinks({
   eyebrow = 'Liens utiles',
   links,
 }: RelatedLinksProps) {
+  const uniqueLinks = links.filter((link, i, arr) => arr.findIndex(l => l.href === link.href) === i)
+
+  // Une carte seule sur sa ligne prend toute la largeur au lieu de laisser des cases vides
+  const lastSpan = (index: number) => {
+    if (index !== uniqueLinks.length - 1) return ''
+    return [
+      uniqueLinks.length % 2 === 1 ? 'md:col-span-2' : '',
+      uniqueLinks.length % 4 === 1 ? 'lg:col-span-4' : '',
+    ].join(' ')
+  }
+
   return (
     <section aria-labelledby="related-links-title" className="bg-white px-6 py-20 text-black md:px-10 md:py-28">
       <div className="mx-auto max-w-[1600px]">
@@ -23,11 +34,11 @@ export default function RelatedLinks({
         </h2>
 
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl bg-black/10 md:grid-cols-2 lg:grid-cols-4">
-          {links.filter((link, i, arr) => arr.findIndex(l => l.href === link.href) === i).map((link) => (
+          {uniqueLinks.map((link, index) => (
             <Link
               key={link.href}
               href={link.href}
-              className="group bg-[#F6F6F3] p-6 transition-colors hover:bg-[#F70046] hover:text-white md:p-8"
+              className={`group bg-[#F6F6F3] p-6 transition-colors hover:bg-[#F70046] hover:text-white md:p-8 ${lastSpan(index)}`}
             >
               <h3 className="text-xl font-medium">{link.label}</h3>
               <p className="mt-3 leading-relaxed text-black/55 transition-colors group-hover:text-white/75">

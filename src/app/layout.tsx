@@ -101,10 +101,6 @@ export default async function RootLayout({
         </LocaleProvider>
 
         <Analytics />
-        <Script
-          src="https://www.lafabriquedunet.fr/agences/badge/artichaud-studio/badge.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

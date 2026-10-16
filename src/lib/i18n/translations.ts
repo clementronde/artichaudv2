@@ -163,6 +163,8 @@ export const translations = {
     },
     contact: {
       title: "Démarrons un projet",
+      offerSelected: "Offre sélectionnée",
+      offerRemove: "Retirer l’offre",
       subtitle: "Quelques questions pour cerner votre besoin. Nous reviendrons vers vous sous 24 à 48h.",
       step1: {
         label: "Étape 01",
@@ -189,6 +191,7 @@ export const translations = {
         budget: "Budget",
         timeline: "Délai",
         notSpecified: "Non spécifié",
+        offer: "Offre",
         backHome: "Retour à l'accueil",
       },
       nav: {
@@ -406,6 +409,8 @@ export const translations = {
     },
     contact: {
       title: "Start a project",
+      offerSelected: "Selected offer",
+      offerRemove: "Remove offer",
       subtitle: "A few questions to understand your needs. We'll get back to you within 24 to 48 hours.",
       step1: {
         label: "Step 01",
@@ -432,6 +437,7 @@ export const translations = {
         budget: "Budget",
         timeline: "Timeline",
         notSpecified: "Not specified",
+        offer: "Offer",
         backHome: "Back to home",
       },
       nav: {

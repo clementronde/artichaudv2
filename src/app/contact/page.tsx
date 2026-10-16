@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
+import { offers, isOfferId } from '@/data/offers'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
@@ -34,6 +35,8 @@ interface FormData {
   website: string
   message: string
   howFound: string
+  // Offre packagée choisie sur la page Services (id de src/data/offers.ts), vide sinon
+  offer: string
 }
 
 // --- COMPOSANTS UI ---
@@ -434,13 +437,14 @@ const Step3Contact = ({
 }
 
 const StepConfirmation = ({ formData }: { formData: FormData }) => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
   const services = t.contact.services
   const budgets = t.contact.budgets
   const timelines = t.contact.timelines
   const selectedServices = services.filter(s => formData.services.includes(s.id))
   const selectedBudget = budgets.find(b => b.id === formData.budget)
   const selectedTimeline = timelines.find(tl => tl.id === formData.timeline)
+  const selectedOffer = isOfferId(formData.offer) ? offers[formData.offer].label[locale] : null
 
   return (
     <motion.div
@@ -504,6 +508,15 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
         </span>
 
         <div className="mt-6 flex flex-col gap-4">
+          {selectedOffer && (
+            <>
+              <div className="flex justify-between items-start gap-4">
+                <span className="text-arti-black/50 text-sm">{t.contact.confirmation.offer}</span>
+                <span className="text-arti-black text-sm text-right font-medium">{selectedOffer}</span>
+              </div>
+              <div className="w-full h-px bg-black/5" />
+            </>
+          )}
           <div className="flex justify-between items-start gap-4">
             <span className="text-arti-black/50 text-sm">{t.contact.confirmation.services}</span>
             <span className="text-arti-black text-sm text-right font-medium">
@@ -566,7 +579,21 @@ export default function ContactPage() {
     website: '',
     message: '',
     howFound: '',
+    offer: '',
   })
+
+  // Arrivée depuis une offre de la page Services (?offre=site-pro) : on pré-sélectionne ses services
+  useEffect(() => {
+    const offerId = new URLSearchParams(window.location.search).get('offre')
+    if (!isOfferId(offerId)) return
+    const offer = offers[offerId]
+    // Lecture de l'URL après hydratation (la page est pré-rendue sans paramètres)
+    setFormData(prev => ({
+      ...prev,
+      offer: offerId,
+      services: offer.services,
+    }))
+  }, [])
 
   const totalSteps = 3
   const stepNames = ['services', 'budget', 'contact'] as const
@@ -712,6 +739,7 @@ export default function ContactPage() {
         event_category: 'contact_form',
         event_label: formData.services.join(', '),
         budget: formData.budget,
+        offer: formData.offer || undefined,
       })
 
       // Scroll vers le haut pour la confirmation
@@ -761,6 +789,23 @@ export default function ContactPage() {
 
         {/* Conteneur principal centré */}
         <div ref={formRef} className="max-w-4xl mx-auto">
+          {/* Offre pré-sélectionnée */}
+          {!isSubmitted && isOfferId(formData.offer) && (
+            <div className="mb-8 flex flex-wrap items-center gap-3">
+              <span className="text-sm text-arti-black/50">{t.contact.offerSelected}</span>
+              <span className="px-3 py-1 bg-[#F70046] text-white text-sm font-medium">
+                {offers[formData.offer].label[locale]}
+              </span>
+              <button
+                type="button"
+                onClick={() => setFormData(prev => ({ ...prev, offer: '' }))}
+                className="text-sm text-arti-black/50 underline underline-offset-4 hover:text-[#F70046] transition-colors"
+              >
+                {t.contact.offerRemove}
+              </button>
+            </div>
+          )}
+
           {/* Progress */}
           {!isSubmitted && (
             <div className="mb-12">
@@ -909,6 +954,7 @@ export default function ContactPage() {
           relatedLinkGroups.serviceBranding[0],
           relatedLinkGroups.serviceSeo[0],
           relatedLinkGroups.editorial[3],
+          relatedLinkGroups.editorial[1],
         ]}
       />
     </main>

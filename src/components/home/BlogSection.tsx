@@ -177,7 +177,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
   const onDragEnd = () => setTimeout(() => setIsDragging(false), 150)
 
   return (
-    <section className="relative w-full bg-white py-12 md:py-32 overflow-hidden mt-12 !cursor-none">
+    <section className="relative w-full bg-white pt-12 md:pt-32 pb-12 md:pb-0 overflow-hidden mt-12 !cursor-none">
       
       {/* HEADER */}
       <div className="w-full px-6 md:px-[40px] mb-8 md:mb-32">
@@ -205,7 +205,7 @@ export default function BlogSection({ posts }: { posts: any[] }) {
       </div>
 
       {/* ZONE SLIDER */}
-      <div className="w-full px-6 md:px-[40px] mb-6 md:mb-32">
+      <div className="w-full px-6 md:px-[40px] mb-6 md:mb-0">
         <div ref={containerRef} data-hide-custom-cursor className="relative w-full !cursor-none">
           <DragCursor containerRef={containerRef} />
 

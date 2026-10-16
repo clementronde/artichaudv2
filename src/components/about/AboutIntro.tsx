@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -21,31 +20,10 @@ const HighlightTitle = ({ text }: { text: string }) => {
   )
 }
 
-// Données des témoignages
-const testimonials = [
-  {
-    id: 1,
-    text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
-    author: "Victoria Lauro",
-    role: "Fondatrice, Chez June"
-  }
-]
-
 export default function AboutIntro() {
   // Refs pour GSAP
   const container = useRef(null)
   const blackBox = useRef(null)
-  
-  // Refs et State pour le Slider (Framer Motion)
-  const [width, setWidth] = useState(0)
-  const carouselRef = useRef<HTMLDivElement>(null)
-
-  // Calcul largeur Slider
-  useEffect(() => {
-    if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth)
-    }
-  }, [])
 
   // --- ANIMATIONS GSAP (Identique à la Home) ---
   useGSAP(() => {
@@ -96,18 +74,18 @@ export default function AboutIntro() {
     <section 
       ref={container}
       // Z-INDEX : z-[70] + pointer-events-none sur le conteneur pour laisser passer le scroll si besoin
-      // Mais le pointer-events-auto sur la blackBox réactive les clics (et le drag du slider)
+      // Mais le pointer-events-auto sur la blackBox réactive les clics
       className="relative z-[70] w-full pb-32 pt-10 flex justify-center overflow-visible bg-transparent pointer-events-none"
     >
       
       {/* BLOC NOIR PRINCIPAL */}
       <div 
         ref={blackBox} 
-        className="bg-black text-white rounded-[40px] px-6 py-12 md:p-16 mx-auto will-change-transform flex flex-col justify-between min-h-[90vh] pointer-events-auto shadow-2xl"
+        className="bg-black text-white rounded-[40px] px-6 py-12 md:p-16 mx-auto will-change-transform pointer-events-auto shadow-2xl"
       >
         
         {/* --- PARTIE HAUTE : CONTENU --- */}
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-10 md:gap-5 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-10 md:gap-5">
           
           {/* Col 1 : Label "Histoire" */}
           <div className="col-span-1">
@@ -139,43 +117,6 @@ export default function AboutIntro() {
                 </p>
              </div>
           </div>
-        </div>
-
-        {/* --- PARTIE BASSE : SLIDER TESTIMONIALS --- */}
-        {/* Le slider reste fonctionnel grâce à pointer-events-auto sur le parent blackBox */}
-        <div ref={carouselRef} className="w-full overflow-hidden cursor-grab active:cursor-grabbing">
-          <motion.div 
-            drag="x" 
-            dragConstraints={{ right: 0, left: -width }} 
-            whileTap={{ cursor: "grabbing" }}
-            className="flex gap-10 md:gap-20"
-          >
-            {testimonials.map((item, index) => (
-              <div 
-                key={item.id} 
-                className={`
-                  shrink-0 w-[85vw] md:w-[30%] flex flex-col justify-between select-none
-                  ${index !== 0 ? 'border-l border-white/10 pl-10 md:pl-20' : ''}
-                `}
-              >
-                {/* Texte du témoignage */}
-                <div className="relative mb-8">
-                  <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed">
-                    {item.text}
-                  </p>
-                  <span className="absolute -top-2 right-0 text-4xl text-white/20 font-serif">
-                    ”
-                  </span>
-                </div>
-
-                {/* Auteur */}
-                <div>
-                  <h4 className="text-base font-bold text-white">{item.author}</h4>
-                  <p className="text-sm text-white/40 mt-1">{item.role}</p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
       </div>

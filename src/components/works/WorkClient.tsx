@@ -50,7 +50,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             alt={project.client}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover" 
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
           <div className="absolute top-4 left-4 flex gap-2">

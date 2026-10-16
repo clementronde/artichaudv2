@@ -22,10 +22,46 @@ const serviceContent = {
     heroText: "Soyons honnêtes. Vous avez construit quelque chose de génial. Mais depuis peu, il est devenu plus difficile de capter l'attention.",
     cta: 'Parlons-en',
     expertiseTitle: 'Nos expertises',
-    supportTitle: 'Comment nous pouvons vous accompagner',
     whyLabel: 'Pourquoi',
     whyTitle: <>Pourquoi travailler <br /> avec Artichaud</>,
-    imageAlt: 'Visuel de collaboration créative',
+    packsLabel: 'Offres',
+    packsTitle: 'Des offres claires pour passer à l’action',
+    packsText: 'Devis gratuit, places limitées chaque mois.',
+    packs: [
+      {
+        title: 'Site pro en 7 jours',
+        description: 'De zéro à votre site professionnel : une identité visuelle, un site vitrine et les bases du référencement, livrés en une semaine.',
+        price: '1 500 €',
+        oldPrice: '2 800 €',
+        includes: ['Identité visuelle', 'Site web', 'SEO'],
+        image: '/services/offres/offre-site-pro-7-jours.avif',
+        offerId: 'site-pro',
+        alt: 'Offre Artichaud : de zéro à votre site pro en 7 jours pour 1 500 €',
+        cta: 'Lancer mon site',
+      },
+      {
+        title: 'Refonte en 7 jours',
+        description: 'Votre site a vieilli ? On modernise son design, sa structure et son référencement pour qu’il redevienne votre meilleur commercial.',
+        price: '1 500 €',
+        oldPrice: '2 200 €',
+        includes: ['Identité visuelle', 'Site web', 'SEO'],
+        image: '/services/offres/offre-refonte-7-jours.avif',
+        offerId: 'refonte',
+        alt: 'Offre Artichaud : modernisez votre site en 7 jours pour 1 500 €',
+        cta: 'Moderniser mon site',
+      },
+      {
+        title: 'Présence en ligne',
+        description: 'On s’occupe de votre site au quotidien : référencement, maintenance et sécurité, pour rester visible sans y penser.',
+        price: '350 €',
+        priceSuffix: '/mois',
+        includes: ['Référencement', 'Maintenance', 'Sécurité'],
+        image: '/services/offres/offre-presence-en-ligne.avif',
+        offerId: 'presence',
+        alt: 'Offre Artichaud : référencement, maintenance et sécurité pour 350 € par mois',
+        cta: 'Confier mon site',
+      },
+    ],
     capabilities: [
       {
         category: 'Identité de marque',
@@ -60,20 +96,6 @@ const serviceContent = {
         ],
       },
     ],
-    offers: [
-      {
-        title: 'Ponctuel',
-        description: "Vous avez un besoin précis : une landing page, une identité, un audit, des assets de campagne ou une amélioration ciblée. Nous intervenons vite, avec un livrable clair.",
-        image: null,
-        color: 'bg-[#111111]',
-      },
-      {
-        title: 'Long terme',
-        description: 'Partenariat continu. Nous devenons votre équipe créative dédiée pour faire évoluer votre site, votre marque et vos expériences digitales mois après mois.',
-        image: 'https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop',
-        color: 'bg-[#111111]',
-      },
-    ],
     values: [
       { id: '1', title: 'Un cadrage clair', text: "Avant de designer, nous clarifions vos objectifs, vos cibles et les messages à faire passer. Le site part d'une vraie direction, pas d'une simple envie graphique." },
       { id: '2', title: 'Un design qui sert la marque', text: "Nous cherchons l'équilibre entre impact visuel, lisibilité et conversion. Chaque page doit aider vos visiteurs à comprendre votre offre et à passer à l'action." },
@@ -87,10 +109,46 @@ const serviceContent = {
     heroText: 'You have built something strong. Now the challenge is clearer: earning attention, explaining your value and turning interest into action.',
     cta: "Let's talk",
     expertiseTitle: 'Our expertise',
-    supportTitle: 'How we can support you',
     whyLabel: 'Why',
     whyTitle: <>Why work <br /> with Artichaud</>,
-    imageAlt: 'Creative collaboration visual',
+    packsLabel: 'Offers',
+    packsTitle: 'Clear offers to get moving',
+    packsText: 'Free quote, limited spots each month.',
+    packs: [
+      {
+        title: 'Pro website in 7 days',
+        description: 'From zero to your professional website: a visual identity, a showcase site and SEO foundations, delivered in one week.',
+        price: '€1,500',
+        oldPrice: '€2,800',
+        includes: ['Visual identity', 'Website', 'SEO'],
+        image: '/services/offres/offre-site-pro-7-jours.avif',
+        offerId: 'site-pro',
+        alt: 'Artichaud offer: from zero to a pro website in 7 days for €1,500',
+        cta: 'Launch my website',
+      },
+      {
+        title: 'Redesign in 7 days',
+        description: 'Website showing its age? We modernise its design, structure and SEO so it becomes your best salesperson again.',
+        price: '€1,500',
+        oldPrice: '€2,200',
+        includes: ['Visual identity', 'Website', 'SEO'],
+        image: '/services/offres/offre-refonte-7-jours.avif',
+        offerId: 'refonte',
+        alt: 'Artichaud offer: modernise your website in 7 days for €1,500',
+        cta: 'Modernise my website',
+      },
+      {
+        title: 'Online presence',
+        description: 'We look after your website day to day: SEO, maintenance and security, so you stay visible without thinking about it.',
+        price: '€350',
+        priceSuffix: '/month',
+        includes: ['SEO', 'Maintenance', 'Security'],
+        image: '/services/offres/offre-presence-en-ligne.avif',
+        offerId: 'presence',
+        alt: 'Artichaud offer: SEO, maintenance and security for €350 per month',
+        cta: 'Hand over my website',
+      },
+    ],
     capabilities: [
       {
         category: 'Brand identity',
@@ -123,20 +181,6 @@ const serviceContent = {
           { title: 'Tracking & analytics', description: 'Measurement plans, event setup, dashboards, user journey analysis and action prioritisation.' },
           { title: 'Marketing content', description: 'Sales pages, lead magnets, email sequences, SEO content and campaign assets designed to generate qualified leads.' },
         ],
-      },
-    ],
-    offers: [
-      {
-        title: 'One-off',
-        description: 'You need a focused deliverable: a landing page, identity, audit, campaign assets or targeted improvement. We move fast with a clear scope.',
-        image: null,
-        color: 'bg-[#111111]',
-      },
-      {
-        title: 'Long-term',
-        description: 'An ongoing partnership. We become your dedicated creative team to evolve your website, brand and digital experiences month after month.',
-        image: 'https://images.unsplash.com/photo-1558655146-d09347e0c7a8?q=80&w=2574&auto=format&fit=crop',
-        color: 'bg-[#111111]',
       },
     ],
     values: [
@@ -177,9 +221,8 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
       }
     )
 
-    // 2. Parallax de sortie (Effet de glissement vers le bas à la fin)
+    // 2. Léger recul en sortie (sans translation : elle coupait le bas arrondi du bloc)
     gsap.to(blackBoxRef.current, {
-      y: '10%',
       scale: 0.98,
       opacity: 1,
       ease: "none",
@@ -231,7 +274,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </div>
 
-      {/* 2. CAPABILITIES + OFFRES (ANIMÉ) */}
+      {/* 2. EXPERTISES (ANIMÉ) */}
       {/* ContainerRef sert de repère pour le ScrollTrigger */}
       <section ref={containerRef} className="relative z-0 w-full mb-32 flex justify-center overflow-hidden">
         <div
@@ -241,7 +284,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
             <h2 className="text-[40px] md:text-[60px] font-normal mb-20 tracking-tight">{content.expertiseTitle}</h2>
 
             {/* LISTE SERVICES */}
-            <div className="flex flex-col mb-32">
+            <div className="flex flex-col">
                 {content.capabilities.map((cap, index) => (
                     <div key={index} className={`grid grid-cols-1 md:grid-cols-8 gap-x-5 py-16 md:py-24 border-t border-white/20 ${index === content.capabilities.length - 1 ? 'border-b border-white/20' : ''}`}>
                         <div className="col-span-1 md:col-span-5 mb-8 md:mb-0">
@@ -258,44 +301,79 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
                     </div>
                 ))}
             </div>
-
-            {/* HEADER OFFRES */}
-            <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 mb-12 items-baseline">
-                <div className="md:col-span-1"><span className="text-sm font-medium text-white/60">{content.label}</span></div>
-                <div className="md:col-span-6"><h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-white tracking-tight">{content.supportTitle}</h2></div>
-            </div>
-
-            {/* CARTES OFFRES */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-                {content.offers.map((offer, index) => (
-                    <div
-                        key={index}
-                        className={`relative w-full min-h-[600px] rounded-none p-8 md:p-12 flex flex-col justify-between overflow-hidden group ${offer.color}`}
-                    >
-                        <div className="relative z-10"><h3 className="text-4xl md:text-5xl font-normal text-white mb-6">{offer.title}</h3></div>
-                        <div className="relative z-10 md:pr-12"><p className="text-lg text-white/60 font-light leading-relaxed">{offer.description}</p></div>
-
-                        {/* 👇 FIX : AFFICHAGE CONDITIONNEL DE L'IMAGE */}
-                        {offer.image && (
-                            <div className="absolute top-24 right-[-50px] w-[350px] aspect-[16/10] rotate-6 transition-transform duration-700 ease-out group-hover:rotate-0 group-hover:translate-x-4">
-                                <div className="relative w-full h-full overflow-hidden shadow-2xl">
-                                    <Image
-                                        src={offer.image}
-                                        alt={content.imageAlt}
-                                        fill
-                                        sizes="350px"
-                                        className="object-cover"
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
         </div>
       </section>
 
-    {/* 3. WHY ARTICHAUD (LAYOUT FLUIDE 8 COLUMNS) */}
+      {/* 3. OFFRES PACKAGÉES */}
+      <section className="w-full px-[40px] mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-6 mb-16 items-baseline">
+          <div className="md:col-span-1">
+            <span className="text-sm font-medium text-arti-black">{content.packsLabel}</span>
+          </div>
+          <div className="md:col-span-5">
+            <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black tracking-tight">{content.packsTitle}</h2>
+          </div>
+          <div className="md:col-span-2">
+            <p className="text-lg text-gray-500 font-light leading-relaxed">{content.packsText}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {content.packs.map((pack) => (
+            <Link key={pack.title} href={`/contact?offre=${pack.offerId}`} className="group flex flex-col">
+              <div className="relative">
+                <div className="relative w-full aspect-[4/5] overflow-hidden bg-arti-black">
+                  <Image
+                    src={pack.image}
+                    alt={pack.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Cadre rouge qui se dessine autour de l'image tant que la souris reste dessus */}
+                <span aria-hidden="true" className="pointer-events-none absolute -inset-2">
+                  <span className="absolute top-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[1200ms] group-hover:scale-x-100 group-hover:delay-0" />
+                  <span className="absolute top-0 right-0 h-full w-[2px] origin-top scale-y-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[800ms] group-hover:scale-y-100 group-hover:delay-[400ms]" />
+                  <span className="absolute bottom-0 right-0 h-[2px] w-full origin-right scale-x-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[400ms] group-hover:scale-x-100 group-hover:delay-[800ms]" />
+                  <span className="absolute bottom-0 left-0 h-full w-[2px] origin-bottom scale-y-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-0 group-hover:scale-y-100 group-hover:delay-[1200ms]" />
+                </span>
+              </div>
+
+              <div className="flex flex-col flex-1 pt-6">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="text-2xl md:text-3xl font-normal text-arti-black leading-tight">{pack.title}</h3>
+                  <div className="flex flex-col items-end shrink-0">
+                    {'oldPrice' in pack && (
+                      <span className="text-sm text-gray-400 line-through">{pack.oldPrice}</span>
+                    )}
+                    <span className="px-3 py-1 bg-[#F70046] text-white text-lg font-medium">
+                      {pack.price}
+                      {'priceSuffix' in pack && <span className="text-sm font-normal">{pack.priceSuffix}</span>}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-base text-gray-500 font-light leading-relaxed mb-6">{pack.description}</p>
+
+                <ul className="flex flex-wrap gap-2 mb-8">
+                  {pack.includes.map((item) => (
+                    <li key={item} className="px-3 py-1 rounded-full border border-black/10 text-sm text-arti-black">{item}</li>
+                  ))}
+                </ul>
+
+                <span className="mt-auto inline-flex items-center gap-3 self-start px-6 py-3 rounded-full border border-black/10 text-sm font-medium transition-all duration-300 group-hover:bg-[#F70046] group-hover:border-[#F70046] group-hover:text-white">
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  {pack.cta}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+    {/* 4. WHY ARTICHAUD (LAYOUT FLUIDE 8 COLUMNS) */}
       {/* w-full + px-[40px] assure que le site prend toute la largeur moins les 40px de bord */}
       <section className="w-full px-[40px] mb-32">
 

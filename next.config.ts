@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
               key: 'Content-Security-Policy',
               value: [
                 "default-src 'self'",
-                `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://*.google-analytics.com https://www.lafabriquedunet.fr https://va.vercel-scripts.com https://challenges.cloudflare.com https://connect.facebook.net https://www.googleadservices.com https://googleads.g.doubleclick.net`,
+                `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://challenges.cloudflare.com https://connect.facebook.net https://www.googleadservices.com https://googleads.g.doubleclick.net`,
                 "style-src 'self' 'unsafe-inline'",
                 "img-src 'self' data: blob: https:",
                 "font-src 'self' data:",
