@@ -592,7 +592,10 @@ export default function ContactPage() {
       ...prev,
       offer: offerId,
       services: offer.services,
+      budget: offer.budget ?? prev.budget,
     }))
+    // Services et budget connus : on ouvre directement l'étape des coordonnées
+    if (offer.budget) setCurrentStep(2)
   }, [])
 
   const totalSteps = 3

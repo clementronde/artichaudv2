@@ -1,13 +1,14 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import BlogSection from '@/components/home/BlogSection'
+import PackAccordion from '@/components/services/PackAccordion'
+import OfferCard from '@/components/services/OfferCard'
 import { useLocale } from '@/context/LocaleContext'
 
 // On enregistre le plugin GSAP
@@ -24,42 +25,72 @@ const serviceContent = {
     expertiseTitle: 'Nos expertises',
     whyLabel: 'Pourquoi',
     whyTitle: <>Pourquoi travailler <br /> avec Artichaud</>,
-    packsLabel: 'Offres',
-    packsTitle: 'Des offres claires pour passer à l’action',
-    packsText: 'Devis gratuit, places limitées chaque mois.',
-    packs: [
+    packCta: 'Je choisis cette offre',
+    offersTitle: "Nos offres",
+    offers: [
       {
-        title: 'Site pro en 7 jours',
-        description: 'De zéro à votre site professionnel : une identité visuelle, un site vitrine et les bases du référencement, livrés en une semaine.',
-        price: '1 500 €',
-        oldPrice: '2 800 €',
-        includes: ['Identité visuelle', 'Site web', 'SEO'],
-        image: '/services/offres/offre-site-pro-7-jours.avif',
+        name: "L’offre [ Flash ]",
         offerId: 'site-pro',
-        alt: 'Offre Artichaud : de zéro à votre site pro en 7 jours pour 1 500 €',
-        cta: 'Lancer mon site',
+        details: {
+          intro: "Tu démarres ton activité et tu veux une image crédible dès le premier jour, sans perdre des mois en allers-retours ? On pose des fondations visuelles solides et on met en ligne ton premier site professionnel pour lancer tes ventes sans attendre.",
+          includesLabel: "Description du pack",
+          includes: [
+            "Un questionnaire de cadrage express",
+            "Un logo principal et ses déclinaisons",
+            "Une palette de couleurs et une sélection typographique",
+            "Un mini-guide de marque (brandboard)",
+            "La conception et développement d'un site vitrine",
+            "L'optimisation pour mobile et le paramétrage SEO",
+            "Une phase d'ajustements groupés",
+            "La livraison des fichiers sources et la mise en ligne",
+          ],
+          priceLabel: "Tarif",
+          price: "1500€",
+          durationLabel: "Durée",
+          duration: "7 jours ouvrés",
+        },
       },
       {
-        title: 'Refonte en 7 jours',
-        description: 'Votre site a vieilli ? On modernise son design, sa structure et son référencement pour qu’il redevienne votre meilleur commercial.',
-        price: '1 500 €',
-        oldPrice: '2 200 €',
-        includes: ['Identité visuelle', 'Site web', 'SEO'],
-        image: '/services/offres/offre-refonte-7-jours.avif',
+        name: "L’offre [ Refresh ]",
         offerId: 'refonte',
-        alt: 'Offre Artichaud : modernisez votre site en 7 jours pour 1 500 €',
-        cta: 'Moderniser mon site',
+        details: {
+          intro: "Ton activité a évolué mais ton site date d'il y a plusieurs années ? Une image vieillissante te fait perdre des clients qualifiés. On modernise ton identité et on repense ton site pour refléter enfin la valeur réelle de tes services.",
+          includesLabel: "Description du pack",
+          includes: [
+            "Un audit rapide de l'existant",
+            "La modernisation du logo et révision de la charte",
+            "La refonte complète du design de ton site actuel",
+            "Une structure pensée pour convertir tes visiteurs",
+            "L'adaptation responsive (mobile et tablette)",
+            "La redirection des anciens liens et conservation du référencement",
+            "Une phase d'ajustements ciblés",
+            "La mise en production et prise en main",
+          ],
+          priceLabel: "Tarif",
+          price: "1500€",
+          durationLabel: "Durée",
+          duration: "7 jours ouvrés",
+        },
       },
       {
-        title: 'Présence en ligne',
-        description: 'On s’occupe de votre site au quotidien : référencement, maintenance et sécurité, pour rester visible sans y penser.',
-        price: '350 €',
-        priceSuffix: '/mois',
-        includes: ['Référencement', 'Maintenance', 'Sécurité'],
-        image: '/services/offres/offre-presence-en-ligne.avif',
+        name: "L’offre [ Visibilité & Sérénité ]",
         offerId: 'presence',
-        alt: 'Offre Artichaud : référencement, maintenance et sécurité pour 350 € par mois',
-        cta: 'Confier mon site',
+        details: {
+          intro: "Tu as déjà un site, mais tu manques de temps pour le maintenir à jour et tu n'apparais pas sur Google ? On s'occupe de la partie technique et de ton référencement local chaque mois pendant que tu te concentres sur tes clients.",
+          includesLabel: "Description du pack",
+          includes: [
+            "Un audit technique et SEO de départ",
+            "Les mises à jour mensuelles du site et des extensions",
+            "Une sauvegarde mensuelle",
+            "La surveillance de la sécurité et de la disponibilité",
+            "L'optimisation de ta fiche Google Business Profile",
+            "Le suivi de ton référencement local",
+            "Jusqu'à 1 heure de petites modifications par mois",
+            "Un rapport mensuel",
+          ],
+          priceLabel: "Tarif",
+          price: "350€/mois",
+        },
       },
     ],
     capabilities: [
@@ -70,6 +101,85 @@ const serviceContent = {
           { title: 'Identité visuelle', description: 'Logo, palette de couleurs, typographie, graphismes, illustrations de marque et design system.' },
           { title: 'Levée de fonds & Go-to-Market', description: 'Pitch deck, vidéo produit, support événementiel, merchandising, contenu digital et assets commerciaux.' },
         ],
+        packs: [
+          {
+            name: "Le pack [ Essentiel ]",
+            offerId: 'pack-essentiel',
+            details: {
+              intro: "Conçu pour donner vie à ton projet rapidement avec un rendu propre, lisible et professionnel. L’essentiel du design graphique réuni dans une formule légère, idéale pour valider ton lancement.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence d'onboarding",
+                "Deux concepts visuels distincts",
+                "Un logo responsive",
+                "Une palette chromatique",
+                "Système typographique",
+                "Pack iconographique",
+                "Le guide complet d'utilisation (Brand Book)",
+                "Deux séries d’ajustements",
+                "Le dossier complet des fichiers prêts à l'emploi (PNG, SVG, PDF)",
+              ],
+              priceLabel: "Tarif",
+              price: "1000€",
+              durationLabel: "Durée",
+              duration: "2 semaines",
+            },
+          },
+          {
+            name: "Le pack [ Signature ]",
+            offerId: 'pack-signature',
+            details: {
+              intro: "Pour les projets prêts à franchir un cap visuel. Un écosystème graphique plus riche qui matérialise ton identité dans le monde réel, sur tes supports papier comme sur tes supports promotionnels.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence d'onboarding",
+                "Un échange stratégique et planche d'inspiration",
+                "Deux pistes graphiques abouties",
+                "Un système de logos et monogramme",
+                "Une gamme de teintes enrichie",
+                "Une sélection typographique hiérarchisée",
+                "Pack iconographique",
+                "Une collection d'illustrations ou motifs sur mesure",
+                "La création graphique de deux supports papier (cartes, papeterie...)",
+                "La déclinaison visuelle sur deux objets dérivés (tote bag, goodies...)",
+                "Le guide complet d'utilisation de la marque (Brand Book)",
+                "Deux séries d’ajustements",
+                "L'ensemble des fichiers vectoriels et d'impression haute définition",
+              ],
+              priceLabel: "Tarif",
+              price: "1500€",
+              durationLabel: "Durée",
+              duration: "3 semaines",
+            },
+          },
+          {
+            name: "Le pack [ Écosystème ]",
+            offerId: 'pack-ecosysteme',
+            details: {
+              intro: "La solution globale pour bâtir une présence forte, harmonieuse et immédiatement reconnaissable sur l'ensemble de vos canaux. Un univers visuel clé en main pour communiquer au quotidien sans perdre en cohérence.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Un atelier complet d'analyse et de positionnement",
+                "Trois pistes créatives approfondies",
+                "Un système de logos et monogramme",
+                "Un nuancier complet avec règles de contraste",
+                "Le corpus typographique et ses règles de mise en page",
+                "Un catalogue de motifs, textures et assets graphiques",
+                "Pack iconographique",
+                "Trois supports imprimés et deux objets promotionnels",
+                "9 modèles de publications et 3 modèles de stories",
+                "L'habillage complet des profils sociaux (bannières, avatars)",
+                "Le guide complet d'utilisation de la marque (Brand Book)",
+                "Trois séries d’ajustements",
+                "La totalité des fichiers sources et gabarits éditables",
+              ],
+              priceLabel: "Tarif",
+              price: "2000€",
+              durationLabel: "Durée",
+              duration: "3 à 4 semaines",
+            },
+          },
+        ],
       },
       {
         category: 'Création de site web',
@@ -77,6 +187,55 @@ const serviceContent = {
           { title: 'UX & Rédaction', description: 'Structure du site, navigation, wireframes, cartographie des contenus, messages clés et rédaction.' },
           { title: 'Design de site web', description: 'Direction artistique, UI design, design system, graphismes de marque, iconographie et illustrations.' },
           { title: 'Développement web', description: 'Développement, SEO technique, intégrations API, configuration CMS, animations, interactions et QA.' },
+        ],
+        packs: [
+          {
+            name: "Le pack [ Vitrine ]",
+            offerId: 'pack-vitrine',
+            details: {
+              intro: "Pour présenter ton activité avec un site clair, rapide et pensé pour transformer tes visiteurs en clients. Un site vitrine sur-mesure, simple à mettre à jour et prêt à être trouvé sur Google dès sa mise en ligne.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence de lancement",
+                "L'arborescence et le parcours de tes visiteurs",
+                "Des maquettes sur-mesure, desktop et mobile",
+                "Le développement d'un site responsive et rapide",
+                "Un formulaire de contact relié à ta boîte mail",
+                "Le paramétrage SEO de base (balises, sitemap, données structurées)",
+                "Un CMS pour modifier tes contenus en autonomie",
+                "Deux séries d’ajustements",
+                "La mise en ligne et une formation à la prise en main",
+              ],
+              priceLabel: "Tarif",
+              price: "à partir de 2000€",
+              durationLabel: "Durée",
+              duration: "1 à 2 semaines",
+            },
+          },
+          {
+            name: "Le pack [ E-commerce ]",
+            offerId: 'pack-ecommerce',
+            details: {
+              intro: "Pour vendre en ligne avec une boutique qui inspire confiance et fluidifie l'achat. On conçoit ton e-commerce de la fiche produit jusqu'au paiement, prêt à encaisser tes premières commandes.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence de lancement",
+                "L'arborescence du catalogue et le parcours d'achat",
+                "Des maquettes sur-mesure, desktop et mobile",
+                "Le développement d'une boutique responsive et rapide",
+                "La mise en place du catalogue et des fiches produits",
+                "Le paiement sécurisé et la configuration des livraisons",
+                "Le paramétrage SEO des pages produits et catégories",
+                "Un back-office pour gérer commandes, stocks et produits",
+                "Deux séries d’ajustements",
+                "La mise en ligne et une formation à la prise en main",
+              ],
+              priceLabel: "Tarif",
+              price: "à partir de 2500€",
+              durationLabel: "Durée",
+              duration: "2 à 4 semaines",
+            },
+          },
         ],
       },
       {
@@ -86,6 +245,7 @@ const serviceContent = {
           { title: 'Création de contenu', description: 'Posts, carrousels, stories, reels, templates de marque, déclinaisons de campagnes et contenus courts.' },
           { title: 'Pilotage & reporting', description: 'Suivi des performances, analyse des formats qui engagent, recommandations mensuelles et ajustements éditoriaux.' },
         ],
+        packs: [],
       },
       {
         category: 'Webmarketing',
@@ -93,6 +253,72 @@ const serviceContent = {
           { title: 'Acquisition & conversion', description: 'SEO, SEA, landing pages, tunnels de conversion, campagnes email et optimisation des points de contact clés.' },
           { title: 'Tracking & analytics', description: 'Plan de mesure, événements, tableaux de bord, lecture des parcours utilisateurs et priorisation des actions.' },
           { title: 'Contenus marketing', description: 'Pages de vente, lead magnets, séquences email, contenus SEO et supports conçus pour générer des demandes qualifiées.' },
+        ],
+        packs: [
+          {
+            name: "Le pack [ Maintenance ]",
+            offerId: 'pack-maintenance',
+            details: {
+              intro: "Ton site est en ligne, mais tu n'as ni le temps ni l'envie de t'en occuper ? Une mise à jour oubliée ou un bug passé inaperçu suffit à faire fuir tes visiteurs. On veille sur ton site chaque mois pour qu'il reste rapide, sécurisé et toujours à jour.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Un audit technique de départ",
+                "Les mises à jour mensuelles du CMS, du thème et des extensions",
+                "Une sauvegarde mensuelle",
+                "La surveillance de la sécurité et de la disponibilité du site",
+                "La correction des bugs et des liens cassés",
+                "L'optimisation continue de la vitesse de chargement",
+                "Jusqu'à 2 heures de petites modifications par mois",
+                "Un rapport mensuel d'intervention",
+                "Une visioconférence mensuelle de suivi",
+              ],
+              priceLabel: "Tarif",
+              price: "300€/mois",
+            },
+          },
+          {
+            name: "Le pack [ SEO ]",
+            offerId: 'pack-seo',
+            details: {
+              intro: "Ton site est beau, mais personne ne le trouve sur Google ? Sans visibilité, ce sont tes concurrents qui récupèrent tes clients. On travaille ton référencement chaque mois pour te faire monter dans les résultats et attirer des visiteurs vraiment intéressés par tes services.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence de lancement",
+                "Un audit SEO complet de ton site",
+                "Une étude des mots-clés et de tes concurrents",
+                "L'optimisation technique (balises, structure, maillage interne)",
+                "L'optimisation de ta fiche Google Business Profile",
+                "La rédaction ou l'optimisation d'un contenu par mois",
+                "Le suivi de ton positionnement sur tes mots-clés",
+                "L'analyse de ton trafic et de tes conversions",
+                "Un rapport mensuel avec les prochaines actions",
+              ],
+              priceLabel: "Tarif",
+              price: "350€/mois",
+            },
+          },
+          {
+            name: "Le pack [ Duo ]",
+            offerId: 'pack-duo',
+            details: {
+              intro: "Tu veux un site qui tourne sans accroc et qui gagne en visibilité, sans jongler entre plusieurs prestataires ? On réunit maintenance et référencement dans un seul accompagnement mensuel. Ton site reste entretenu pendant qu'il grimpe sur Google et t'amène de nouveaux clients.",
+              includesLabel: "Description du pack",
+              includes: [
+                "Une visioconférence de lancement",
+                "Un audit technique et SEO complet",
+                "Les mises à jour mensuelles du CMS, du thème et des extensions",
+                "Une sauvegarde complète chaque semaine",
+                "La surveillance de la sécurité et de la disponibilité du site",
+                "Une stratégie de mots-clés adaptée à ton activité",
+                "L'optimisation technique et de ta fiche Google Business Profile",
+                "La rédaction ou l'optimisation de deux contenus par mois",
+                "Jusqu'à 3 heures de petites modifications par mois",
+                "Un point stratégique et un rapport complet chaque mois",
+              ],
+              priceLabel: "Tarif",
+              price: "500€/mois",
+            },
+          },
         ],
       },
     ],
@@ -111,42 +337,72 @@ const serviceContent = {
     expertiseTitle: 'Our expertise',
     whyLabel: 'Why',
     whyTitle: <>Why work <br /> with Artichaud</>,
-    packsLabel: 'Offers',
-    packsTitle: 'Clear offers to get moving',
-    packsText: 'Free quote, limited spots each month.',
-    packs: [
+    packCta: 'I choose this offer',
+    offersTitle: "Our offers",
+    offers: [
       {
-        title: 'Pro website in 7 days',
-        description: 'From zero to your professional website: a visual identity, a showcase site and SEO foundations, delivered in one week.',
-        price: '€1,500',
-        oldPrice: '€2,800',
-        includes: ['Visual identity', 'Website', 'SEO'],
-        image: '/services/offres/offre-site-pro-7-jours.avif',
+        name: "The [ Flash ] offer",
         offerId: 'site-pro',
-        alt: 'Artichaud offer: from zero to a pro website in 7 days for €1,500',
-        cta: 'Launch my website',
+        details: {
+          intro: "Starting your business and want a credible image from day one, without months of back-and-forth? We lay solid visual foundations and launch your first professional website so you can start selling right away.",
+          includesLabel: "What’s included",
+          includes: [
+            "A quick briefing questionnaire",
+            "A main logo and its variations",
+            "A colour palette and type selection",
+            "A mini brand guide (brandboard)",
+            "Design and development of a showcase website",
+            "Mobile optimisation and SEO setup",
+            "One grouped round of adjustments",
+            "Delivery of source files and launch",
+          ],
+          priceLabel: "Price",
+          price: "€1,500",
+          durationLabel: "Duration",
+          duration: "7 working days",
+        },
       },
       {
-        title: 'Redesign in 7 days',
-        description: 'Website showing its age? We modernise its design, structure and SEO so it becomes your best salesperson again.',
-        price: '€1,500',
-        oldPrice: '€2,200',
-        includes: ['Visual identity', 'Website', 'SEO'],
-        image: '/services/offres/offre-refonte-7-jours.avif',
+        name: "The [ Refresh ] offer",
         offerId: 'refonte',
-        alt: 'Artichaud offer: modernise your website in 7 days for €1,500',
-        cta: 'Modernise my website',
+        details: {
+          intro: "Your business has grown but your website is years old? An outdated image is costing you qualified clients. We modernise your identity and rethink your website so it finally reflects the real value of your services.",
+          includesLabel: "What’s included",
+          includes: [
+            "A quick audit of your current site",
+            "Logo modernisation and brand guidelines review",
+            "A complete redesign of your current website",
+            "A structure built to convert your visitors",
+            "Responsive adaptation (mobile and tablet)",
+            "Redirection of old links to preserve your SEO",
+            "One targeted round of adjustments",
+            "Go-live and hands-on onboarding",
+          ],
+          priceLabel: "Price",
+          price: "€1,500",
+          durationLabel: "Duration",
+          duration: "7 working days",
+        },
       },
       {
-        title: 'Online presence',
-        description: 'We look after your website day to day: SEO, maintenance and security, so you stay visible without thinking about it.',
-        price: '€350',
-        priceSuffix: '/month',
-        includes: ['SEO', 'Maintenance', 'Security'],
-        image: '/services/offres/offre-presence-en-ligne.avif',
+        name: "The [ Visibility & Peace of Mind ] offer",
         offerId: 'presence',
-        alt: 'Artichaud offer: SEO, maintenance and security for €350 per month',
-        cta: 'Hand over my website',
+        details: {
+          intro: "You already have a website, but no time to keep it up to date and you don't show up on Google? We take care of the technical side and your local SEO every month while you focus on your clients.",
+          includesLabel: "What’s included",
+          includes: [
+            "An initial technical and SEO audit",
+            "Monthly website and plugin updates",
+            "A monthly backup",
+            "Security and uptime monitoring",
+            "Google Business Profile optimisation",
+            "Local SEO tracking",
+            "Up to 1 hour of small changes per month",
+            "A monthly report",
+          ],
+          priceLabel: "Price",
+          price: "€350/month",
+        },
       },
     ],
     capabilities: [
@@ -157,6 +413,85 @@ const serviceContent = {
           { title: 'Visual identity', description: 'Logo, colour palette, typography, brand graphics, illustrations and design system.' },
           { title: 'Fundraising & go-to-market', description: 'Pitch decks, product videos, event materials, merchandising, digital content and sales assets.' },
         ],
+        packs: [
+          {
+            name: "The [ Essentiel ] pack",
+            offerId: 'pack-essentiel',
+            details: {
+              intro: "Designed to bring your project to life quickly with a clean, readable and professional result. The graphic design essentials in a light package, ideal for validating your launch.",
+              includesLabel: "What’s included",
+              includes: [
+                "An onboarding video call",
+                "Two distinct visual concepts",
+                "A responsive logo",
+                "A colour palette",
+                "A typographic system",
+                "An icon pack",
+                "The complete usage guide (Brand Book)",
+                "Two rounds of adjustments",
+                "The complete set of ready-to-use files (PNG, SVG, PDF)",
+              ],
+              priceLabel: "Price",
+              price: "€1,000",
+              durationLabel: "Duration",
+              duration: "2 weeks",
+            },
+          },
+          {
+            name: "The [ Signature ] pack",
+            offerId: 'pack-signature',
+            details: {
+              intro: "For projects ready to take a visual step up. A richer graphic ecosystem that brings your identity into the real world, on your print materials as well as your promotional items.",
+              includesLabel: "What’s included",
+              includes: [
+                "An onboarding video call",
+                "A strategy session and mood board",
+                "Two fully developed design directions",
+                "A logo system and monogram",
+                "An extended colour range",
+                "A hierarchical type selection",
+                "An icon pack",
+                "A custom collection of illustrations or patterns",
+                "Graphic design for two print items (cards, stationery...)",
+                "Visual adaptation on two branded goods (tote bag, merchandise...)",
+                "The complete brand usage guide (Brand Book)",
+                "Two rounds of adjustments",
+                "All vector and high-definition print files",
+              ],
+              priceLabel: "Price",
+              price: "€1,500",
+              durationLabel: "Duration",
+              duration: "3 weeks",
+            },
+          },
+          {
+            name: "The [ Écosystème ] pack",
+            offerId: 'pack-ecosysteme',
+            details: {
+              intro: "The all-in-one solution to build a strong, harmonious and instantly recognisable presence across all your channels. A turnkey visual universe to communicate every day without losing consistency.",
+              includesLabel: "What’s included",
+              includes: [
+                "A complete analysis and positioning workshop",
+                "Three in-depth creative directions",
+                "A logo system and monogram",
+                "A full colour chart with contrast rules",
+                "The type family and its layout rules",
+                "A library of patterns, textures and graphic assets",
+                "An icon pack",
+                "Three print items and two promotional goods",
+                "9 post templates and 3 story templates",
+                "Complete social profile branding (banners, avatars)",
+                "The complete brand usage guide (Brand Book)",
+                "Three rounds of adjustments",
+                "All source files and editable templates",
+              ],
+              priceLabel: "Price",
+              price: "€2,000",
+              durationLabel: "Duration",
+              duration: "3 to 4 weeks",
+            },
+          },
+        ],
       },
       {
         category: 'Website creation',
@@ -164,6 +499,55 @@ const serviceContent = {
           { title: 'UX & copywriting', description: 'Website structure, navigation, wireframes, content mapping, key messages and copywriting.' },
           { title: 'Web design', description: 'Art direction, UI design, design systems, brand graphics, iconography and illustrations.' },
           { title: 'Web development', description: 'Development, technical SEO, API integrations, CMS setup, animations, interactions and QA.' },
+        ],
+        packs: [
+          {
+            name: "The [ Vitrine ] pack",
+            offerId: 'pack-vitrine',
+            details: {
+              intro: "To present your business with a clear, fast website designed to turn visitors into clients. A custom showcase site, easy to update and ready to be found on Google from launch day.",
+              includesLabel: "What’s included",
+              includes: [
+                "A kick-off video call",
+                "The site structure and visitor journey",
+                "Custom desktop and mobile mock-ups",
+                "Development of a fast, responsive website",
+                "A contact form connected to your inbox",
+                "Core SEO setup (tags, sitemap, structured data)",
+                "A CMS to update your content on your own",
+                "Two rounds of adjustments",
+                "Launch and a hands-on training session",
+              ],
+              priceLabel: "Price",
+              price: "from €2,000",
+              durationLabel: "Duration",
+              duration: "4 to 6 weeks",
+            },
+          },
+          {
+            name: "The [ E-commerce ] pack",
+            offerId: 'pack-ecommerce',
+            details: {
+              intro: "To sell online with a shop that inspires trust and makes buying effortless. We design your e-commerce site from product page to checkout, ready to take your first orders.",
+              includesLabel: "What’s included",
+              includes: [
+                "A kick-off video call",
+                "The catalogue structure and purchase journey",
+                "Custom desktop and mobile mock-ups",
+                "Development of a fast, responsive shop",
+                "Catalogue and product page setup",
+                "Secure payment and shipping configuration",
+                "SEO setup for product and category pages",
+                "A back office to manage orders, stock and products",
+                "Two rounds of adjustments",
+                "Launch and a hands-on training session",
+              ],
+              priceLabel: "Price",
+              price: "from €8,000",
+              durationLabel: "Duration",
+              duration: "8 to 12 weeks",
+            },
+          },
         ],
       },
       {
@@ -173,6 +557,7 @@ const serviceContent = {
           { title: 'Content creation', description: 'Posts, carousels, stories, reels, branded templates, campaign variations and short-form content.' },
           { title: 'Management & reporting', description: 'Performance tracking, format analysis, monthly recommendations and editorial calendar adjustments.' },
         ],
+        packs: [],
       },
       {
         category: 'Digital marketing',
@@ -180,6 +565,72 @@ const serviceContent = {
           { title: 'Acquisition & conversion', description: 'SEO, SEA, landing pages, conversion funnels, email campaigns and optimisation of key touchpoints.' },
           { title: 'Tracking & analytics', description: 'Measurement plans, event setup, dashboards, user journey analysis and action prioritisation.' },
           { title: 'Marketing content', description: 'Sales pages, lead magnets, email sequences, SEO content and campaign assets designed to generate qualified leads.' },
+        ],
+        packs: [
+          {
+            name: "The [ Maintenance ] pack",
+            offerId: 'pack-maintenance',
+            details: {
+              intro: "Your website is live, but you have neither the time nor the desire to look after it? One missed update or unnoticed bug is enough to drive visitors away. We look after your site every month so it stays fast, secure and up to date.",
+              includesLabel: "What’s included",
+              includes: [
+                "An initial technical audit",
+                "Monthly CMS, theme and plugin updates",
+                "A monthly backup",
+                "Security and uptime monitoring",
+                "Bug and broken link fixes",
+                "Ongoing page speed optimisation",
+                "Up to 2 hours of small changes per month",
+                "A monthly maintenance report",
+                "A monthly follow-up video call",
+              ],
+              priceLabel: "Price",
+              price: "€300/month",
+            },
+          },
+          {
+            name: "The [ SEO ] pack",
+            offerId: 'pack-seo',
+            details: {
+              intro: "Your website looks great, but nobody finds it on Google? Without visibility, your competitors win your clients. We work on your SEO every month to move you up the results and attract visitors genuinely interested in your services.",
+              includesLabel: "What’s included",
+              includes: [
+                "A kick-off video call",
+                "A full SEO audit of your website",
+                "Keyword and competitor research",
+                "Technical optimisation (tags, structure, internal linking)",
+                "Google Business Profile optimisation",
+                "One piece of content written or optimised per month",
+                "Ranking tracking on your target keywords",
+                "Traffic and conversion analysis",
+                "A monthly report with next actions",
+              ],
+              priceLabel: "Price",
+              price: "€350/month",
+            },
+          },
+          {
+            name: "The [ Duo ] pack",
+            offerId: 'pack-duo',
+            details: {
+              intro: "You want a website that runs smoothly and keeps gaining visibility, without juggling several providers? We combine maintenance and SEO in a single monthly plan. Your site stays well maintained while it climbs on Google and brings you new clients.",
+              includesLabel: "What’s included",
+              includes: [
+                "A kick-off video call",
+                "A full technical and SEO audit",
+                "Monthly CMS, theme and plugin updates",
+                "A full weekly backup",
+                "Security and uptime monitoring",
+                "A keyword strategy tailored to your business",
+                "Technical and Google Business Profile optimisation",
+                "Two pieces of content written or optimised per month",
+                "Up to 3 hours of small changes per month",
+                "A monthly strategy call and full report",
+              ],
+              priceLabel: "Price",
+              price: "€500/month",
+            },
+          },
         ],
       },
     ],
@@ -200,6 +651,8 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
   const containerRef = useRef(null) // Le wrapper (blanc)
   const blackBoxRef = useRef(null)  // La boîte noire qui s'anime
   const { locale } = useLocale()
+  const [openOffer, setOpenOffer] = useState<string | null>(null)
+  const [openPack, setOpenPack] = useState<string | null>(null)
   const content = serviceContent[locale]
 
   // --- ANIMATION GSAP (COPIÉE DE PROJECT INTRO) ---
@@ -221,19 +674,34 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
       }
     )
 
-    // 2. Léger recul en sortie (sans translation : elle coupait le bas arrondi du bloc)
-    gsap.to(blackBoxRef.current, {
-      scale: 0.98,
-      opacity: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "bottom bottom",
-        end: "bottom top",
-        scrub: true,
+    // 2. Fermeture en miroir (100% -> 85%) : même distance de scroll, uniquement en fin de section
+    gsap.fromTo(blackBoxRef.current,
+      { width: "100%" },
+      {
+        width: "85%",
+        ease: "none",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "bottom 40%", // Commence quand le bas du container passe à 40% de l'écran
+          end: "bottom top",   // Finit quand le bas du container sort par le haut
+          scrub: 0.5,
+        }
       }
-    })
+    )
 
+    // L'ouverture d'un pack change la hauteur du bloc : on recalcule les déclencheurs
+    let refreshTimeout: ReturnType<typeof setTimeout>
+    const observer = new ResizeObserver(() => {
+      clearTimeout(refreshTimeout)
+      refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 150)
+    })
+    observer.observe(blackBoxRef.current)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(refreshTimeout)
+    }
   }, { scope: containerRef })
 
   return (
@@ -279,24 +747,45 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
       <section ref={containerRef} className="relative z-0 w-full mb-32 flex justify-center overflow-hidden">
         <div
             ref={blackBoxRef}
-            className="bg-[#0a0a0a] text-white rounded-[40px] p-8 md:p-12 lg:p-20 mx-auto will-change-transform"
+            className="bg-arti-black text-white rounded-[20px] px-6 pt-14 pb-8 md:px-10 md:pt-[82px] md:pb-10 mx-auto will-change-transform"
         >
-            <h2 className="text-[40px] md:text-[60px] font-normal mb-20 tracking-tight">{content.expertiseTitle}</h2>
+            {/* EN-TÊTE */}
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-4 mb-16 md:mb-[100px]">
+                <div className="md:col-span-1 md:pt-[15px]">
+                    <span className="text-base text-white">{content.label}</span>
+                </div>
+                <div className="md:col-span-5">
+                    <h2 className="text-[34px] md:text-[45px] leading-[1.4] font-normal">{content.expertiseTitle}</h2>
+                </div>
+            </div>
 
             {/* LISTE SERVICES */}
             <div className="flex flex-col">
-                {content.capabilities.map((cap, index) => (
-                    <div key={index} className={`grid grid-cols-1 md:grid-cols-8 gap-x-5 py-16 md:py-24 border-t border-white/20 ${index === content.capabilities.length - 1 ? 'border-b border-white/20' : ''}`}>
-                        <div className="col-span-1 md:col-span-5 mb-8 md:mb-0">
-                            <h3 className="text-3xl md:text-5xl font-normal text-white">{cap.category}</h3>
+                {content.capabilities.map((cap) => (
+                    <div key={cap.category} className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-8 py-10 md:py-[50px] border-t border-white/20">
+                        <div className="md:col-span-5">
+                            <h3 className="text-[28px] md:text-[32px] leading-[1.4] font-normal text-white">{cap.category}</h3>
                         </div>
-                        <div className="col-span-1 md:col-span-3 flex flex-col gap-10">
-                            {cap.items.map((item, i) => (
-                                <div key={i} className="flex flex-col gap-2">
-                                    <h4 className="text-xl font-medium text-white">{item.title}</h4>
-                                    <p className="text-base text-gray-400 font-light leading-relaxed">{item.description}</p>
+                        <div className="md:col-span-3 flex flex-col gap-[35px]">
+                            {cap.items.map((item) => (
+                                <div key={item.title} className="flex flex-col gap-2 leading-[1.4]">
+                                    <h4 className="text-[20px] md:text-[22px] font-normal text-white">{item.title}</h4>
+                                    <p className="text-base text-[#767676]">{item.description}</p>
                                 </div>
                             ))}
+                            {cap.packs.length > 0 && (
+                                <div className="flex flex-col gap-[14px]">
+                                    {cap.packs.map((pack) => (
+                                        <PackAccordion
+                                            key={pack.name}
+                                            pack={pack}
+                                            ctaLabel={content.packCta}
+                                            isOpen={openPack === pack.name}
+                                            onToggle={() => setOpenPack(openPack === pack.name ? null : pack.name)}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -304,71 +793,18 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </section>
 
-      {/* 3. OFFRES PACKAGÉES */}
+      {/* 3. NOS OFFRES */}
       <section className="w-full px-[40px] mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-6 mb-16 items-baseline">
-          <div className="md:col-span-1">
-            <span className="text-sm font-medium text-arti-black">{content.packsLabel}</span>
-          </div>
-          <div className="md:col-span-5">
-            <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black tracking-tight">{content.packsTitle}</h2>
-          </div>
-          <div className="md:col-span-2">
-            <p className="text-lg text-gray-500 font-light leading-relaxed">{content.packsText}</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {content.packs.map((pack) => (
-            <Link key={pack.title} href={`/contact?offre=${pack.offerId}`} className="group flex flex-col">
-              <div className="relative">
-                <div className="relative w-full aspect-[4/5] overflow-hidden bg-arti-black">
-                  <Image
-                    src={pack.image}
-                    alt={pack.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* Cadre rouge qui se dessine autour de l'image tant que la souris reste dessus */}
-                <span aria-hidden="true" className="pointer-events-none absolute -inset-2">
-                  <span className="absolute top-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[1200ms] group-hover:scale-x-100 group-hover:delay-0" />
-                  <span className="absolute top-0 right-0 h-full w-[2px] origin-top scale-y-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[800ms] group-hover:scale-y-100 group-hover:delay-[400ms]" />
-                  <span className="absolute bottom-0 right-0 h-[2px] w-full origin-right scale-x-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-[400ms] group-hover:scale-x-100 group-hover:delay-[800ms]" />
-                  <span className="absolute bottom-0 left-0 h-full w-[2px] origin-bottom scale-y-0 bg-[#F70046] transition-transform duration-[400ms] ease-linear delay-0 group-hover:scale-y-100 group-hover:delay-[1200ms]" />
-                </span>
-              </div>
-
-              <div className="flex flex-col flex-1 pt-6">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <h3 className="text-2xl md:text-3xl font-normal text-arti-black leading-tight">{pack.title}</h3>
-                  <div className="flex flex-col items-end shrink-0">
-                    {'oldPrice' in pack && (
-                      <span className="text-sm text-gray-400 line-through">{pack.oldPrice}</span>
-                    )}
-                    <span className="px-3 py-1 bg-[#F70046] text-white text-lg font-medium">
-                      {pack.price}
-                      {'priceSuffix' in pack && <span className="text-sm font-normal">{pack.priceSuffix}</span>}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-base text-gray-500 font-light leading-relaxed mb-6">{pack.description}</p>
-
-                <ul className="flex flex-wrap gap-2 mb-8">
-                  {pack.includes.map((item) => (
-                    <li key={item} className="px-3 py-1 rounded-full border border-black/10 text-sm text-arti-black">{item}</li>
-                  ))}
-                </ul>
-
-                <span className="mt-auto inline-flex items-center gap-3 self-start px-6 py-3 rounded-full border border-black/10 text-sm font-medium transition-all duration-300 group-hover:bg-[#F70046] group-hover:border-[#F70046] group-hover:text-white">
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  {pack.cta}
-                </span>
-              </div>
-            </Link>
+        <h2 className="text-[34px] md:text-[45px] leading-[1.4] font-normal text-arti-black mb-6">{content.offersTitle}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[5px] md:gap-y-0">
+          {content.offers.map((offer) => (
+            <OfferCard
+              key={offer.offerId}
+              offer={offer}
+              ctaLabel={content.packCta}
+              isOpen={openOffer === offer.offerId}
+              onToggle={() => setOpenOffer(openOffer === offer.offerId ? null : offer.offerId)}
+            />
           ))}
         </div>
       </section>
