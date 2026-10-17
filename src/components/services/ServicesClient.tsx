@@ -690,6 +690,17 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
       }
     )
 
+    // 3. Catégories : apparition par le bas avec fondu, une seule fois
+    gsap.utils.toArray<HTMLElement>(".capability-row").forEach((row) => {
+      gsap.set(row, { y: 80, opacity: 0 })
+      ScrollTrigger.create({
+        trigger: row,
+        start: "top 85%", // le haut de la catégorie passe à 85% de l'écran
+        once: true,
+        onEnter: () => gsap.to(row, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }),
+      })
+    })
+
     // L'ouverture d'un pack change la hauteur du bloc : on recalcule les déclencheurs
     let refreshTimeout: ReturnType<typeof setTimeout>
     const observer = new ResizeObserver(() => {
@@ -705,7 +716,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
   }, { scope: containerRef })
 
   return (
-    <main className="w-full bg-white min-h-screen pt-40 pb-32 overflow-x-hidden">
+    <main className="w-full bg-white min-h-screen pt-40 pb-32 overflow-x-clip">
 
       {/* 1. HERO SECTION */}
       <div className="w-full px-[40px] mb-32">
@@ -744,7 +755,7 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
 
       {/* 2. EXPERTISES (ANIMÉ) */}
       {/* ContainerRef sert de repère pour le ScrollTrigger */}
-      <section ref={containerRef} className="relative z-0 w-full mb-32 flex justify-center overflow-hidden">
+      <section ref={containerRef} className="relative z-0 w-full mb-32 flex justify-center overflow-x-clip">
         <div
             ref={blackBoxRef}
             className="bg-arti-black text-white rounded-[20px] px-6 pt-14 pb-8 md:px-10 md:pt-[82px] md:pb-10 mx-auto will-change-transform"
@@ -762,8 +773,12 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
             {/* LISTE SERVICES */}
             <div className="flex flex-col">
                 {content.capabilities.map((cap) => (
-                    <div key={cap.category} className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-8 py-10 md:py-[50px] border-t border-white/20">
-                        <div className="md:col-span-5">
+                    <div
+                        key={cap.category}
+                        className="capability-row grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-8 py-10 md:py-[50px] border-t border-white/20"
+                    >
+                        {/* Titre de la catégorie : suit le scroll tant que ses prestations défilent */}
+                        <div className="md:col-span-5 md:sticky md:top-10 md:self-start">
                             <h3 className="text-[28px] md:text-[32px] leading-[1.4] font-normal text-white">{cap.category}</h3>
                         </div>
                         <div className="md:col-span-3 flex flex-col gap-[35px]">

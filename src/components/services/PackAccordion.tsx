@@ -79,7 +79,7 @@ export default function PackAccordion({ pack, ctaLabel, isOpen, onToggle }: Pack
     <motion.div
       initial={false}
       animate={state}
-      className={`w-full border-[0.5px] transition-colors duration-500 ${isOpen ? 'border-[#F2F2F2]/40 bg-white/[0.03]' : 'border-[#F2F2F2]/20 hover:border-[#F2F2F2]/40'}`}
+      className="w-full border-[0.5px] border-[#F2F2F2]/20"
     >
       <button
         type="button"
