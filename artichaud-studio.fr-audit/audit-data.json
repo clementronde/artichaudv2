@@ -1,0 +1,78 @@
+{
+  "summary": {
+    "health_score": 71,
+    "business_type": "Agence web & branding (hybride locale, Boulogne-Billancourt)",
+    "top_findings": [
+      "Titres animés sans espaces dans le HTML (about, home, 12 pages works)",
+      "Réponses FAQ absentes du HTML (Boulogne, Paris, refonte)",
+      "2 liens internes cassés dans l'article refonte",
+      "LCP mobile 7-8 s : H1 rendu en opacity:0 côté serveur",
+      "AggregateRating 5.0 sur 1 seul avis dans le schema de toutes les pages"
+    ],
+    "quick_wins": [
+      "Ajouter un espace après chaque mot dans les titres animés (15 min)",
+      "Toujours rendre les réponses FAQ dans le DOM (30 min)",
+      "Corriger les 2 liens cassés de l'article refonte (5 min)",
+      "Supprimer le double suffixe | Artichaud Studio (15 min)",
+      "Nettoyer llms.txt / llms-full.txt (30 min)"
+    ]
+  },
+  "categories": [
+    {"name": "Technical SEO", "score": 86,
+     "what_works": ["Redirections .com/www en un seul 301", "Canonicals auto-référents sur 48/48 URL", "SSR complet", "En-têtes de sécurité complets", "IndexNow fonctionnel"],
+     "findings": [
+       {"title": "Liens internes cassés", "severity": "High", "description": "/blog/refonte-site-internet-quand-et-comment pointe vers /blog/prix-site-vitrine-idf-2026 et /services/refonte-site-web (404).", "recommendation": "Pointer vers /blog/prix-site-vitrine-iledefrance-2025 et /refonte-site-internet."},
+       {"title": "lastmod codé en dur", "severity": "Medium", "description": "32 URL au 2026-05-29 (src/app/sitemap.ts:7).", "recommendation": "Utiliser des dates de modification réelles."},
+       {"title": "og:image manquantes ou icône 512 px", "severity": "Medium", "description": "5 pages sans og:image, beaucoup avec l'icône carrée.", "recommendation": "Images 1200x630 par page."}
+     ]},
+    {"name": "Content Quality", "score": 57,
+     "what_works": ["Bylines et Person schema sur tous les articles", "Pages locales uniques", "Lisibilité correcte"],
+     "findings": [
+       {"title": "Titres animés sans espaces", "severity": "High", "description": "HighlightTitle (AboutIntro.tsx:11-21) et équivalents produisent 'Noussommes...' dans le HTML.", "recommendation": "Ajouter {\" \"} après chaque mot."},
+       {"title": "Études de cas minces", "severity": "High", "description": "130-280 mots, aucun résultat ; Comon tronqué (src/data/project.ts:341).", "recommendation": "Contexte, chiffres, citation client."},
+       {"title": "Auteurs non vérifiables", "severity": "High", "description": "/about ne nomme pas les fondateurs en texte.", "recommendation": "Bios, LinkedIn, schema founder."},
+       {"title": "Blog à l'arrêt depuis 7 mois", "severity": "Medium", "description": "Dernier article le 2026-03-16.", "recommendation": "Relancer avec le pilier et les articles du plan de clusters."}
+     ]},
+    {"name": "On-Page SEO", "score": 74,
+     "what_works": ["Meta descriptions uniques partout"],
+     "findings": [
+       {"title": "Double suffixe de marque", "severity": "Medium", "description": "~20 titres finissent par '| Artichaud Studio | Artichaud Studio'.", "recommendation": "Corriger works/[slug]/page.tsx:32-34 et le template."},
+       {"title": "Deux H1 sur les articles", "severity": "Medium", "description": "Le MDX commence par un # en plus du titre du template.", "recommendation": "Supprimer le # des MDX."},
+       {"title": "Réponses FAQ absentes du HTML", "severity": "High", "description": "AccordionItem ne rend la réponse que si isOpen.", "recommendation": "Rendre la réponse toujours, masquée en CSS ou via <details>."}
+     ]},
+    {"name": "Schema / Structured Data", "score": 66,
+     "what_works": ["BlogPosting + BreadcrumbList sur les articles", "FAQPage retiré"],
+     "findings": [
+       {"title": "Avis auto-hébergés", "severity": "High", "description": "AggregateRating 5.0, reviewCount 1 sur toutes les pages.", "recommendation": "Retirer du schema, garder le témoignage visible."},
+       {"title": "Pas de schema Service", "severity": "High", "description": "/services et ses 3 sous-pages.", "recommendation": "Ajouter Service relié à /#organization."},
+       {"title": "BreadcrumbList manquant", "severity": "Medium", "description": "~20 pages.", "recommendation": "Réutiliser BreadcrumbsJsonLd."}
+     ]},
+    {"name": "Performance (CWV)", "score": 70,
+     "what_works": ["CLS 0", "TTFB 0,2-0,3 s", "Desktop 97-100"],
+     "findings": [
+       {"title": "LCP mobile 7-8 s", "severity": "High", "description": "H1 en opacity:0 côté serveur, ~2,2 s de délai.", "recommendation": "Rendre le H1 visible en SSR."},
+       {"title": "Tags tiers lourds", "severity": "Medium", "description": "GTM + gtag ~330 KB.", "recommendation": "Charger après idle ou interaction."}
+     ]},
+    {"name": "AI Search Readiness", "score": 72,
+     "what_works": ["Crawlers IA autorisés", "llms.txt riche", "Agent-UX 100/100"],
+     "findings": [
+       {"title": "llms.txt incohérent", "severity": "Medium", "description": "Liens www, placeholder [Directrice artistique], clients non vérifiables.", "recommendation": "Nettoyer les deux fichiers."},
+       {"title": "Présence externe quasi nulle", "severity": "Medium", "description": "Pas de Wikidata, YouTube, peu de citations.", "recommendation": "Annuaires, avis, Wikidata."}
+     ]},
+    {"name": "Images", "score": 68,
+     "what_works": ["AVIF/WebP", "Alt text descriptifs", "Lazy-loading"],
+     "findings": [
+       {"title": "Sources très lourdes", "severity": "Low", "description": "artichaud-ui-design.jpg 18,6 Mo, Tautu1.png 4,1 Mo.", "recommendation": "Compresser les sources."},
+       {"title": "sizes manquant", "severity": "Medium", "description": "Fallback w=3840.", "recommendation": "Ajouter sizes aux next/image."}
+     ]}
+  ],
+  "action_plan": {
+    "phases": [
+      {"name": "Phase 1: Critical Fixes", "timeframe": "Week 1", "items": ["Espaces dans les titres animés", "Réponses FAQ dans le DOM", "2 liens cassés", "H1 visible en SSR", "Retirer AggregateRating", "Corriger 'basé à Paris'"]},
+      {"name": "Phase 2: High-Impact Improvements", "timeframe": "Weeks 2-3", "items": ["Titres et H1", "Prix/délais cohérents", "llms.txt", "Schema Service/Breadcrumb/WebSite", "Perf tags tiers et polices", "lastmod réels", "og:image", "Bannière cookies mobile"]},
+      {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": ["10+ avis Google", "Page about avec fondateurs", "Études de cas enrichies", "Résoudre les cannibalisations", "Relancer le blog", "Citations annuaires"]},
+      {"name": "Phase 4: Monitoring & Iteration", "timeframe": "Ongoing", "items": ["Connecter Search Console / PSI", "Baseline drift", "Re-audit dans 3 mois"]}
+    ]
+  },
+  "artifacts": {"findings_dir": "findings/", "screenshots_dir": "screenshots/"}
+}
