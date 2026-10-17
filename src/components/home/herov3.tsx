@@ -1,40 +1,25 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react"
-import { ImageTrail } from "@/components/ui/image-trail"
-import Image from "next/image"
+import { preload } from "react-dom"
 import Link from "next/link"
+import HeroImageTrail from "@/components/home/HeroImageTrail"
 import { useLocale } from '@/context/LocaleContext'
 
+// Vignettes 420x480 dédiées : légères et préchargées dès le HTML, la traînée est instantanée
 const HERO_TRAIL_IMAGES = [
-  "/projects/charitio/charitioprojet2.avif",
-  "/projects/cherico/chericoprojet2.avif",
-  "/projects/comon/comonprojet2.avif",
-  "/projects/disobey/disobeyprojet2.avif",
-  "/projects/jobmi/jobmiprojet2.avif",
-  "/projects/keleti/keletiprojet2.avif",
-  "/projects/lumyn/Lumynprojet2.avif",
-  "/projects/multiface/multifaceprojet2.avif",
-  "/projects/rockstar/rockstarprojet2.avif",
-  "/projects/yumdeal/yumdealprojet2.avif",
-]
-
-const TRAIL_INTERVAL_MS = 180
-const HERO_TRAIL_ANIMATION_SEQUENCE = [
-  [
-    { scale: 1, opacity: 1, y: 0 },
-    {
-      duration: 0.4,
-      ease: [0.23, 1, 0.32, 1],
-    },
-  ],
-  [
-    { scale: 0.8, opacity: 0, y: 40 },
-    {
-      duration: 1.2,
-      ease: "easeOut",
-    },
-  ],
+  "/hero/trail/charitio.webp",
+  "/hero/trail/remembraance.webp",
+  "/hero/trail/cherico.webp",
+  "/hero/trail/comon.webp",
+  "/hero/trail/caisse-epargne.webp",
+  "/hero/trail/disobey.webp",
+  "/hero/trail/jobmi.webp",
+  "/hero/trail/keleti.webp",
+  "/hero/trail/lumyn.webp",
+  "/hero/trail/multiface.webp",
+  "/hero/trail/rockstar.webp",
+  "/hero/trail/yumdeal.webp",
 ]
 
 type FloatingItem = { id: number; url: string; x: number; y: number }
@@ -129,7 +114,8 @@ function MobileFloatingImages() {
             animation: 'floatImageIn 3.2s ease-in-out forwards',
           }}
         >
-          <Image src={item.url} alt="" fill className="object-cover" sizes="150px" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={item.url} alt="" className="h-full w-full object-cover" />
         </div>
       ))}
     </div>
@@ -138,69 +124,19 @@ function MobileFloatingImages() {
 
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
-  const [isActive, setIsActive] = useState(false)
   const [isCtaHovered, setIsCtaHovered] = useState(false)
-  const [imagesReady, setImagesReady] = useState(false)
   const { t } = useLocale()
 
-  useEffect(() => {
-    let cancelled = false
-
-    const preload = HERO_TRAIL_IMAGES.map((url) => {
-      const img = new window.Image()
-      img.src = url
-
-      if ('decode' in img) {
-        return img.decode().catch(() => undefined)
-      }
-
-      return new Promise<void>((resolve) => {
-        img.onload = () => resolve()
-        img.onerror = () => resolve()
-      })
-    })
-
-    Promise.all(preload).then(() => {
-      if (!cancelled) setImagesReady(true)
-    })
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  HERO_TRAIL_IMAGES.forEach((url) => preload(url, { as: "image" }))
 
   return (
     <section 
       ref={ref}
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
       className="relative z-20 w-full min-h-screen overflow-visible bg-white"
     >
       {/* TRAIL CONTAINER - desktop only */}
       <div className="hidden lg:block absolute inset-0 z-[100] pointer-events-none overflow-visible">
-        <ImageTrail
-          containerRef={ref}
-          interval={TRAIL_INTERVAL_MS}
-          rotationRange={20}
-          animationSequence={HERO_TRAIL_ANIMATION_SEQUENCE}
-          active={isActive && imagesReady && !isCtaHovered}
-        >
-          {HERO_TRAIL_IMAGES.map((url, index) => (
-            <div
-              key={index}
-              className="relative w-[240px] h-[240px] overflow-hidden shadow-2xl"
-            >
-              <Image
-                src={url}
-                alt={`Project ${index}`}
-                fill
-                priority
-                className="object-cover"
-                sizes="240px"
-              />
-            </div>
-          ))}
-        </ImageTrail>
+        <HeroImageTrail images={HERO_TRAIL_IMAGES} containerRef={ref} paused={isCtaHovered} />
       </div>
 
       {/* FLOATING IMAGES - mobile & tablet only */}
@@ -256,23 +192,6 @@ export default function HeroV3() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </button>
-      </div>
-
-      {/* PRELOAD IMAGES - Hidden images so the preloader tracks them via document.images */}
-      <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden pointer-events-none">
-        {HERO_TRAIL_IMAGES.map((url, index) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={index}
-            src={url}
-            alt=""
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width={1}
-            height={1}
-          />
-        ))}
       </div>
 
     </section>
