@@ -1,227 +1,219 @@
 'use client'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useLocale } from '@/context/LocaleContext'
 
-// --- 1. DONNÉES ---
-const projects = [
-  {
-    id: "keleti",
-    client: "Tautu",
-    category: "Brand Identity",
-    cover: "/projects/Tautu1.png",
-    gallery: [
-      "/projects/keleti/keletiprojet1.avif",
-      "/projects/keleti/keletiprojet2.avif",
-      "/projects/keleti/keletiprojet4.avif"
-    ],
-    fullWidth: false 
-  },{
-    id: "rockstar",
-    client: "Rockstar",
-    category: "Brand Identity",
-    cover: "/projects/rockstar/rockstarprojet1.avif",
-    gallery: [
-      "/projects/rockstar/rockstarprojet2.avif",
-      "/projects/rockstar/rockstarprojet3.avif",
-      "/projects/rockstar/rockstarprojet5.avif"
-    ],
-    fullWidth: false 
-  },
-  {
-    id: "charitio",
-    client: "Charit.io",
-    category: "Web Design",
-    cover: "/projects/charitio/charitioprojet1.avif",
-    gallery: [
-      "/projects/charitio/charitioprojet1.avif",
-      "/projects/charitio/charitioprojet5.avif",
-      "/projects/charitio/charitioprojet4.avif",
+gsap.registerPlugin(ScrollTrigger)
 
-    ],
-    fullWidth: false
+// --- 1. DONNÉES ---
+// Grille de la maquette Figma : 2 tuiles / 1 pleine largeur / 2 tuiles
+interface HighlightProject {
+  id: string
+  client: string
+  cover: string
+  gallery: string[]
+}
+
+const rows: { layout: 'pair' | 'full'; projects: HighlightProject[] }[] = [
+  {
+    layout: 'pair',
+    projects: [
+      {
+        id: "rockstar",
+        client: "Rockstar",
+        cover: "/projects/highlight/rockstar.avif",
+        gallery: [
+          "/projects/rockstar/rockstarprojet2.avif",
+          "/projects/rockstar/rockstarprojet3.avif",
+          "/projects/rockstar/rockstarprojet5.avif"
+        ]
+      },
+      {
+        id: "caisse-epargne",
+        client: "Caisse d'Épargne",
+        cover: "/projects/highlight/generation-impact.avif",
+        gallery: [
+          "/projects/caisse-epargne/caisseepargneprojet2.avif",
+          "/projects/caisse-epargne/caisseepargneprojet4.avif",
+          "/projects/caisse-epargne/caisseepargneprojet5.avif"
+        ]
+      }
+    ]
   },
   {
-    id: "lumyn",
-    client: "Lumyn",
-    category: "Art Direction",
-    cover: "/projects/lumyn/Lumynprojet1.avif",
-    gallery: [
-      "/projects/lumyn/Lumynprojet2.avif",
-      "/projects/lumyn/Lumynprojet5.avif",
-      "/projects/lumyn/Lumynprojet4.avif"
-    ],
-    fullWidth: false
+    layout: 'full',
+    projects: [
+      {
+        id: "yumdeal",
+        client: "Yumdeal",
+        cover: "/projects/highlight/yumdeal.avif",
+        gallery: [
+          "/projects/yumdeal/yumdealprojet2.avif",
+          "/projects/yumdeal/yumdealprojet3.avif",
+          "/projects/yumdeal/yumdealprojet4.avif"
+        ]
+      }
+    ]
+  },
+  {
+    layout: 'pair',
+    projects: [
+      {
+        id: "keleti",
+        client: "Keleti",
+        cover: "/projects/highlight/keleti.avif",
+        gallery: [
+          "/projects/keleti/keletiprojet1.avif",
+          "/projects/keleti/keletiprojet2.avif",
+          "/projects/keleti/keletiprojet4.avif"
+        ]
+      },
+      {
+        id: "remembraance",
+        client: "Remembraance",
+        cover: "/projects/highlight/remembraance.avif",
+        gallery: [
+          "/projects/remembraance/remembraanceprojet2.webp",
+          "/projects/remembraance/remembraanceprojet4.webp",
+          "/projects/remembraance/remembraanceprojet5.webp"
+        ]
+      }
+    ]
   }
 ]
 
 // --- 2. LE SOUS-COMPOSANT ProjectCard ---
-const ProjectCard = ({ project, forLabel }: { project: any; forLabel: string }) => {
-  const containerRef = useRef<HTMLAnchorElement>(null)
-  const cursorRef = useRef<HTMLDivElement>(null)
-  
-  const xTo = useRef<any>(null)
-  const yTo = useRef<any>(null)
-  
-  const [galleryIndex, setGalleryIndex] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-
-  // Dimensions exactes de la carte flottante
-  const CARD_WIDTH = 280;
-  const CARD_HEIGHT = 360;
-  const PADDING = 20; // Marge de sécurité
-
-  useGSAP(() => {
-    if (cursorRef.current) {
-      xTo.current = gsap.quickTo(cursorRef.current, "left", { duration: 0.3, ease: "power3.out" })
-      yTo.current = gsap.quickTo(cursorRef.current, "top", { duration: 0.3, ease: "power3.out" })
-    }
-  }, { scope: containerRef })
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (isHovered) {
-      interval = setInterval(() => {
-        setGalleryIndex((prev) => (prev + 1) % project.gallery.length)
-      }, 550)
-    } else {
-      setGalleryIndex(0)
-    }
-    return () => clearInterval(interval)
-  }, [isHovered, project.gallery.length])
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current || !xTo.current || !yTo.current) return
-
-    const rect = containerRef.current.getBoundingClientRect()
-    
-    // Position relative de la souris
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-
-    // CALCULS DE LIMITES (CLAMP)
-    const minX = (CARD_WIDTH / 2) + PADDING
-    const maxX = rect.width - (CARD_WIDTH / 2) - PADDING
-    
-    const minY = (CARD_HEIGHT / 2) + PADDING
-    const maxY = rect.height - (CARD_HEIGHT / 2) - PADDING
-
-    const clampedX = Math.max(minX, Math.min(mouseX, maxX))
-    const clampedY = Math.max(minY, Math.min(mouseY, maxY))
-
-    xTo.current(clampedX)
-    yTo.current(clampedY)
-  }
-
-  const handleMouseEnter = () => {
-    setIsHovered(true)
-    gsap.to(cursorRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.2)" })
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovered(false)
-    gsap.to(cursorRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "power2.in" })
-  }
-
+// L'aperçu au survol est mis de côté dans components/ui/HoverGalleryPreview (galeries conservées dans les données)
+const ProjectCard = ({ project, full }: { project: HighlightProject; full: boolean }) => {
   return (
-    <div className={`group flex flex-col gap-4 ${project.fullWidth ? 'col-span-1 md:col-span-2' : 'col-span-1'}`}>
-      
-      <Link 
-        href={`/works/${project.id}`}
-        ref={containerRef} 
-        suppressHydrationWarning={true}
-        data-hide-custom-cursor
-        className="relative w-full h-[240px] md:h-[500px] overflow-hidden bg-gray-100 cursor-none block"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* IMAGE DE FOND */}
-        <Image 
-          src={project.cover}
-          alt={project.client}
-          fill
-          sizes={project.fullWidth ? "(max-width: 768px) 100vw, 100vw" : "(max-width: 768px) 100vw, 50vw"}
-          className="object-cover transition-transform duration-700"
-        />
-
-        {/* OVERLAY SOMBRE */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 ease-out z-10" />
-
-        {/* CURSEUR INTERNE (Carte) */}
-        <div 
-          ref={cursorRef}
-          className={`absolute pointer-events-none z-20 opacity-0 scale-0 origin-center`}
-          style={{ 
-              width: CARD_WIDTH, 
-              height: CARD_HEIGHT,
-              transform: 'translate(-50%, -50%)' 
-          }}
-        >
-          <div className="relative w-full h-full bg-white shadow-2xl overflow-hidden">
-            <div className="relative w-full h-full bg-gray-200 overflow-hidden">
-               <Image
-                 src={project.gallery[galleryIndex]}
-                 alt={`${project.client} — aperçu du projet`}
-                 fill
-                 sizes="320px"
-                 className="object-cover"
-               />
-            </div>
-            
-            {/*<div className="absolute top-4 left-0 w-full text-center z-10">
-               <span className="text-white text-[10px] uppercase tracking-widest font-bold drop-shadow-md">
-                 Étude de cas {project.client}
-               </span>
-            </div> */}
-          </div>
+    <Link
+      href={`/works/${project.id}`}
+      aria-label={`Voir le projet ${project.client}`}
+      suppressHydrationWarning={true}
+      data-hl-tile
+      className={`group relative block w-full overflow-hidden bg-gray-100 ${full ? 'aspect-[1432/676]' : 'aspect-[713/500]'}`}
+    >
+      {/* IMAGE DE FOND : le calque parallaxe déborde de 10% en haut et en bas */}
+      <div data-hl-parallax className="absolute inset-x-0 -top-[10%] h-[120%]">
+        <div data-hl-zoom className="relative h-full w-full">
+          <Image
+            src={project.cover}
+            alt={project.client}
+            fill
+            sizes={full ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+            // Mini zoom au survol, porté par l'image pour ne pas entrer en conflit avec le zoom GSAP du parent
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+          />
         </div>
-      </Link>
-
-      {/* INFO BAS */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-baseline gap-2">
-            <span className="text-lg font-medium text-arti-black">{project.category}</span>
-            <span className="text-sm font-light italic text-arti-black/60">{forLabel}</span>
-            <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-black"></div>
-                <span className="text-lg font-bold text-arti-black">{project.client}</span>
-            </div>
-        </div>
-        <span className="text-sm text-arti-black/40">2024</span>
       </div>
-    </div>
+    </Link>
   )
 }
 
 // --- 3. LE COMPOSANT PRINCIPAL (Exporté) ---
 export default function Highlight() {
-  const container = useRef(null)
+  const container = useRef<HTMLElement>(null)
   const { t } = useLocale()
 
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add({
+      isDesktop: "(min-width: 768px)",
+      reduceMotion: "(prefers-reduced-motion: reduce)",
+    }, (context) => {
+      const { isDesktop, reduceMotion } = context.conditions as { isDesktop: boolean; reduceMotion: boolean }
+      if (reduceMotion) return
+
+      // Joue à l'entrée, se referme en remontant au-dessus du déclencheur
+      const REVEAL_TOGGLE = "play none none reverse"
+
+      // 1. Révélation par masque : rideau de bas en haut + léger dézoom de l'image
+      gsap.utils.toArray<HTMLElement>('[data-hl-row="pair"]').forEach((row) => {
+        const tiles = row.querySelectorAll('[data-hl-tile]')
+        const zooms = row.querySelectorAll('[data-hl-zoom]')
+        const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 85%", toggleActions: REVEAL_TOGGLE } })
+        tl.fromTo(tiles,
+          { clipPath: "inset(100% 0% 0% 0%)" },
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "power4.out", stagger: 0.15 }
+        )
+        tl.fromTo(zooms,
+          { scale: 1.25 },
+          { scale: 1, duration: 1.6, ease: "power3.out", stagger: 0.15 },
+          0
+        )
+      })
+
+      // Sur mobile, le masque suffit (Yumdeal compris)
+      if (!isDesktop) {
+        gsap.utils.toArray<HTMLElement>('[data-hl-row="full"]').forEach((row) => {
+          gsap.fromTo(row.querySelector('[data-hl-tile]'),
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "power4.out", scrollTrigger: { trigger: row, start: "top 85%", toggleActions: REVEAL_TOGGLE } }
+          )
+        })
+        return
+      }
+
+      // 2. Yumdeal : carte étroite au centre qui s'étire jusqu'à la pleine largeur au fil du scroll
+      gsap.utils.toArray<HTMLElement>('[data-hl-row="full"]').forEach((row) => {
+        const scrollTrigger = { trigger: row, start: "top 95%", end: "top 20%", scrub: 0.6 }
+        gsap.fromTo(row.querySelector('[data-hl-tile]'),
+          { clipPath: "inset(0% 30% 0% 30%)" },
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.out", scrollTrigger }
+        )
+        gsap.fromTo(row.querySelector('[data-hl-zoom]'),
+          { scale: 1.2 },
+          { scale: 1, ease: "power2.out", scrollTrigger }
+        )
+      })
+
+      // 3. Parallaxe interne : l'image défile un peu moins vite que son cadre
+      gsap.utils.toArray<HTMLElement>('[data-hl-tile]').forEach((tile) => {
+        gsap.fromTo(tile.querySelector('[data-hl-parallax]'),
+          { yPercent: -7 },
+          { yPercent: 7, ease: "none", scrollTrigger: { trigger: tile, start: "top bottom", end: "bottom top", scrub: true } }
+        )
+      })
+    })
+  }, { scope: container })
+
   return (
-    // MODIFICATION MARGES : w-full + px-[40px]
     <section ref={container} className="relative w-full bg-white py-20 md:py-32 px-6 md:px-[40px] cursor-none">
-      
-      <div className="flex justify-between items-end mb-8 ">
+
+      <div className="flex justify-between items-center mb-[5px]">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
           {t.highlight.title}
         </h2>
-        <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300 cursor-none">
-          <span className="text-sm font-bold">{t.highlight.viewAll}</span>
+        <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-black/15 text-arti-black hover:bg-black hover:border-black hover:text-white transition-all duration-300 cursor-none">
           <span>→</span>
+          <span className="text-sm font-bold">{t.highlight.viewAll}</span>
         </Link>
       </div>
 
-      {/* GRID : Changement de gap-6 à gap-[20px] pour respecter la gouttière standard */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} forLabel={t.highlight.for} />
+      {/* GRILLE : gouttière de 5px comme sur la maquette */}
+      <div className="flex flex-col gap-[5px]">
+        {rows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            data-hl-row={row.layout}
+            className={`grid gap-[5px] ${row.layout === 'pair' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}
+          >
+            {row.projects.map((project) => (
+              <ProjectCard key={project.id} project={project} full={row.layout === 'full'} />
+            ))}
+          </div>
         ))}
       </div>
+
+      <Link href="/works" suppressHydrationWarning={true} className="md:hidden mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/15 text-arti-black">
+        <span>→</span>
+        <span className="text-sm font-bold">{t.highlight.viewAll}</span>
+      </Link>
 
     </section>
   )
