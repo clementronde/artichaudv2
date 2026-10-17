@@ -26,11 +26,11 @@ export const metadata: Metadata = {
 const faqs = [
   {
     question: "Combien coûte un site web sur mesure ?",
-    answer: "Le coût d'un site web varie selon vos besoins : un site vitrine démarre à 3000€, un site e-commerce à partir de 8000€, et un développement sur mesure à partir de 15000€. Nous proposons un devis gratuit après analyse de votre projet."
+    answer: "Le coût d'un site web varie selon vos besoins : un site vitrine démarre à 2000€, un site e-commerce à partir de 8000€, et un développement sur mesure à partir de 15000€. Nous proposons un devis gratuit après analyse de votre projet."
   },
   {
     question: "Quel est le délai pour créer un site internet ?",
-    answer: "Un site vitrine prend généralement 4 à 6 semaines, un site e-commerce 8 à 12 semaines. Pour un projet de branding complet, comptez 6 à 8 semaines. Les délais dépendent de la complexité et de votre réactivité sur les feedbacks."
+    answer: "Un site vitrine prend généralement 4 à 6 semaines, un site e-commerce 8 à 12 semaines. Pour un projet de branding complet, comptez 4 à 6 semaines. Les délais dépendent de la complexité et de votre réactivité sur les feedbacks."
   },
   {
     question: "Quelle est la différence entre WordPress, Webflow et un développement custom ?",

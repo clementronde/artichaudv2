@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, MouseEvent } from 'react'
-import { motion, useMotionTemplate, useMotionValue, AnimatePresence, steps } from 'framer-motion'
+import { motion, useMotionTemplate, useMotionValue, steps } from 'framer-motion'
 import Link from 'next/link'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { trackEvent } from '@/lib/tracking'
@@ -80,19 +80,15 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-gray-100 last:border-0">
-      <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
+      <button onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
         <span className={`text-lg font-medium transition-colors ${isOpen ? 'text-black' : 'text-gray-600 group-hover:text-black'}`}>{question}</span>
         <span className={`relative flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 ${isOpen ? 'bg-black border-black text-white' : 'border-gray-200 bg-white text-gray-400 group-hover:border-black group-hover:text-black'}`}>
           <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
-            <div className="pb-6 pt-0 text-gray-600 leading-relaxed text-sm md:text-base">{answer}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div initial={false} animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
+        <div className="pb-6 pt-0 text-gray-600 leading-relaxed text-sm md:text-base">{answer}</div>
+      </motion.div>
     </div>
   );
 };
@@ -384,7 +380,7 @@ export default function SimulatorPage() {
             <div className="space-y-4">
               {[
                   { type: "Site One-Page", price: "1 500€ - 3 000€", desc: "Idéal pour lancer une offre ou un événement." },
-                  { type: "Site Vitrine (5-10 pages)", price: "3 000€ - 8 000€", desc: "Le standard pour les PME et artisans." },
+                  { type: "Site Vitrine (5-10 pages)", price: "2 000€ - 8 000€", desc: "Le standard pour les PME et artisans." },
                   { type: "Site E-commerce", price: "8 000€ - 20 000€+", desc: "Pour des boutiques sous Shopify ou WooCommerce." }
               ].map((row, i) => (
                   <div key={i} className="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-xl hover:bg-white transition-colors border-b border-gray-200 last:border-0">

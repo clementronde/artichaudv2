@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création site internet Boulogne-Billancourt (92) — Devis gratuit | Artichaud Studio",
-  description: "Agence web basée à Boulogne-Billancourt, notée 5/5 sur Google. Site vitrine, refonte et SEO local pour TPE, PME et indépendants du 92. Devis gratuit et sans engagement.",
+  description: "Agence web basée à Boulogne-Billancourt. Site vitrine, refonte et SEO local pour TPE, PME et indépendants du 92. Devis gratuit et sans engagement.",
   keywords: [
     "création site internet Boulogne-Billancourt",
     "agence web Boulogne-Billancourt",

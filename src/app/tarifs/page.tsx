@@ -6,8 +6,8 @@ const pricingPlans = [
     id: 'vitrine',
     name: 'Site Vitrine',
     tagline: 'Pour présenter votre activité',
-    price: '3 000 - 8 000 €',
-    priceDetail: 'à partir de 3 000€',
+    price: '2 000 - 8 000 €',
+    priceDetail: 'à partir de 2 000€',
     description: 'Un site élégant pour valoriser votre entreprise et convertir vos visiteurs en clients.',
     features: [
       '5 à 10 pages',
@@ -80,7 +80,7 @@ const addons = [
 const faqsPricing = [
   {
     question: 'Pourquoi une telle fourchette de prix ?',
-    answer: 'Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 3000€, tandis qu\'un site de 20 pages avec animations avancées sera à 8000€.'
+    answer: 'Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 2000€, tandis qu\'un site de 20 pages avec animations avancées sera à 8000€.'
   },
   {
     question: 'Le prix inclut-il l\'hébergement ?',
@@ -96,7 +96,7 @@ const faqsPricing = [
   },
   {
     question: 'Puis-je avoir un devis gratuit ?',
-    answer: 'Absolument ! Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis nous vous envoyons un devis détaillé sous 48h.'
+    answer: 'Absolument ! Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis nous vous envoyons un devis détaillé sous 24h.'
   }
 ]
 
@@ -308,7 +308,7 @@ export default function TarifsPage() {
               Prêt à démarrer votre projet ?
             </h2>
             <p className="text-white/70 mb-8 text-lg">
-              Discutons de vos besoins et recevez un devis personnalisé sous 48h.
+              Discutons de vos besoins et recevez un devis personnalisé sous 24h.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

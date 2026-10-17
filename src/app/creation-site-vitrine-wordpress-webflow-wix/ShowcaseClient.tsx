@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useState } from "react";
 
 // --- COMPOSANTS UI & MICRO-INTERACTIONS (Identiques page Paris pour cohérence) ---
@@ -16,19 +16,15 @@ const AccordionItem = ({ question, answer }: { question: string, answer: string 
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-gray-100 last:border-0">
-      <button onClick={() => setIsOpen(!isOpen)} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
+      <button onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} className="flex w-full cursor-pointer items-center justify-between py-6 text-left group">
         <span className={`text-lg font-medium transition-colors duration-300 ${isOpen ? 'text-black' : 'text-gray-800 group-hover:text-[#F70046]'}`}>{question}</span>
         <span className="relative flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white transition-all duration-300 group-hover:border-[#F70046] group-hover:bg-[#F70046] group-hover:text-white">
           <motion.svg animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className={`h-4 w-4 ${isOpen ? 'text-black' : 'text-gray-500 group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></motion.svg>
         </span>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
-            <div className="pb-6 pt-0 text-gray-600 leading-relaxed">{answer}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div initial={false} animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
+        <div className="pb-6 pt-0 text-gray-600 leading-relaxed">{answer}</div>
+      </motion.div>
     </div>
   );
 };
@@ -38,10 +34,9 @@ const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-};
+// Hero : le H1 reste visible dès le rendu serveur (LCP), seul le glissement est animé
+const heroStagger: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.15 } } };
+const heroTitle: Variants = { hidden: { y: 40 }, visible: { y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
 export default function ShowcaseClient() {
   
@@ -75,7 +70,7 @@ export default function ShowcaseClient() {
           className="relative z-10 max-w-5xl mx-auto text-center"
           initial="hidden"
           animate="visible"
-          variants={staggerContainer}
+          variants={heroStagger}
         >
           <motion.div variants={fadeInUp}>
             <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
@@ -86,7 +81,7 @@ export default function ShowcaseClient() {
             </span>
           </motion.div>
 
-          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 text-balance">
+          <motion.h1 variants={heroTitle} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 text-balance">
             Création de sites vitrines <br/> WordPress, Webflow & <GlitchText text="Wix" />.
           </motion.h1>
 

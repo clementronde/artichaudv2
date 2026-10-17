@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "Tarifs & Prix Création Site Internet Boulogne-Billancourt | Artichaud Studio"
   },
-  description: "Tarifs transparents : Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Agence web à Boulogne-Billancourt. Devis gratuit en 24h.",
+  description: "Tarifs transparents : Site vitrine dès 2000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Agence web à Boulogne-Billancourt. Devis gratuit en 24h.",
   keywords: [
     "prix création site internet Boulogne-Billancourt",
     "tarif agence web 92",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Tarifs & Prix - Artichaud Studio Boulogne-Billancourt",
-    description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit sous 48h.",
+    description: "Site vitrine dès 2000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Devis gratuit sous 24h.",
     url: `${SITE_URL}/tarifs`,
     images: [
       {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tarifs & Prix - Artichaud Studio",
-    description: "Site vitrine dès 3000€, E-commerce dès 8000€, Sur-mesure dès 15000€.",
+    description: "Site vitrine dès 2000€, E-commerce dès 8000€, Sur-mesure dès 15000€.",
     images: [`${SITE_URL}/icon.png`]
   },
   alternates: {
@@ -90,8 +90,8 @@ const offerSchema = {
       },
       "priceSpecification": {
         "@type": "PriceSpecification",
-        "price": "3000",
-        "minPrice": "3000",
+        "price": "2000",
+        "minPrice": "2000",
         "maxPrice": "8000",
         "priceCurrency": "EUR"
       },

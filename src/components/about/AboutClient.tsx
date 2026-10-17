@@ -33,6 +33,15 @@ const fadeInUp: Variants = {
   }
 }
 
+// Titre du hero : visible dès le rendu serveur (LCP), seul le glissement est animé
+const heroTitle: Variants = {
+  hidden: { y: 30 },
+  visible: { 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  }
+}
+
 const staggerContainer: Variants = {
   visible: {
     transition: { staggerChildren: 0.15, delayChildren: 0.2 }
@@ -82,7 +91,7 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
             {/* Titre principal */}
             <div className="col-span-4 md:col-span-5 mt-4 md:mt-0">
               <motion.h1
-                variants={fadeInUp}
+                variants={heroTitle}
                 className="text-black leading-[1.3] font-normal"
                 style={{ fontSize: 'clamp(32px, 3.8vw, 52px)' }}
               >

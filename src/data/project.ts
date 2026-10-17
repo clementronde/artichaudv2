@@ -337,8 +337,7 @@ export const projects: Project[] = [
     year: "2025",
     services: ["Brand Strategy", "Visual Identity", "Web Design", "UX/UI"],
     description: [
-      "Création de maquettes pour un site de mise en avant d'articles gamifiés. L'objectif est de donner envie à la nouvelle génération de rester connectée à l'actualité via la gamification des articles.",
-      "Le projet part d'un constat : "
+      "Création de maquettes pour un site de mise en avant d'articles gamifiés. L'objectif est de donner envie à la nouvelle génération de rester connectée à l'actualité via la gamification des articles."
     ],
     cover: "/projects/comon/comonprojet1.avif",
     images: [

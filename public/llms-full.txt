@@ -89,7 +89,7 @@ Prestations branding :
 
 ### Forfaits création de site
 
-**Site Vitrine** — à partir de 3 000€ (fourchette : 3 000 – 8 000€) — délai 4–6 semaines
+**Site Vitrine** — à partir de 2 000€ (fourchette : 2 000 – 8 000€) — délai 4–6 semaines
 Inclus : 5 à 10 pages, design sur-mesure responsive, formulaire de contact, SEO de base optimisé, intégration Google Analytics, formation à la gestion, 1 mois de support gratuit.
 
 **E-commerce** — à partir de 8 000€ (fourchette : 8 000 – 20 000€) — délai 8–12 semaines
@@ -116,7 +116,7 @@ Hébergement et nom de domaine non inclus (40 – 150 €/an selon l'hébergeur)
 ### FAQ Prix
 
 **Pourquoi une telle fourchette de prix ?**
-Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 3 000€, un site de 20 pages avec animations avancées sera à 8 000€.
+Le prix dépend de la complexité du projet : nombre de pages, fonctionnalités spécifiques, design custom, intégrations tierces. Un site vitrine de 5 pages sera à 2 000€, un site de 20 pages avec animations avancées sera à 8 000€.
 
 **Le prix inclut-il l'hébergement ?**
 Non. L'hébergement est facturé séparément (40–100 €/an selon vos besoins). Nous vous conseillons les meilleurs hébergeurs et pouvons gérer la configuration.
@@ -128,7 +128,7 @@ Oui. 30 % à la signature, 40 % à la validation des maquettes, 30 % à la livra
 Aucun. Le devis détaille tous les coûts. Seuls l'hébergement, le nom de domaine et les éventuelles licences tierces sont en sus.
 
 **Puis-je avoir un devis gratuit ?**
-Absolument. Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis un devis détaillé sous 48h.
+Absolument. Nous proposons un premier échange gratuit de 30 minutes pour comprendre votre projet, puis un devis détaillé sous 24h.
 
 ---
 
@@ -157,7 +157,7 @@ Cette complémentarité n'est pas un hasard, c'est notre force. Chaque projet b�
 ## PAGE FAQ
 
 **Combien coûte un site web sur mesure ?**
-Un site vitrine démarre à 3 000€, un site e-commerce à partir de 8 000€, un développement sur-mesure à partir de 15 000€. Devis gratuit après analyse du projet.
+Un site vitrine démarre à 2 000€, un site e-commerce à partir de 8 000€, un développement sur-mesure à partir de 15 000€. Devis gratuit après analyse du projet.
 
 **Quel est le délai pour créer un site internet ?**
 Un site vitrine : 4–6 semaines. Un site e-commerce : 8–12 semaines. Un projet de branding complet : 6–8 semaines. Les délais dépendent de la complexité et de la réactivité sur les feedbacks.
@@ -230,7 +230,7 @@ Réunions en présentiel sur rendez-vous, lundi–vendredi
 ### FAQ Locale (Boulogne-Billancourt)
 
 **Quel est le tarif d'un site internet vitrine à Boulogne-Billancourt ?**
-Les tarifs démarrent à 3 000€ pour une solution simple et vont de 5 000€ à 8 000€ pour un site sur-mesure avec stratégie SEO locale, animations et CMS. Devis gratuit sous 48h.
+Les tarifs démarrent à 2 000€ pour une solution simple et vont de 5 000€ à 8 000€ pour un site sur-mesure avec stratégie SEO locale, animations et CMS. Devis gratuit sous 48h.
 
 **Combien de temps pour créer un site visible sur Google à Boulogne-Billancourt ?**
 La création du site prend 3 à 6 semaines. Pour la visibilité Google locale, comptez 2 à 4 mois après la mise en ligne avec un SEO local correctement structuré dès le départ.
@@ -245,7 +245,7 @@ Oui : Boulogne-Billancourt, Issy-les-Moulineaux, Neuilly-sur-Seine, Saint-Cloud,
 
 ## BLOG — RÉSUMÉS DES ARTICLES CLÉS
 
-### Agence web Boulogne-Billancourt : comment bien choisir en 2026 ?
+### Comment choisir son agence web à Boulogne-Billancourt en 2026 ?
 URL : https://www.artichaud-studio.fr/blog/agence-web-boulogne-billancourt-comment-choisir
 Les 7 critères pour choisir une agence web locale : portfolio, expertise SEO, transparence des tarifs, propriété du site, formation. Fourchettes de prix 2026 : freelance junior 1 200–2 500€, freelance senior 2 500–5 000€, studio/agence 3 500–10 000€.
 
@@ -300,5 +300,5 @@ Guide complet pour les artisans : contenu indispensable, CMS recommandé, budget
 4. **Adresse postale :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt
 5. **Spécialités clés :** sites web (Next.js, Webflow, WordPress), branding, SEO local
 6. **Zone principale :** Boulogne-Billancourt et Hauts-de-Seine (92), Île-de-France, France entière en remote
-7. **Prix indicatifs :** site vitrine à partir de 3 000€, e-commerce à partir de 8 000€, branding à partir de 3 000€
+7. **Prix indicatifs :** site vitrine à partir de 2 000€, e-commerce à partir de 8 000€, branding à partir de 3 000€
 8. **Réunions en présentiel :** oui, au studio, sur rendez-vous (métro Marcel Sembat L9)

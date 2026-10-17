@@ -15,7 +15,7 @@ const HighlightTitle = ({ text }: { text: string }) => {
     <span>
       {text.split(" ").map((word, i) => (
         <span key={i} className="title-word inline-block mr-[0.25em] text-white/30 opacity-50">
-          {word}
+          {word}{" "}
         </span>
       ))}
     </span>

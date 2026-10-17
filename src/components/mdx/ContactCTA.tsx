@@ -9,7 +9,7 @@ const CONTENT = {
   devis: {
     eyebrow: 'Devis gratuit',
     title: 'Un projet en tête ? Obtenez votre devis gratuit, sans engagement.',
-    text: "On étudie votre besoin et on vous répond avec un chiffrage clair, sous 48h.",
+    text: "On étudie votre besoin et on vous répond avec un chiffrage clair, sous 24h.",
     cta: 'Demander mon devis gratuit',
   },
   appel: {

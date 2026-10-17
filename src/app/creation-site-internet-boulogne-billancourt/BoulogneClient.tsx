@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useState } from "react";
 
 // --- ACCORDION ---
@@ -13,6 +13,7 @@ const AccordionItem = ({ question, answer }: { question: string; answer: string 
     <div className="border-b border-gray-100 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
         className="flex w-full cursor-pointer items-center justify-between py-6 text-left group"
       >
         <span className={`text-lg font-medium ${isOpen ? "text-black" : "text-gray-800"}`}>{question}</span>
@@ -30,19 +31,9 @@ const AccordionItem = ({ question, answer }: { question: string; answer: string 
           </motion.svg>
         </span>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="pb-6 pt-0 text-gray-600 leading-relaxed">{answer}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div initial={false} animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden">
+        <div className="pb-6 pt-0 text-gray-600 leading-relaxed">{answer}</div>
+      </motion.div>
     </div>
   );
 };
@@ -52,10 +43,9 @@ const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
 };
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-};
+// Hero : le H1 reste visible dès le rendu serveur (LCP), seul le glissement est animé
+const heroStagger: Variants = { hidden: {}, visible: { transition: { staggerChildren: 0.15 } } };
+const heroTitle: Variants = { hidden: { y: 40 }, visible: { y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
 // --- PROJECTS ---
 const projects = [
@@ -123,7 +113,7 @@ export default function BoulogneClient() {
           className="relative z-10 max-w-5xl mx-auto text-center"
           initial="hidden"
           animate="visible"
-          variants={staggerContainer}
+          variants={heroStagger}
         >
           <motion.div variants={fadeInUp}>
             <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-[#F70046]/10 border border-[#F70046]/20 text-[#F70046] text-sm font-medium mb-8 backdrop-blur-md">
@@ -135,7 +125,7 @@ export default function BoulogneClient() {
           </motion.div>
 
           <motion.h1
-            variants={fadeInUp}
+            variants={heroTitle}
             className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 text-balance"
           >
             Création de site internet<br className="hidden md:block" /> à Boulogne-Billancourt.
@@ -481,7 +471,7 @@ export default function BoulogneClient() {
           <div className="md:ml-[calc(12.5%+0.625rem)] max-w-3xl">
             <AccordionItem
               question="Quel est le tarif d'un site internet vitrine à Boulogne-Billancourt ?"
-              answer="Les tarifs démarrent à 3 000€ pour une solution simple (5-10 pages, responsive, formulaire, SEO de base) et vont de 5 000€ à 8 000€ pour un site sur-mesure avec stratégie SEO locale, animations et CMS. Devis gratuit sous 48h après un premier échange."
+              answer="Les tarifs démarrent à 2 000€ pour une solution simple (5-10 pages, responsive, formulaire, SEO de base) et vont de 5 000€ à 8 000€ pour un site sur-mesure avec stratégie SEO locale, animations et CMS. Devis gratuit sous 24h après un premier échange."
             />
             <AccordionItem
               question="Combien de temps faut-il pour créer mon site ?"

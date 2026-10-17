@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Refonte de site internet | Modernisez votre site vitrine & SEO",
+  title: "Agence refonte de site internet | Nouveau design, SEO conservé",
   description: "Votre site ne vous ressemble plus ? Agence experte en refonte de site internet (WordPress, Webflow, Wix). Nouveau design, meilleure UX et SEO conservé. Devis gratuit.",
   keywords: [
     "refonte site internet",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/refonte-site-internet`,
   },
   openGraph: {
-    title: "Refonte de Site Internet - Transformez votre présence en ligne",
+    title: "Agence refonte de site internet — Artichaud Studio",
     description: "Design daté ? Performances lentes ? Découvrez notre approche pour une refonte de site qui booste votre image et votre business.",
     url: `${SITE_URL}/refonte-site-internet`,
     siteName: "Artichaud Studio",

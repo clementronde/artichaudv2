@@ -91,8 +91,8 @@ export default function CreationSiteInternetClient() {
       <section className="relative min-h-[92vh] bg-[#050505] px-6 pt-32 pb-10 text-white md:px-10 md:pt-40">
         <div className="flex min-h-[calc(92vh-10rem)] flex-col justify-between">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 24 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link href="/services" className="mb-8 inline-flex text-sm font-medium text-white/45 transition-colors hover:text-white">

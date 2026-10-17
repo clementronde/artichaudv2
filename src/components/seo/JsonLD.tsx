@@ -82,34 +82,7 @@ export default function JsonLd() {
       SITE_URL
     ],
     "hasMap": "https://www.google.com/maps/place/Artichaud+Studio/@48.8374942,2.2428601,17z/data=!3m1!4b1!4m6!3m5!1s0x8abebbf9b07c404d:0xa0fe1ccef548cf3f!8m2!3d48.8374942!4d2.2428601!16s%2Fg%2F11mm8rb1gx",
-    "priceRange": "€€",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "reviewCount": "1",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "author": {
-          "@type": "Person",
-          "name": "Victoria Lauro"
-        },
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "reviewBody": "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci.",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Google"
-        }
-      }
-    ]
+    "priceRange": "€€"
   }
 
   return (

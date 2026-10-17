@@ -349,7 +349,7 @@ export async function POST(request: NextRequest) {
       <p>
         Nous avons bien reçu votre demande et nous en sommes ravis.
         Notre équipe va l'étudier avec attention et reviendra vers vous
-        sous 24 à 48 heures.
+        sous 24 heures.
       </p>
 
       <div class="recap">

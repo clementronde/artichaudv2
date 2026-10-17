@@ -165,7 +165,7 @@ export const translations = {
       title: "Démarrons un projet",
       offerSelected: "Offre sélectionnée",
       offerRemove: "Retirer l’offre",
-      subtitle: "Quelques questions pour cerner votre besoin. Nous reviendrons vers vous sous 24 à 48h.",
+      subtitle: "Quelques questions pour cerner votre besoin. Nous reviendrons vers vous sous 24h.",
       step1: {
         label: "Étape 01",
         heading: "De quoi avez-vous besoin ?",
@@ -185,7 +185,7 @@ export const translations = {
       },
       confirmation: {
         heading: "Demande envoyée",
-        subtitle: "Merci {{name}}. Nous avons bien reçu votre demande et reviendrons vers vous sous 24 à 48 heures.",
+        subtitle: "Merci {{name}}. Nous avons bien reçu votre demande et reviendrons vers vous sous 24 heures.",
         summary: "Récapitulatif",
         services: "Services",
         budget: "Budget",
@@ -411,7 +411,7 @@ export const translations = {
       title: "Start a project",
       offerSelected: "Selected offer",
       offerRemove: "Remove offer",
-      subtitle: "A few questions to understand your needs. We'll get back to you within 24 to 48 hours.",
+      subtitle: "A few questions to understand your needs. We'll get back to you within 24 hours.",
       step1: {
         label: "Step 01",
         heading: "What do you need?",
@@ -431,7 +431,7 @@ export const translations = {
       },
       confirmation: {
         heading: "Request sent",
-        subtitle: "Thank you {{name}}. We've received your request and will get back to you within 24 to 48 hours.",
+        subtitle: "Thank you {{name}}. We've received your request and will get back to you within 24 hours.",
         summary: "Summary",
         services: "Services",
         budget: "Budget",
