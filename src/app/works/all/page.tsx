@@ -11,6 +11,22 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 // --- DONNÉES PROJETS ---
 const allProjects = [
   {
+    id: 10,
+    client: "Remembraance",
+    slogan: "Une boutique en ligne pour la mode upcyclée",
+    category: "Brand Identity, Webdesign, E-commerce",
+    image: "/projects/remembraance/remembraanceprojet1.webp",
+    slug: "/works/remembraance"
+  },
+  {
+    id: 11,
+    client: "Caisse d'Épargne",
+    slogan: "L'identité du podcast Génération Impact",
+    category: "Brand Identity, Art Direction",
+    image: "/projects/caisse-epargne/caisseepargneprojet1.avif",
+    slug: "/works/caisse-epargne"
+  },
+  {
     id: 1,
     client: "Charit.IO",
     slogan: "Soutenons la culture ensemble !",

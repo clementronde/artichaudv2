@@ -94,7 +94,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
           {/* LABEL */}
           <div className="col-span-12 md:col-span-2">
             <span className="text-sm font-medium text-white/60 uppercase tracking-wide">
-              Overview
+              Présentation
             </span>
           </div>
 
@@ -119,7 +119,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
              </div>
              
              <div className="anim-fade text-white/40 opacity-0">
-                <span className="text-xs uppercase tracking-wider mb-1 block text-white/60">Year</span>
+                <span className="text-xs uppercase tracking-wider mb-1 block text-white/60">Année</span>
                 <span className="text-lg">{year}</span>
              </div>
           </div>
@@ -137,7 +137,7 @@ export default function ProjectIntro({ description, services, year, client }: Pr
             <div className="mt-4 pt-4 anim-fade opacity-0">
                <Link href="/contact" className="group w-fit flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  Start a project like this
+                  Démarrer un projet similaire
                </Link>
             </div>
           </div>

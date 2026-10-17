@@ -11,12 +11,83 @@ export interface Project {
   cover: string;
   images: string[];
   colors: { hex: string; name: string }[];
+  // Remplace le bloc des couleurs par une image
+  sideImage?: string;
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string[];
 }
 
 export const projects: Project[] = [
+  {
+    id: 10,
+    slug: "remembraance",
+    client: "Remembraance",
+    category: "Site e-commerce",
+    year: "2026",
+    services: ["Identité visuelle", "Web Design", "E-commerce", "UX/UI"],
+    seoTitle: "Remembraance - Site e-commerce pour une créatrice de mode upcyclée",
+    seoDescription: "Découvrez le projet Remembraance : identité visuelle et site e-commerce pour une créatrice de vêtements upcyclés qui voulait vendre en direct, au-delà de Vinted.",
+    seoKeywords: [
+      "Remembraance",
+      "site e-commerce mode upcyclée",
+      "créatrice vêtements upcyclés",
+      "vendre ses créations hors Vinted",
+      "Artichaud Studio Remembraance"
+    ],
+    description: [
+      "Remembraance est l'atelier d'une créatrice qui donne une seconde vie aux tissus en imaginant des vêtements upcyclés, pièce par pièce. Après avoir lancé son activité sur Vinted, elle ne voulait plus dépendre d'une seule plateforme pour exister et vendre.",
+      "Notre mission : lui offrir un lieu à elle. Nous avons conçu une identité visuelle à son image, un logotype manuscrit, un trait d'illustration délicat et une palette prune, rose poudré, bleu ciel et vert olive, puis un site e-commerce qui raconte l'atelier autant qu'il vend. Le parcours invite chaque cliente à composer sa pièce : choisir son modèle, son tissu, indiquer ses mensurations. Un espace blog prolonge l'univers de la marque et nourrit son référencement. Résultat : une boutique indépendante, pensée mobile d'abord, qui permet à Remembraance de fidéliser sa clientèle en direct et de maîtriser son image comme ses marges."
+    ],
+    cover: "/projects/remembraance/remembraanceprojet1.webp",
+    images: [
+      "/projects/remembraance/remembraanceprojet6.webp",
+      "/projects/remembraance/remembraanceprojet3.webp",
+      "/projects/remembraance/remembraanceprojet4.webp",
+      "/projects/remembraance/remembraanceprojet5.webp"
+    ],
+    colors: [
+      { hex: "#2B0B16", name: "Plum" },
+      { hex: "#FED8E5", name: "Blush" },
+      { hex: "#729DCA", name: "Sky Blue" },
+      { hex: "#7D7715", name: "Olive" }
+    ],
+    sideImage: "/projects/remembraance/remembraanceprojet2.webp"
+  },
+  {
+    id: 11,
+    slug: "caisse-epargne",
+    client: "Caisse d'Épargne",
+    category: "Identité visuelle",
+    year: "2026",
+    services: ["Identité visuelle", "Logo", "Direction artistique", "Packaging"],
+    seoTitle: "Caisse d'Épargne - Identité visuelle du podcast Génération Impact",
+    seoDescription: "Découvrez le projet Génération Impact : création de l'identité visuelle du nouveau podcast de la Caisse d'Épargne Île-de-France, du logo aux miniatures YouTube.",
+    seoKeywords: [
+      "Caisse d'Épargne",
+      "Génération Impact",
+      "identité visuelle podcast",
+      "logo podcast",
+      "Artichaud Studio Caisse d'Épargne"
+    ],
+    description: [
+      "Pour lancer Génération Impact, son nouveau podcast, la Caisse d'Épargne Île-de-France souhaitait une identité capable de parler à une nouvelle génération, loin des codes attendus d'une banque.",
+      "Nous avons imaginé un logo en forme de bulle de dialogue, ponctué d'un personnage aux grands yeux qui incarne la prise de parole et la curiosité. La typographie condensée et percutante, associée à une palette franche, rouge vif, rose pop, bleu électrique et noir, donne au podcast une énergie immédiatement reconnaissable. L'identité a ensuite été déclinée sur l'ensemble des supports : visuel de couverture pour les plateformes d'écoute, miniatures YouTube, bannières, packagings et goodies comme le tote bag. Résultat : un système graphique cohérent et ludique, qui installe Génération Impact comme un rendez-vous à part entière."
+    ],
+    cover: "/projects/caisse-epargne/caisseepargneprojet1.avif",
+    images: [
+      "/projects/caisse-epargne/caisseepargneprojet2.avif",
+      "/projects/caisse-epargne/caisseepargneprojet3.avif",
+      "/projects/caisse-epargne/caisseepargneprojet4.avif",
+      "/projects/caisse-epargne/caisseepargneprojet5.avif"
+    ],
+    colors: [
+      { hex: "#DF271F", name: "Impact Red" },
+      { hex: "#E95AAA", name: "Pop Pink" },
+      { hex: "#040AE4", name: "Electric Blue" },
+      { hex: "#141414", name: "Ink Black" }
+    ]
+  },
   {
     id: 1,
     slug: "charitio",

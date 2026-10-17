@@ -18,6 +18,7 @@ interface Project {
   cover: string
   images: string[]
   colors: { hex: string; name: string }[]
+  sideImage?: string
 }
 
 interface ProjectClientProps {
@@ -51,7 +52,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
         <div className="w-full max-w-[90vw] text-left">
           {/* Label "Work" */}
           <span className="block text-sm font-medium text-arti-black uppercase tracking-wider mb-4">
-            Work
+            Projet
           </span>
           
           {/* Nom du projet */}
@@ -100,7 +101,18 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
             </div>
           )}
 
-          {/* Droite : 4 Couleurs en accordéon */}
+          {/* Droite : image ou 4 couleurs en accordéon */}
+          {project.sideImage ? (
+            <div className="relative h-full w-full bg-gray-100 overflow-hidden rounded-sm">
+              <Image
+                src={project.sideImage}
+                alt={`${project.client} — ${project.category}, détail du projet`}
+                fill
+                className="object-cover"
+                sizes="50vw"
+              />
+            </div>
+          ) : (
           <div className="flex h-full w-full overflow-hidden rounded-sm">
             {project.colors.map((color, index) => {
               // Calcul dynamique de la couleur du texte pour ce bloc
@@ -129,6 +141,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
               );
             })}
           </div>
+          )}
 
         </div>
       </section>
@@ -184,9 +197,9 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
 
       {/* FOOTER CTA */}
       <section className="bg-[#0a0a0a] text-white py-24 px-6 md:px-12 text-center">
-        <h2 className="text-4xl md:text-6xl font-normal mb-8">Next Project?</h2>
+        <h2 className="text-4xl md:text-6xl font-normal mb-8">Un projet en tête ?</h2>
         <Link href="/works" className="text-lg underline hover:text-amber-500 transition-colors">
-          View all works
+          Voir tous nos projets
         </Link>
       </section>
 
