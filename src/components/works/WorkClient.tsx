@@ -49,7 +49,8 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             src={project.image}
             alt={project.client}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            // Les couvertures (ratio ~2.2) sont rognées en 16/10 : l'image affichée est ~1.4x plus large que la carte
+            sizes="(max-width: 768px) 140vw, 70vw"
             className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />

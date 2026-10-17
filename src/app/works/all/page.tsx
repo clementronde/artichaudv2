@@ -183,13 +183,14 @@ const Modal = ({ modal, projects }: { modal: { active: boolean; index: number },
         className="relative h-full w-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
       >
         {projects.map((project, i) => (
-          <div key={`modal_${i}`} className="h-full w-full flex items-center justify-center">
+          <div key={`modal_${i}`} className="relative h-full w-full flex items-center justify-center">
+            {/* Couverture ~2.2 rognée dans 450x350 : il faut ~800px de large pour rester net */}
             <Image 
               src={project.image}
               alt="project"
-              width={450}
-              height={350}
-              className="h-full w-full object-cover"
+              fill
+              sizes="800px"
+              className="object-cover"
             />
           </div>
         ))}
