@@ -66,7 +66,7 @@ export default function BlogIndex() {
                     <span className="w-1 h-1 rounded-full bg-gray-300" />
                     <span>{post.meta.readTime}</span>
                   </div>
-                  <h2 className="text-2xl font-medium text-arti-black group-hover:text-amber-600 transition-colors">
+                  <h2 className="text-2xl font-medium text-arti-black group-hover:text-[#F70046] transition-colors">
                     {post.meta.title}
                   </h2>
                   <p className="text-gray-500 line-clamp-2">

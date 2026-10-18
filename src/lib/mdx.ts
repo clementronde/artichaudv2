@@ -11,6 +11,7 @@ export interface Post {
     id: string;
     title: string;
     seoTitle?: string; // titre Google plus court que le H1, sous 70 caractères avec le suffixe
+    summary?: string[]; // encart « En bref » affiché sous la couverture
     slug?: string;
     date: string;
     modifiedDate?: string;

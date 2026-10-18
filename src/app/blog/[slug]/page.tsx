@@ -12,7 +12,8 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 import { SITE_URL as BASE_URL } from '@/lib/seo';
 import TableOfContents from '@/components/blog/TableOfContents';
 import { getHeadings, slugifyHeading } from '@/lib/toc';
-import type { ReactNode } from 'react';
+import ReadingProgress from '@/components/blog/ReadingProgress';
+import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
 
 // Texte brut d'un titre MDX, même quand il contient du gras ou un lien
 function textOf(node: ReactNode): string {
@@ -22,6 +23,63 @@ function textOf(node: ReactNode): string {
     return textOf((node.props as { children?: ReactNode }).children);
   }
   return '';
+}
+
+type ElementWithChildren = ReactElement<{ children?: ReactNode }>;
+
+function elementsOf(node: ReactNode): ElementWithChildren[] {
+  return Children.toArray(node).filter(isValidElement) as ElementWithChildren[];
+}
+
+// Recopie l'intitulé de chaque colonne sur ses cellules (data-label), pour l'affichage en cartes sur mobile
+function labelTableCells(children: ReactNode): ReactNode {
+  const [thead, ...rest] = elementsOf(children);
+  const headerRow = thead ? elementsOf(thead.props.children)[0] : undefined;
+  if (!headerRow) return children;
+  const labels = elementsOf(headerRow.props.children).map((cell) => textOf(cell.props.children));
+
+  return [
+    thead,
+    ...rest.map((tbody) =>
+      cloneElement(
+        tbody,
+        undefined,
+        elementsOf(tbody.props.children).map((row) =>
+          cloneElement(
+            row,
+            undefined,
+            elementsOf(row.props.children).map((cell, i) =>
+              cloneElement(cell as ReactElement<Record<string, unknown>>, { 'data-label': labels[i] ?? '' })
+            )
+          )
+        )
+      )
+    ),
+  ];
+}
+
+// Bandeau de fin : on propose la suite logique du sujet de l'article
+function getEndCta(tags: string[]) {
+  const topics = tags.join(' ').toLowerCase();
+  if (/branding|identit|logo/.test(topics)) {
+    return {
+      title: 'Votre marque mérite une identité à sa hauteur',
+      text: 'Logo, couleurs, typographies, guide de marque : on construit avec vous une identité cohérente sur tous vos supports. Premier échange gratuit de 30 minutes.',
+      cta: 'Parler de mon identité',
+    };
+  }
+  if (/seo|référencement|google/.test(topics)) {
+    return {
+      title: 'Envie d’être mieux trouvé sur Google ?',
+      text: 'On analyse votre site et votre visibilité, puis on vous propose un plan d’action concret. Premier échange gratuit de 30 minutes.',
+      cta: 'Améliorer mon référencement',
+    };
+  }
+  return {
+    title: 'Un projet de site internet ?',
+    text: 'On en parle 30 minutes, gratuitement, et vous recevez un devis détaillé sous 24h. Un site vitrine démarre à 2 000 €.',
+    cta: 'Demander mon devis gratuit',
+  };
 }
 
 // 1. GÉNÉRATION STATIQUE (SSG)
@@ -161,48 +219,57 @@ export default async function BlogPost(
     }
   };
 
+  const endCta = getEndCta(post.meta.tags);
+
   const mdxComponents = {
     CalloutBox,
     ContactCTA,
     // Ancre sur chaque H2 pour le sommaire ; scroll-mt laisse la place à la barre de navigation
     h2: (props: any) => <h2 {...props} id={slugifyHeading(textOf(props.children))} className="scroll-mt-32" />,
-    a: (props: any) => <a {...props} suppressHydrationWarning className="text-amber-600 hover:text-amber-700 underline underline-offset-2" />, 
+    // Petit repère rose devant les sous-titres pour les distinguer des titres de section
+    h3: (props: any) => (
+      <h3 {...props} className="relative pl-4 before:absolute before:left-0 before:top-[0.3em] before:h-[0.9em] before:w-[3px] before:rounded-full before:bg-[#F70046]" />
+    ),
+    a: (props: any) => <a {...props} suppressHydrationWarning className="text-[#F70046] underline decoration-[#F70046]/30 underline-offset-4 transition-colors hover:decoration-[#F70046]" />,
     img: (props: any) => (
       <span className="block my-8 relative w-full aspect-video rounded-xl overflow-hidden bg-gray-50">
-        <Image 
-          src={props.src} 
-          alt={props.alt || "Illustration"} 
-          fill 
-          sizes="(max-width: 768px) 100vw, 800px"
-          className="object-cover" 
+        <Image
+          src={props.src}
+          alt={props.alt || "Illustration"}
+          fill
+          sizes="(max-width: 768px) 100vw, 720px"
+          className="object-cover"
         />
       </span>
     ),
-    // 👇 LE STYLE DU TABLEAU EST DÉFINI ICI
+    // Sur mobile, le tableau devient une pile de cartes (voir .article-table dans globals.css)
     table: (props: any) => (
-      <div className="not-prose overflow-x-auto my-8 border border-gray-200 rounded-lg shadow-sm">
-        <table {...props} className="w-full text-left text-sm border-collapse min-w-[600px]" />
+      <div className="not-prose my-8 overflow-hidden rounded-[12px] border border-black/10">
+        <table className="article-table w-full border-collapse text-left text-sm">
+          {labelTableCells(props.children)}
+        </table>
       </div>
     ),
     thead: (props: any) => (
-      <thead {...props} className="bg-gray-50 text-arti-black font-semibold border-b border-gray-200" />
+      <thead {...props} className="bg-[#F6F1F3] text-arti-black" />
     ),
     tbody: (props: any) => (
-      <tbody {...props} className="bg-white divide-y divide-gray-100" />
+      <tbody {...props} className="bg-white divide-y divide-black/5" />
     ),
     tr: (props: any) => (
-      <tr {...props} className="hover:bg-gray-50/50 transition-colors" />
+      <tr {...props} />
     ),
     th: (props: any) => (
-      <th {...props} className="px-6 py-4 font-bold uppercase tracking-wider text-xs" />
+      <th {...props} className="px-5 py-4 text-xs font-semibold uppercase tracking-wider" />
     ),
     td: (props: any) => (
-      <td {...props} className="px-6 py-4 text-gray-600 align-top whitespace-nowrap md:whitespace-normal" />
+      <td {...props} className="text-[15px] leading-relaxed text-[#444] align-top md:px-5 md:py-4" />
     ),
   };
 
   return (
     <>
+      <ReadingProgress targetId="article-content" />
       <main className="bg-white min-h-screen pt-32 pb-20">
         <script
           type="application/ld+json"
@@ -210,7 +277,7 @@ export default async function BlogPost(
         />
 
       <article
-        className={`container mx-auto px-6 md:px-12 max-w-4xl ${hasToc ? 'lg:max-w-7xl lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16' : ''}`}
+        className={`container mx-auto px-6 md:px-12 ${hasToc ? 'max-w-[816px] lg:max-w-[1100px] lg:grid lg:grid-cols-[220px_minmax(0,720px)] lg:justify-between lg:gap-16' : 'max-w-[816px]'}`}
       >
         {/* Sommaire à gauche, qui suit la lecture (grands écrans) */}
         {hasToc && (
@@ -221,10 +288,11 @@ export default async function BlogPost(
           </aside>
         )}
 
-        <div className="min-w-0 max-w-4xl">
+        {/* Colonne de lecture limitée à ~70 caractères par ligne */}
+        <div className="min-w-0 max-w-[720px]">
         {/* Fil d'Ariane */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
-          <Link href="/" suppressHydrationWarning className="hover:text-black transition-colors">Home</Link>
+          <Link href="/" suppressHydrationWarning className="hover:text-black transition-colors">Accueil</Link>
           <span>/</span>
           <Link href="/blog" suppressHydrationWarning className="hover:text-black transition-colors">Blog</Link>
           <span>/</span>
@@ -239,19 +307,19 @@ export default async function BlogPost(
         <header className="mb-12">
           <div className="flex flex-wrap gap-2 mb-6">
             {post.meta.tags.map((tag: string) => (
-              <span key={tag} className="px-3 py-1 bg-amber-50 text-amber-700 border border-amber-100 rounded-full text-xs font-bold uppercase tracking-wider">
+              <span key={tag} className="px-3 py-1 bg-[#F6F1F3] text-[#411120] rounded-full text-xs font-bold uppercase tracking-wider">
                 {tag}
               </span>
             ))}
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-arti-black leading-[1.1] mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-[52px] font-normal text-arti-black leading-[1.1] mb-6 tracking-tight">
             {post.meta.title}
           </h1>
-          
+
           <Link
             href="/about"
             suppressHydrationWarning
-            className="flex items-center gap-4 group mb-6 -mx-2 px-2 py-2 rounded-xl transition-colors hover:bg-amber-50/60"
+            className="flex items-center gap-4 group mb-6 -mx-2 px-2 py-2 rounded-xl transition-colors hover:bg-[#F6F1F3]"
           >
             <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-white shadow-sm shrink-0">
               <Image
@@ -263,7 +331,7 @@ export default async function BlogPost(
               />
             </div>
             <div className="leading-tight">
-              <span className="block font-semibold text-black group-hover:text-amber-700 transition-colors">
+              <span className="block font-semibold text-black group-hover:text-[#F70046] transition-colors">
                 Clément Rondepierre
               </span>
               <span className="block text-sm text-gray-500">
@@ -277,34 +345,61 @@ export default async function BlogPost(
               {new Date(post.meta.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
             </time>
             <span>•</span>
-            <span className="flex items-center gap-1">
-              ⏱️ {post.meta.readingTime}
-            </span>
+            <span>{post.meta.readingTime}</span>
           </div>
         </header>
 
-        <div className="relative w-full aspect-[16/9] mb-16 rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+        <div className="relative w-full aspect-[16/9] mb-12 rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
           <Image
             src={post.meta.image}
             alt={post.meta.title}
             fill
             className="object-cover"
             priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 800px"
+            sizes="(max-width: 768px) 100vw, 720px"
           />
         </div>
 
+        {/* En bref : la réponse en quelques lignes pour le lecteur pressé */}
+        {post.meta.summary && post.meta.summary.length > 0 && (
+          <aside className="mb-10 rounded-[16px] bg-[#F6F1F3] p-6 md:p-8">
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#F70046]">En bref</p>
+            <ul className="flex flex-col gap-3">
+              {post.meta.summary.map((point: string) => (
+                <li key={point} className="flex gap-3 text-base leading-relaxed text-arti-black">
+                  <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-[#F70046]" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
+
+        {/* Sommaire repliable (mobile et tablette) */}
+        {hasToc && (
+          <details className="group/toc mb-12 rounded-[12px] border border-black/10 lg:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-base text-arti-black [&::-webkit-details-marker]:hidden">
+              Sommaire
+              <span aria-hidden="true" className="transition-transform duration-300 group-open/toc:rotate-180">↓</span>
+            </summary>
+            <div className="px-5 pb-5">
+              <TableOfContents headings={headings} variant="inline" />
+            </div>
+          </details>
+        )}
+
         {/* CONTENU MDX */}
-        <div className="prose prose-lg max-w-none
-          prose-headings:font-normal prose-headings:text-arti-black prose-headings:mt-12 prose-headings:mb-6
-          prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
-          prose-a:text-amber-600 prose-a:no-underline hover:prose-a:underline
-          prose-ul:list-disc prose-ul:pl-6 prose-li:marker:text-amber-500
-          prose-strong:font-bold prose-strong:text-black
-          prose-table:table-auto prose-table:border-collapse
-          prose-thead:bg-gray-50 prose-tbody:bg-white
-          prose-th:border-gray-200 prose-td:border-gray-100">
-          
+        <div id="article-content" className="prose prose-lg max-w-none
+          prose-headings:font-normal prose-headings:text-arti-black
+          prose-h2:mt-20 prose-h2:mb-5 prose-h2:text-[28px] md:prose-h2:text-[34px] prose-h2:leading-[1.2]
+          prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-[21px] prose-h3:font-medium
+          prose-p:text-[#444] prose-p:leading-[1.75] prose-p:mb-6
+          prose-li:text-[#444] prose-li:my-1.5
+          prose-a:text-[#F70046] prose-a:font-normal
+          prose-ul:list-disc prose-ul:pl-6 prose-li:marker:text-[#F70046]
+          prose-ol:pl-6 prose-ol:marker:text-[#F70046]
+          prose-strong:font-semibold prose-strong:text-arti-black">
+
           <MDXRemote
             source={post.content}
             components={mdxComponents}
@@ -316,18 +411,18 @@ export default async function BlogPost(
           />
         </div>
 
-        {/* CTA Fin */}
-        <div className="mt-24 bg-[#0a0a0a] text-white rounded-3xl p-8 md:p-12 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+        {/* CTA Fin, adapté au sujet de l'article */}
+        <div className="mt-24 bg-[#411120] text-white rounded-3xl p-8 md:p-12 flex flex-col gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-2">Besoin d'aller plus loin ?</h3>
-            <p className="text-white/60">Transformons cette idée en réalité digitale.</p>
+            <h3 className="text-2xl md:text-3xl font-normal mb-3">{endCta.title}</h3>
+            <p className="text-white/70 leading-relaxed">{endCta.text}</p>
           </div>
-          <Link 
-            href="/contact" 
+          <Link
+            href="/contact"
             suppressHydrationWarning
-            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-[#F70046] hover:text-white transition-all duration-300"
+            className="self-start inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-[#F70046] hover:text-white transition-all duration-300"
           >
-            Lancer mon projet <span>→</span>
+            {endCta.cta} <span>→</span>
           </Link>
         </div>
         </div>

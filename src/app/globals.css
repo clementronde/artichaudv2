@@ -292,7 +292,7 @@ html.lenis, html.lenis body {
 @layer components {
   /* Style de l'encadré "Bon à savoir" */
   .callout-box {
-    @apply bg-gray-50 border-l-4 border-amber-600 p-6 my-8 rounded-r-xl relative overflow-hidden;
+    @apply bg-[#F6F1F3] border-l-4 border-[#F70046] p-6 my-8 rounded-r-xl relative overflow-hidden;
   }
   
   /* Titre de l'encadré */
@@ -302,12 +302,38 @@ html.lenis, html.lenis body {
   
   /* Texte de l'encadré */
   .callout-box p {
-    @apply text-gray-600 text-base leading-relaxed !mb-0;
+    @apply text-[#444] text-base leading-relaxed !mb-0;
   }
 
   /* Petit background décoratif optionnel */
   .callout-box::before {
     content: "";
-    @apply absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none;
+    @apply absolute top-0 right-0 w-24 h-24 bg-[#F70046]/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none;
+  }
+
+  /* Tableaux d'articles : sur mobile, chaque ligne devient une carte, chaque cellule reprend l'intitulé de sa colonne */
+  @media (max-width: 767px) {
+    .article-table thead {
+      @apply sr-only;
+    }
+    .article-table,
+    .article-table tbody,
+    .article-table tr,
+    .article-table td {
+      @apply block w-full;
+    }
+    .article-table tr {
+      @apply px-5 py-4;
+    }
+    .article-table td {
+      @apply py-1.5;
+    }
+    .article-table td::before {
+      content: attr(data-label);
+      @apply block text-[11px] font-semibold uppercase tracking-wider text-[#767676] mb-0.5;
+    }
+    .article-table td:first-child {
+      @apply text-arti-black;
+    }
   }
 }

@@ -7,8 +7,15 @@ import type { TocHeading } from '@/lib/toc'
 // Marge sous la barre de navigation fixe quand on saute à une section
 const SCROLL_OFFSET = -120
 
-// Sommaire collant de l'article : suit la lecture et surligne la section en cours
-export default function TableOfContents({ headings }: { headings: TocHeading[] }) {
+// Sommaire de l'article : suit la lecture et surligne la section en cours.
+// « sidebar » pour la colonne collante des grands écrans, « inline » pour le bloc repliable du mobile.
+export default function TableOfContents({
+  headings,
+  variant = 'sidebar',
+}: {
+  headings: TocHeading[]
+  variant?: 'sidebar' | 'inline'
+}) {
   const lenis = useLenis()
   const [activeId, setActiveId] = useState(headings[0]?.id ?? '')
 
@@ -38,6 +45,8 @@ export default function TableOfContents({ headings }: { headings: TocHeading[] }
     e.preventDefault()
     // Empêche le gestionnaire d'ancres global (sans décalage) de prendre le relais
     e.stopPropagation()
+    // Sur mobile, on referme le sommaire avant de calculer la position, pour viser juste
+    e.currentTarget.closest('details')?.removeAttribute('open')
 
     if (lenis) lenis.scrollTo(target, { offset: SCROLL_OFFSET, duration: 1.2 })
     else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY + SCROLL_OFFSET, behavior: 'smooth' })
@@ -48,7 +57,7 @@ export default function TableOfContents({ headings }: { headings: TocHeading[] }
 
   return (
     <nav aria-label="Sommaire de l'article">
-      <p className="mb-4 text-sm text-[#767676]">Sommaire</p>
+      {variant === 'sidebar' && <p className="mb-4 text-sm text-[#767676]">Sommaire</p>}
       <ol className="flex flex-col border-l border-black/10">
         {headings.map(({ id, text }) => {
           const isActive = id === activeId
