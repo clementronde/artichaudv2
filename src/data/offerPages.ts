@@ -85,7 +85,7 @@ export const offerPages: OfferPage[] = [
       secondField: { label: 'Votre activité', placeholder: 'Ex. : coach sportif à Boulogne', key: 'company' },
     },
     seo: {
-      title: 'Offre Flash : identité visuelle et site pro en 7 jours ouvrés',
+      title: 'Offre Flash : identité et site pro en 7 jours',
       description: "Logo, identité visuelle, site vitrine de 5 pages et SEO, livrés en 7 jours ouvrés pour 1 500 €. Devis gratuit, 6 places disponibles.",
     },
   },
@@ -136,7 +136,7 @@ export const offerPages: OfferPage[] = [
       secondField: { label: 'Votre site actuel', placeholder: 'https://votresite.fr', key: 'website' },
     },
     seo: {
-      title: 'Offre Refresh : refonte de site internet en 7 jours ouvrés',
+      title: 'Offre Refresh : refonte de site en 7 jours',
       description: "Identité modernisée, nouveau design, site mobile et référencement conservé, en 7 jours ouvrés pour 1 500 €. Devis gratuit.",
     },
   },
@@ -185,7 +185,7 @@ export const offerPages: OfferPage[] = [
       secondField: { label: 'Votre site actuel', placeholder: 'https://votresite.fr', key: 'website' },
     },
     seo: {
-      title: 'Offre Visibilité & Sérénité : SEO, maintenance et sécurité à 350 €/mois',
+      title: 'Offre Visibilité & Sérénité : SEO et maintenance',
       description: "Référencement local, maintenance, sauvegardes et sécurité de votre site pour 350 € par mois, sans engagement.",
     },
   },

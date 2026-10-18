@@ -32,7 +32,7 @@ export async function generateMetadata(
       : `${BASE_URL}${post.meta.image}`;
 
     return {
-      title: post.meta.title,
+      title: post.meta.seoTitle ?? post.meta.title,
       description: post.meta.excerpt,
       keywords: post.meta.tags,
       robots: post.meta.noindex === true

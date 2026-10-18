@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Création de site internet | Site vitrine, SEO & design sur mesure",
+  title: "Création de site internet : vitrine, SEO & design",
   description: "Création de site internet professionnel : stratégie, UX/UI, développement, SEO technique et contenus pensés pour convertir vos visiteurs en demandes qualifiées.",
   keywords: [
     "création site internet",

@@ -7,7 +7,7 @@ import { SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Portfolio — Projets Web & Branding | Artichaud Studio Boulogne-Billancourt"
+    absolute: "Portfolio : projets web & branding | Artichaud Studio"
   },
   description: "Découvrez nos réalisations : branding, sites web et stratégies digitales pour Charit.io, Disobey, Paradox, Lumyn et autres marques ambitieuses.",
   keywords: [

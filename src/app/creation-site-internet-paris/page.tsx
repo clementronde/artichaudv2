@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Création de site internet Paris | Studio web & branding",
+  title: "Création de site internet à Paris, web & branding",
   description: "Studio web créatif à Paris. Création de sites vitrines WordPress, Webflow et Wix pour TPE, PME et startups en Île-de-France. Discutons de votre projet.",
   keywords: [
     "création site internet Paris",

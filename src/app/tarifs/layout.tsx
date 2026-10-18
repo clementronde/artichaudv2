@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Tarifs & Prix Création Site Internet Boulogne-Billancourt | Artichaud Studio"
+    absolute: "Tarifs site internet Boulogne-Billancourt | Artichaud Studio"
   },
   description: "Tarifs transparents : Site vitrine dès 2000€, E-commerce dès 8000€, Sur-mesure dès 15000€. Agence web à Boulogne-Billancourt. Devis gratuit en 24h.",
   keywords: [

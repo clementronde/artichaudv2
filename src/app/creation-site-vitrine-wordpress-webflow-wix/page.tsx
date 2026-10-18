@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Création site vitrine WordPress, Webflow & Wix | Studio créatif",
+  title: "Création site vitrine WordPress, Webflow & Wix",
   description: "Sites vitrines sur-mesure avec WordPress, Webflow ou Wix. Design créatif, contenu clair et SEO de base inclus. Découvrez nos packs et choisissez la bonne technologie.",
   keywords: [
     "création site vitrine WordPress",

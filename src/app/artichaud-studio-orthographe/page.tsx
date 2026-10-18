@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Artichaud Studio - Orthographe Correcte | Artichaud, Artichaut ?",
+  title: "Artichaud ou Artichaut ? L'orthographe correcte",
   description: "Vous cherchez Artichaud Studio ? Notre studio de création web et branding s'écrit Artichaud avec un D.",
   keywords: [
     "artichaud studio",

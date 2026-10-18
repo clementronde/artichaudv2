@@ -30,9 +30,8 @@ export async function generateMetadata(
       ? project.cover
       : `${BASE_URL}${project.cover}`;
     const description = project.seoDescription ?? truncateSeoDescription(project.description.join(' '));
-    const title = project.seoTitle
-      ? `${project.seoTitle} | ${SITE_NAME}`
-      : `${project.client} - ${project.category} | ${SITE_NAME}`;
+    // Le suffixe « | Artichaud Studio » est ajouté par le template du layout
+    const title = project.seoTitle ?? `${project.client} - ${project.category}`;
     const socialTitle = project.seoTitle ?? `${project.client} - ${project.category}`;
 
     return {

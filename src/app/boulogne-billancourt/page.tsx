@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "Boulogne-Billancourt — Tissu économique, entreprises et ressources | Artichaud Studio" },
+  title: { absolute: "Boulogne-Billancourt : économie et entreprises | Artichaud Studio" },
   description: "Présentation factuelle de Boulogne-Billancourt (92100) : tissu économique, quartiers d'affaires, grandes entreprises, PME et ressources pour les entreprises locales.",
   keywords: [
     "Boulogne-Billancourt entreprises",

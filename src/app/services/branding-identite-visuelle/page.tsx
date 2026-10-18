@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence Branding & Identité Visuelle à Boulogne-Billancourt | Artichaud Studio"
+    absolute: "Agence branding & identité visuelle à Boulogne | Artichaud Studio"
   },
   description: "Création d'identité visuelle et branding à Boulogne-Billancourt. Logo, charte graphique, stratégie de marque. Artichaud Studio, votre agence de design pour une marque forte et mémorable.",
   keywords: [

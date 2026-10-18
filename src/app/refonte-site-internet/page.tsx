@@ -5,7 +5,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Agence refonte de site internet | Nouveau design, SEO conservé",
+  title: "Agence refonte site internet, SEO conservé",
   description: "Votre site ne vous ressemble plus ? Agence experte en refonte de site internet (WordPress, Webflow, Wix). Nouveau design, meilleure UX et SEO conservé. Devis gratuit.",
   keywords: [
     "refonte site internet",

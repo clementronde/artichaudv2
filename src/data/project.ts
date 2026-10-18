@@ -26,7 +26,7 @@ export const projects: Project[] = [
     category: "Site e-commerce",
     year: "2026",
     services: ["Identité visuelle", "Web Design", "E-commerce", "UX/UI"],
-    seoTitle: "Remembraance - Site e-commerce pour une créatrice de mode upcyclée",
+    seoTitle: "Remembraance : e-commerce de mode upcyclée",
     seoDescription: "Découvrez le projet Remembraance : identité visuelle et site e-commerce pour une créatrice de vêtements upcyclés qui voulait vendre en direct, au-delà de Vinted.",
     seoKeywords: [
       "Remembraance",
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     category: "Identité visuelle",
     year: "2026",
     services: ["Identité visuelle", "Logo", "Direction artistique", "Packaging"],
-    seoTitle: "Caisse d'Épargne - Identité visuelle du podcast Génération Impact",
+    seoTitle: "Caisse d'Épargne : podcast Génération Impact",
     seoDescription: "Découvrez le projet Génération Impact : création de l'identité visuelle du nouveau podcast de la Caisse d'Épargne Île-de-France, du logo aux miniatures YouTube.",
     seoKeywords: [
       "Caisse d'Épargne",

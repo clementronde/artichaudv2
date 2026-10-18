@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence SEO & Référencement Naturel à Boulogne-Billancourt | Artichaud Studio"
+    absolute: "Agence SEO & référencement naturel à Boulogne | Artichaud Studio"
   },
   description: "Agence SEO à Boulogne-Billancourt. Audit SEO, stratégie de contenu, netlinking, optimisations techniques. Boostez votre visibilité Google et générez du trafic qualifié.",
   keywords: [
