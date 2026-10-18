@@ -115,7 +115,8 @@ const ProjectCard = ({ project, full }: { project: HighlightProject; full: boole
 }
 
 // --- 3. LE COMPOSANT PRINCIPAL (Exporté) ---
-export default function Highlight() {
+// title : remplace « À la une » quand le bloc est réutilisé ailleurs (page À propos)
+export default function Highlight({ title }: { title?: string }) {
   const container = useRef<HTMLElement>(null)
   const { t } = useLocale()
 
@@ -187,7 +188,7 @@ export default function Highlight() {
 
       <div className="flex justify-between items-center mb-[5px]">
         <h2 className="text-[40px] md:text-[60px] font-normal tracking-tight text-arti-black">
-          {t.highlight.title}
+          {title ?? t.highlight.title}
         </h2>
         <Link href="/works" suppressHydrationWarning={true} className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-black/15 text-arti-black hover:bg-black hover:border-black hover:text-white transition-all duration-300 cursor-none">
           <span>→</span>

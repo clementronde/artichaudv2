@@ -8,7 +8,7 @@ import VisionSection from "@/components/about/VisionSection"
 import AboutIntro from "@/components/about/AboutIntro"
 import WhyArtichaud from "@/components/about/WhyArtichaud"
 import { CanvasEffect } from "@/components/ui/canvas-effect"
-import TrustedSection from "@/components/about/TrustedSection"
+import Highlight from "@/components/home/Highlight"
 // Assurez-vous que le chemin vers BlogSection est correct (souvent dans home ou à la racine des components)
 import BlogSection from "@/components/home/BlogSection" 
 
@@ -59,7 +59,8 @@ const imageReveal: Variants = {
 
 export default function AboutClient({ posts }: { posts: BlogPost[] }) {
   return (
-    <main className="w-full bg-[#FFFFFF] min-h-screen overflow-x-hidden">
+    // overflow-x-clip et non overflow-x-hidden : hidden casserait le texte sticky de la section Vision
+    <main className="w-full bg-[#FFFFFF] min-h-screen overflow-x-clip">
 
       {/* --- HERO SECTION --- */}
       <div className="relative pt-32 md:pt-48 pb-20">
@@ -124,8 +125,8 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
       <AboutIntro />
       <WhyArtichaud />
       
-      {/* Nouvelle Section Trusted */}
-      <TrustedSection />
+      {/* Projets mis en avant : même bloc que « À la une » sur la home */}
+      <Highlight title="Parce qu'ils nous ont déjà fait confiance" />
 
       {/* Blog (reçoit les données du serveur) */}
       <BlogSection posts={posts} />
