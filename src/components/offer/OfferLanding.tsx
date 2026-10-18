@@ -147,7 +147,7 @@ export default function OfferLanding({ page, projects }: { page: OfferPage; proj
               <span className="text-base text-white">Inclus</span>
             </div>
             <div className="md:col-span-2 md:sticky md:top-32 md:self-start">
-              <h2 className="text-[34px] md:text-[45px] leading-[1.3] font-normal">Tout ce que vous recevez, pour {page.price}.</h2>
+              <h2 className="text-[34px] md:text-[45px] leading-[1.3] font-normal">Ce qui est inclus dans votre offre</h2>
             </div>
 
             <motion.div
@@ -268,27 +268,34 @@ export default function OfferLanding({ page, projects }: { page: OfferPage; proj
         </div>
       </section>
 
-      {/* 7. FORMULAIRE */}
+      {/* 7. FORMULAIRE : lecture de haut en bas (titre, puis formulaire), fond clair pour la lisibilité */}
       <section id="devis" className="w-full scroll-mt-24 px-4 pb-4 md:px-[20px] md:pb-[20px]">
-        <div className="grid grid-cols-1 gap-12 rounded-[20px] bg-[#411120] px-6 py-14 text-white md:grid-cols-8 md:gap-x-5 md:px-10 md:py-[82px]">
-          <div className="flex flex-col gap-6 md:col-span-3">
-            <span className="text-base text-white/60">[ {page.label} · {page.price} ]</span>
-            <h2 className="text-[34px] md:text-[45px] leading-[1.3] font-normal">{page.form.title}</h2>
-            <p className="text-base leading-[1.4] text-white/60">
-              Devis gratuit. On vous rappelle sur nos horaires d’ouverture, du lundi au vendredi de 8 h à 20 h.
-            </p>
-            <a
-              href={whatsappHref(page.label)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-14 items-center justify-center gap-2 self-start rounded-full border border-white/20 px-7 text-base font-medium text-white transition-colors duration-300 hover:border-[#25D366] hover:bg-[#25D366]"
-            >
-              <WhatsAppIcon />
-              Contacter sur WhatsApp
-            </a>
+        <div className="rounded-[20px] bg-[#F6F1F3] px-6 py-14 md:px-10 md:py-[82px]">
+          <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-8">
+            <div className="md:col-span-1 md:pt-[15px]">
+              <span className="text-base text-arti-black">Devis</span>
+            </div>
+            <div className="flex flex-col gap-6 md:col-span-6">
+              <h2 className="text-[34px] md:text-[45px] leading-[1.3] font-normal text-arti-black">{page.form.title}</h2>
+              <p className="max-w-[640px] text-lg leading-[1.4] text-arti-black/70">
+                {page.label}, {page.price}. Le devis est gratuit et on vous rappelle du lundi au vendredi, de 8 h à 20 h.
+              </p>
+              <a
+                href={whatsappHref(page.label)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-14 items-center justify-center gap-2 self-start rounded-full border border-black/15 px-7 text-base font-medium text-arti-black transition-colors duration-300 hover:border-[#25D366] hover:bg-[#25D366] hover:text-white"
+              >
+                <WhatsAppIcon />
+                Contacter sur WhatsApp
+              </a>
+            </div>
           </div>
-          <div className="md:col-span-5">
-            <OfferForm page={page} />
+
+          <div className="mt-12 grid grid-cols-1 md:mt-16 md:grid-cols-8 md:gap-x-5">
+            <div className="rounded-[16px] bg-white p-6 md:col-span-6 md:col-start-2 md:p-10">
+              <OfferForm page={page} />
+            </div>
           </div>
         </div>
       </section>

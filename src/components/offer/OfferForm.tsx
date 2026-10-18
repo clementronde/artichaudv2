@@ -9,9 +9,10 @@ import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
 import { captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
 import { useConsent } from '@/components/consent/ConsentProvider'
 
-const fieldClass = `w-full border-b border-white/20 bg-transparent py-3 text-lg text-white placeholder:text-white/30
-  transition-colors focus:border-white focus:outline-none`
-const labelClass = 'text-sm text-white/60'
+// Champs encadrés et libellés foncés : le formulaire doit se lire sans effort, y compris sur mobile
+const fieldClass = `w-full rounded-[10px] border border-black/15 bg-white px-4 py-3.5 text-base text-arti-black placeholder:text-black/35
+  transition-colors focus:border-[#411120] focus:outline-none focus:ring-1 focus:ring-[#411120]`
+const labelClass = 'text-sm font-medium text-arti-black'
 
 // Formulaire court des pages offre : une seule étape, l'offre est déjà connue.
 // Même API, même anti-spam et même suivi (Lead pixel + API Conversions) que la page contact.
@@ -24,7 +25,8 @@ export default function OfferForm({ page }: { page: OfferPage }) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [second, setSecond] = useState('')
-  const [message, setMessage] = useState(offer.message?.fr ?? '')
+  // Champ vide : l'exemple est en placeholder pour inviter à écrire son propre message
+  const [message, setMessage] = useState('')
   const [honeypot, setHoneypot] = useState('')
   const [attribution, setAttribution] = useState<Attribution>({})
 
@@ -142,41 +144,41 @@ export default function OfferForm({ page }: { page: OfferPage }) {
 
   if (isSubmitted) {
     return (
-      <div className="flex flex-col gap-4 py-10" role="status">
-        <span className="text-sm text-white/60">Demande envoyée</span>
-        <p className="text-[28px] md:text-[34px] leading-[1.3] text-white">
+      <div className="flex flex-col gap-4" role="status">
+        <span className="text-sm text-[#767676]">Demande envoyée</span>
+        <p className="text-[28px] md:text-[34px] leading-[1.3] text-arti-black">
           Merci {name.split(' ')[0]}, on a bien reçu votre demande.
         </p>
-        <p className="text-base leading-[1.4] text-white/60">
+        <p className="text-base leading-[1.4] text-[#767676]">
           On revient vers vous rapidement. Si c’est urgent, appelez-nous au{' '}
-          <a href={OFFER_PHONE.href} className="text-white underline underline-offset-4">{OFFER_PHONE.label}</a>.
+          <a href={OFFER_PHONE.href} className="text-arti-black underline underline-offset-4">{OFFER_PHONE.label}</a>.
         </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-7">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
       <Script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         strategy="afterInteractive"
         onReady={() => setTurnstileReady(true)}
       />
 
-      <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-5">
-        <label className="flex flex-col gap-1">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-5">
+        <label className="flex flex-col gap-2">
           <span className={labelClass}>Nom et prénom *</span>
           <input className={fieldClass} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="Camille Martin" required />
         </label>
-        <label className="flex flex-col gap-1">
+        <label className="flex flex-col gap-2">
           <span className={labelClass}>Email *</span>
           <input className={fieldClass} type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" placeholder="camille@exemple.fr" required />
         </label>
-        <label className="flex flex-col gap-1">
+        <label className="flex flex-col gap-2">
           <span className={labelClass}>Téléphone, pour qu’on vous rappelle</span>
           <input className={fieldClass} type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" placeholder="06 12 34 56 78" />
         </label>
-        <label className="flex flex-col gap-1">
+        <label className="flex flex-col gap-2">
           <span className={labelClass}>{secondField.label}</span>
           <input
             className={fieldClass}
@@ -189,12 +191,13 @@ export default function OfferForm({ page }: { page: OfferPage }) {
         </label>
       </div>
 
-      <label className="flex flex-col gap-1">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Votre message *</span>
         <textarea
           className={`${fieldClass} min-h-[110px] resize-none`}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          placeholder={offer.message?.fr}
           required
         />
       </label>
@@ -212,7 +215,7 @@ export default function OfferForm({ page }: { page: OfferPage }) {
           type="submit"
           disabled={!canSubmit}
           className={`inline-flex min-h-14 items-center justify-center gap-2 self-start rounded-full px-8 text-base font-bold transition-colors duration-300
-            ${canSubmit ? 'bg-[#F70046] text-white hover:bg-white hover:text-[#411120]' : 'cursor-not-allowed bg-white/10 text-white/40'}`}
+            ${canSubmit ? 'bg-[#F70046] text-white hover:bg-[#411120]' : 'cursor-not-allowed bg-black/10 text-black/40'}`}
         >
           <span aria-hidden="true">→</span>
           {isSubmitting ? 'Envoi…' : 'Recevoir mon devis gratuit'}
@@ -220,16 +223,16 @@ export default function OfferForm({ page }: { page: OfferPage }) {
 
         {/* Le bouton grisé dit ce qui manque, au lieu de laisser deviner */}
         {missing.length > 0 && (
-          <p className="text-sm text-white/50">Il manque {missing.join(', ')}.</p>
+          <p className="text-sm text-[#767676]">Il manque {missing.join(', ')}.</p>
         )}
         {missing.length === 0 && !turnstileToken && (
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-[#767676]">
             {turnstileError
               ? `La vérification anti-spam n’a pas abouti. Réessayez ou appelez-nous au ${OFFER_PHONE.label}.`
               : 'Vérification anti-spam en cours…'}
           </p>
         )}
-        {submitError && <p className="text-sm text-[#FF6B8E]" role="alert">{submitError}</p>}
+        {submitError && <p className="text-sm text-[#F70046]" role="alert">{submitError}</p>}
       </div>
     </form>
   )
