@@ -12,6 +12,8 @@ interface Offer {
   services: string[]
   // Budget pré-sélectionné (id de t.contact.budgets) : le formulaire s'ouvre alors directement sur les coordonnées
   budget?: string
+  // Message pré-rempli (modifiable) dans le formulaire, pour ne pas faire retaper l'offre vue
+  message?: { fr: string; en: string }
 }
 
 export const offers: Record<OfferId, Offer> = {
@@ -19,16 +21,28 @@ export const offers: Record<OfferId, Offer> = {
     label: { fr: 'Offre Flash — 1 500 €', en: 'Flash offer — €1,500' },
     services: ['branding', 'webdesign', 'webdev', 'marketing'],
     budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par l'offre Flash (identité visuelle + site pro en 7 jours ouvrés). Mon activité : ",
+      en: "Hello, I'm interested in the Flash offer (brand identity + professional website in 7 working days). My business: ",
+    },
   },
   refonte: {
     label: { fr: 'Offre Refresh — 1 500 €', en: 'Refresh offer — €1,500' },
     services: ['branding', 'webdesign', 'webdev', 'marketing'],
     budget: 'small',
+    message: {
+      fr: "Bonjour, je souhaite moderniser mon site avec l'offre Refresh (refonte en 7 jours ouvrés). ",
+      en: "Hello, I'd like to modernise my website with the Refresh offer (redesign in 7 working days). ",
+    },
   },
   presence: {
     label: { fr: 'Offre Visibilité & Sérénité — 350 €/mois', en: 'Visibility & Peace of Mind offer — €350/month' },
     services: ['webdev', 'marketing'],
     budget: 'small',
+    message: {
+      fr: "Bonjour, je souhaite confier le suivi de mon site (référencement, maintenance, sécurité) à Artichaud. ",
+      en: "Hello, I'd like Artichaud to look after my website (SEO, maintenance, security). ",
+    },
   },
   'pack-essentiel': {
     label: { fr: 'Pack Essentiel — 1 000 €', en: 'Essentiel pack — €1,000' },

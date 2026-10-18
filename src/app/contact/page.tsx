@@ -9,6 +9,9 @@ import Script from 'next/script'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
 import { offers, isOfferId } from '@/data/offers'
+import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
+import { captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
+import { useConsent } from '@/components/consent/ConsentProvider'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 
@@ -31,6 +34,7 @@ interface FormData {
   timeline: string
   name: string
   email: string
+  phone: string
   company: string
   website: string
   message: string
@@ -81,13 +85,15 @@ const SelectCard = ({
   </motion.button>
 )
 
-const Input = ({ 
-  label, 
+const Input = ({
+  label,
   error,
-  ...props 
-}: { 
+  hint,
+  ...props
+}: {
   label: string
   error?: string
+  hint?: string
 } & React.InputHTMLAttributes<HTMLInputElement>) => (
   <div className="flex flex-col gap-3">
     <label className="text-sm font-medium text-arti-black/50 uppercase tracking-wider">
@@ -104,6 +110,9 @@ const Input = ({
         ${error ? 'border-red-500' : 'border-black/10 hover:border-black/20'}
       `}
     />
+    {hint && !error && (
+      <span className="text-arti-black/40 text-sm">{hint}</span>
+    )}
     {error && (
       <span className="text-red-500 text-sm">{error}</span>
     )}
@@ -321,7 +330,8 @@ const Step3Contact = ({
   errors,
   honeypot,
   setHoneypot,
-  turnstileContainerRef
+  turnstileContainerRef,
+  fromCampaign
 }: {
   formData: FormData
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
@@ -329,6 +339,8 @@ const Step3Contact = ({
   honeypot: string
   setHoneypot: (value: string) => void
   turnstileContainerRef: React.RefObject<HTMLDivElement | null>
+  // Visite venue d'une campagne (UTM) : la source est déjà connue
+  fromCampaign: boolean
 }) => {
   const { t } = useLocale()
   const sources = t.contact.sources
@@ -373,11 +385,23 @@ const Step3Contact = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
+          label={t.contact.fields.phone}
+          type="tel"
+          autoComplete="tel"
+          hint={t.contact.fields.phoneHint}
+          placeholder={t.contact.fields.phonePlaceholder}
+          value={formData.phone}
+          onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+        />
+        <Input
           label={t.contact.fields.company}
           placeholder={t.contact.fields.companyPlaceholder}
           value={formData.company}
           onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
         />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <Input
           label={t.contact.fields.website}
           placeholder={t.contact.fields.websitePlaceholder}
@@ -394,6 +418,7 @@ const Step3Contact = ({
         error={errors.message}
       />
 
+      {!fromCampaign && (
       <div className="flex flex-col gap-4">
         <label className="text-sm font-medium text-arti-black/50 uppercase tracking-wider">
           {t.contact.fields.howFound}
@@ -417,6 +442,7 @@ const Step3Contact = ({
           ))}
         </div>
       </div>
+      )}
 
       {/* Honeypot anti-bot : invisible et ignoré par les humains */}
       <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 0, height: 0, overflow: 'hidden' }}>
@@ -575,6 +601,7 @@ export default function ContactPage() {
     timeline: '',
     name: '',
     email: '',
+    phone: '',
     company: '',
     website: '',
     message: '',
@@ -582,8 +609,15 @@ export default function ContactPage() {
     offer: '',
   })
 
-  // Arrivée depuis une offre de la page Services (?offre=site-pro) : on pré-sélectionne ses services
+  const { consent } = useConsent()
+  const [attribution, setAttribution] = useState<Attribution>({})
+
+  // Arrivée depuis une offre de la page Services ou d'une pub (?offre=site-pro) : on pré-sélectionne ses services
   useEffect(() => {
+    // Capture ici aussi : l'effet du tracker global s'exécute après celui de la page
+    captureAttribution()
+    setAttribution(getAttribution())
+
     const offerId = new URLSearchParams(window.location.search).get('offre')
     if (!isOfferId(offerId)) return
     const offer = offers[offerId]
@@ -593,10 +627,11 @@ export default function ContactPage() {
       offer: offerId,
       services: offer.services,
       budget: offer.budget ?? prev.budget,
+      message: prev.message || offer.message?.[locale] || '',
     }))
     // Services et budget connus : on ouvre directement l'étape des coordonnées
     if (offer.budget) setCurrentStep(2)
-  }, [])
+  }, [locale])
 
   const totalSteps = 3
   const stepNames = ['services', 'budget', 'contact'] as const
@@ -721,11 +756,24 @@ export default function ContactPage() {
     setIsSubmitting(true)
     setSubmitError(null)
 
+    // Identifiant commun au pixel et à l'API Conversions, pour que Meta ne compte le lead qu'une fois
+    const eventId = crypto.randomUUID()
+    const marketingConsent = Boolean(consent?.marketing)
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, hp: honeypot, turnstileToken }),
+        body: JSON.stringify({
+          ...formData,
+          howFound: formData.howFound || (attribution.utm_source ? `Publicité (${attribution.utm_source})` : ''),
+          attribution,
+          hp: honeypot,
+          turnstileToken,
+          meta: marketingConsent
+            ? { eventId, sourceUrl: window.location.href, ...getMetaCookies() }
+            : undefined,
+        }),
       })
 
       const responseData = await response.json().catch(() => null) as { error?: string } | null
@@ -743,7 +791,12 @@ export default function ContactPage() {
         event_label: formData.services.join(', '),
         budget: formData.budget,
         offer: formData.offer || undefined,
+        event_id: eventId,
       })
+      trackMetaEvent('Lead', {
+        content_name: formData.offer || 'formulaire',
+        content_category: formData.services.join(', '),
+      }, eventId)
 
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -809,6 +862,18 @@ export default function ContactPage() {
             </div>
           )}
 
+          {/* Appel direct, en tête sur mobile (le contact alternatif est en bas de page) */}
+          {!isSubmitted && (
+            <a
+              href="tel:0766489982"
+              className="md:hidden mb-10 flex items-center justify-center gap-3 w-full px-6 py-4 rounded-full
+                         border border-arti-black text-arti-black font-medium"
+            >
+              <span>{t.contact.callUs}</span>
+              <span>→</span>
+            </a>
+          )}
+
           {/* Progress */}
           {!isSubmitted && (
             <div className="mb-12">
@@ -845,6 +910,7 @@ export default function ContactPage() {
                     honeypot={honeypot}
                     setHoneypot={setHoneypot}
                     turnstileContainerRef={turnstileContainerRef}
+                    fromCampaign={Boolean(attribution.utm_source)}
                   />
                 )}
               </>

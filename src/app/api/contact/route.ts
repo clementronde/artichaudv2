@@ -1,7 +1,9 @@
 
 
 import { NextRequest, NextResponse } from 'next/server'
+import { createHash } from 'crypto'
 import { offers, isOfferId } from '@/data/offers'
+import { sanitizeAttribution, type Attribution } from '@/lib/attribution'
 
 // Types
 interface FormData {
@@ -10,11 +12,15 @@ interface FormData {
   timeline: string
   name: string
   email: string
+  phone?: string
   company: string
   website: string
   message: string
   howFound: string
   offer?: string
+  attribution?: unknown
+  // Présent seulement si le visiteur a accepté les cookies marketing
+  meta?: { eventId?: string; sourceUrl?: string; fbp?: string; fbc?: string }
   hp?: string
   turnstileToken?: string
 }
@@ -79,6 +85,63 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
+const sha256 = (value: string) => createHash('sha256').update(value).digest('hex')
+
+// Téléphone au format attendu par Meta : chiffres seuls avec indicatif (06… → 336…)
+function normalizePhone(value: string): string | null {
+  const digits = value.replace(/\D/g, '')
+  if (digits.length < 9) return null
+  if (digits.startsWith('00')) return digits.slice(2)
+  if (digits.startsWith('0')) return `33${digits.slice(1)}`
+  return digits
+}
+
+// API Conversions Meta : même événement Lead que le pixel, dédupliqué grâce à l'event_id commun
+async function sendMetaLead(data: FormData, request: NextRequest) {
+  const pixelId = process.env.META_PIXEL_ID
+  const accessToken = process.env.META_CAPI_ACCESS_TOKEN
+  const meta = data.meta
+  if (!pixelId || !accessToken || !meta?.eventId) return
+
+  const phone = data.phone ? normalizePhone(data.phone) : null
+  const userData: Record<string, unknown> = {
+    em: [sha256(data.email.trim().toLowerCase())],
+    client_ip_address: request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for')?.split(',')[0].trim(),
+    client_user_agent: request.headers.get('user-agent') || undefined,
+  }
+  if (phone) userData.ph = [sha256(phone)]
+  if (meta.fbp) userData.fbp = meta.fbp.slice(0, 200)
+  if (meta.fbc) userData.fbc = meta.fbc.slice(0, 500)
+
+  const payload = {
+    data: [{
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: meta.eventId.slice(0, 100),
+      action_source: 'website',
+      event_source_url: meta.sourceUrl ? safeHttpUrl(meta.sourceUrl) ?? undefined : undefined,
+      user_data: userData,
+      custom_data: {
+        content_name: data.offer || 'formulaire',
+        content_category: data.services.join(', '),
+      },
+    }],
+    ...(process.env.META_TEST_EVENT_CODE ? { test_event_code: process.env.META_TEST_EVENT_CODE } : {}),
+  }
+
+  try {
+    const response = await fetch(`https://graph.facebook.com/v23.0/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    if (!response.ok) console.error('Erreur API Conversions Meta:', response.status, await response.text().catch(() => ''))
+  } catch (error) {
+    // Le lead est déjà envoyé par email : un échec de mesure ne doit pas bloquer la réponse
+    console.error('Erreur API Conversions Meta:', error)
+  }
+}
+
 function safeHttpUrl(value: string): string | null {
   try {
     const url = new URL(value)
@@ -136,6 +199,11 @@ export async function POST(request: NextRequest) {
     const safeName = escapeHtml(data.name)
     const safeEmail = escapeHtml(data.email)
     const safeCompany = data.company ? escapeHtml(data.company) : ''
+    const safePhone = data.phone ? escapeHtml(data.phone.slice(0, 40)) : ''
+    const attribution: Attribution = sanitizeAttribution(data.attribution)
+    const safeAttribution = Object.entries(attribution)
+      .map(([key, value]) => `<div class="value">${escapeHtml(key)} : ${escapeHtml(value)}</div>`)
+      .join('')
     const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br>')
     const safeHowFound = data.howFound ? escapeHtml(data.howFound) : ''
     const safeWebsite = data.website ? safeHttpUrl(data.website) : null
@@ -178,6 +246,7 @@ export async function POST(request: NextRequest) {
       <div class="label">Contact</div>
       <div class="value"><strong>${safeName}</strong></div>
       <div class="value">${safeEmail}</div>
+      ${safePhone ? `<div class="value"><a href="tel:${safePhone.replace(/[^\d+]/g, '')}">${safePhone}</a></div>` : ''}
       ${safeCompany ? `<div class="value">${safeCompany}</div>` : ''}
       ${safeWebsite ? `<div class="value"><a href="${safeWebsite}">${escapeHtml(safeWebsite)}</a></div>` : ''}
     </div>
@@ -215,6 +284,13 @@ export async function POST(request: NextRequest) {
     <div class="section">
       <div class="label">Source</div>
       <div class="value">${safeHowFound}</div>
+    </div>
+    ` : ''}
+
+    ${safeAttribution ? `
+    <div class="section">
+      <div class="label">Campagne</div>
+      ${safeAttribution}
     </div>
     ` : ''}
 
@@ -286,6 +362,9 @@ export async function POST(request: NextRequest) {
         { status: 502 }
       )
     }
+
+    // Mesure de la conversion côté serveur (uniquement avec le consentement marketing, transmis par le client)
+    await sendMetaLead(data, request)
 
     // 2. AJOUTER LE CONTACT À LA LISTE BREVO (optionnel)
     const listId = process.env.BREVO_LIST_ID
