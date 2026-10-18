@@ -54,16 +54,25 @@ export default function PackAccordion({ pack, ctaLabel, isOpen, onToggle }: Pack
   const { details } = pack
   const state = isOpen ? 'open' : 'closed'
 
+  // Flèche dans une pastille : se remplit au survol pour signaler que la ligne est cliquable
   const arrow = (
-    <motion.span
+    <span
       aria-hidden="true"
-      className="flex shrink-0 items-center justify-center"
-      initial={false}
-      animate={{ scaleY: isOpen ? -1 : 1 }}
-      transition={{ duration: 0.5, ease: EASE }}
+      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors duration-300
+        ${isOpen ? 'border-[#F70046] bg-[#F70046]' : 'border-[#F2F2F2]/30 group-hover/pack:border-[#F70046] group-hover/pack:bg-[#F70046]'}`}
     >
-      <Image src="/services/icons/pack-arrow.svg" alt="" width={15} height={11} unoptimized />
-    </motion.span>
+      {/* Décalage au survol sur un conteneur : le transform de la flèche est piloté par framer-motion */}
+      <span className="flex transition-transform duration-300 group-hover/pack:translate-y-0.5">
+        <motion.span
+          className="flex items-center justify-center"
+          initial={false}
+          animate={{ scaleY: isOpen ? -1 : 1 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          <Image src="/services/icons/pack-arrow.svg" alt="" width={15} height={11} unoptimized />
+        </motion.span>
+      </span>
+    </span>
   )
 
   if (!details) {
@@ -79,18 +88,20 @@ export default function PackAccordion({ pack, ctaLabel, isOpen, onToggle }: Pack
     <motion.div
       initial={false}
       animate={state}
-      className="w-full border-[0.5px] border-[#F2F2F2]/20"
+      className={`group/pack w-full border-[0.5px] transition-colors duration-300
+        ${isOpen ? 'border-[#F2F2F2]/50 bg-white/[0.04]' : 'border-[#F2F2F2]/20 hover:border-[#F2F2F2]/50 hover:bg-white/[0.04]'}`}
     >
-      <button
+      <motion.button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-[10px] text-left"
+        whileTap={{ scale: 0.99 }}
+        className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-[10px] text-left focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#F70046]"
       >
-        <span className="text-[20px] md:text-[22px] leading-[1.4] text-white">{pack.name}</span>
+        <span className="text-[20px] md:text-[22px] leading-[1.4] text-white transition-transform duration-300 group-hover/pack:translate-x-1">{pack.name}</span>
         {arrow}
-      </button>
+      </motion.button>
 
       <motion.div id={panelId} variants={panel} className="overflow-hidden">
         <motion.div variants={list} className="px-5 pb-5 pt-[9px] text-[16px] leading-[1.4] text-[#767676]">

@@ -51,7 +51,7 @@ export default function OfferCard({ offer, ctaLabel, isOpen, onToggle }: OfferCa
         aria-controls={panelId}
         className={`flex w-full cursor-pointer flex-col gap-[19px] border-x-[0.5px] border-t-[0.5px] px-6 pt-7 text-left md:px-[35px] md:pt-[35px] ${surface}`}
       >
-        <span className={`text-[20px] md:text-[22px] leading-[1.4] transition-colors duration-500 ${isOpen ? 'text-white' : 'text-[#411120]'}`}>
+        <span className={`text-[20px] md:text-[22px] leading-[1.4] transition-[color,transform] duration-500 group-hover:translate-x-1 ${isOpen ? 'text-white' : 'text-[#411120]'}`}>
           {offer.name}
         </span>
         <span className={`text-base leading-[1.4] transition-colors duration-500 ${isOpen ? 'text-white/60' : 'text-[#767676]'}`}>
@@ -85,22 +85,32 @@ export default function OfferCard({ offer, ctaLabel, isOpen, onToggle }: OfferCa
           </motion.div>
         </motion.div>
 
-        {/* Flèche : cliquable comme l'en-tête */}
-        <button
+        {/* Flèche dans une pastille, cliquable comme l'en-tête : se remplit au survol de la carte */}
+        <motion.button
           type="button"
           onClick={onToggle}
           tabIndex={-1}
           aria-hidden="true"
+          whileTap={{ scale: 0.92 }}
           className="flex w-full cursor-pointer justify-end px-6 pb-6 pt-5 md:px-[35px] md:pb-[30px]"
         >
-          <motion.span
-            className={`block h-[11px] w-[15px] transition-colors duration-500 ${isOpen ? 'bg-white' : 'bg-[#411120]'}`}
-            style={arrowMask}
-            initial={false}
-            animate={{ scaleY: isOpen ? 1 : -1 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          />
-        </button>
+          <span
+            className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-500
+              ${isOpen ? 'border-white/40 bg-white' : 'border-[#411120]/30 group-hover:border-[#411120] group-hover:bg-[#411120]'}`}
+          >
+            {/* Décalage au survol sur un conteneur : le transform de la flèche est piloté par framer-motion */}
+            <span className="transition-transform duration-300 group-hover:translate-y-0.5">
+              <motion.span
+                className={`block h-[11px] w-[15px] transition-colors duration-500
+                  ${isOpen ? 'bg-[#411120]' : 'bg-[#411120] group-hover:bg-white'}`}
+                style={arrowMask}
+                initial={false}
+                animate={{ scaleY: isOpen ? -1 : 1 }}
+                transition={{ duration: 0.5, ease: EASE }}
+              />
+            </span>
+          </span>
+        </motion.button>
       </div>
     </motion.div>
   )

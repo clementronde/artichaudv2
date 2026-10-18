@@ -10,6 +10,7 @@ import BlogSection from '@/components/home/BlogSection'
 import PackAccordion from '@/components/services/PackAccordion'
 import OfferCard from '@/components/services/OfferCard'
 import { useLocale } from '@/context/LocaleContext'
+import type { Post } from '@/lib/mdx'
 
 // On enregistre le plugin GSAP
 if (typeof window !== 'undefined') {
@@ -644,7 +645,7 @@ const serviceContent = {
 } as const
 
 interface ServicesClientProps {
-  posts: any[]
+  posts: Post[]
 }
 
 export default function ServicesClient({ posts }: ServicesClientProps) {
@@ -824,68 +825,43 @@ export default function ServicesClient({ posts }: ServicesClientProps) {
         </div>
       </section>
 
-    {/* 4. WHY ARTICHAUD (LAYOUT FLUIDE 8 COLUMNS) */}
-      {/* w-full + px-[40px] assure que le site prend toute la largeur moins les 40px de bord */}
+    {/* 4. WHY ARTICHAUD : grille de 8 colonnes, comme les sections précédentes */}
       <section className="w-full px-[40px] mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-x-5 gap-y-10">
 
-        {/* Grille de 8 colonnes avec gouttière de 20px */}
-        <div className="grid grid-cols-1 md:grid-cols-8 gap-[20px]">
-
-            {/* --- GAUCHE (Col 1 à 4) --- */}
-            {/* On utilise col-span-4 pour prendre la moitié gauche exacte */}
-            <div className="md:col-span-4 mb-16 md:mb-0 relative">
-                
-                {/* Sticky Wrapper : On recrée une sous-grille de 4 colonnes pour aligner le texte */}
-                <div className="sticky top-32 grid grid-cols-4 gap-[20px]">
-                    
-                    {/* Col 1 : Label */}
-                    <div className="col-span-1 pt-2 border-t border-transparent">
-                        <span className="text-sm font-medium text-arti-black">{content.whyLabel}</span>
-                    </div>
-
-                    {/* Col 2-3 : Titre (Le titre prend 2 colonnes, donc col-span-2) */}
-                    {/* Note: Col 4 est laissée vide ici implicitement */}
-                    <div className="col-span-2 md:col-span-3">
-                        <h2 className="text-[40px] md:text-[60px] leading-[1.1] font-normal text-arti-black tracking-tight">
-                            {content.whyTitle}
-                        </h2>
-                    </div>
-                </div>
+            {/* Col 1 : label */}
+            <div className="md:col-span-1 md:pt-[15px]">
+                <span className="text-base text-arti-black">{content.whyLabel}</span>
             </div>
 
-            {/* --- DROITE (Col 5 à 8) --- */}
-            {/* md:col-start-5 force le démarrage à la 5ème colonne */}
-            <div className="md:col-span-4 md:col-start-5 flex flex-col">
-                {content.values.map((val, index) => (
-                    
-                    // Ligne item : On recrée une grille de 4 colonnes (qui correspondent aux colonnes 5, 6, 7, 8 globales)
-                    <div 
-                        key={val.id} 
-                        className={`grid grid-cols-1 md:grid-cols-4 gap-[20px] py-12 border-t border-black/10 group hover:bg-gray-50 transition-colors duration-500 ${index === content.values.length - 1 ? 'border-b' : ''}`}
+            {/* Col 2-3 : titre, suit le scroll tant que la liste défile */}
+            <div className="md:col-span-2 md:sticky md:top-32 md:self-start">
+                <h2 className="text-[34px] md:text-[45px] leading-[1.4] font-normal text-arti-black mr-[30px]">
+                    {content.whyTitle}
+                </h2>
+            </div>
+
+            {/* Col 4-8 : liste, chaque ligne reprend les 5 colonnes de la grille */}
+            <div className="md:col-span-5 md:col-start-4 flex flex-col">
+                {content.values.map((val) => (
+                    <div
+                        key={val.id}
+                        className="grid grid-cols-1 md:grid-cols-5 gap-x-5 gap-y-3 border-t border-black/10 pt-6 pb-16 md:pb-[90px]"
                     >
+                        {/* Col 4 : numéro */}
+                        <span className="md:col-span-1 text-[20px] md:text-[22px] leading-[1.4] text-arti-black">
+                            {val.id}
+                        </span>
 
-                        {/* COLONNES 5 & 6 (Globales) -> Col 1 & 2 (Locales) : ID + TITRE */}
-                        <div className="md:col-span-2 flex items-start">
-                            
-                            {/* ID : Placé au début de la colonne 5 */}
-                            {/* w-[20%] ou une largeur fixe permet de simuler l'espace avant le titre "milieu colonne 5" */}
-                            <span className="text-sm font-bold text-arti-black shrink-0 w-12 md:w-16 pt-1">
-                                {val.id}
-                            </span>
-                            
-                            {/* Titre : Commence après l'ID (milieu col 5) et s'étend vers col 6 */}
-                            <h3 className="text-xl md:text-2xl font-medium text-arti-black group-hover:text-amber-600 transition-colors leading-tight">
-                                {val.title}
-                            </h3>
-                        </div>
+                        {/* Col 5-6 : titre */}
+                        <h3 className="md:col-span-2 text-[20px] md:text-[22px] leading-[1.4] font-normal text-arti-black">
+                            {val.title}
+                        </h3>
 
-                        {/* COLONNES 7 & 8 (Globales) -> Col 3 & 4 (Locales) : TEXTE */}
-                        <div className="md:col-span-2">
-                            <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed">
-                                {val.text}
-                            </p>
-                        </div>
-
+                        {/* Col 7-8 : texte */}
+                        <p className="md:col-span-2 text-base leading-[1.4] text-[#767676]">
+                            {val.text}
+                        </p>
                     </div>
                 ))}
             </div>
