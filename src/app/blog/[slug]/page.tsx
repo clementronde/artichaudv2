@@ -10,6 +10,19 @@ import remarkGfm from 'remark-gfm';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 import { SITE_URL as BASE_URL } from '@/lib/seo';
+import TableOfContents from '@/components/blog/TableOfContents';
+import { getHeadings, slugifyHeading } from '@/lib/toc';
+import type { ReactNode } from 'react';
+
+// Texte brut d'un titre MDX, même quand il contient du gras ou un lien
+function textOf(node: ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join('');
+  if (node && typeof node === 'object' && 'props' in node) {
+    return textOf((node.props as { children?: ReactNode }).children);
+  }
+  return '';
+}
 
 // 1. GÉNÉRATION STATIQUE (SSG)
 export async function generateStaticParams() {
@@ -94,6 +107,9 @@ export default async function BlogPost(
     notFound();
   }
 
+  const headings = getHeadings(post.content);
+  const hasToc = headings.length >= 3;
+
   // --- DONNÉES STRUCTURÉES (JSON-LD) ---
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -148,6 +164,8 @@ export default async function BlogPost(
   const mdxComponents = {
     CalloutBox,
     ContactCTA,
+    // Ancre sur chaque H2 pour le sommaire ; scroll-mt laisse la place à la barre de navigation
+    h2: (props: any) => <h2 {...props} id={slugifyHeading(textOf(props.children))} className="scroll-mt-32" />,
     a: (props: any) => <a {...props} suppressHydrationWarning className="text-amber-600 hover:text-amber-700 underline underline-offset-2" />, 
     img: (props: any) => (
       <span className="block my-8 relative w-full aspect-video rounded-xl overflow-hidden bg-gray-50">
@@ -191,8 +209,19 @@ export default async function BlogPost(
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-      <article className="container mx-auto px-6 md:px-12 max-w-4xl">
-        
+      <article
+        className={`container mx-auto px-6 md:px-12 max-w-4xl ${hasToc ? 'lg:max-w-7xl lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16' : ''}`}
+      >
+        {/* Sommaire à gauche, qui suit la lecture (grands écrans) */}
+        {hasToc && (
+          <aside className="hidden lg:block">
+            <div className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto pt-1" data-lenis-prevent>
+              <TableOfContents headings={headings} />
+            </div>
+          </aside>
+        )}
+
+        <div className="min-w-0 max-w-4xl">
         {/* Fil d'Ariane */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
           <Link href="/" suppressHydrationWarning className="hover:text-black transition-colors">Home</Link>
@@ -300,6 +329,7 @@ export default async function BlogPost(
           >
             Lancer mon projet <span>→</span>
           </Link>
+        </div>
         </div>
 
       </article>
