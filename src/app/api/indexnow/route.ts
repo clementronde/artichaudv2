@@ -3,7 +3,7 @@ import { projects } from '@/data/project'
 import { getAllPosts } from '@/lib/mdx'
 import { SITE_URL } from '@/lib/seo'
 
-const INDEXNOW_KEY = '1484784033661957'
+const INDEXNOW_KEY = 'daa1ac92d4f2446e8ee6d20663173b0f'
 const INDEXNOW_HOST = 'artichaud-studio.fr'
 const INDEXNOW_KEY_LOCATION = `${SITE_URL}/${INDEXNOW_KEY}.txt`
 
