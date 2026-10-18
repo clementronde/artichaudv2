@@ -274,6 +274,20 @@ html.lenis, html.lenis body {
   100% { opacity: 0; transform: scale(0.94); }
 }
 
+/* hero : curseur du titre animé */
+@keyframes heroCaretBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.hero-caret {
+  animation: heroCaretBlink 1s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-caret { animation: none; }
+}
+
 /* blog*/
 @layer components {
   /* Style de l'encadré "Bon à savoir" */

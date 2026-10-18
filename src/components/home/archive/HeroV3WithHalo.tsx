@@ -5,24 +5,25 @@ import { ImageTrail } from "@/components/ui/image-trail"
 import Image from "next/image"
 import { useLocale } from '@/context/LocaleContext'
 
+// Hors du composant : référence stable pour le préchargement
+const images = [
+  "/projects/charitio/charitioprojet2.avif",
+  "/projects/cherico/chericoprojet2.avif",
+  "/projects/comon/comonprojet2.avif",
+  "/projects/disobey/disobeyprojet2.avif",
+  "/projects/jobmi/jobmiprojet2.avif",
+  "/projects/keleti/keletiprojet2.avif",
+  "/projects/lumyn/Lumynprojet2.avif",
+  "/projects/multiface/multifaceprojet2.avif",
+  "/projects/rockstar/rockstarprojet2.avif",
+  "/projects/yumdeal/yumdealprojet2.avif",
+]
+
 export default function HeroV3() {
   const ref = useRef<HTMLDivElement>(null)
   const [isActive, setIsActive] = useState(false)
   const [imagesReady, setImagesReady] = useState(false)
   const { t } = useLocale()
-
-  const images = [
-    "/projects/charitio/charitioprojet2.avif",
-    "/projects/cherico/chericoprojet2.avif",
-    "/projects/comon/comonprojet2.avif",
-    "/projects/disobey/disobeyprojet2.avif",
-    "/projects/jobmi/jobmiprojet2.avif",
-    "/projects/keleti/keletiprojet2.avif",
-    "/projects/lumyn/Lumynprojet2.avif",
-    "/projects/multiface/multifaceprojet2.avif",
-    "/projects/rockstar/rockstarprojet2.avif",
-    "/projects/yumdeal/yumdealprojet2.avif",
-  ]
 
   useEffect(() => {
     let cancelled = false
@@ -142,9 +143,8 @@ export default function HeroV3() {
                 fontSize: 'clamp(40px, 5.5vw, 80px)',
               }}
             >
-              <span className="block">{t.hero.title[0]}</span>
-              <span className="block">{t.hero.title[1]}</span>
-              <span className="block md:text-left">{t.hero.title[2]}</span>
+              <span className="block">{t.hero.title.start}</span>
+              <span className="block">{t.hero.title.services[0]}</span>
             </h1>
         </div>
       </div>
@@ -165,6 +165,7 @@ export default function HeroV3() {
       {/* PRELOAD IMAGES - Hidden images so the preloader tracks them via document.images */}
       <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden pointer-events-none">
         {images.map((url, index) => (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             key={index}
             src={url}

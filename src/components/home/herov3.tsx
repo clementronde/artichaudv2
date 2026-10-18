@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { preload } from "react-dom"
 import Link from "next/link"
 import HeroImageTrail from "@/components/home/HeroImageTrail"
+import TypewriterWords from "@/components/home/TypewriterWords"
 import { useLocale } from '@/context/LocaleContext'
 
 // Vignettes 420x480 dédiées : légères et préchargées dès le HTML, la traînée est instantanée
@@ -155,9 +156,16 @@ export default function HeroV3() {
                 lineHeight: 1.18,
               }}
             >
-              <span className="inline lg:block">{t.hero.title[0]} </span>
-              <span className="inline lg:block">{t.hero.title[1]} </span>
-              <span className="inline lg:block">{t.hero.title[2]}</span>
+              {/* Phrase complète pour les lecteurs d'écran et les moteurs, la version animée est masquée pour eux */}
+              <span className="sr-only">
+                {t.hero.title.start} {t.hero.title.services.join(', ')}.
+              </span>
+              <span aria-hidden="true">
+                <span>{t.hero.title.start} </span>
+                <span className="block">
+                  <TypewriterWords words={t.hero.title.services} />
+                </span>
+              </span>
             </h1>
             <div
               onMouseEnter={() => setIsCtaHovered(true)}

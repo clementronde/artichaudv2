@@ -19,11 +19,6 @@ export default function Services() {
     <section ref={container} className="relative w-full z-10 bg-white">
       
       {servicesData.map((service, index) => {
-        // Logique de taille de police pour éviter le dépassement
-        const titleSizeClass = service.title.length > 15 
-          ? "text-[32px] md:text-[42px] lg:text-[52px]" 
-          : "text-[42px] md:text-[52px] lg:text-[72px]";
-
         return (
           <div 
             key={service.id} 
@@ -60,7 +55,8 @@ export default function Services() {
                     
                     {/* TITRE */}
                     <div className="mb-8 md:mb-12">
-                      <h2 className={`${titleSizeClass} leading-[1] font-normal tracking-tight whitespace-nowrap`}>
+                      {/* Même taille pour tous les titres, calée sur le plus long (« Création de site web ») */}
+                      <h2 className="text-[32px] md:text-[42px] lg:text-[52px] leading-[1] font-normal tracking-tight whitespace-nowrap">
                         {service.title}
                       </h2>
                     </div>
