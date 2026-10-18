@@ -32,7 +32,8 @@ export async function generateMetadata(
       : `${BASE_URL}${post.meta.image}`;
 
     return {
-      title: post.meta.seoTitle ?? post.meta.title,
+      // Sans suffixe « | Artichaud Studio » : Google affiche déjà le nom du site, on garde la place pour le sujet
+      title: { absolute: post.meta.seoTitle ?? post.meta.title },
       description: post.meta.excerpt,
       keywords: post.meta.tags,
       robots: post.meta.noindex === true
