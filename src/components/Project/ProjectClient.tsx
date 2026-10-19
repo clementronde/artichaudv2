@@ -19,6 +19,7 @@ interface Project {
   images: string[]
   colors: { hex: string; name: string }[]
   sideImage?: string
+  liveUrl?: string
 }
 
 interface ProjectClientProps {
@@ -82,6 +83,7 @@ export default function ProjectClient({ project, posts }: ProjectClientProps) {
         services={project.services}
         year={project.year}
         client={project.client}
+        liveUrl={project.liveUrl}
       />
 
       {/* 4. SECTION MIXTE (Image Gauche + Couleurs Droite) */}

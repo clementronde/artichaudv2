@@ -27,9 +27,10 @@ interface ProjectIntroProps {
   services: string[]
   year: string
   client: string
+  liveUrl?: string
 }
 
-export default function ProjectIntro({ description, services, year, client }: ProjectIntroProps) {
+export default function ProjectIntro({ description, services, year, client, liveUrl }: ProjectIntroProps) {
   const container = useRef(null)
   const blackBox = useRef(null)
   const intro = cleanSeoText(description[0])
@@ -134,7 +135,13 @@ export default function ProjectIntro({ description, services, year, client }: Pr
               </p>
             ))}
             
-            <div className="mt-4 pt-4 anim-fade opacity-0">
+            <div className="mt-4 pt-4 anim-fade opacity-0 flex flex-wrap gap-3">
+               {liveUrl && (
+                 <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="group w-fit flex items-center gap-2 px-6 py-3 bg-white border border-white rounded-full text-black text-sm font-bold hover:bg-transparent hover:text-white transition-all duration-300">
+                    Voir le site en ligne
+                    <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                 </a>
+               )}
                <Link href="/contact" className="group w-fit flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white hover:text-black transition-all duration-300">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                   Démarrer un projet similaire

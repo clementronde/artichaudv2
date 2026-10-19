@@ -13,6 +13,8 @@ export interface Project {
   colors: { hex: string; name: string }[];
   // Remplace le bloc des couleurs par une image
   sideImage?: string;
+  // Lien vers le site en ligne du client
+  liveUrl?: string;
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string[];
@@ -52,7 +54,8 @@ export const projects: Project[] = [
       { hex: "#729DCA", name: "Sky Blue" },
       { hex: "#7D7715", name: "Olive" }
     ],
-    sideImage: "/projects/remembraance/remembraanceprojet2.webp"
+    sideImage: "/projects/remembraance/remembraanceprojet2.webp",
+    liveUrl: "https://remembraanceshop.fr/"
   },
   {
     id: 11,
