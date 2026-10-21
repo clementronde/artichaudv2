@@ -99,7 +99,23 @@ export const translations = {
           role: "Fondatrice, Chez June",
           text: "Très heureuse de travailler avec Clément pour la maintenance et l'évolution de nos sites Chez June et June Chez Vous. Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien. Merci 🙏",
         },
+        {
+          id: 2,
+          name: "Le Cocon des Layes",
+          role: "Gérante d'un gîte",
+          text: `J'ai fait appel à Artichaud Studio pour la création du site internet de mon gîte, Le Cocon des Layes, et je suis ravie du résultat !
+
+Le site reflète parfaitement l'ambiance et l'identité de mon hébergement, avec un design élégant, soigné et une navigation agréable.
+
+J'ai particulièrement apprécié leur écoute, leur disponibilité et leur souci du détail tout au long du projet. Mes attentes ont été parfaitement comprises et traduites en un site à la fois esthétique et fonctionnel.
+
+Ce que j'apprécie particulièrement, c'est que leur accompagnement ne s'arrête pas à la mise en ligne du site. Ils restent toujours disponibles pour répondre à mes questions, me conseiller et m'accompagner dans l'évolution de mon site internet. C'est un véritable atout de pouvoir compter sur une équipe aussi réactive et à l'écoute.
+
+Je suis pleinement satisfaite de cette collaboration et recommande Artichaud Studio à tous ceux qui recherchent un site internet professionnel, personnalisé et un accompagnement de qualité !`,
+        },
       ],
+      seeMore: "Voir plus",
+      seeLess: "Voir moins",
     },
     blog: {
       tagline: "Blog",
@@ -334,7 +350,23 @@ export const translations = {
           role: "Founder, Chez June",
           text: "Really happy to work with Clément on the maintenance and evolution of our Chez June and June Chez Vous websites. Responsive, professional, efficient and always available to find solutions tailored to our needs. A genuine, trustworthy partner day to day. Thank you 🙏",
         },
+        {
+          id: 2,
+          name: "Le Cocon des Layes",
+          role: "Gîte owner",
+          text: `I hired Artichaud Studio to create the website for my gîte, Le Cocon des Layes, and I'm delighted with the result!
+
+The site perfectly reflects the atmosphere and identity of my guesthouse, with an elegant, polished design and pleasant navigation.
+
+I particularly appreciated their attentiveness, availability and attention to detail throughout the project. My expectations were fully understood and translated into a site that is both beautiful and functional.
+
+What I value most is that their support doesn't stop once the site goes live. They're always available to answer my questions, advise me and help my website evolve. Being able to count on such a responsive and attentive team is a real asset.
+
+I'm fully satisfied with this collaboration and recommend Artichaud Studio to anyone looking for a professional, personalised website and high-quality support!`,
+        },
       ],
+      seeMore: "See more",
+      seeLess: "See less",
     },
     blog: {
       tagline: "Blog",

@@ -24,11 +24,23 @@ const staggerContainer: Variants = {
   }
 }
 
+// Coupe un avis à `max` caractères sans couper un mot
+function truncate(text: string, max: number) {
+  if (text.length <= max) return text
+  const cut = text.slice(0, max)
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,.;:!?]+$/, '') + '…'
+}
+
 export default function Testimonials() {
   const [width, setWidth] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
   const { t } = useLocale()
   const testimonials = t.testimonials.items
+  // Les avis plus longs que le premier sont repliés à sa longueur
+  const maxLength = testimonials[0].text.length
+  const [expanded, setExpanded] = useState<number[]>([])
+  const toggle = (id: number) =>
+    setExpanded((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -119,7 +131,10 @@ export default function Testimonials() {
             whileTap={{ cursor: "grabbing" }}
             className="flex"
           >
-            {testimonials.map((item, index) => (
+            {testimonials.map((item, index) => {
+              const isLong = item.text.length > maxLength
+              const isExpanded = expanded.includes(item.id)
+              return (
               <div 
                 key={item.id} 
                 className={`
@@ -135,11 +150,21 @@ export default function Testimonials() {
                   </div>
                   <div className="relative group">
                       <p
-                          className="text-lg md:text-xl text-black leading-relaxed font-light pointer-events-none transition-colors duration-300 group-hover:text-black/70"
+                          className="text-lg md:text-xl text-black leading-relaxed font-light pointer-events-none whitespace-pre-line transition-colors duration-300 group-hover:text-black/70"
                           style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
                       >
-                          {item.text}
+                          {isLong && !isExpanded ? truncate(item.text, maxLength) : item.text}
                       </p>
+                      {isLong && (
+                        <button
+                          type="button"
+                          onClick={() => toggle(item.id)}
+                          aria-expanded={isExpanded}
+                          className="mt-4 text-sm font-medium text-black underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors"
+                        >
+                          {isExpanded ? t.testimonials.seeLess : t.testimonials.seeMore}
+                        </button>
+                      )}
                       {/* Guillemet décoratif */}
                       <motion.span 
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -157,7 +182,8 @@ export default function Testimonials() {
                   <p className="text-sm text-gray-500 mt-1">{item.role}</p>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </motion.div>
         </motion.div>
 
