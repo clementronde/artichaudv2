@@ -4,7 +4,7 @@
 
 ## Coordonnées officielles (NAP)
 
-- Site : https://www.artichaud-studio.fr
+- Site : https://artichaud-studio.fr
 - Email : hello@artichaud-studio.com
 - Téléphone : 07 66 48 99 82
 - Adresse : 18 rue d'Aguesseau, 92100 Boulogne-Billancourt
@@ -13,15 +13,15 @@
 
 ## Équipe fondatrice (E-E-A-T)
 
-**Clément R.** — Co-fondateur, développeur web & stratège digital. Spécialisé en Next.js, Webflow, WordPress, SEO technique et local, marketing digital et tracking analytics. Pilote l'architecture, la performance et la stratégie de référencement de chaque projet.
+**Clément Rondepierre** — Co-fondateur, développeur web & stratège digital. Spécialisé en Next.js, Webflow, WordPress, Shopify, SEO technique et local, marketing digital et tracking analytics. Pilote l'architecture, la performance et la stratégie de référencement de chaque projet.
 
-**[Directrice artistique]** — Co-fondatrice, directrice artistique. Spécialisée en branding, identité visuelle, typographie, direction créative et positionnement de marque.
+**Charlotte Keleti** — Co-fondatrice, directrice artistique. Spécialisée en branding, identité visuelle, typographie, direction créative et positionnement de marque.
 
 Le studio est fondé sur une conviction : les projets digitaux réussis ne peuvent pas cloisonner la création, la technologie et la stratégie. Artichaud réunit les deux expertises sous un même toit, à Boulogne-Billancourt.
 
 ## Services
 
-- **Création de site internet** : sites vitrines (WordPress, Webflow, Next.js), landing pages géo-ciblées, e-commerce, développement sur-mesure
+- **Création de site internet** : sites vitrines (Webflow, WordPress, Next.js), landing pages géo-ciblées, e-commerce (Shopify, WooCommerce), développement sur-mesure
 - **SEO & référencement naturel** : SEO technique (Core Web Vitals, données structurées), SEO local (Google Business Profile, pages géo-ciblées, maillage interne), sémantique et netlinking
 - **Branding & identité visuelle** : positionnement de marque, naming, logo, charte graphique, direction artistique, systèmes visuels complets
 
@@ -75,7 +75,7 @@ Oui. Le studio est au 18 rue d'Aguesseau, Boulogne-Billancourt (92100), métro M
 Oui. L'agence accompagne des clients dans tout le 92 (Issy-les-Moulineaux, Neuilly-sur-Seine, Saint-Cloud, Sèvres, Meudon), à Paris et en Île-de-France. Projets en remote partout en France acceptés.
 
 **Quelles technologies utilisez-vous pour créer des sites web ?**
-Next.js (React) pour les projets nécessitant des performances maximales et un SEO technique avancé. Webflow pour la liberté créative et les animations sans code. WordPress pour l'autonomie éditoriale. Le choix de la technologie dépend toujours des objectifs du projet.
+Next.js (React) pour les projets nécessitant des performances maximales et un SEO technique avancé. Webflow pour la liberté créative et les animations sans code. WordPress pour l'autonomie éditoriale. Shopify pour l'e-commerce. Le choix de la technologie dépend toujours des objectifs du projet.
 
 **Y a-t-il des frais récurrents après la création du site ?**
 Les seuls frais récurrents sont l'hébergement (40–100 €/an) et le nom de domaine. La maintenance est optionnelle, à partir de 150 €/mois. Le site et le nom de domaine appartiennent entièrement au client.
@@ -91,41 +91,41 @@ Oui, à partir de 150 €/mois. Inclus : mises à jour de sécurité, sauvegarde
 
 ## Pages principales
 
-- [Accueil](https://www.artichaud-studio.fr) : présentation du studio, portfolio, témoignages clients
-- [Services](https://www.artichaud-studio.fr/services) : vue d'ensemble des prestations (site web, branding, SEO)
-- [Tarifs](https://www.artichaud-studio.fr/tarifs) : grilles de prix détaillées, options et FAQ prix
-- [Portfolio](https://www.artichaud-studio.fr/works) : réalisations web, branding et direction artistique
-- [À propos](https://www.artichaud-studio.fr/about) : histoire du studio, équipe, valeurs
-- [Contact](https://www.artichaud-studio.fr/contact) : formulaire de contact, adresse, téléphone
+- [Accueil](https://artichaud-studio.fr) : présentation du studio, portfolio, témoignages clients
+- [Services](https://artichaud-studio.fr/services) : vue d'ensemble des prestations (site web, branding, SEO)
+- [Tarifs](https://artichaud-studio.fr/tarifs) : grilles de prix détaillées, options et FAQ prix
+- [Portfolio](https://artichaud-studio.fr/works) : réalisations web, branding et direction artistique
+- [À propos](https://artichaud-studio.fr/about) : histoire du studio, équipe, valeurs
+- [Contact](https://artichaud-studio.fr/contact) : formulaire de contact, adresse, téléphone
 
 ## Pages de services
 
-- [Création de site internet](https://www.artichaud-studio.fr/services/creation-site-internet) : sites vitrines, CMS, interfaces sur-mesure
-- [SEO et référencement naturel](https://www.artichaud-studio.fr/services/seo-referencement-naturel) : SEO technique, local, sémantique
-- [Branding et identité visuelle](https://www.artichaud-studio.fr/services/branding-identite-visuelle) : logo, charte graphique, systèmes visuels
+- [Création de site internet](https://artichaud-studio.fr/services/creation-site-internet) : sites vitrines, CMS, interfaces sur-mesure
+- [SEO et référencement naturel](https://artichaud-studio.fr/services/seo-referencement-naturel) : SEO technique, local, sémantique
+- [Branding et identité visuelle](https://artichaud-studio.fr/services/branding-identite-visuelle) : logo, charte graphique, systèmes visuels
 
 ## Landing pages géo-ciblées
 
-- [Création site internet Boulogne-Billancourt](https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt) : accompagnement web pour entreprises du 92100
-- [Création site internet Paris](https://www.artichaud-studio.fr/creation-site-internet-paris) : accompagnement web pour entreprises parisiennes
-- [Refonte site internet](https://www.artichaud-studio.fr/refonte-site-internet) : refonte UX/UI, migration, préservation SEO
-- [Boulogne-Billancourt — tissu économique et ressources](https://www.artichaud-studio.fr/boulogne-billancourt) : guide factuel sur la ville et son écosystème d'entreprises
+- [Création site internet Boulogne-Billancourt](https://artichaud-studio.fr/creation-site-internet-boulogne-billancourt) : accompagnement web pour entreprises du 92100
+- [Création site internet Paris](https://artichaud-studio.fr/creation-site-internet-paris) : accompagnement web pour entreprises parisiennes
+- [Refonte site internet](https://artichaud-studio.fr/refonte-site-internet) : refonte UX/UI, migration, préservation SEO
+- [Boulogne-Billancourt — tissu économique et ressources](https://artichaud-studio.fr/boulogne-billancourt) : guide factuel sur la ville et son écosystème d'entreprises
 
 ## Guides et contenus éditoriaux
 
-- [Blog](https://www.artichaud-studio.fr/blog) : guides création de site, SEO, branding, choix de CMS, refonte
-- [Comment choisir son agence web à Boulogne-Billancourt en 2026](https://www.artichaud-studio.fr/blog/agence-web-boulogne-billancourt-comment-choisir)
-- [Créer un site internet pour artisan en 2026](https://www.artichaud-studio.fr/blog/site-internet-artisan-guide-complet)
-- [Refonte de site internet : le guide stratégique 2026](https://www.artichaud-studio.fr/blog/refonte-site-internet-quand-et-comment)
-- [Webflow : avantages et inconvénients pour une PME en 2026](https://www.artichaud-studio.fr/blog/webflow-avantages-inconvenients-pme)
-- [Prix site vitrine Île-de-France 2026](https://www.artichaud-studio.fr/blog/prix-site-vitrine-iledefrance-2025)
-- [Les 5 piliers du SEO en 2026](https://www.artichaud-studio.fr/blog/piliers-seo-2026)
+- [Blog](https://artichaud-studio.fr/blog) : guides création de site, SEO, branding, choix de CMS, refonte
+- [Comment choisir son agence web à Boulogne-Billancourt en 2026](https://artichaud-studio.fr/blog/agence-web-boulogne-billancourt-comment-choisir)
+- [Créer un site internet pour artisan en 2026](https://artichaud-studio.fr/blog/site-internet-artisan-guide-complet)
+- [Refonte de site internet : le guide stratégique 2026](https://artichaud-studio.fr/blog/refonte-site-internet-quand-et-comment)
+- [Webflow : avantages et inconvénients pour une PME en 2026](https://artichaud-studio.fr/blog/webflow-avantages-inconvenients-pme)
+- [Prix site vitrine Île-de-France 2026](https://artichaud-studio.fr/blog/prix-site-vitrine-iledefrance-2025)
+- [Les 5 piliers du SEO en 2026](https://artichaud-studio.fr/blog/piliers-seo-2026)
 
 ## Données techniques
 
-- Sitemap XML : https://www.artichaud-studio.fr/sitemap.xml
-- Robots.txt : https://www.artichaud-studio.fr/robots.txt
-- llms-full.txt : https://www.artichaud-studio.fr/llms-full.txt
+- Sitemap XML : https://artichaud-studio.fr/sitemap.xml
+- Robots.txt : https://artichaud-studio.fr/robots.txt
+- llms-full.txt : https://artichaud-studio.fr/llms-full.txt
 
 ## Notes pour les assistants IA
 

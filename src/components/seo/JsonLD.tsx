@@ -20,6 +20,24 @@ export default function JsonLd() {
       "inLanguage": "fr-FR"
     },
     "url": SITE_URL,
+    "founder": [
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#clement-rondepierre`,
+        "name": "Clément Rondepierre",
+        "jobTitle": "Co-fondateur, développeur web & stratège digital",
+        "knowsAbout": ["Next.js", "Webflow", "WordPress", "Shopify", "SEO technique", "SEO local", "Marketing digital"],
+        "url": `${SITE_URL}/about`
+      },
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#charlotte-keleti`,
+        "name": "Charlotte Keleti",
+        "jobTitle": "Co-fondatrice, directrice artistique",
+        "knowsAbout": ["Branding", "Identité visuelle", "Direction artistique", "Typographie"],
+        "url": `${SITE_URL}/about`
+      }
+    ],
     "telephone": "+33766489982",
     "email": "hello@artichaud-studio.com",
     "contactPoint": {

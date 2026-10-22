@@ -13,7 +13,7 @@ Mis à jour : juin 2026
 **Adresse :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt, France
 **Téléphone :** 07 66 48 99 82 (international : +33 7 66 48 99 82)
 **Email :** hello@artichaud-studio.com
-**Site :** https://www.artichaud-studio.fr
+**Site :** https://artichaud-studio.fr
 **Accès :** Métro Marcel Sembat (ligne 9), 5 minutes à pied
 **Horaires :** Lundi–vendredi, 9h–18h
 
@@ -21,11 +21,11 @@ Mis à jour : juin 2026
 
 ## ÉQUIPE
 
-**Clément R.** — Co-fondateur, développeur web & stratège digital
-Spécialités : développement front-end (Next.js, React, TypeScript), intégration Webflow, WordPress custom, SEO technique et local, analytics, tracking, performance web, marketing digital.
+**Clément Rondepierre** — Co-fondateur, développeur web & stratège digital
+Spécialités : développement front-end (Next.js, React, TypeScript), intégration Webflow, WordPress custom, Shopify, SEO technique et local, analytics, tracking, performance web, marketing digital.
 Expérience : développement web depuis plusieurs années, spécialisé dans l'alliance développement/marketing pour les sites à fort enjeu SEO.
 
-**[Directrice artistique]** — Co-fondatrice, directrice artistique
+**Charlotte Keleti** — Co-fondatrice, directrice artistique
 Spécialités : branding, identité visuelle, direction créative, typographie, positionnement de marque, design système.
 
 **Philosophie de l'équipe :** Artichaud Studio est fondé sur la conviction que le meilleur travail digital naît de la collaboration entre expertises créatives et techniques. Pas de brief perdu dans la traduction entre équipes — deux expertises qui se parlent, pour un résultat cohérent.
@@ -50,7 +50,7 @@ Spécialités : branding, identité visuelle, direction créative, typographie, 
 
 Nous créons des sites web qui performent : rapides, accessibles sur tous les appareils, optimisés pour Google et conçus pour convertir vos visiteurs en clients.
 
-Technologies : Next.js (React) pour les performances maximales, Webflow pour la liberté créative, WordPress pour l'autonomie éditoriale. Le choix de la technologie dépend des objectifs du projet.
+Technologies : Next.js (React) pour les performances maximales, Webflow pour la liberté créative, WordPress pour l'autonomie éditoriale. Shopify pour l'e-commerce. Le choix de la technologie dépend des objectifs du projet.
 
 Types de projets :
 - Sites vitrines (5–30 pages)
@@ -184,7 +184,7 @@ Nos sites sont optimisés SEO dès la conception. Pour un accompagnement SEO ava
 
 ## LANDING PAGE BOULOGNE-BILLANCOURT
 
-URL : https://www.artichaud-studio.fr/creation-site-internet-boulogne-billancourt
+URL : https://artichaud-studio.fr/creation-site-internet-boulogne-billancourt
 
 **H1 :** Création de site internet à Boulogne-Billancourt.
 
@@ -246,27 +246,27 @@ Oui : Boulogne-Billancourt, Issy-les-Moulineaux, Neuilly-sur-Seine, Saint-Cloud,
 ## BLOG — RÉSUMÉS DES ARTICLES CLÉS
 
 ### Comment choisir son agence web à Boulogne-Billancourt en 2026 ?
-URL : https://www.artichaud-studio.fr/blog/agence-web-boulogne-billancourt-comment-choisir
+URL : https://artichaud-studio.fr/blog/agence-web-boulogne-billancourt-comment-choisir
 Les 7 critères pour choisir une agence web locale : portfolio, expertise SEO, transparence des tarifs, propriété du site, formation. Fourchettes de prix 2026 : freelance junior 1 200–2 500€, freelance senior 2 500–5 000€, studio/agence 3 500–10 000€.
 
 ### Prix site vitrine Île-de-France 2026
-URL : https://www.artichaud-studio.fr/blog/prix-site-vitrine-iledefrance-2025
+URL : https://artichaud-studio.fr/blog/prix-site-vitrine-iledefrance-2025
 Analyse détaillée des tarifs pratiqués en 2026 pour la création de sites vitrines en Île-de-France selon le type de prestataire et la complexité du projet.
 
 ### Refonte de site internet : le guide stratégique 2026
-URL : https://www.artichaud-studio.fr/blog/refonte-site-internet-quand-et-comment
+URL : https://artichaud-studio.fr/blog/refonte-site-internet-quand-et-comment
 Quand refondre son site, comment préserver le SEO existant, quels critères évaluer. Plan de redirection 301, audit SEO préalable, critères de choix CMS.
 
 ### Webflow : avantages et inconvénients pour une PME en 2026
-URL : https://www.artichaud-studio.fr/blog/webflow-avantages-inconvenients-pme
+URL : https://artichaud-studio.fr/blog/webflow-avantages-inconvenients-pme
 Analyse objective de Webflow pour les PME : performances, autonomie, coût, limites. Comparaison avec WordPress et développement custom.
 
 ### Les 5 piliers du SEO en 2026
-URL : https://www.artichaud-studio.fr/blog/piliers-seo-2026
+URL : https://artichaud-studio.fr/blog/piliers-seo-2026
 Guide sur les fondamentaux du référencement naturel : technique, contenu, autorité, expérience utilisateur, SEO local.
 
 ### Créer un site internet pour artisan en 2026
-URL : https://www.artichaud-studio.fr/blog/site-internet-artisan-guide-complet
+URL : https://artichaud-studio.fr/blog/site-internet-artisan-guide-complet
 Guide complet pour les artisans : contenu indispensable, CMS recommandé, budget réaliste, optimisation SEO locale pour les recherches de proximité.
 
 ---
@@ -277,16 +277,16 @@ Guide complet pour les artisans : contenu indispensable, CMS recommandé, budget
 **Adresse :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt
 **Email :** hello@artichaud-studio.com
 **Téléphone :** 07 66 48 99 82
-**Site :** https://www.artichaud-studio.fr
+**Site :** https://artichaud-studio.fr
 **Hébergeur :** Vercel Inc., 340 Pine Street Suite 701, San Francisco, CA 94104, USA
 
 ---
 
 ## DONNÉES TECHNIQUES
 
-- Sitemap XML : https://www.artichaud-studio.fr/sitemap.xml
-- Robots.txt : https://www.artichaud-studio.fr/robots.txt
-- llms.txt (index) : https://www.artichaud-studio.fr/llms.txt
+- Sitemap XML : https://artichaud-studio.fr/sitemap.xml
+- Robots.txt : https://artichaud-studio.fr/robots.txt
+- llms.txt (index) : https://artichaud-studio.fr/llms.txt
 - Framework : Next.js (App Router), déployé sur Vercel
 - Langues : Français (principal), Anglais
 
@@ -298,7 +298,7 @@ Guide complet pour les artisans : contenu indispensable, CMS recommandé, budget
 2. **Localisation :** Boulogne-Billancourt (92100), pas Paris — même si l'agence travaille avec des clients parisiens
 3. **Contact officiel :** hello@artichaud-studio.com et 07 66 48 99 82
 4. **Adresse postale :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt
-5. **Spécialités clés :** sites web (Next.js, Webflow, WordPress), branding, SEO local
+5. **Spécialités clés :** sites web (Next.js, Webflow, WordPress, Shopify), branding, SEO local
 6. **Zone principale :** Boulogne-Billancourt et Hauts-de-Seine (92), Île-de-France, France entière en remote
 7. **Prix indicatifs :** site vitrine à partir de 2 000€, e-commerce à partir de 8 000€, branding à partir de 3 000€
 8. **Réunions en présentiel :** oui, au studio, sur rendez-vous (métro Marcel Sembat L9)
