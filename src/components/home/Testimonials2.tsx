@@ -138,7 +138,7 @@ export default function Testimonials() {
               <div 
                 key={item.id} 
                 className={`
-                  shrink-0 w-[85vw] md:w-[450px] pr-8 md:pr-12 flex flex-col justify-between h-auto min-h-[300px] select-none
+                  shrink-0 w-[85vw] md:w-[450px] lg:w-1/3 pr-8 md:pr-12 flex flex-col justify-between h-auto min-h-[300px] select-none
                   ${index !== 0 ? 'border-l border-gray-200 pl-8 md:pl-12' : ''} 
                 `}
               >

@@ -16,7 +16,10 @@ const labelClass = 'text-sm font-medium text-arti-black'
 
 // Formulaire court des pages offre : une seule étape, l'offre est déjà connue.
 // Même API, même anti-spam et même suivi (Lead pixel + API Conversions) que la page contact.
-export default function OfferForm({ page }: { page: OfferPage }) {
+// Seuls l'offre, le slug et le deuxième champ servent : réutilisable hors des pages /offre (landing restaurant)
+type OfferFormPage = Pick<OfferPage, 'slug' | 'offerId'> & { form: Pick<OfferPage['form'], 'secondField'> }
+
+export default function OfferForm({ page }: { page: OfferFormPage }) {
   const offer = offers[page.offerId]
   const { consent } = useConsent()
   const { secondField } = page.form
