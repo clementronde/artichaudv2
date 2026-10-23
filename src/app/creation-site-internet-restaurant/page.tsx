@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/creation-site-internet-restaurant`,
   },
-  // Page en cours de construction : hors index tant qu'elle n'est pas terminée
-  robots: { index: false, follow: true },
 };
 
 export default function RestaurantPage() {

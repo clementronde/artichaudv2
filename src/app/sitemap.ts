@@ -57,6 +57,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/boulogne-billancourt', priority: 0.80, changeFreq: 'monthly' as const },
     { route: '/creation-site-vitrine-wordpress-webflow-wix', priority: 0.86, changeFreq: 'monthly' as const },
     { route: '/refonte-site-internet', priority: 0.86, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-restaurant', priority: 0.85, changeFreq: 'monthly' as const },
+    { route: '/creation-site-internet-artisan', priority: 0.85, changeFreq: 'monthly' as const },
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
     lastModified,
