@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from '@/context/LocaleContext'
+import { LANDING_PATHS } from '@/components/landing/metiers'
 
 // --- COMPOSANT MAGNETIC (Inchangé) ---
 const Magnetic = ({ children, disabled }: { children: React.ReactNode, disabled?: boolean }) => {
@@ -257,6 +258,9 @@ export default function Navbar() {
     const t = setTimeout(() => animateIn(), pathname === '/' ? 100 : 500)
     return () => clearTimeout(t)
   }, [pathname, animateIn])
+
+  // Landings métier : le menu du site est remplacé par celui de la page (MetierLanding), réduit au bouton de commande
+  if (LANDING_PATHS.includes(pathname)) return null
 
   return (
     <>

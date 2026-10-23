@@ -6,8 +6,8 @@ import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Pile de chiffres clés au scroll : la carte de devant s'envole, la suivante avance, son chiffre défile.
-// Balisage attendu dans le scope : data-stack-card > data-stack-content + data-stack-value (data-value, data-prefix, data-suffix)
+// Chiffres clés au scroll : le texte s'allume mot à mot, puis chaque carte monte et se pose par-dessus la précédente.
+// Balisage attendu dans le scope : data-stack-word (mots du texte), data-stack-card > data-stack-content + data-stack-value (data-value, data-prefix, data-suffix)
 // Le scope passe en data-stack="on" pendant l'animation : la mise en page empilée et sticky est portée par ses variantes CSS
 export function useStatsStack(scope: RefObject<HTMLElement | null>) {
   useGSAP(() => {
@@ -24,11 +24,19 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
 
       gsap.set(section, { attr: { 'data-stack': 'on' } })
 
-      // Position dans la pile : 0 = devant, puis chaque carte un cran plus bas, plus petite et estompée
-      const slot = (k: number) => ({ y: k * 45, scale: 1 - k * 0.06 })
+      // Texte du constat : les mots passent d'estompés à pleins en suivant le scroll (comme l'intro de la home)
+      gsap.fromTo('[data-stack-word]',
+        { opacity: 0.12 },
+        {
+          opacity: 1, stagger: 0.05, ease: "power2.out",
+          scrollTrigger: { trigger: '[data-stack-word]', start: "top 80%", endTrigger: section, end: "top+=300 top", scrub: 0.5 },
+        }
+      )
+
+      // Les cartes suivantes attendent sous l'écran ; une carte recouverte recule d'un cran (plus petite, sa tranche dépasse en haut)
+      const depth = (d: number) => ({ y: -d * 18, scale: 1 - d * 0.05 })
       cards.forEach((card, i) => {
-        gsap.set(card, { ...slot(i), zIndex: cards.length - i, transformOrigin: "50% 50%" })
-        gsap.set(contents[i], { opacity: i === 0 ? 1 : 0.35 })
+        gsap.set(card, { zIndex: i + 1, transformOrigin: "50% 0%", y: i === 0 ? 0 : () => window.innerHeight })
         values[i].textContent = format(values[i], 0)
       })
 
@@ -44,14 +52,17 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
       }
 
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: section, start: "top top", end: "bottom bottom", scrub: 0.6 },
+        scrollTrigger: { trigger: section, start: "top+=300 top", end: "bottom bottom", scrub: 0.6, invalidateOnRefresh: true },
       })
       tl.add(count(values[0]), 0)
 
       for (let i = 1; i < cards.length; i++) {
-        tl.to(cards[i - 1], { y: -60, scale: 1.03, opacity: 0, duration: 1, ease: "power2.in" }, i)
-        cards.slice(i).forEach((card, k) => tl.to(card, { ...slot(k), duration: 1, ease: "power2.inOut" }, i))
-        tl.to(contents[i], { opacity: 1, duration: 0.6 }, i + 0.3)
+        tl.to(cards[i], { y: 0, duration: 1, ease: "power2.out" }, i)
+        // Les cartes déjà posées reculent d'un cran et s'estompent sous la nouvelle
+        cards.slice(0, i).forEach((card, k) => {
+          tl.to(card, { ...depth(i - k), duration: 1, ease: "power2.out" }, i)
+          tl.to(contents[k], { opacity: 0.3, duration: 1 }, i)
+        })
         tl.add(count(values[i]), i + 0.5)
       }
       // Temps de pause sur la dernière carte avant de libérer la section

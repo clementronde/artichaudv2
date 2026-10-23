@@ -5,6 +5,8 @@ export type OfferId =
   | 'pack-essentiel' | 'pack-signature' | 'pack-ecosysteme'
   | 'pack-vitrine' | 'pack-ecommerce'
   | 'pack-maintenance' | 'pack-seo' | 'pack-duo'
+  | 'resto-identite' | 'resto-pack' | 'resto-site'
+  | 'artisan-identite' | 'artisan-pack' | 'artisan-site'
 
 interface Offer {
   label: { fr: string; en: string }
@@ -83,6 +85,62 @@ export const offers: Record<OfferId, Offer> = {
     label: { fr: 'Pack Duo — 500 €/mois', en: 'Duo pack — €500/month' },
     services: ['webdev', 'marketing'],
     budget: 'small',
+  },
+  // Formules de la landing restaurant (/creation-site-internet-restaurant)
+  'resto-identite': {
+    label: { fr: 'Restaurant · Identité graphique — 1 000 €', en: 'Restaurant · Brand identity — €1,000' },
+    services: ['branding'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Identité graphique (charte, menu, devanture…). Mon restaurant : ",
+      en: "Hello, I'm interested in the Brand identity package (guidelines, menu, storefront…). My restaurant: ",
+    },
+  },
+  'resto-pack': {
+    label: { fr: 'Restaurant · Pack complet — 2 000 €', en: 'Restaurant · Full pack — €2,000' },
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par le Pack complet (identité + site en 7 jours). Mon restaurant : ",
+      en: "Hello, I'm interested in the Full pack (identity + website in 7 days). My restaurant: ",
+    },
+  },
+  'resto-site': {
+    label: { fr: 'Restaurant · Site web — 1 500 €', en: 'Restaurant · Website — €1,500' },
+    services: ['webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Site web pour mon restaurant. Mon restaurant : ",
+      en: "Hello, I'm interested in the Website package for my restaurant. My restaurant: ",
+    },
+  },
+  // Formules de la landing artisan (/creation-site-internet-artisan)
+  'artisan-identite': {
+    label: { fr: 'Artisan · Identité graphique — 1 000 €', en: 'Craftsman · Brand identity — €1,000' },
+    services: ['branding'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Identité graphique (logo, devis, cartes, véhicule…). Mon activité : ",
+      en: "Hello, I'm interested in the Brand identity package (logo, quotes, cards, vehicle…). My business: ",
+    },
+  },
+  'artisan-pack': {
+    label: { fr: 'Artisan · Pack complet — 2 000 €', en: 'Craftsman · Full pack — €2,000' },
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par le Pack complet (identité + site en 7 jours). Mon activité : ",
+      en: "Hello, I'm interested in the Full pack (identity + website in 7 days). My business: ",
+    },
+  },
+  'artisan-site': {
+    label: { fr: 'Artisan · Site web — 1 500 €', en: 'Craftsman · Website — €1,500' },
+    services: ['webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Site web pour mon activité. Mon activité : ",
+      en: "Hello, I'm interested in the Website package for my business. My business: ",
+    },
   },
 }
 

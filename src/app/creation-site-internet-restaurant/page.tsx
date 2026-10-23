@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
-import RestaurantClient from "./RestaurantClient";
+import MetierLanding from "@/components/landing/MetierLanding";
+import { restaurant } from "@/components/landing/metiers";
 import { SITE_URL } from "@/lib/seo";
 
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["300", "400"], variable: "--font-dm-sans", display: "swap" });
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default function RestaurantPage() {
   return (
     <div className={dmSans.variable}>
-      <RestaurantClient />
+      <MetierLanding content={restaurant} />
     </div>
   );
 }
