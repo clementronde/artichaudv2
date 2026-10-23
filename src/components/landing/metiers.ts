@@ -48,7 +48,7 @@ export const restaurant: MetierContent = {
   whatsappLabel: "offre site internet pour restaurant",
   form: {
     slug: "restaurant",
-    offerId: "site-pro",
+    offerId: "resto",
     secondField: { label: "Nom de votre restaurant", placeholder: "Le Petit Bistrot", key: "company" },
   },
   hero: { title: "Le site de votre restaurant prêt en 7 jours", image: "hero.png", alt: "Table dressée dans un restaurant" },
@@ -62,9 +62,10 @@ export const restaurant: MetierContent = {
   ],
   constat: "Aujourd'hui, on choisit son restaurant sur son téléphone avant de pousser la porte. Votre site est votre première impression : il doit donner faim, rassurer et faire réserver.",
   stats: [
-    { value: 90, text: "des consommateurs font des recherches en ligne avant de choisir où manger." },
-    { value: 77, text: "des clients consultent le site d'un restaurant avant de s'y rendre ou de commander." },
-    { value: 69, text: "des clients font leur choix final après avoir lu le menu en ligne." },
+    // Sources : enquête MGH 2019 (1 101 adultes américains) pour 77 et 69 %, étude TouchBistro pour 59 %
+    { value: 77, text: "des clients consultent le site d'un restaurant avant d'y aller ou de commander." },
+    { value: 69, text: "des clients disent que le site d'un restaurant les aide à décider d'y manger." },
+    { value: 59, text: "des clients regardent le menu en ligne avant de choisir où manger." },
   ],
   realisations: {
     title: "Des sites internets à toutes les sauces",
@@ -169,7 +170,7 @@ export const artisan: MetierContent = {
   whatsappLabel: "offre site internet pour artisan",
   form: {
     slug: "artisan",
-    offerId: "site-pro",
+    offerId: "artisan",
     secondField: { label: "Nom de votre entreprise", placeholder: "Atelier Martin", key: "company" },
   },
   hero: { title: "Le site de votre savoir-faire prêt en 7 jours", image: "hero.jpg", alt: "Artisan maroquinier au travail dans son atelier" },
@@ -183,9 +184,10 @@ export const artisan: MetierContent = {
   ],
   constat: "Aujourd'hui, on cherche son artisan sur son téléphone avant de décrocher. Votre site est votre vitrine : il doit montrer votre travail, inspirer confiance et faire appeler.",
   stats: [
-    { value: 97, text: "des consommateurs cherchent un professionnel local sur internet avant de le contacter." },
-    { value: 76, text: "des personnes qui cherchent un professionnel près de chez elles sur mobile le contactent dans la journée." },
-    { value: 75, text: "des internautes jugent le sérieux d'une entreprise à la qualité de son site." },
+    // Sources : BrightLocal Local Consumer Review Survey 2019, Think with Google (recherches « à proximité »), BrightLocal 2018
+    { value: 90, text: "des consommateurs ont utilisé internet pour trouver un professionnel près de chez eux dans l'année." },
+    { value: 76, text: "des personnes qui cherchent un professionnel à proximité sur leur smartphone s'y rendent dans la journée." },
+    { value: 50, text: "des consommateurs vont sur le site d'un professionnel après avoir lu un avis positif." },
   ],
   realisations: {
     title: "Des sites à la hauteur de votre savoir-faire",

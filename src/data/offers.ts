@@ -5,8 +5,8 @@ export type OfferId =
   | 'pack-essentiel' | 'pack-signature' | 'pack-ecosysteme'
   | 'pack-vitrine' | 'pack-ecommerce'
   | 'pack-maintenance' | 'pack-seo' | 'pack-duo'
-  | 'resto-identite' | 'resto-pack' | 'resto-site'
-  | 'artisan-identite' | 'artisan-pack' | 'artisan-site'
+  | 'resto' | 'resto-identite' | 'resto-pack' | 'resto-site'
+  | 'artisan' | 'artisan-identite' | 'artisan-pack' | 'artisan-site'
 
 interface Offer {
   label: { fr: string; en: string }
@@ -86,7 +86,16 @@ export const offers: Record<OfferId, Offer> = {
     services: ['webdev', 'marketing'],
     budget: 'small',
   },
-  // Formules de la landing restaurant (/creation-site-internet-restaurant)
+  // Formules de la landing restaurant (/creation-site-internet-restaurant) ; « resto » quand aucune formule n'est choisie
+  resto: {
+    label: { fr: 'Restaurant · formule à définir', en: 'Restaurant · package to be defined' },
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je voudrais un site pour mon restaurant. Mon restaurant : ",
+      en: "Hello, I'd like a website for my restaurant. My restaurant: ",
+    },
+  },
   'resto-identite': {
     label: { fr: 'Restaurant · Identité graphique — 1 000 €', en: 'Restaurant · Brand identity — €1,000' },
     services: ['branding'],
@@ -114,7 +123,16 @@ export const offers: Record<OfferId, Offer> = {
       en: "Hello, I'm interested in the Website package for my restaurant. My restaurant: ",
     },
   },
-  // Formules de la landing artisan (/creation-site-internet-artisan)
+  // Formules de la landing artisan (/creation-site-internet-artisan) ; « artisan » quand aucune formule n'est choisie
+  artisan: {
+    label: { fr: 'Artisan · formule à définir', en: 'Craftsman · package to be defined' },
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je voudrais un site pour mon activité. Mon activité : ",
+      en: "Hello, I'd like a website for my business. My business: ",
+    },
+  },
   'artisan-identite': {
     label: { fr: 'Artisan · Identité graphique — 1 000 €', en: 'Craftsman · Brand identity — €1,000' },
     services: ['branding'],
