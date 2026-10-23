@@ -358,7 +358,10 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
                         {`+${stat.value} %`}
                       </span>
                     </p>
-                    <p className="text-[18px] md:w-[464px] md:text-[22px]">{stat.text}</p>
+                    <div className="flex flex-col gap-2 md:w-[464px]">
+                      <p className="text-[18px] md:text-[22px]">{stat.text}</p>
+                      <p className="text-[13px] text-[#30041b]/50">Source : {stat.source}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -554,6 +557,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
           </div>
           <div className="rounded-[16px] bg-white p-6 md:col-span-7 md:col-start-6 md:p-10">
             <OfferForm
+              messageOptional
               page={{
                 slug: content.form.slug,
                 offerId: formule?.offerId ?? content.form.offerId,

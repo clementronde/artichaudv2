@@ -25,7 +25,7 @@ export type MetierContent = {
   badges: { label: string; dot: string }[][];
   constat: string;
   // Chiffres clés empilés au scroll (useStatsStack) : la valeur défile de 0 à `value`
-  stats: { value: number; text: string }[];
+  stats: { value: number; text: string; source: string }[];
   realisations: { title: string; rows: Realisation[] };
   // Grille des spécialités : deux cartes à gauche, une haute au centre (sans icône), deux à droite
   specialites: Specialite[];
@@ -62,10 +62,9 @@ export const restaurant: MetierContent = {
   ],
   constat: "Aujourd'hui, on choisit son restaurant sur son téléphone avant de pousser la porte. Votre site est votre première impression : il doit donner faim, rassurer et faire réserver.",
   stats: [
-    // Sources : enquête MGH 2019 (1 101 adultes américains) pour 77 et 69 %, étude TouchBistro pour 59 %
-    { value: 77, text: "des clients consultent le site d'un restaurant avant d'y aller ou de commander." },
-    { value: 69, text: "des clients disent que le site d'un restaurant les aide à décider d'y manger." },
-    { value: 59, text: "des clients regardent le menu en ligne avant de choisir où manger." },
+    { value: 77, text: "des clients consultent le site d'un restaurant avant d'y aller ou de commander.", source: "Enquête MGH, 2019" },
+    { value: 69, text: "des clients disent que le site d'un restaurant les aide à décider d'y manger.", source: "Enquête MGH, 2019" },
+    { value: 59, text: "des clients regardent le menu en ligne avant de choisir où manger.", source: "Étude TouchBistro" },
   ],
   realisations: {
     title: "Des sites internets à toutes les sauces",
@@ -122,14 +121,14 @@ export const restaurant: MetierContent = {
         name: "Identité graphique",
         price: "1 000 €",
         text: "Une charte graphique qui a du goût, déclinée sur tout ce qui fait vivre votre restaurant.",
-        items: ["Logo et charte graphique", "Menu et carte des vins", "Devanture et ardoises", "Cartes de visite et de fidélité", "Visuels réseaux sociaux"],
+        items: ["Logo et charte graphique", "Menu et carte des vins", "Devanture et ardoises", "Cartes de visite et de fidélité", "Visuels réseaux sociaux", "Livrée en 7 jours ouvrés"],
       },
       {
         offerId: "resto-pack",
         name: "Pack complet",
         price: "2 000 €",
         text: "L'identité et le site servis ensemble : votre restaurant en ligne en 7 jours ouvrés.",
-        items: ["Logo et mini-charte", "Site vitrine sur mesure", "Menu et réservation", "Optimisé mobile et Google", "En ligne en 7 jours"],
+        items: ["Logo et mini-charte", "Site vitrine sur mesure", "Menu et réservation", "Optimisé mobile et Google", "En ligne en 7 jours ouvrés"],
         featured: true,
       },
       {
@@ -137,7 +136,7 @@ export const restaurant: MetierContent = {
         name: "Site web",
         price: "1 500 €",
         text: "Un site sur mesure pour une adresse qui a déjà son identité et veut aller plus loin.",
-        items: ["Maquettes sur mesure", "Site rapide et responsive", "Contenus modifiables", "Référencement de base", "Prise en main incluse"],
+        items: ["Maquettes sur mesure", "Site rapide et responsive", "Contenus modifiables", "Référencement de base", "Prise en main incluse", "En ligne en 7 jours ouvrés"],
       },
     ],
   },
@@ -184,10 +183,9 @@ export const artisan: MetierContent = {
   ],
   constat: "Aujourd'hui, on cherche son artisan sur son téléphone avant de décrocher. Votre site est votre vitrine : il doit montrer votre travail, inspirer confiance et faire appeler.",
   stats: [
-    // Sources : BrightLocal Local Consumer Review Survey 2019, Think with Google (recherches « à proximité »), BrightLocal 2018
-    { value: 90, text: "des consommateurs ont utilisé internet pour trouver un professionnel près de chez eux dans l'année." },
-    { value: 76, text: "des personnes qui cherchent un professionnel à proximité sur leur smartphone s'y rendent dans la journée." },
-    { value: 50, text: "des consommateurs vont sur le site d'un professionnel après avoir lu un avis positif." },
+    { value: 90, text: "des consommateurs ont utilisé internet pour trouver un professionnel près de chez eux dans l'année.", source: "BrightLocal, Local Consumer Review Survey 2019" },
+    { value: 76, text: "des personnes qui cherchent un professionnel à proximité sur leur smartphone s'y rendent dans la journée.", source: "Think with Google" },
+    { value: 50, text: "des consommateurs vont sur le site d'un professionnel après avoir lu un avis positif.", source: "BrightLocal, Local Consumer Review Survey 2018" },
   ],
   realisations: {
     title: "Des sites à la hauteur de votre savoir-faire",
@@ -244,14 +242,14 @@ export const artisan: MetierContent = {
         name: "Identité graphique",
         price: "1 000 €",
         text: "Une identité aussi solide que votre savoir-faire, déclinée sur tout ce qui fait tourner votre activité.",
-        items: ["Logo et charte graphique", "Devis et factures à vos couleurs", "Cartes de visite et flyers", "Marquage du véhicule et tenues", "Visuels réseaux sociaux"],
+        items: ["Logo et charte graphique", "Devis et factures à vos couleurs", "Cartes de visite et flyers", "Marquage du véhicule et tenues", "Visuels réseaux sociaux", "Livrée en 7 jours ouvrés"],
       },
       {
         offerId: "artisan-pack",
         name: "Pack complet",
         price: "2 000 €",
         text: "L'identité et le site livrés ensemble : votre activité en ligne en 7 jours ouvrés.",
-        items: ["Logo et mini-charte", "Site vitrine sur mesure", "Galerie de réalisations", "Demande de devis en ligne", "En ligne en 7 jours"],
+        items: ["Logo et mini-charte", "Site vitrine sur mesure", "Galerie de réalisations", "Demande de devis en ligne", "En ligne en 7 jours ouvrés"],
         featured: true,
       },
       {
@@ -259,7 +257,7 @@ export const artisan: MetierContent = {
         name: "Site web",
         price: "1 500 €",
         text: "Un site sur mesure pour un artisan qui a déjà son identité et veut plus de demandes.",
-        items: ["Maquettes sur mesure", "Site rapide et responsive", "Contenus modifiables", "Référencement local", "Prise en main incluse"],
+        items: ["Maquettes sur mesure", "Site rapide et responsive", "Contenus modifiables", "Référencement local", "Prise en main incluse", "En ligne en 7 jours ouvrés"],
       },
     ],
   },

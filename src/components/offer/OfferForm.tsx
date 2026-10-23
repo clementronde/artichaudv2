@@ -19,7 +19,8 @@ const labelClass = 'text-sm font-medium text-arti-black'
 // Seuls l'offre, le slug et le deuxième champ servent : réutilisable hors des pages /offre (landing restaurant)
 type OfferFormPage = Pick<OfferPage, 'slug' | 'offerId'> & { form: Pick<OfferPage['form'], 'secondField'> }
 
-export default function OfferForm({ page }: { page: OfferFormPage }) {
+// messageOptional : le message n'est plus exigé (landings métier) ; l'API en reçoit un par défaut
+export default function OfferForm({ page, messageOptional = false }: { page: OfferFormPage; messageOptional?: boolean }) {
   const offer = offers[page.offerId]
   const { consent } = useConsent()
   const { secondField } = page.form
@@ -75,7 +76,7 @@ export default function OfferForm({ page }: { page: OfferFormPage }) {
   const missing = [
     !name.trim() && 'votre nom',
     !emailValid && 'un email valide',
-    !message.trim() && 'un message',
+    !messageOptional && !message.trim() && 'un message',
   ].filter(Boolean) as string[]
   const canSubmit = missing.length === 0 && Boolean(turnstileToken) && !isSubmitting
 
@@ -107,7 +108,7 @@ export default function OfferForm({ page }: { page: OfferFormPage }) {
           phone,
           company: secondField.key === 'company' ? second : '',
           website: secondField.key === 'website' ? second : '',
-          message,
+          message: message.trim() || 'Pas de message laissé.',
           howFound: attribution.utm_source ? `Publicité (${attribution.utm_source})` : `Page offre ${page.slug}`,
           offer: page.offerId,
           attribution,
@@ -195,13 +196,13 @@ export default function OfferForm({ page }: { page: OfferFormPage }) {
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className={labelClass}>Votre message *</span>
+        <span className={labelClass}>{messageOptional ? 'Votre message (facultatif)' : 'Votre message *'}</span>
         <textarea
           className={`${fieldClass} min-h-[110px] resize-none`}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={offer.message?.fr}
-          required
+          required={!messageOptional}
         />
       </label>
 
