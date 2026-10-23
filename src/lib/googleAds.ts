@@ -5,9 +5,9 @@ export const GOOGLE_ADS_ID = "AW-18529000864"
 const LEAD_LABEL = "bbmZCL6_j6cdEKC7qINF" // conversion « Formulaire landing »
 const WHATSAPP_LABEL = "GrmPCLnAj6cdEKC7qINF" // conversion « Clic WhatsApp »
 
-// Conversions améliorées (e-mail et téléphone du lead) : à passer à true seulement après avoir accepté,
-// dans Google Ads, les conditions sur les données client
-export const ENHANCED_CONVERSIONS = false
+// Conversions améliorées (méthode « extrait de code » de Google) : e-mail et téléphone du lead, non hachés,
+// normalisés (minuscules, E.164) ; Google les hache avant envoi. Conditions acceptées dans Google Ads, méthode « Balise Google »
+export const ENHANCED_CONVERSIONS = true
 
 export type AdsUserData = { email: string; phone_number?: string }
 
