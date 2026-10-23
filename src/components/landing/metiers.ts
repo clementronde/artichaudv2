@@ -6,6 +6,9 @@ import type { OfferId } from "@/data/offers";
 // Pages servies par MetierLanding : le menu du site y est masqué (Navbarv2) au profit du menu réduit de la landing
 export const LANDING_PATHS = ["/creation-site-internet-restaurant", "/creation-site-internet-artisan"];
 
+// Icône de chaque pastille du hero (dessins dans MetierLanding)
+export type BadgeIcon = "price" | "ai" | "time" | "booking" | "quote";
+
 export type Specialite = { title: string; text: string; icon?: { src: string; size: number }; area: string };
 export type Formule = { offerId: OfferId; name: string; price: string; text: string; items: string[]; featured?: boolean };
 export type Realisation = { layout: "pair" | "full"; images: { src: string; alt: string; position?: string }[] };
@@ -22,7 +25,7 @@ export type MetierContent = {
   };
   hero: { title: string; image: string; alt: string };
   // Vignettes du hero, sur deux lignes : la pastille colorée porte l'icône (la vignette WhatsApp ouvre la seconde ligne)
-  badges: { label: string; dot: string }[][];
+  badges: { label: string; dot: string; icon: BadgeIcon }[][];
   constat: string;
   // Chiffres clés empilés au scroll (useStatsStack) : la valeur défile de 0 à `value`
   stats: { value: number; text: string; source: string }[];
@@ -54,11 +57,11 @@ export const restaurant: MetierContent = {
   hero: { title: "Le site de votre restaurant prêt en 7 jours", image: "hero.png", alt: "Table dressée dans un restaurant" },
   badges: [
     [
-      { label: "1 500 €", dot: "bg-[#f70046]" },
-      { label: "Visible sur les IA", dot: "bg-[#30041b]" },
-      { label: "7 jours", dot: "bg-[#b50f66]" },
+      { label: "1 500 €", dot: "bg-[#f70046]", icon: "price" },
+      { label: "Visible sur les IA", dot: "bg-[#30041b]", icon: "ai" },
+      { label: "7 jours", dot: "bg-[#b50f66]", icon: "time" },
     ],
-    [{ label: "Réservation en ligne", dot: "bg-[#f70046]" }],
+    [{ label: "Réservation en ligne", dot: "bg-[#f70046]", icon: "booking" }],
   ],
   constat: "Aujourd'hui, on choisit son restaurant sur son téléphone avant de pousser la porte. Votre site est votre première impression : il doit donner faim, rassurer et faire réserver.",
   stats: [
@@ -175,11 +178,11 @@ export const artisan: MetierContent = {
   hero: { title: "Le site de votre savoir-faire prêt en 7 jours", image: "hero.jpg", alt: "Artisan maroquinier au travail dans son atelier" },
   badges: [
     [
-      { label: "1 500 €", dot: "bg-[#f70046]" },
-      { label: "Visible sur les IA", dot: "bg-[#30041b]" },
-      { label: "7 jours", dot: "bg-[#b50f66]" },
+      { label: "1 500 €", dot: "bg-[#f70046]", icon: "price" },
+      { label: "Visible sur les IA", dot: "bg-[#30041b]", icon: "ai" },
+      { label: "7 jours", dot: "bg-[#b50f66]", icon: "time" },
     ],
-    [{ label: "Devis en ligne", dot: "bg-[#f70046]" }],
+    [{ label: "Devis en ligne", dot: "bg-[#f70046]", icon: "quote" }],
   ],
   constat: "Aujourd'hui, on cherche son artisan sur son téléphone avant de décrocher. Votre site est votre vitrine : il doit montrer votre travail, inspirer confiance et faire appeler.",
   stats: [

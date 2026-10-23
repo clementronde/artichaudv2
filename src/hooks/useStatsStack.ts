@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(ScrollTrigger)
 
 // Chiffres clés au scroll : le texte s'allume mot à mot, puis chaque carte monte et se pose par-dessus la précédente.
-// Balisage attendu dans le scope : data-stack-word (mots du texte), data-stack-card > data-stack-content + data-stack-value (data-value, data-prefix, data-suffix)
+// Balisage attendu dans le scope : data-stack-pin (bloc collé) > data-stack-word (mots du texte) + data-stack-card > data-stack-content + data-stack-value (data-value, data-prefix, data-suffix)
 // Le scope passe en data-stack="on" pendant l'animation : la mise en page empilée et sticky est portée par ses variantes CSS
 export function useStatsStack(scope: RefObject<HTMLElement | null>) {
   useGSAP(() => {
@@ -17,19 +17,23 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
       const section = scope.current
       if (!section) return
 
+      const pin = section.querySelector<HTMLElement>('[data-stack-pin]')
+      if (!pin) return
       const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]', section)
       const contents = cards.map((card) => card.querySelector<HTMLElement>('[data-stack-content]'))
       const values = cards.map((card) => card.querySelector<HTMLElement>('[data-stack-value]')!)
       const format = (el: HTMLElement, v: number) => `${el.dataset.prefix ?? ''}${v}${el.dataset.suffix ?? ''}`
 
       gsap.set(section, { attr: { 'data-stack': 'on' } })
+      // Le bloc colle à `top` (variante CSS) ; il se décolle quand le bas de la section atteint son bas
+      const pinTop = () => parseFloat(getComputedStyle(pin).top) || 0
 
       // Texte du constat : les mots passent d'estompés à pleins en suivant le scroll (comme l'intro de la home)
       gsap.fromTo('[data-stack-word]',
         { opacity: 0.12 },
         {
           opacity: 1, stagger: 0.05, ease: "power2.out",
-          scrollTrigger: { trigger: '[data-stack-word]', start: "top 80%", endTrigger: section, end: "top+=300 top", scrub: 0.5 },
+          scrollTrigger: { trigger: '[data-stack-word]', start: "top 80%", endTrigger: section, end: () => `top+=300 ${pinTop()}px`, scrub: 0.5, invalidateOnRefresh: true },
         }
       )
 
@@ -52,7 +56,13 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
       }
 
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: section, start: "top+=300 top", end: "bottom bottom", scrub: 0.6, invalidateOnRefresh: true },
+        scrollTrigger: {
+          trigger: section,
+          start: () => `top+=300 ${pinTop()}px`,
+          end: () => `bottom ${pinTop() + pin.offsetHeight}px`,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
       })
       tl.add(count(values[0]), 0)
 

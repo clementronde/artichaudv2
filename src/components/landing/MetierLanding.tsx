@@ -16,7 +16,7 @@ import { whatsappHref } from "@/data/offerPages";
 import { offers, type OfferId } from "@/data/offers";
 import { trackEvent } from "@/lib/tracking";
 import { trackAdsLead, trackAdsWhatsApp } from "@/lib/googleAds";
-import type { Formule, MetierContent } from "./metiers";
+import type { BadgeIcon, Formule, MetierContent } from "./metiers";
 
 // Landing métier (restaurant, artisan…) : la mise en page et les animations sont communes, le contenu vient de ./metiers
 
@@ -75,10 +75,46 @@ const LogoItem = ({ logo }: { logo: Logo }) => (
 const BADGE_CLASS = "inline-flex items-center gap-[7px] rounded-[20px] border py-[4px] pl-[4px] pr-[16px] text-[15px] md:text-[17px] leading-[1.2] text-white whitespace-nowrap";
 const BADGE_DOT_CLASS = "flex size-[30px] shrink-0 items-center justify-center rounded-full";
 
-const Badge = ({ label, dot }: { label: string; dot: string }) => (
+// Pictos des pastilles, au trait blanc : étiquette de prix, étincelles de l'IA, horloge, agenda de réservation, devis
+const BADGE_ICONS: Record<BadgeIcon, React.ReactNode> = {
+  price: (
+    <>
+      <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z" />
+      <circle cx="7" cy="7" r="1.5" />
+    </>
+  ),
+  ai: (
+    <>
+      <path d="M10 3.5 11.6 8.4 16.5 10l-4.9 1.6L10 16.5l-1.6-4.9L3.5 10l4.9-1.6Z" />
+      <path d="M18 14v6M15 17h6" />
+    </>
+  ),
+  time: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  booking: (
+    <>
+      <rect x="3" y="4" width="18" height="17" rx="2" />
+      <path d="M16 2v4M8 2v4M3 10h18M9 15.5l2 2 4-4" />
+    </>
+  ),
+  quote: (
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+      <path d="M14 2v6h6M8 13h8M8 17h5" />
+    </>
+  ),
+};
+
+const Badge = ({ label, dot, icon }: { label: string; dot: string; icon: BadgeIcon }) => (
   <span data-hero-badge className={`${BADGE_CLASS} border-white bg-white/20`}>
     <span className={`${BADGE_DOT_CLASS} ${dot}`}>
-      <Image src={`${COMMON}/icon-rocket-white.svg`} alt="" width={16} height={16} />
+      <svg aria-hidden viewBox="0 0 24 24" className="size-[16px] fill-none stroke-white stroke-2 [stroke-linecap:round] [stroke-linejoin:round]">
+        {BADGE_ICONS[icon]}
+      </svg>
     </span>
     {label}
   </span>
@@ -340,11 +376,13 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
         </div>
       </section>
 
-      <div className="flex flex-col gap-24 pt-32 md:gap-[150px] md:pt-[183px]">
+      <div className="flex flex-col gap-24 pt-28 md:gap-[150px] md:pt-[120px]">
 
-        {/* CHIFFRES CLÉS : les cartes s'empilent au scroll, liste simple sans animation */}
-        <section ref={statsRef} className="group relative text-[#30041b] data-[stack=on]:h-[calc(100svh+1900px)]">
-          <div className="flex flex-col gap-[75px] px-6 md:px-10 group-data-[stack=on]:sticky group-data-[stack=on]:top-0 group-data-[stack=on]:h-svh group-data-[stack=on]:justify-center group-data-[stack=on]:gap-[50px]">
+        {/* CHIFFRES CLÉS : les cartes s'empilent au scroll, liste simple sans animation.
+            Le bloc reste collé sous le menu pendant que la section défile sur la hauteur de la cale, puis repart avec elle :
+            pas de vide au-dessus du constat ni sous les cartes */}
+        <section ref={statsRef} className="group relative text-[#30041b]">
+          <div data-stack-pin className="flex flex-col gap-[75px] px-6 md:px-10 group-data-[stack=on]:sticky group-data-[stack=on]:top-[90px] group-data-[stack=on]:gap-[50px] md:group-data-[stack=on]:top-[100px]">
             <div className="relative">
               <p className="mb-4 text-[16px] md:absolute md:left-0 md:top-[20px] md:mb-0">Le constat</p>
               <p className="max-w-[1423px] text-[28px] md:text-[45px] leading-[1.4] md:indent-[362px]">
@@ -375,6 +413,8 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
               ))}
             </div>
           </div>
+          {/* Cale : la distance de scroll pendant laquelle les cartes s'empilent */}
+          <div aria-hidden className="hidden h-[1900px] group-data-[stack=on]:block" />
         </section>
 
         {/* RÉALISATIONS */}
