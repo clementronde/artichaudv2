@@ -10,7 +10,7 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
 import { offers, isOfferId } from '@/data/offers'
 import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
-import { captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
+import { adSource, captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
 import { useConsent } from '@/components/consent/ConsentProvider'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
@@ -766,7 +766,7 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          howFound: formData.howFound || (attribution.utm_source ? `Publicité (${attribution.utm_source})` : ''),
+          howFound: formData.howFound || (adSource(attribution) ? `Publicité (${adSource(attribution)})` : ''),
           attribution,
           hp: honeypot,
           turnstileToken,
@@ -910,7 +910,7 @@ export default function ContactPage() {
                     honeypot={honeypot}
                     setHoneypot={setHoneypot}
                     turnstileContainerRef={turnstileContainerRef}
-                    fromCampaign={Boolean(attribution.utm_source)}
+                    fromCampaign={Boolean(adSource(attribution))}
                   />
                 )}
               </>

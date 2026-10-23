@@ -16,11 +16,14 @@ interface Offer {
   budget?: string
   // Message pré-rempli (modifiable) dans le formulaire, pour ne pas faire retaper l'offre vue
   message?: { fr: string; en: string }
+  // Prix en euros envoyé comme valeur de conversion (Google Ads, Meta) ; absent pour les offres mensuelles ou à définir
+  value?: number
 }
 
 export const offers: Record<OfferId, Offer> = {
   'site-pro': {
     label: { fr: 'Offre Flash — 1 500 €', en: 'Flash offer — €1,500' },
+    value: 1500,
     services: ['branding', 'webdesign', 'webdev', 'marketing'],
     budget: 'small',
     message: {
@@ -30,6 +33,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   refonte: {
     label: { fr: 'Offre Refresh — 1 500 €', en: 'Refresh offer — €1,500' },
+    value: 1500,
     services: ['branding', 'webdesign', 'webdev', 'marketing'],
     budget: 'small',
     message: {
@@ -48,26 +52,31 @@ export const offers: Record<OfferId, Offer> = {
   },
   'pack-essentiel': {
     label: { fr: 'Pack Essentiel — 1 000 €', en: 'Essentiel pack — €1,000' },
+    value: 1000,
     services: ['branding'],
     budget: 'small',
   },
   'pack-signature': {
     label: { fr: 'Pack Signature — 1 500 €', en: 'Signature pack — €1,500' },
+    value: 1500,
     services: ['branding'],
     budget: 'small',
   },
   'pack-ecosysteme': {
     label: { fr: 'Pack Écosystème — 2 000 €', en: 'Écosystème pack — €2,000' },
+    value: 2000,
     services: ['branding'],
     budget: 'small',
   },
   'pack-vitrine': {
     label: { fr: 'Pack Vitrine — dès 2 000 €', en: 'Vitrine pack — from €2,000' },
+    value: 2000,
     services: ['webdesign', 'webdev'],
     budget: 'small',
   },
   'pack-ecommerce': {
     label: { fr: 'Pack E-commerce — dès 8 000 €', en: 'E-commerce pack — from €8,000' },
+    value: 8000,
     services: ['webdesign', 'webdev'],
     budget: 'large',
   },
@@ -98,6 +107,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'resto-identite': {
     label: { fr: 'Restaurant · Identité graphique — 1 000 €', en: 'Restaurant · Brand identity — €1,000' },
+    value: 1000,
     services: ['branding'],
     budget: 'small',
     message: {
@@ -107,6 +117,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'resto-pack': {
     label: { fr: 'Restaurant · Pack complet — 2 000 €', en: 'Restaurant · Full pack — €2,000' },
+    value: 2000,
     services: ['branding', 'webdesign', 'webdev'],
     budget: 'small',
     message: {
@@ -116,6 +127,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'resto-site': {
     label: { fr: 'Restaurant · Site web — 1 500 €', en: 'Restaurant · Website — €1,500' },
+    value: 1500,
     services: ['webdesign', 'webdev'],
     budget: 'small',
     message: {
@@ -135,6 +147,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'artisan-identite': {
     label: { fr: 'Artisan · Identité graphique — 1 000 €', en: 'Craftsman · Brand identity — €1,000' },
+    value: 1000,
     services: ['branding'],
     budget: 'small',
     message: {
@@ -144,6 +157,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'artisan-pack': {
     label: { fr: 'Artisan · Pack complet — 2 000 €', en: 'Craftsman · Full pack — €2,000' },
+    value: 2000,
     services: ['branding', 'webdesign', 'webdev'],
     budget: 'small',
     message: {
@@ -153,6 +167,7 @@ export const offers: Record<OfferId, Offer> = {
   },
   'artisan-site': {
     label: { fr: 'Artisan · Site web — 1 500 €', en: 'Craftsman · Website — €1,500' },
+    value: 1500,
     services: ['webdesign', 'webdev'],
     budget: 'small',
     message: {

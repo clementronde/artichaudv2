@@ -6,6 +6,7 @@ import Script from 'next/script'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { toGoogleConsent } from '@/lib/consent'
 import { trackEvent } from '@/lib/tracking'
+import { ENHANCED_CONVERSIONS, GOOGLE_ADS_ID } from '@/lib/googleAds'
 import { useConsent } from './ConsentProvider'
 
 // GA et GTM se chargent toujours en Consent Mode v2 (refusé par défaut, voir consentDefaultsScript).
@@ -38,6 +39,12 @@ export default function ConsentScripts() {
   return (
     <>
       {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+      {/* Balise Google Ads (conversions des landings, voir lib/googleAds) ; gtag et le consentement par défaut sont déjà définis */}
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="afterInteractive" />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`gtag('js', new Date());
+gtag('config', '${GOOGLE_ADS_ID}', { allow_enhanced_conversions: ${ENHANCED_CONVERSIONS} });`}
+      </Script>
       {process.env.NEXT_PUBLIC_GTM_ID && (
         // GTM chargé via le Google tag gateway (/metrics, relayé par src/proxy.ts)
         <Script id="gtm" strategy="afterInteractive">

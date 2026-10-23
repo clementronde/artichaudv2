@@ -13,7 +13,9 @@ import { useLocale } from "@/context/LocaleContext";
 import OfferForm from "@/components/offer/OfferForm";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { whatsappHref } from "@/data/offerPages";
-import type { OfferId } from "@/data/offers";
+import { offers, type OfferId } from "@/data/offers";
+import { trackEvent } from "@/lib/tracking";
+import { trackAdsLead, trackAdsWhatsApp } from "@/lib/googleAds";
 import type { Formule, MetierContent } from "./metiers";
 
 // Landing métier (restaurant, artisan…) : la mise en page et les animations sont communes, le contenu vient de ./metiers
@@ -246,6 +248,11 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
   // Formule choisie dans la section Formules, rappelée à côté du formulaire et transmise avec la demande
   const [formuleId, setFormuleId] = useState<OfferId | null>(null);
   const formule = formules.items.find((f) => f.offerId === formuleId) ?? null;
+  // Choix d'une formule (carte ou rappel du formulaire) : signal intermédiaire envoyé à GTM avec la valeur de l'offre
+  const selectFormule = (id: OfferId, source: "carte" | "rappel") => {
+    setFormuleId(id);
+    trackEvent("select_formule", { offer: id, source, value: offers[id].value, currency: "EUR", page_path: window.location.pathname });
+  };
   useHeroIntro(heroRef);
   useStatsStack(statsRef);
   useHighlightReveal(realisationsRef);
@@ -301,6 +308,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={trackAdsWhatsApp}
                   className={`${BADGE_CLASS} border-[#0bd330] bg-[#0bd330] transition-[filter,transform] duration-300 hover:-translate-y-0.5 hover:brightness-110`}
                 >
                   <span data-hero-ring className={`${BADGE_DOT_CLASS} relative bg-white text-[#0bd330]`}>
@@ -491,7 +499,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
                 {/* Le lien couvre toute la carte : un clic n'importe où choisit la formule et descend au formulaire */}
                 <Link
                   href={`#${FORM_ANCHOR}`}
-                  onClick={() => setFormuleId(formule.offerId)}
+                  onClick={() => selectFormule(formule.offerId, "carte")}
                   aria-label={`Commencer avec la formule ${formule.name}`}
                   className={`flex items-center self-start after:absolute after:inset-0 after:content-[''] rounded-full border border-[#30041b] px-[25px] py-[16px] font-[family-name:var(--font-dm-sans)] text-[16px] leading-[1.44] transition-colors duration-300 group-hover/offer:border-[#f70046] group-hover/offer:bg-[#f70046] group-hover/offer:text-white ${formule.featured ? "bg-white text-[#30041b]" : "bg-[#30041b] text-white"}`}
                 >
@@ -553,11 +561,12 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
                 {commander.text}
               </p>
             </div>
-            <FormuleRecap formules={formules.items} formule={formule} onSelect={setFormuleId} />
+            <FormuleRecap formules={formules.items} formule={formule} onSelect={(id) => selectFormule(id, "rappel")} />
           </div>
           <div className="rounded-[16px] bg-white p-6 md:col-span-7 md:col-start-6 md:p-10">
             <OfferForm
               messageOptional
+              onLead={trackAdsLead}
               page={{
                 slug: content.form.slug,
                 offerId: formule?.offerId ?? content.form.offerId,

@@ -6,21 +6,34 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import { offers } from '@/data/offers'
 import { OFFER_PHONE, type OfferPage } from '@/data/offerPages'
 import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
-import { captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
+import { adSource, captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
 import { useConsent } from '@/components/consent/ConsentProvider'
+import type { AdsUserData } from '@/lib/googleAds'
 
 // Champs encadrés et libellés foncés : le formulaire doit se lire sans effort, y compris sur mobile
 const fieldClass = `w-full rounded-[10px] border border-black/15 bg-white px-4 py-3.5 text-base text-arti-black placeholder:text-black/35
   transition-colors focus:border-[#411120] focus:outline-none focus:ring-1 focus:ring-[#411120]`
 const labelClass = 'text-sm font-medium text-arti-black'
 
+// Téléphone au format international attendu par les conversions améliorées Google Ads (06… → +336…)
+function toE164(phone: string) {
+  const digits = phone.replace(/[^\d+]/g, '')
+  if (digits.startsWith('+')) return digits
+  if (digits.startsWith('00')) return `+${digits.slice(2)}`
+  if (digits.startsWith('0') && digits.length === 10) return `+33${digits.slice(1)}`
+  return undefined
+}
+
 // Formulaire court des pages offre : une seule étape, l'offre est déjà connue.
 // Même API, même anti-spam et même suivi (Lead pixel + API Conversions) que la page contact.
 // Seuls l'offre, le slug et le deuxième champ servent : réutilisable hors des pages /offre (landing restaurant)
 type OfferFormPage = Pick<OfferPage, 'slug' | 'offerId'> & { form: Pick<OfferPage['form'], 'secondField'> }
 
-// messageOptional : le message n'est plus exigé (landings métier) ; l'API en reçoit un par défaut
-export default function OfferForm({ page, messageOptional = false }: { page: OfferFormPage; messageOptional?: boolean }) {
+// messageOptional : le message n'est plus exigé (landings métier) ; l'API en reçoit un par défaut.
+// onLead : appelé une fois la demande bien reçue (conversion Google Ads des landings), avec les coordonnées si le consentement marketing est donné
+type OfferFormProps = { page: OfferFormPage; messageOptional?: boolean; onLead?: (userData?: AdsUserData) => void }
+
+export default function OfferForm({ page, messageOptional = false, onLead }: OfferFormProps) {
   const offer = offers[page.offerId]
   const { consent } = useConsent()
   const { secondField } = page.form
@@ -109,7 +122,7 @@ export default function OfferForm({ page, messageOptional = false }: { page: Off
           company: secondField.key === 'company' ? second : '',
           website: secondField.key === 'website' ? second : '',
           message: message.trim() || 'Pas de message laissé.',
-          howFound: attribution.utm_source ? `Publicité (${attribution.utm_source})` : `Page offre ${page.slug}`,
+          howFound: adSource(attribution) ? `Publicité (${adSource(attribution)})` : `Page offre ${page.slug}`,
           offer: page.offerId,
           attribution,
           hp: honeypot,
@@ -124,6 +137,13 @@ export default function OfferForm({ page, messageOptional = false }: { page: Off
       if (!response.ok) throw new Error(data?.error || "Erreur lors de l'envoi")
 
       setIsSubmitted(true)
+      // Valeur = prix de l'offre, pour que Google Ads optimise sur la valeur des leads ;
+      // coordonnées pour les conversions améliorées, transmises seulement avec le consentement marketing
+      const value = offer.value ? { value: offer.value, currency: 'EUR' } : {}
+      const phoneNumber = toE164(phone)
+      const userData: AdsUserData | undefined = marketingConsent
+        ? { email: email.trim().toLowerCase(), ...(phoneNumber && { phone_number: phoneNumber }) }
+        : undefined
       sendGTMEvent({
         event: 'generate_lead',
         event_category: 'offer_form',
@@ -131,8 +151,11 @@ export default function OfferForm({ page, messageOptional = false }: { page: Off
         budget: offer.budget,
         offer: page.offerId,
         event_id: eventId,
+        ...value,
+        ...(userData && { user_data: userData }),
       })
-      trackMetaEvent('Lead', { content_name: page.offerId, content_category: offer.services.join(', ') }, eventId)
+      onLead?.(userData)
+      trackMetaEvent('Lead', { content_name: page.offerId, content_category: offer.services.join(', '), ...value }, eventId)
     } catch (error) {
       setSubmitError(
         error instanceof Error
