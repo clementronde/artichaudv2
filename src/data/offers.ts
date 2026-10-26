@@ -7,6 +7,7 @@ export type OfferId =
   | 'pack-maintenance' | 'pack-seo' | 'pack-duo'
   | 'resto' | 'resto-identite' | 'resto-pack' | 'resto-site'
   | 'artisan' | 'artisan-identite' | 'artisan-pack' | 'artisan-site'
+  | 'express' | 'express-identite' | 'express-pack' | 'express-site'
 
 interface Offer {
   label: { fr: string; en: string }
@@ -173,6 +174,46 @@ export const offers: Record<OfferId, Offer> = {
     message: {
       fr: "Bonjour, je suis intéressé(e) par la formule Site web pour mon activité. Mon activité : ",
       en: "Hello, I'm interested in the Website package for my business. My business: ",
+    },
+  },
+  // Formules de la landing tous métiers (/creation-site-internet-7-jours) ; « express » quand aucune formule n'est choisie
+  express: {
+    label: { fr: 'Site en 7 jours · formule à définir', en: '7-day website · package to be defined' },
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je voudrais un site internet en 7 jours. Mon activité : ",
+      en: "Hello, I'd like a website in 7 days. My business: ",
+    },
+  },
+  'express-identite': {
+    label: { fr: 'Site en 7 jours · Identité graphique — 1 000 €', en: '7-day website · Brand identity — €1,000' },
+    value: 1000,
+    services: ['branding'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Identité graphique (logo, charte, supports…). Mon activité : ",
+      en: "Hello, I'm interested in the Brand identity package (logo, guidelines, print…). My business: ",
+    },
+  },
+  'express-pack': {
+    label: { fr: 'Site en 7 jours · Pack complet — 2 000 €', en: '7-day website · Full pack — €2,000' },
+    value: 2000,
+    services: ['branding', 'webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par le Pack complet (identité + site en 7 jours). Mon activité : ",
+      en: "Hello, I'm interested in the Full pack (identity + website in 7 days). My business: ",
+    },
+  },
+  'express-site': {
+    label: { fr: 'Site en 7 jours · Site web — 1 500 €', en: '7-day website · Website — €1,500' },
+    value: 1500,
+    services: ['webdesign', 'webdev'],
+    budget: 'small',
+    message: {
+      fr: "Bonjour, je suis intéressé(e) par la formule Site web en 7 jours. Mon activité : ",
+      en: "Hello, I'm interested in the 7-day Website package. My business: ",
     },
   },
 }

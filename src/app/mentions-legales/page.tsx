@@ -40,7 +40,7 @@ export default function MentionsLegales() {
               Le site internet <strong>Artichaud Studio</strong> est édité par :<br />
               <strong>Nom de la société / Indépendant :</strong> Artichaud Studio<br />
               <strong>Forme juridique :</strong> Micro entreprise<br />
-              <strong>Siège social :</strong> 18 rue d'aguesseau, Boulogne-Billancourt<br />
+              <strong>Siège social :</strong> 3 avenue de la Tourangelle, 44500 La Baule-Escoublac<br />
               <strong>SIRET :</strong> 93470685400015<br />
               <strong>Email :</strong> hello@artichaud-studio.com<br />
               <strong>Téléphone :</strong> 07 66 48 99 82

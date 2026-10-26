@@ -4,7 +4,7 @@ import type { OfferId } from "@/data/offers";
 // Fichier placé dans components pour que Tailwind voie les classes qu'il contient (pastilles, grille des spécialités)
 
 // Pages servies par MetierLanding : le menu du site y est masqué (Navbarv2) au profit du menu réduit de la landing
-export const LANDING_PATHS = ["/creation-site-internet-restaurant", "/creation-site-internet-artisan"];
+export const LANDING_PATHS = ["/creation-site-internet-restaurant", "/creation-site-internet-artisan", "/creation-site-internet-7-jours"];
 
 // Icône de chaque pastille du hero (dessins dans MetierLanding)
 export type BadgeIcon = "price" | "ai" | "time" | "booking" | "quote";
@@ -284,6 +284,128 @@ export const artisan: MetierContent = {
   },
   commander: {
     title: "Le site de votre savoir-faire prêt en 7 jours",
+    text: "Parlez-nous de votre activité : on vous rappelle pour cadrer le projet. Le devis est gratuit.",
+  },
+};
+
+// Landing tous métiers : reprend les photos des landings restaurant et artisan, chemins depuis la racine de /public
+export const express: MetierContent = {
+  assets: "",
+  whatsappLabel: "offre site internet en 7 jours",
+  form: {
+    slug: "site-7-jours",
+    offerId: "express",
+    secondField: { label: "Nom de votre entreprise", placeholder: "Studio Martin", key: "company" },
+  },
+  hero: { title: "Votre site internet prêt en 7 jours", image: "image_hero_about.png", alt: "Deux personnes travaillent sur la maquette d'un site internet" },
+  badges: [
+    [
+      { label: "1 500 €", dot: "bg-[#f70046]", icon: "price" },
+      { label: "Visible sur les IA", dot: "bg-[#30041b]", icon: "ai" },
+      { label: "7 jours", dot: "bg-[#b50f66]", icon: "time" },
+    ],
+    [{ label: "Devis gratuit", dot: "bg-[#f70046]", icon: "quote" }],
+  ],
+  constat: "Aujourd'hui, vos clients vous cherchent sur leur téléphone avant de vous contacter. Votre site est votre première impression : il doit présenter votre activité, inspirer confiance et donner envie de vous écrire.",
+  stats: [
+    { value: 90, text: "des consommateurs ont utilisé internet pour trouver un professionnel près de chez eux dans l'année.", source: "BrightLocal, Local Consumer Review Survey 2019" },
+    { value: 76, text: "des personnes qui cherchent un professionnel à proximité sur leur smartphone s'y rendent dans la journée.", source: "Think with Google" },
+    { value: 50, text: "des consommateurs vont sur le site d'un professionnel après avoir lu un avis positif.", source: "BrightLocal, Local Consumer Review Survey 2018" },
+  ],
+  realisations: {
+    title: "Des sites aussi uniques que votre activité",
+    rows: [
+      {
+        layout: "pair",
+        images: [
+          { src: "LP/artisan/realisation-1.png", alt: "Site d'une boulangerie artisanale affiché sur smartphone" },
+          { src: "LP/restaurant/realisation-2.png", alt: "Site de restaurant affiché sur ordinateur portable" },
+        ],
+      },
+      {
+        layout: "full",
+        images: [{ src: "LP/artisan/realisation-3.png", alt: "Site de la créatrice textile Remembraance affiché sur ordinateur portable", position: "object-[center_62%]" }],
+      },
+    ],
+  },
+  specialites: [
+    {
+      title: "Pensé pour le mobile",
+      text: "Vos clients vous découvrent depuis leur téléphone. Services, coordonnées et horaires s'affichent en un coup d'œil, sur tous les écrans.",
+      icon: { src: "icon-desktop.svg", size: 24 },
+      area: SPECIALITE_AREAS.topLeft,
+    },
+    {
+      title: "Contact & demandes",
+      text: "Un formulaire clair et un bouton d'appel sur chaque page : les demandes arrivent directement dans votre boîte mail, même le week-end.",
+      icon: { src: "icon-map.svg", size: 35 },
+      area: SPECIALITE_AREAS.bottomLeft,
+    },
+    {
+      title: "Un design qui vous ressemble",
+      text: "Pas de thème générique : on part de votre activité, de vos clients et de votre identité pour concevoir un site qu'on ne confond avec aucun autre.",
+      area: SPECIALITE_AREAS.center,
+    },
+    {
+      title: "Modifiable sans coder",
+      text: "Nouveau service, actualité, congés : vous mettez votre site à jour vous-même, en quelques clics, sans dépendre de personne.",
+      icon: { src: "icon-puzzle.svg", size: 30 },
+      area: SPECIALITE_AREAS.topRight,
+    },
+    {
+      title: "Visible sur Google & les IA",
+      text: "Référencement de base, fiche Google soignée, site rapide : vous ressortez quand on cherche votre métier, sur Google comme sur ChatGPT.",
+      icon: { src: "icon-rocket.svg", size: 28 },
+      area: SPECIALITE_AREAS.bottomRight,
+    },
+  ],
+  formules: {
+    title: "Choisissez votre formule, on s'occupe du reste",
+    items: [
+      {
+        offerId: "express-identite",
+        name: "Identité graphique",
+        price: "1 000 €",
+        text: "Une identité claire et cohérente, déclinée sur tous les supports de votre activité.",
+        items: ["Logo et charte graphique", "Cartes de visite", "Papeterie et documents", "Visuels réseaux sociaux", "Livrée en 7 jours ouvrés"],
+      },
+      {
+        offerId: "express-pack",
+        name: "Pack complet",
+        price: "2 000 €",
+        text: "L'identité et le site livrés ensemble : votre activité en ligne en 7 jours ouvrés.",
+        items: ["Logo et mini-charte", "Site vitrine sur mesure", "Formulaire de contact", "Optimisé mobile et Google", "En ligne en 7 jours ouvrés"],
+        featured: true,
+      },
+      {
+        offerId: "express-site",
+        name: "Site web",
+        price: "1 500 €",
+        text: "Un site sur mesure pour une activité qui a déjà son identité et veut plus de clients.",
+        items: ["Maquettes sur mesure", "Site rapide et responsive", "Contenus modifiables", "Référencement de base", "Prise en main incluse", "En ligne en 7 jours ouvrés"],
+      },
+    ],
+  },
+  avisTitle: ["Les avis", "de nos clients"],
+  etapes: {
+    title: "De la commande à la mise en ligne en 7 jours",
+    items: [
+      {
+        title: "L'appel découverte",
+        text: "30 minutes pour comprendre votre activité, vos clients et vos objectifs. On repart avec tout ce qu'il faut pour se mettre au travail.",
+      },
+      {
+        title: "La maquette",
+        text: "On conçoit votre identité et votre site, puis on vous présente la maquette. Vos retours sont intégrés avant les finitions.",
+      },
+      {
+        title: "La mise en ligne",
+        text: "Votre site est en ligne, référencé et prêt à recevoir ses premières demandes. On vous montre comment le faire vivre vous-même.",
+      },
+    ],
+  },
+  commander: {
+    title: "Votre site internet prêt en 7 jours",
     text: "Parlez-nous de votre activité : on vous rappelle pour cadrer le projet. Le devis est gratuit.",
   },
 };
