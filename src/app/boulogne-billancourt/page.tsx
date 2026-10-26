@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "Boulogne-Billancourt : économie et entreprises | Artichaud Studio" },
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     title: "Boulogne-Billancourt — Tissu économique et ressources pour les entreprises",
     description: "Guide factuel sur Boulogne-Billancourt (92100) : grands groupes, PME, quartiers d'affaires et ressources digitales pour les entreprises locales.",
     url: `${SITE_URL}/boulogne-billancourt`,
+    images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
     siteName: "Artichaud Studio",
     locale: "fr_FR",
     type: "website",

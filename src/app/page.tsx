@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getAllPosts } from '@/lib/mdx';
 import HomeClient from '@/components/home/HomeClient';
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
-        width: 512,
-        height: 512,
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
         alt: "Artichaud Studio - Agence web et branding Boulogne-Billancourt"
       }
     ],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Artichaud Studio - Web & branding à Boulogne-Billancourt",
     description: "Branding, sites web sur mesure, webdesign et SEO à Boulogne-Billancourt.",
-    images: [`${SITE_URL}/icon.png`]
+    images: [OG_IMAGE_URL]
   },
   alternates: {
     canonical: SITE_URL

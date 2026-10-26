@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
-import { SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Artichaud ou Artichaut ? L'orthographe correcte",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/artichaud-studio-orthographe`,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: "Artichaud Studio - Orthographe",

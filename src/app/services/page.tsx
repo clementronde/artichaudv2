@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/mdx'
 import ServicesClient from '@/components/services/ServicesClient'
 import RelatedLinks from '@/components/seo/RelatedLinks'
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
-import { SITE_URL } from '@/lib/seo'
+import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/services`,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: "Services Artichaud Studio Boulogne-Billancourt"

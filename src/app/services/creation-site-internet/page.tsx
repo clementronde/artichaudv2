@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import CreationSiteInternetClient from "./CreationSiteInternetClient";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
-import { SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Création de site internet : vitrine, SEO & design",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/services/creation-site-internet`,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
-        width: 512,
-        height: 512,
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
         alt: "Création de site internet sur mesure - Artichaud Studio"
       }
     ],

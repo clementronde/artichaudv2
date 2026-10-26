@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact : devis site web & branding",
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description:
       "Parlez-nous de votre projet web, branding ou SEO. Réponse sous 24h.",
     url: `${SITE_URL}/contact`,
+    images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
     siteName: SITE_NAME,
     locale: "fr_FR",
     type: "website",

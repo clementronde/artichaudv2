@@ -1,5 +1,6 @@
 export const SITE_URL = "https://artichaud-studio.fr";
 export const SITE_NAME = "Artichaud Studio";
+export const OG_IMAGE_URL = `${SITE_URL}/og-image.jpg`;
 
 export function cleanSeoText(text: string): string {
   return text

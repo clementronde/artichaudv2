@@ -4,7 +4,7 @@ import { getAllPosts } from '@/lib/mdx';
 import { Metadata } from 'next';
 import RelatedLinks from '@/components/seo/RelatedLinks';
 import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
-import { SITE_URL } from '@/lib/seo';
+import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Blog création web & branding | Conseils pour PME',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/blog`,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: 'Blog Artichaud Studio'

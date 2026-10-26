@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import AboutClient from "@/components/about/AboutClient"
 import { getAllPosts } from "@/lib/mdx"
-import { SITE_URL } from "@/lib/seo"
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/about`,
     images: [
       {
-        url: `${SITE_URL}/icon.png`,
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: "À Propos Artichaud Studio Boulogne-Billancourt"

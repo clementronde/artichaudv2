@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import RelatedLinks from "@/components/seo/RelatedLinks";
 import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
-import { SITE_URL } from "@/lib/seo";
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "FAQ | Questions Fréquentes - Artichaud Studio",
@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "FAQ - Artichaud Studio",
     description: "Questions fréquentes sur nos services de branding et création web à Boulogne-Billancourt.",
-    url: `${SITE_URL}/faq`
+    url: `${SITE_URL}/faq`,
+    images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }]
   }
 };
 
