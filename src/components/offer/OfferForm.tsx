@@ -6,6 +6,7 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import { offers } from '@/data/offers'
 import { OFFER_PHONE, type OfferPage } from '@/data/offerPages'
 import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
+import { trackOpenAILead } from '@/lib/openaiAds'
 import { adSource, captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
 import { useConsent } from '@/components/consent/ConsentProvider'
 import type { AdsUserData } from '@/lib/googleAds'
@@ -156,6 +157,7 @@ export default function OfferForm({ page, messageOptional = false, onLead }: Off
       })
       onLead?.(userData)
       trackMetaEvent('Lead', { content_name: page.offerId, content_category: offer.services.join(', '), ...value }, eventId)
+      trackOpenAILead(eventId, offer.value)
     } catch (error) {
       setSubmitError(
         error instanceof Error

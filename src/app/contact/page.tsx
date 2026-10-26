@@ -10,6 +10,7 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import { useLocale } from '@/context/LocaleContext'
 import { offers, isOfferId } from '@/data/offers'
 import { trackMetaEvent, getMetaCookies } from '@/lib/tracking'
+import { trackOpenAILead } from '@/lib/openaiAds'
 import { adSource, captureAttribution, getAttribution, type Attribution } from '@/lib/attribution'
 import { useConsent } from '@/components/consent/ConsentProvider'
 import RelatedLinks from '@/components/seo/RelatedLinks'
@@ -797,6 +798,7 @@ export default function ContactPage() {
         content_name: formData.offer || 'formulaire',
         content_category: formData.services.join(', '),
       }, eventId)
+      trackOpenAILead(eventId)
 
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })

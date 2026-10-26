@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { trackEvent, trackMetaEvent } from '@/lib/tracking'
+import { trackOpenAIContact } from '@/lib/openaiAds'
 import { captureAttribution } from '@/lib/attribution'
 
 // Suit les clics sur les liens email, téléphone et WhatsApp de tout le site, et garde les UTM de la visite
@@ -17,6 +18,7 @@ export default function ContactClickTracker() {
 
       trackEvent('contact_click', { method, page_path: window.location.pathname })
       trackMetaEvent('Contact', { content_category: method })
+      trackOpenAIContact(method)
     }
 
     document.addEventListener('click', onClick, { capture: true })

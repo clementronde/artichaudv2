@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { toGoogleConsent } from '@/lib/consent'
 import { trackEvent } from '@/lib/tracking'
 import { ENHANCED_CONVERSIONS, GOOGLE_ADS_ID } from '@/lib/googleAds'
+import { openaiPixelScript, trackOpenAIPageView } from '@/lib/openaiAds'
 import { useConsent } from './ConsentProvider'
 
 // GA et GTM se chargent toujours en Consent Mode v2 (refusé par défaut, voir consentDefaultsScript).
@@ -22,6 +23,8 @@ export default function ConsentScripts() {
     if (consent) window.gtag?.('consent', 'update', toGoogleConsent(consent))
 
     const marketing = Boolean(consent?.marketing)
+    // Pixel ChatGPT déjà chargé : un retrait du consentement coupe les envois et supprime ses cookies
+    window.oaiq?.('consent', marketing)
     // Accord donné en cours de visite : la page vue n'a pas pu être envoyée au chargement
     if (hadMarketing.current === false && marketing) trackEvent('page_view')
     hadMarketing.current = marketing
@@ -34,6 +37,7 @@ export default function ConsentScripts() {
       return
     }
     trackEvent('page_view')
+    trackOpenAIPageView(pathname)
   }, [pathname])
 
   return (
@@ -45,6 +49,12 @@ export default function ConsentScripts() {
         {`gtag('js', new Date());
 gtag('config', '${GOOGLE_ADS_ID}', { allow_enhanced_conversions: ${ENHANCED_CONVERSIONS} });`}
       </Script>
+      {/* Pixel des publicités ChatGPT : chargé seulement avec le consentement marketing, page vue envoyée à l'initialisation */}
+      {ready && consent?.marketing && (
+        <Script id="openai-pixel" strategy="afterInteractive">
+          {openaiPixelScript}
+        </Script>
+      )}
       {process.env.NEXT_PUBLIC_GTM_ID && (
         // GTM chargé via le Google tag gateway (/metrics, relayé par src/proxy.ts)
         <Script id="gtm" strategy="afterInteractive">
