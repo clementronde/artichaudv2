@@ -51,9 +51,9 @@ export default function MentionsLegales() {
             <h2 className="text-2xl font-semibold text-white">2. Hébergement</h2>
             <p className="text-white/80 leading-relaxed">
               Le site est hébergé par :<br />
-              <strong>Hébergeur :</strong> Hostinger<br />
-              <strong>Adresse :</strong> 61 Lordou Vironos Street, 6023 Larnaca, Chypre<br />
-              <strong>Site web :</strong> https://www.hostinger.com/fr
+              <strong>Hébergeur :</strong> Vercel Inc.<br />
+              <strong>Adresse :</strong> 340 Pine Street Suite 701, San Francisco, CA 94104, USA<br />
+              <strong>Site web :</strong> https://vercel.com
             </p>
           </div>
 

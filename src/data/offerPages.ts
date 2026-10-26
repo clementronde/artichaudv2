@@ -39,57 +39,6 @@ export interface OfferPage {
 
 export const offerPages: OfferPage[] = [
   {
-    slug: 'site-flash',
-    offerId: 'site-pro',
-    label: 'Offre Flash',
-    title: 'De zéro à votre site pro en 7 jours ouvrés.',
-    intro:
-      "Vous lancez votre activité et vous voulez une image crédible dès le premier jour ? On crée votre identité visuelle et votre site vitrine, sans des mois d'allers-retours.",
-    price: '1 500 €',
-    oldPrice: '2 800 €',
-    priceNote: 'Hébergement et nom de domaine non compris',
-    tags: ['Identité visuelle', 'Site web', 'SEO'],
-    facts: ['Devis gratuit', '6 places disponibles', '7 jours ouvrés après signature du devis'],
-    image: { src: '/services/offres/offre-site-pro-7-jours.avif', alt: "Offre Flash d'Artichaud Studio : site pro en 7 jours" },
-    audience: {
-      title: 'Pour qui ?',
-      text: "Créateurs d'entreprise, indépendants, artisans, commerçants, thérapeutes, coachs : vous n'avez pas encore de site ni d'identité visuelle, et vous voulez avoir l'air d'une vraie marque tout de suite.",
-    },
-    includes: [
-      { title: 'Questionnaire de cadrage', text: 'On cerne votre activité, vos clients et le ton de votre marque avant de dessiner quoi que ce soit.' },
-      { title: 'Logo et déclinaisons', text: 'Un logo principal et ses variantes, prêts pour le web, les réseaux sociaux et l’impression.' },
-      { title: 'Couleurs et typographies', text: 'Une palette et des polices qui donnent une personnalité claire à votre marque.' },
-      { title: 'Mini-guide de marque', text: 'Un brandboard pour garder une image cohérente sur tous vos supports.' },
-      { title: 'Site vitrine de 5 pages', text: 'Conçu et développé sur mesure, pensé pour le mobile.' },
-      { title: 'Paramétrage SEO', text: 'Les bases techniques pour être trouvé sur Google dès la mise en ligne.' },
-      { title: 'Deux allers-retours d’ajustements', text: 'Vous relisez, on ajuste. Deux fois.' },
-      { title: 'Mise en ligne et fichiers sources', text: 'Votre site est en ligne et vous repartez avec tous vos fichiers.' },
-    ],
-    steps: [
-      { title: 'Cadrage', text: 'Le questionnaire nous donne votre activité, vos cibles et vos envies.' },
-      { title: 'Identité', text: 'Logo, couleurs, typographies et mini-guide de marque.' },
-      { title: 'Site', text: 'Conception et développement de vos 5 pages.' },
-      { title: 'Ajustements', text: 'Deux allers-retours pour caler chaque détail.' },
-      { title: 'Mise en ligne', text: 'Paramétrage SEO, mise en ligne et remise des fichiers.' },
-    ],
-    projects: ['remembraance', 'jobmi', 'keleti'],
-    faq: [
-      { question: 'Quand démarrent les 7 jours ouvrés ?', answer: 'À la signature du devis.' },
-      { question: 'Combien de pages comprend le site ?', answer: '5 pages, par exemple : accueil, services, à propos, réalisations et contact.' },
-      { question: "L'hébergement et le nom de domaine sont-ils inclus ?", answer: "Non, ils ne sont pas compris dans les 1 500 €. On en parle ensemble au moment du devis." },
-      { question: "Combien d'ajustements sont prévus ?", answer: 'Deux allers-retours, sur l’identité comme sur le site.' },
-      { question: 'Pourquoi des places limitées ?', answer: 'Pour tenir le délai de 7 jours ouvrés, nous ne prenons que 6 projets à la fois.' },
-    ],
-    form: {
-      title: 'Parlez-nous de votre activité',
-      secondField: { label: 'Votre activité', placeholder: 'Ex. : coach sportif à Lyon', key: 'company' },
-    },
-    seo: {
-      title: 'Offre Flash : identité et site pro en 7 jours',
-      description: "Logo, identité visuelle, site vitrine de 5 pages et SEO, livrés en 7 jours ouvrés pour 1 500 €. Devis gratuit, 6 places disponibles.",
-    },
-  },
-  {
     slug: 'refonte',
     offerId: 'refonte',
     label: 'Offre Refresh',

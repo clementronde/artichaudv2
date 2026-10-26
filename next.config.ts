@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  async redirects() {
+    return [
+      // Page de l'offre Flash retirée : remplacée par la landing générale « site en 7 jours »
+      { source: '/offre/site-flash', destination: '/creation-site-internet-7-jours', permanent: true },
+    ]
+  },
   async headers() {
       return [
         {
