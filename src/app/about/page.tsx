@@ -5,19 +5,19 @@ import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: {
-    absolute: "À Propos | Artichaud Studio — Agence créative à Boulogne-Billancourt"
+    absolute: "À Propos | Artichaud Studio — Agence créative indépendante"
   },
-  description: "Artichaud Studio : l'agence créative indépendante à Boulogne-Billancourt qui pense la marque avant le design. Branding, création web et SEO pour marques ambitieuses.",
+  description: "Artichaud Studio : l'agence créative indépendante qui pense la marque avant le design. Branding, création web et SEO pour marques ambitieuses.",
   keywords: [
-    "agence créative Boulogne-Billancourt",
+    "agence créative indépendante",
     "studio design Île-de-France",
     "agence branding indépendante",
     "qui sommes-nous Artichaud Studio",
-    "agence web Boulogne-Billancourt équipe",
-    "histoire agence créative 92"
+    "agence web équipe",
+    "histoire agence créative"
   ],
   openGraph: {
-    title: "À Propos — Artichaud Studio, agence créative à Boulogne-Billancourt",
+    title: "À Propos — Artichaud Studio, agence créative indépendante",
     description: "L'agence créative indépendante qui pense la marque avant le design. Notre équipe, notre vision, notre approche.",
     url: `${SITE_URL}/about`,
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: "À Propos Artichaud Studio Boulogne-Billancourt"
+        alt: "À Propos Artichaud Studio"
       }
     ],
     locale: "fr_FR",

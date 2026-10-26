@@ -11,15 +11,15 @@ export const metadata: Metadata = {
   },
   description: "Découvrez nos réalisations : branding, sites web et stratégies digitales pour Charit.io, Disobey, Paradox, Lumyn et autres marques ambitieuses.",
   keywords: [
-    "portfolio agence web Boulogne-Billancourt",
+    "portfolio agence web",
     "projets branding",
     "réalisations webdesign",
     "case studies design",
     "portfolio identité visuelle",
-    "références clients agence 92"
+    "références clients agence web"
   ],
   openGraph: {
-    title: "Portfolio — Artichaud Studio Boulogne-Billancourt",
+    title: "Portfolio — Artichaud Studio",
     description: "Nos projets de branding et webdesign pour des marques qui osent se démarquer.",
     url: `${SITE_URL}/works`,
     images: [

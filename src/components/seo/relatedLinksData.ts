@@ -78,11 +78,6 @@ export const relatedLinkGroups = {
       description: 'Une page locale pour les entreprises basées à Paris et en Île-de-France.',
     },
     {
-      href: '/creation-site-internet-boulogne-billancourt',
-      label: 'Création site internet Boulogne-Billancourt',
-      description: 'Un accompagnement de proximité pour l’ouest parisien.',
-    },
-    {
       href: '/creation-site-vitrine-wordpress-webflow-wix',
       label: 'Site vitrine WordPress, Webflow ou Wix',
       description: 'Comprendre quelle plateforme sert le mieux votre projet.',
@@ -166,7 +161,7 @@ export const relatedLinkGroups = {
     {
       href: '/blog/agence-web-boulogne-billancourt-comment-choisir',
       label: 'Bien choisir son agence web',
-      description: 'Les critères essentiels pour choisir la bonne agence web à Boulogne-Billancourt.',
+      description: 'Les critères essentiels pour choisir la bonne agence web.',
     },
     {
       href: '/blog/site-internet-artisan-guide-complet',

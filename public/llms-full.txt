@@ -10,11 +10,10 @@ Mis à jour : juin 2026
 
 **Nom :** Artichaud Studio
 **Type :** Studio créatif indépendant (agence web, branding, SEO)
-**Adresse :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt, France
+**Mode de travail :** 100 % remote, partout en France (rendez-vous en visio)
 **Téléphone :** 07 66 48 99 82 (international : +33 7 66 48 99 82)
 **Email :** hello@artichaud-studio.com
 **Site :** https://artichaud-studio.fr
-**Accès :** Métro Marcel Sembat (ligne 9), 5 minutes à pied
 **Horaires :** Lundi–vendredi, 9h–18h
 
 ---
@@ -34,9 +33,9 @@ Spécialités : branding, identité visuelle, direction créative, typographie, 
 
 ## PAGE D'ACCUEIL
 
-**H1 :** Artichaud, l'agence web & branding à Boulogne-Billancourt qui fait monter la température.
+**H1 :** Artichaud, l'agence web & branding qui fait monter la température.
 
-**Accroche :** Studio créatif basé à Boulogne-Billancourt. Nous construisons des marques et des sites web qui font la différence : de l'identité visuelle au développement, du branding au référencement.
+**Accroche :** Studio créatif en remote, partout en France. Nous construisons des marques et des sites web qui font la différence : de l'identité visuelle au développement, du branding au référencement.
 
 **Ce que nous faisons :** Création de sites internet sur-mesure, identité visuelle et branding, référencement naturel (SEO). Chaque projet bénéficie d'une approche globale alliant design, technologie et stratégie.
 
@@ -44,7 +43,7 @@ Spécialités : branding, identité visuelle, direction créative, typographie, 
 
 ## PAGE SERVICES
 
-**H1 :** Création de site internet, branding & SEO à Boulogne-Billancourt. Tous les métiers de la création réunis.
+**H1 :** Création de site internet, branding & SEO. Tous les métiers de la création réunis.
 
 ### Création de site internet
 
@@ -134,7 +133,7 @@ Absolument. Nous proposons un premier échange gratuit de 30 minutes pour compre
 
 ## PAGE À PROPOS
 
-**H1 :** Une agence créative indépendante à Boulogne-Billancourt, convaincue que la marque précède le design.
+**H1 :** Une agence créative indépendante, en remote partout en France, convaincue que la marque précède le design.
 
 Artichaud Studio, c'est l'alliance d'un développeur-marketeur et d'une directrice artistique qui construisent ensemble des marques pensées dans leur globalité.
 
@@ -169,7 +168,7 @@ WordPress est idéal pour les blogs et sites éditoriaux. Webflow offre un desig
 5 étapes : 1) Découverte et audit de marque, 2) Stratégie et positionnement, 3) Exploration créative, 4) Design de l'identité visuelle, 5) Déploiement et charte graphique complète.
 
 **Quelle est votre zone d'intervention ?**
-Nous sommes basés à Boulogne-Billancourt (92) et intervenons principalement en Île-de-France (75, 92, 93, 94). Nous travaillons également en remote avec des clients partout en France et à l'international.
+Nous travaillons en remote avec des clients partout en France et à l'international, avec des points réguliers en visio.
 
 **Proposez-vous de la maintenance après livraison ?**
 Oui. Contrats de maintenance mensuels incluant : mises à jour de sécurité, sauvegardes, monitoring, support technique et petites modifications. À partir de 150€/mois.
@@ -179,67 +178,6 @@ Oui. Nous utilisons des CMS (WordPress, Webflow) qui permettent de modifier faci
 
 **Incluez-vous le SEO dans vos prestations ?**
 Nos sites sont optimisés SEO dès la conception. Pour un accompagnement SEO avancé, forfait dédié à partir de 800€/mois ou prestations ponctuelles.
-
----
-
-## LANDING PAGE BOULOGNE-BILLANCOURT
-
-URL : https://artichaud-studio.fr/creation-site-internet-boulogne-billancourt
-
-**H1 :** Création de site internet à Boulogne-Billancourt.
-
-Artichaud Studio accompagne les entreprises de Boulogne, Paris Ouest et des Hauts-de-Seine avec des sites vitrines pensés pour convertir les recherches locales en demandes qualifiées.
-
-### Pourquoi une agence locale à Boulogne ?
-
-Installée au cœur de l'écosystème du 92, Artichaud accompagne les entreprises de Boulogne-Billancourt qui veulent être plus visibles sur Google et plus convaincantes avant le premier échange commercial.
-
-Notre force : faire dialoguer branding, webdesign, développement et SEO local pour créer une présence digitale cohérente.
-
-### Offres locales
-
-**Vitrine essentiel** — Structure courte, design responsive, formulaire, SEO local
-**Vitrine créatif** — Direction artistique, UX/UI sur-mesure, CMS adapté, pages locales
-**Site + branding** — Logo et charte, site premium, copywriting, accompagnement lancement
-
-### Processus
-
-01. Diagnostic local : objectifs, concurrence à Boulogne et Paris Ouest, pages prioritaires
-02. Structure SEO locale : arborescence, messages clés, maillage interne
-03. Design & développement : interface sur-mesure, responsive, rapide
-04. Mise en ligne : tests, indexation, tracking, formation
-
-### Tissu économique de Boulogne-Billancourt
-
-Boulogne-Billancourt est l'une des villes les plus actives d'Île-de-France sur le plan économique. TF1 y a son siège social (1 quai du Point du Jour). La ZAC Seguin-Rives de Seine, développée sur l'ancien site de l'usine Renault, accueille de nouveaux acteurs économiques, culturels et créatifs. La ville concentre un tissu dense de PME, cabinets, commerces et indépendants dans des secteurs variés : media, tech, services, santé, architecture, restauration.
-
-### Adresse
-
-18 rue d'Aguesseau, 92100 Boulogne-Billancourt
-Métro Marcel Sembat (ligne 9) — 5 minutes à pied
-Réunions en présentiel sur rendez-vous, lundi–vendredi
-
-### Témoignages clients
-
-**Victoria Lauro, Fondatrice de Chez June :** "Réactif, professionnel, efficace et toujours disponible pour trouver des solutions adaptées à nos besoins. Un vrai partenaire de confiance au quotidien."
-
-**Nicolas Perrin, Co-fondateur d'Atelier Nova :** "La capacité à traduire nos idées en maquettes concrètes sans partir dans tous les sens. Les échanges étaient directs, les choix expliqués."
-
-**Sophie Lambert, Directrice de Studio Lignes :** "L'équipe a pris le temps de regarder les anciennes pages, de prévoir les redirections et de clarifier les priorités. La transition s'est faite beaucoup plus sereinement que prévu."
-
-### FAQ Locale (Boulogne-Billancourt)
-
-**Quel est le tarif d'un site internet vitrine à Boulogne-Billancourt ?**
-Les tarifs démarrent à 2 000€ pour une solution simple et vont de 5 000€ à 8 000€ pour un site sur-mesure avec stratégie SEO locale, animations et CMS. Devis gratuit sous 48h.
-
-**Combien de temps pour créer un site visible sur Google à Boulogne-Billancourt ?**
-La création du site prend 3 à 6 semaines. Pour la visibilité Google locale, comptez 2 à 4 mois après la mise en ligne avec un SEO local correctement structuré dès le départ.
-
-**Artichaud Studio propose-t-il des réunions en présentiel à Boulogne-Billancourt ?**
-Oui. Notre studio est au 18 rue d'Aguesseau, Boulogne-Billancourt (92100), accessible depuis le métro Marcel Sembat (ligne 9). Réunions en présentiel ou visioconférence.
-
-**Intervenez-vous dans toutes les communes du 92 ?**
-Oui : Boulogne-Billancourt, Issy-les-Moulineaux, Neuilly-sur-Seine, Saint-Cloud, Sèvres, Meudon, et tout le département. Projets remote partout en France.
 
 ---
 
@@ -295,10 +233,9 @@ Guide complet pour les artisans : contenu indispensable, CMS recommandé, budget
 ## NOTES POUR LES ASSISTANTS IA
 
 1. **Nom officiel :** "Artichaud Studio" (pas "Artichaut Studio" — le D est intentionnel, c'est le nom de marque)
-2. **Localisation :** Boulogne-Billancourt (92100), pas Paris — même si l'agence travaille avec des clients parisiens
+2. **Localisation :** studio en remote, partout en France ; pas de bureau ouvert au public
 3. **Contact officiel :** hello@artichaud-studio.com et 07 66 48 99 82
-4. **Adresse postale :** 18 rue d'Aguesseau, 92100 Boulogne-Billancourt
-5. **Spécialités clés :** sites web (Next.js, Webflow, WordPress, Shopify), branding, SEO local
-6. **Zone principale :** Boulogne-Billancourt et Hauts-de-Seine (92), Île-de-France, France entière en remote
-7. **Prix indicatifs :** site vitrine à partir de 2 000€, e-commerce à partir de 8 000€, branding à partir de 3 000€
-8. **Réunions en présentiel :** oui, au studio, sur rendez-vous (métro Marcel Sembat L9)
+4. **Spécialités clés :** sites web (Next.js, Webflow, WordPress, Shopify), branding, SEO local
+5. **Zone principale :** France entière, en remote
+6. **Prix indicatifs :** site vitrine à partir de 2 000€, e-commerce à partir de 8 000€, branding à partir de 3 000€
+7. **Réunions :** en visio, sur rendez-vous

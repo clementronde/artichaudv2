@@ -77,7 +77,7 @@ export default function ParisClient() {
               Dans la capitale mondiale du style et de l'innovation, un site web standard ne suffit plus. Vous avez besoin d'une identité numérique qui marque les esprits.
             </p>
             <p>
-              Artichaud est un <strong>studio web créatif basé à Boulogne-Billancourt, aux portes de Paris</strong>. Nous accompagnons les marques, TPE, PME et startups dans la conception de sites vitrines sur-mesure qui convertissent.
+              Artichaud est un <strong>studio web créatif qui accompagne les entreprises parisiennes</strong>, en remote comme en rendez-vous. Nous accompagnons les marques, TPE, PME et startups dans la conception de sites vitrines sur-mesure qui convertissent.
             </p>
           </motion.div>
 
@@ -408,7 +408,6 @@ export default function ParisClient() {
             <p className="mb-4 uppercase tracking-widest font-bold text-neutral-500">Navigation Rapide Île-de-France</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
                 <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Service Création de site</Link>
-                <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne-Billancourt</Link>
                 <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">WordPress & Webflow</Link>
                 <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
                 <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>

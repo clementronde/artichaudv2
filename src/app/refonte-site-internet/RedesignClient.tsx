@@ -388,7 +388,6 @@ export default function RedesignClient() {
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
                 <Link href="/services/creation-site-internet" className="hover:text-white transition-colors">Création de site internet</Link>
                 <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Agence Web Paris</Link>
-                <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne</Link>
                 <Link href="/creation-site-vitrine-wordpress-webflow-wix" className="hover:text-white transition-colors">Comparatif CMS</Link>
                 <Link href="/services/seo-referencement-naturel" className="hover:text-white transition-colors">SEO & Référencement</Link>
                 <Link href="/tarifs" className="hover:text-white transition-colors">Nos tarifs</Link>

@@ -36,14 +36,14 @@ const helvetica = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Artichaud Studio | Agence Web & Branding Boulogne-Billancourt",
+    default: "Artichaud Studio | Agence Web & Branding",
     template: "%s | Artichaud Studio"
   },
   icons: {
     icon: '/logonavbar.png',
     apple: '/apple-touch-icon.png',
   },
-  description: "Artichaud Studio transforme votre marque avec du branding percutant et des sites web sur mesure. Agence créative à Boulogne-Billancourt spécialisée en identité visuelle, webdesign et stratégie digitale.",
+  description: "Artichaud Studio transforme votre marque avec du branding percutant et des sites web sur mesure. Agence créative en remote, partout en France, spécialisée en identité visuelle, webdesign et stratégie digitale.",
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

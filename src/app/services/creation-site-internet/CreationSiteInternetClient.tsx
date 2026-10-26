@@ -172,11 +172,7 @@ export default function CreationSiteInternetClient() {
             </h2>
           </div>
           <p className="text-lg leading-relaxed text-gray-600 md:col-span-2">
-            Crédibilité, génération de leads, autonomie éditoriale ou expérience produit : on choisit le périmètre avant la technologie. Pour une recherche géographique, consultez notre page dédiée à la{' '}
-            <Link href="/creation-site-internet-boulogne-billancourt" className="font-medium text-black underline decoration-black/20 underline-offset-4 transition-colors hover:text-[#F70046]">
-              création de site internet à Boulogne-Billancourt
-            </Link>
-            .
+            Crédibilité, génération de leads, autonomie éditoriale ou expérience produit : on choisit le périmètre avant la technologie.
           </p>
         </div>
 

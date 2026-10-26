@@ -82,7 +82,7 @@ export const offerPages: OfferPage[] = [
     ],
     form: {
       title: 'Parlez-nous de votre activité',
-      secondField: { label: 'Votre activité', placeholder: 'Ex. : coach sportif à Boulogne', key: 'company' },
+      secondField: { label: 'Votre activité', placeholder: 'Ex. : coach sportif à Lyon', key: 'company' },
     },
     seo: {
       title: 'Offre Flash : identité et site pro en 7 jours',

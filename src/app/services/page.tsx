@@ -7,29 +7,29 @@ import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence Web, Branding & SEO à Boulogne-Billancourt | Artichaud Studio"
+    absolute: "Agence Web, Branding & SEO | Artichaud Studio"
   },
-  description: "Création de site internet, identité visuelle, branding et SEO à Boulogne-Billancourt. Une agence créative 360 qui réunit tous les métiers de la marque et du web en Île-de-France.",
+  description: "Création de site internet, identité visuelle, branding et SEO. Une agence créative 360 qui réunit tous les métiers de la marque et du web, en remote partout en France.",
   keywords: [
-    "agence web Boulogne-Billancourt",
-    "création site internet Boulogne-Billancourt",
+    "agence web",
+    "création site internet",
     "branding identité visuelle",
     "webdesign Île-de-France",
-    "agence SEO Boulogne-Billancourt",
+    "agence SEO",
     "refonte site internet",
     "stratégie digitale",
-    "agence créative 92"
+    "agence créative remote"
   ],
   openGraph: {
-    title: "Agence Web, Branding & SEO — Artichaud Studio Boulogne-Billancourt",
-    description: "Création de site internet, identité visuelle, branding et SEO à Boulogne-Billancourt. Nos expertises pour faire grandir votre marque.",
+    title: "Agence Web, Branding & SEO — Artichaud Studio",
+    description: "Création de site internet, identité visuelle, branding et SEO. Nos expertises pour faire grandir votre marque.",
     url: `${SITE_URL}/services`,
     images: [
       {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: "Services Artichaud Studio Boulogne-Billancourt"
+        alt: "Services Artichaud Studio"
       }
     ],
     locale: "fr_FR",

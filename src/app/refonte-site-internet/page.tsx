@@ -36,21 +36,13 @@ const schemas = [
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
     "name": "Artichaud Studio",
-    "description": "Agence experte en refonte de site internet à Boulogne-Billancourt et en Île-de-France. Nouveau design, meilleure UX et SEO conservé. WordPress, Webflow, Wix.",
+    "description": "Agence experte en refonte de site internet, en remote partout en France. Nouveau design, meilleure UX et SEO conservé. WordPress, Webflow, Wix.",
     "url": `${SITE_URL}/refonte-site-internet`,
     "telephone": "+33766489982",
     "email": "hello@artichaud-studio.com",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Boulogne-Billancourt",
-      "addressRegion": "Île-de-France",
-      "postalCode": "92100",
       "addressCountry": "FR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "48.8396",
-      "longitude": "2.2400"
     },
     "areaServed": [
       { "@type": "City", "name": "Paris" },

@@ -8,7 +8,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], weight: ["300", "400"], variable: "
 
 export const metadata: Metadata = {
   title: "Création de site internet pour restaurant, prêt en 7 jours",
-  description: "Le site de votre restaurant prêt en 7 jours : design sur mesure, menu en ligne et visibilité sur Google et les IA. Artichaud Studio, Boulogne-Billancourt.",
+  description: "Le site de votre restaurant prêt en 7 jours : design sur mesure, menu en ligne et visibilité sur Google et les IA. Artichaud Studio, partout en France.",
   alternates: {
     canonical: `${SITE_URL}/creation-site-internet-restaurant`,
   },

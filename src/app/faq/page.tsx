@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FAQ - Artichaud Studio",
-    description: "Questions fréquentes sur nos services de branding et création web à Boulogne-Billancourt.",
+    description: "Questions fréquentes sur nos services de branding et création web.",
     url: `${SITE_URL}/faq`,
     images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }]
   }
@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     question: "Quelle est votre zone d'intervention ?",
-    answer: "Nous sommes basés à Boulogne-Billancourt (92) et intervenons principalement en Île-de-France (75, 92, 93, 94). Cependant, nous travaillons également en remote avec des clients partout en France et à l'international. La plupart de nos projets peuvent se dérouler à distance avec des points réguliers en visio."
+    answer: "Nous travaillons en remote avec des clients partout en France et à l'international. Nos projets se déroulent à distance, avec des points réguliers en visio à chaque étape."
   },
   {
     question: "Proposez-vous de la maintenance après livraison ?",

@@ -156,7 +156,6 @@ Je suis pleinement satisfaite de cette collaboration et recommande Artichaud Stu
       overviewTitle: "Navigation",
       servicesTitle: "Nos Services",
       legalNotices: "Mentions Légales",
-      boulogneLink: "Création de site internet à Boulogne-Billancourt",
       services: {
         web: "Création Site Internet",
         branding: "Branding & Identité Visuelle",
@@ -407,7 +406,6 @@ I'm fully satisfied with this collaboration and recommend Artichaud Studio to an
       overviewTitle: "Overview",
       servicesTitle: "Our Services",
       legalNotices: "Legal Notice",
-      boulogneLink: "Website creation in Boulogne-Billancourt",
       services: {
         web: "Website Creation",
         branding: "Branding & Visual Identity",

@@ -5,22 +5,22 @@ import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Artichaud Studio | Agence web, branding & SEO à Boulogne-Billancourt",
+    absolute: "Artichaud Studio | Agence web, branding & SEO",
   },
-  description: "Artichaud Studio accompagne les marques ambitieuses en branding, création de sites web, webdesign et SEO à Boulogne-Billancourt et en Île-de-France.",
+  description: "Artichaud Studio accompagne les marques ambitieuses en branding, création de sites web, webdesign et SEO, partout en France.",
   keywords: [
-    "agence web Boulogne-Billancourt",
-    "agence branding Boulogne-Billancourt",
-    "création site internet Boulogne-Billancourt",
+    "agence web",
+    "agence branding",
+    "création site internet",
     "identité visuelle Île-de-France",
-    "webdesign Boulogne-Billancourt",
-    "agence digitale 92",
-    "création logo Boulogne-Billancourt",
-    "refonte site web Boulogne-Billancourt"
+    "webdesign",
+    "agence digitale remote",
+    "création logo",
+    "refonte site web"
   ],
   openGraph: {
-    title: "Artichaud Studio - Web & branding à Boulogne-Billancourt",
-    description: "Branding, sites web sur mesure, webdesign et SEO pour marques ambitieuses à Boulogne-Billancourt et en Île-de-France.",
+    title: "Artichaud Studio - Web & branding",
+    description: "Branding, sites web sur mesure, webdesign et SEO pour marques ambitieuses, partout en France.",
     url: SITE_URL,
     siteName: SITE_NAME,
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: "Artichaud Studio - Agence web et branding Boulogne-Billancourt"
+        alt: "Artichaud Studio - Agence web et branding"
       }
     ],
     locale: "fr_FR",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Artichaud Studio - Web & branding à Boulogne-Billancourt",
-    description: "Branding, sites web sur mesure, webdesign et SEO à Boulogne-Billancourt.",
+    title: "Artichaud Studio - Web & branding",
+    description: "Branding, sites web sur mesure, webdesign et SEO, partout en France.",
     images: [OG_IMAGE_URL]
   },
   alternates: {

@@ -6,33 +6,33 @@ import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence branding & identité visuelle à Boulogne | Artichaud Studio"
+    absolute: "Agence branding & identité visuelle | Artichaud Studio"
   },
-  description: "Création d'identité visuelle et branding à Boulogne-Billancourt. Logo, charte graphique, stratégie de marque. Artichaud Studio, votre agence de design pour une marque forte et mémorable.",
+  description: "Création d'identité visuelle et branding. Logo, charte graphique, stratégie de marque. Artichaud Studio, votre agence de design pour une marque forte et mémorable.",
   keywords: [
-    "branding Boulogne-Billancourt",
+    "agence branding",
     "identité visuelle Île-de-France",
-    "création logo Boulogne-Billancourt",
+    "création logo",
     "charte graphique",
     "design de marque",
-    "agence branding 92",
+    "agence branding remote",
     "identité de marque",
     "stratégie de marque",
     "refonte logo",
     "brand identity",
     "design system",
-    "agence design Boulogne-Billancourt"
+    "agence design"
   ],
   openGraph: {
-    title: "Agence Branding & Identité Visuelle — Artichaud Studio Boulogne-Billancourt",
-    description: "Création d'identités visuelles fortes et mémorables à Boulogne-Billancourt. Logo, charte graphique, stratégie de marque. Démarquez-vous avec une identité unique.",
+    title: "Agence Branding & Identité Visuelle — Artichaud Studio",
+    description: "Création d'identités visuelles fortes et mémorables. Logo, charte graphique, stratégie de marque. Démarquez-vous avec une identité unique.",
     url: `${SITE_URL}/services/branding-identite-visuelle`,
     images: [
       {
         url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
-        alt: "Agence Branding & Identité Visuelle Boulogne-Billancourt - Artichaud Studio"
+        alt: "Agence Branding & Identité Visuelle - Artichaud Studio"
       }
     ],
     locale: "fr_FR",

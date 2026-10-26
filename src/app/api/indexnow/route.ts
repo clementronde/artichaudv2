@@ -25,8 +25,6 @@ function getAllUrls(): string[] {
     '/services/branding-identite-visuelle',
     '/services/seo-referencement-naturel',
     '/creation-site-internet-paris',
-    '/creation-site-internet-boulogne-billancourt',
-    '/boulogne-billancourt',
     '/creation-site-vitrine-wordpress-webflow-wix',
     '/refonte-site-internet',
   ].map((route) => `${SITE_URL}${route}`)

@@ -96,7 +96,7 @@ export default function AboutClient({ posts }: { posts: BlogPost[] }) {
                 className="text-black leading-[1.3] font-normal"
                 style={{ fontSize: 'clamp(32px, 3.8vw, 52px)' }}
               >
-                Une agence créative indépendante à Boulogne-Billancourt, convaincue que la marque précède le design.
+                Une agence créative indépendante, en remote partout en France, convaincue que la marque précède le design.
               </motion.h1>
             </div>
           </div>

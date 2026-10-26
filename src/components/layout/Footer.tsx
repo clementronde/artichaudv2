@@ -150,15 +150,6 @@ const Footer: React.FC = () => {
             >
               {t.consent.manage}
             </button>
-
-            {/* Lien SEO Boulogne */}
-            <Link
-              href="/creation-site-internet-boulogne-billancourt"
-              suppressHydrationWarning={true}
-              className="text-white/40 hover:text-white transition-colors text-xs"
-            >
-              {t.footer.boulogneLink}
-            </Link>
           </div>
         </div>
 

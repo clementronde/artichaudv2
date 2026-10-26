@@ -429,7 +429,6 @@ export default function ShowcaseClient() {
             <p className="mb-4 uppercase tracking-widest font-bold text-neutral-500">Navigation</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
                 <Link href="/creation-site-internet-paris" className="hover:text-white transition-colors">Création site internet Paris & IDF</Link>
-                <Link href="/creation-site-internet-boulogne-billancourt" className="hover:text-white transition-colors">Agence Web Boulogne-Billancourt</Link>
                 <Link href="/refonte-site-internet" className="hover:text-white transition-colors">Refonte de site internet</Link>
                 <Link href="/blog" className="hover:text-white transition-colors">Comparatifs & Conseils</Link>
             </div>

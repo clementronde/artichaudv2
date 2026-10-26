@@ -41,15 +41,7 @@ const localBusinessSchema = {
   "email": "hello@artichaud-studio.com",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Boulogne-Billancourt",
-    "addressRegion": "Île-de-France",
-    "postalCode": "92100",
     "addressCountry": "FR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "48.8396",
-    "longitude": "2.2400"
   },
   "areaServed": [
     { "@type": "City", "name": "Paris" },
