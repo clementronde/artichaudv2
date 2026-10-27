@@ -297,7 +297,7 @@ export const express: MetierContent = {
     offerId: "express",
     secondField: { label: "Nom de votre entreprise", placeholder: "Studio Martin", key: "company" },
   },
-  hero: { title: "Votre site internet prêt en 7 jours", image: "image_hero_about.png", alt: "Deux personnes travaillent sur la maquette d'un site internet" },
+  hero: { title: "Votre site internet prêt en 7 jours", image: "LP/artisan/realisation-2.png", alt: "Site d'un créateur de carnets affiché sur ordinateur portable" },
   badges: [
     [
       { label: "1 500 €", dot: "bg-[#f70046]", icon: "price" },
