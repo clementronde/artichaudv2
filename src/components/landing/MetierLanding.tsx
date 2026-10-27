@@ -406,7 +406,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
                 >
                   <div data-stack-content className="flex flex-col gap-4 leading-[1.4] md:flex-row md:items-center md:justify-between">
                     <p className="whitespace-nowrap text-[64px] md:text-[100px]">
-                      <span data-stack-value data-value={stat.value} data-prefix="+" data-suffix={" %"}>
+                      <span>
                         {`+${stat.value} %`}
                       </span>
                     </p>

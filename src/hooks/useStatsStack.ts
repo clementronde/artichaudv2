@@ -7,7 +7,8 @@ import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(ScrollTrigger)
 
 // Chiffres clés au scroll : le texte s'allume mot à mot, puis chaque carte monte et se pose par-dessus la précédente.
-// Balisage attendu dans le scope : data-stack-pin (bloc collé) > data-stack-word (mots du texte) + data-stack-card > data-stack-content + data-stack-value (data-value, data-prefix, data-suffix)
+// Balisage attendu dans le scope : data-stack-pin (bloc collé) > data-stack-word (mots du texte) + data-stack-card > data-stack-content
+// Les chiffres sont affichés d'emblée à leur valeur (pas de compteur) pour être lisibles sans attendre le scroll
 // Le scope passe en data-stack="on" pendant l'animation : la mise en page empilée et sticky est portée par ses variantes CSS
 export function useStatsStack(scope: RefObject<HTMLElement | null>) {
   useGSAP(() => {
@@ -21,8 +22,6 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
       if (!pin) return
       const cards = gsap.utils.toArray<HTMLElement>('[data-stack-card]', section)
       const contents = cards.map((card) => card.querySelector<HTMLElement>('[data-stack-content]'))
-      const values = cards.map((card) => card.querySelector<HTMLElement>('[data-stack-value]')!)
-      const format = (el: HTMLElement, v: number) => `${el.dataset.prefix ?? ''}${v}${el.dataset.suffix ?? ''}`
 
       gsap.set(section, { attr: { 'data-stack': 'on' } })
       // Le bloc colle à `top` (variante CSS) ; il se décolle quand le bas de la section atteint son bas
@@ -41,19 +40,7 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
       const depth = (d: number) => ({ y: -d * 18, scale: 1 - d * 0.05 })
       cards.forEach((card, i) => {
         gsap.set(card, { zIndex: i + 1, transformOrigin: "50% 0%", y: i === 0 ? 0 : () => window.innerHeight })
-        values[i].textContent = format(values[i], 0)
       })
-
-      // Le chiffre suit le scroll : il remonte à 0 si l'on revient en arrière
-      const count = (el: HTMLElement) => {
-        const counter = { v: 0 }
-        return gsap.to(counter, {
-          v: Number(el.dataset.value),
-          duration: 0.7,
-          ease: "power1.out",
-          onUpdate: () => { el.textContent = format(el, Math.round(counter.v)) },
-        })
-      }
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -64,8 +51,6 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
           invalidateOnRefresh: true,
         },
       })
-      tl.add(count(values[0]), 0)
-
       for (let i = 1; i < cards.length; i++) {
         tl.to(cards[i], { y: 0, duration: 1, ease: "power2.out" }, i)
         // Les cartes déjà posées reculent d'un cran et s'estompent sous la nouvelle
@@ -73,13 +58,9 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
           tl.to(card, { ...depth(i - k), duration: 1, ease: "power2.out" }, i)
           tl.to(contents[k], { opacity: 0.3, duration: 1 }, i)
         })
-        tl.add(count(values[i]), i + 0.5)
       }
       // Temps de pause sur la dernière carte avant de libérer la section
       tl.to({}, { duration: 0.5 })
-
-      // Le texte n'est pas suivi par le revert de GSAP : on rend les vraies valeurs
-      return () => values.forEach((el) => { el.textContent = format(el, Number(el.dataset.value)) })
     })
   }, { scope })
 }

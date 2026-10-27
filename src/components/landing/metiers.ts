@@ -27,7 +27,7 @@ export type MetierContent = {
   // Vignettes du hero, sur deux lignes : la pastille colorée porte l'icône (la vignette WhatsApp ouvre la seconde ligne)
   badges: { label: string; dot: string; icon: BadgeIcon }[][];
   constat: string;
-  // Chiffres clés empilés au scroll (useStatsStack) : la valeur défile de 0 à `value`
+  // Chiffres clés empilés au scroll (useStatsStack), affichés d'emblée à leur valeur
   stats: { value: number; text: string; source: string }[];
   realisations: { title: string; rows: Realisation[] };
   // Grille des spécialités : deux cartes à gauche, une haute au centre (sans icône), deux à droite
