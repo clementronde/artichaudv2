@@ -420,7 +420,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
             </div>
           </div>
           {/* Cale : la distance de scroll pendant laquelle les cartes s'empilent */}
-          <div aria-hidden className="hidden h-[1900px] group-data-[stack=on]:block" />
+          <div aria-hidden className="hidden h-[1000px] group-data-[stack=on]:block" />
         </section>
 
         {/* RÉALISATIONS */}

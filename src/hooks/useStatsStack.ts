@@ -36,27 +36,32 @@ export function useStatsStack(scope: RefObject<HTMLElement | null>) {
         }
       )
 
-      // Les cartes suivantes attendent sous l'écran ; une carte recouverte recule d'un cran (plus petite, sa tranche dépasse en haut)
+      // Les cartes suivantes attendent juste sous le bord de l'écran (visibles dès qu'elles bougent) ;
+      // une carte recouverte recule d'un cran (plus petite, sa tranche dépasse en haut)
       const depth = (d: number) => ({ y: -d * 18, scale: 1 - d * 0.05 })
+      const belowFold = () => Math.max(0, window.innerHeight - pinTop() - cards[0].offsetTop)
       cards.forEach((card, i) => {
-        gsap.set(card, { zIndex: i + 1, transformOrigin: "50% 0%", y: i === 0 ? 0 : () => window.innerHeight })
+        gsap.set(card, { zIndex: i + 1, transformOrigin: "50% 0%", y: i === 0 ? 0 : belowFold })
       })
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: () => `top+=300 ${pinTop()}px`,
+          // Court répit après la fixation de la première carte, puis la suivante monte
+          start: () => `top+=100 ${pinTop()}px`,
           end: () => `bottom ${pinTop() + pin.offsetHeight}px`,
           scrub: 0.6,
           invalidateOnRefresh: true,
         },
       })
+      // La carte suivante monte dès le début de la timeline : pas de temps mort après la première
       for (let i = 1; i < cards.length; i++) {
-        tl.to(cards[i], { y: 0, duration: 1, ease: "power2.out" }, i)
+        const at = i - 1
+        tl.to(cards[i], { y: 0, duration: 1, ease: "power2.out" }, at)
         // Les cartes déjà posées reculent d'un cran et s'estompent sous la nouvelle
         cards.slice(0, i).forEach((card, k) => {
-          tl.to(card, { ...depth(i - k), duration: 1, ease: "power2.out" }, i)
-          tl.to(contents[k], { opacity: 0.3, duration: 1 }, i)
+          tl.to(card, { ...depth(i - k), duration: 1, ease: "power2.out" }, at)
+          tl.to(contents[k], { opacity: 0.3, duration: 1 }, at)
         })
       }
       // Temps de pause sur la dernière carte avant de libérer la section
