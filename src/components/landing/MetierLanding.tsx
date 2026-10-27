@@ -22,8 +22,11 @@ import type { BadgeIcon, Formule, MetierContent } from "./metiers";
 
 // Icônes et logos partagés par toutes les landings métier
 const COMMON = "/LP/commun";
-// Ancre du formulaire : tous les CTA « commander mon site » y descendent
+// Ancre du formulaire : tous les CTA « appel découverte gratuit » y descendent
 const FORM_ANCHOR = "commander";
+// Ancre des formules, cible du CTA secondaire du hero
+const OFFRES_ANCHOR = "offres";
+const CTA_LABEL = "Appel découverte gratuit";
 
 // Logos du bandeau : dimensions du cadre + recadrage de l'image, repris de la maquette
 type Logo = { name: string; src: string; w: number; h: number; crop?: { width: string; height: string; left: string; top: string } };
@@ -124,7 +127,7 @@ const Badge = ({ label, dot, icon }: { label: string; dot: string; icon: BadgeIc
 // Logo et bouton centrés en haut de page ; le centrage passe par le flex car framer-motion occupe le transform
 const LandingNav = () => (
   <motion.nav
-    aria-label="Commander"
+    aria-label="Appel découverte"
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -138,7 +141,7 @@ const LandingNav = () => (
       className="group inline-flex h-[50px] items-center gap-2 whitespace-nowrap rounded-full bg-[#f70046] px-5 text-[14px] font-medium text-white shadow-[0_8px_20px_rgba(0,0,0,0.2)] transition-colors duration-300 hover:bg-[#d4003c] md:h-[52px]"
     >
       <span className="transition-transform duration-300 group-hover:-translate-x-1">→</span>
-      Commander mon site
+      {CTA_LABEL}
     </Link>
   </motion.nav>
 );
@@ -328,7 +331,10 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
             </h1>
             <div data-hero-fade className="flex flex-wrap items-center gap-[10px]">
               <PillLink href={`#${FORM_ANCHOR}`} className="bg-white px-[30px] text-[#30041b]">
-                Je commande mon site
+                {CTA_LABEL}
+              </PillLink>
+              <PillLink href={`#${OFFRES_ANCHOR}`} className="border border-white px-[30px] text-white">
+                Voir nos offres
               </PillLink>
             </div>
           </div>
@@ -422,7 +428,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
           <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <SectionHeading label="Nos réalisations" title={realisations.title} />
             <PillLink href={`#${FORM_ANCHOR}`} className="border border-[#30041b] bg-white px-[35px] text-[#30041b]">
-              Commander mon site
+              {CTA_LABEL}
             </PillLink>
           </div>
           <div className="flex flex-col gap-[5px]">
@@ -458,7 +464,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <h2 data-reveal="up" className="text-[32px] md:text-[40px]">Nos spécialités</h2>
             <PillLink href={`#${FORM_ANCHOR}`} className="border border-[#30041b] bg-white px-[35px] text-[#30041b]">
-              Commander mon site
+              {CTA_LABEL}
             </PillLink>
           </div>
           <div className="grid grid-cols-1 gap-[5px] md:grid-cols-[464fr_494fr_464fr] md:grid-rows-[306px_306px]">
@@ -496,8 +502,9 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
           </div>
         </section>
 
-        {/* FORMULES */}
-        <section data-reveal-group className="flex flex-col gap-[50px] px-6 md:px-10 text-[#30041b]">
+        {/* FORMULES : l'ancre est remontée pour que le titre ne passe pas sous le menu flottant (Lenis ignore scroll-margin) */}
+        <section data-reveal-group className="relative flex flex-col gap-[50px] px-6 md:px-10 text-[#30041b]">
+          <span id={OFFRES_ANCHOR} aria-hidden className="absolute -top-32 left-0" />
           <h2 data-reveal="up" className="max-w-[640px] text-[32px] md:text-[40px] leading-[1.375]">
             {formules.title}
           </h2>
@@ -596,7 +603,7 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-5">
           <div className="flex flex-col gap-10 self-start md:sticky md:top-32 md:col-span-4">
             <div className="flex flex-col gap-6">
-              <SectionHeading label="Commander" title={commander.title} />
+              <SectionHeading label="Appel découverte gratuit" title={commander.title} />
               <p className="max-w-[400px] font-[family-name:var(--font-dm-sans)] text-[16px] leading-[1.4] text-white/70">
                 {commander.text}
               </p>

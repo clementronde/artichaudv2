@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from '@/context/LocaleContext'
@@ -38,16 +38,48 @@ function Toggle({
 }
 
 export default function CookieBanner() {
-  const { isPanelOpen } = useConsent()
+  const { isPanelOpen, consent } = useConsent()
+  // Premier passage : modale bloquante tant qu'aucun choix n'est fait ; ensuite, panneau de réglages non bloquant
+  const blocking = isPanelOpen && consent === null
 
-  return <AnimatePresence>{isPanelOpen && <CookiePanel key="cookie-panel" />}</AnimatePresence>
+  return (
+    <AnimatePresence>
+      {blocking && <ConsentBackdrop key="cookie-backdrop" />}
+      {isPanelOpen && <CookiePanel key="cookie-panel" blocking={blocking} />}
+    </AnimatePresence>
+  )
+}
+
+// Fond flouté qui bloque la page : Lenis ignore la molette ici (data-lenis-prevent) et le défilement natif est coupé
+function ConsentBackdrop() {
+  useEffect(() => {
+    const root = document.documentElement
+    const previous = root.style.overflow
+    root.style.overflow = 'hidden'
+    return () => {
+      root.style.overflow = previous
+    }
+  }, [])
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      data-lenis-prevent
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 z-[5499] bg-[#30041B]/40 backdrop-blur-sm"
+    />
+  )
 }
 
 // Monté à chaque ouverture : repart du choix enregistré, détail déplié si un choix existe déjà
-function CookiePanel() {
+function CookiePanel({ blocking }: { blocking: boolean }) {
   const { t } = useLocale()
   const { consent, save } = useConsent()
-  const [showDetails, setShowDetails] = useState(consent !== null)
+  // Détail des catégories uniquement dans les réglages (lien « Gérer les cookies »)
+  const showDetails = !blocking
   const [choices, setChoices] = useState<ConsentChoices>(consent ?? { analytics: false, marketing: false })
 
   const c = t.consent
@@ -59,14 +91,18 @@ function CookiePanel() {
   return (
         <motion.div
           role="dialog"
-          aria-modal="false"
+          aria-modal={blocking}
           aria-labelledby="cookie-banner-title"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.8, ease: EXPO }}
           data-lenis-prevent
-          className="fixed bottom-4 left-4 right-4 z-[5500] max-h-[calc(100svh-2rem)] overflow-y-auto rounded-[24px] bg-[#30041B] p-5 text-white shadow-[0_24px_80px_rgba(48,4,27,0.35)] md:bottom-6 md:left-auto md:right-6 md:w-[440px] md:p-6"
+          className={`fixed z-[5500] max-h-[calc(100svh-2rem)] overflow-y-auto rounded-[24px] border border-white/15 bg-[#30041B] p-5 text-white shadow-[0_24px_80px_rgba(48,4,27,0.35)] md:p-6 ${
+            blocking
+              ? 'inset-x-4 bottom-4 md:inset-0 md:m-auto md:h-fit md:w-[480px]'
+              : 'bottom-4 left-4 right-4 md:bottom-6 md:left-auto md:right-6 md:w-[440px]'
+          }`}
         >
           <h2 id="cookie-banner-title" className="mb-2 text-2xl font-normal leading-[1.05] tracking-tight">
             {c.title}
@@ -113,28 +149,29 @@ function CookiePanel() {
             )}
           </AnimatePresence>
 
-          {/* Refuser et accepter ont le même poids visuel (exigence CNIL) */}
-          <div className="mt-4 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => (showDetails ? save(choices) : setShowDetails(true))}
-              className="mr-auto text-left text-[13px] text-white/60 underline underline-offset-4 transition-colors hover:text-[#F70046]"
-            >
-              {showDetails ? c.saveChoices : c.customize}
-            </button>
-            <motion.button
-              type="button"
-              onClick={() => save({ analytics: false, marketing: false })}
-              className="rounded-full border-2 border-white/30 px-4 py-2 text-sm font-medium text-white"
-              whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.8)' }}
-              whileTap={{ scale: 0.97 }}
-            >
-              {c.reject}
-            </motion.button>
+          {/* Premier passage : refus en lien discret, acceptation en bouton (choix assumé, en retrait de la recommandation CNIL d'un poids égal) */}
+          <div className="mt-5 flex items-center gap-2">
+            {blocking ? (
+              <button
+                type="button"
+                onClick={() => save({ analytics: false, marketing: false })}
+                className="mr-auto text-left text-[13px] text-white/60 underline underline-offset-4 transition-colors hover:text-white"
+              >
+                {c.reject}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => save(choices)}
+                className="mr-auto text-left text-[13px] text-white/60 underline underline-offset-4 transition-colors hover:text-[#F70046]"
+              >
+                {c.saveChoices}
+              </button>
+            )}
             <motion.button
               type="button"
               onClick={() => save({ analytics: true, marketing: true })}
-              className="rounded-full border-2 border-[#F70046] bg-[#F70046] px-4 py-2 text-sm font-medium text-white"
+              className="rounded-full border-2 border-[#F70046] bg-[#F70046] px-6 py-2.5 text-sm font-medium text-white"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >

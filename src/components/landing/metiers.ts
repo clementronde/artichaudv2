@@ -163,7 +163,7 @@ export const restaurant: MetierContent = {
   },
   commander: {
     title: "Le site de votre restaurant prêt en 7 jours",
-    text: "Parlez-nous de votre restaurant : on vous rappelle pour cadrer le projet. Le devis est gratuit.",
+    text: "Parlez-nous de votre restaurant : on vous rappelle pour un appel découverte de 30 minutes, gratuit et sans engagement.",
   },
 };
 
@@ -284,7 +284,7 @@ export const artisan: MetierContent = {
   },
   commander: {
     title: "Le site de votre savoir-faire prêt en 7 jours",
-    text: "Parlez-nous de votre activité : on vous rappelle pour cadrer le projet. Le devis est gratuit.",
+    text: "Parlez-nous de votre activité : on vous rappelle pour un appel découverte de 30 minutes, gratuit et sans engagement.",
   },
 };
 
@@ -406,6 +406,6 @@ export const express: MetierContent = {
   },
   commander: {
     title: "Votre site internet prêt en 7 jours",
-    text: "Parlez-nous de votre activité : on vous rappelle pour cadrer le projet. Le devis est gratuit.",
+    text: "Parlez-nous de votre activité : on vous rappelle pour un appel découverte de 30 minutes, gratuit et sans engagement.",
   },
 };
