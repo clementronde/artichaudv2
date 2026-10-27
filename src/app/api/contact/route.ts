@@ -158,6 +158,8 @@ export async function POST(request: NextRequest) {
     // Honeypot : champ invisible pour les humains, rempli uniquement par les bots.
     // On répond succès sans rien envoyer, pour ne pas révéler la détection.
     if (data.hp) {
+      // Trace dans les logs Vercel : permet de comprendre une demande « reçue » sans email
+      console.warn(JSON.stringify({ level: 'warn', message: 'Formulaire ignoré : honeypot rempli', offer: data.offer, howFound: data.howFound }))
       return NextResponse.json({ success: true })
     }
 

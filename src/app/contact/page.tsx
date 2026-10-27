@@ -784,6 +784,8 @@ export default function ContactPage() {
       }
 
       setIsSubmitted(true)
+      // Honeypot rempli : le serveur répond succès sans rien envoyer, aucune conversion ne doit partir
+      if (honeypot) return
 
       // Conversion GA4 : suivi des demandes de contact générées par le site
       sendGTMEvent({

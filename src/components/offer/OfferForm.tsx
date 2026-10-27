@@ -138,6 +138,8 @@ export default function OfferForm({ page, messageOptional = false, onLead }: Off
       if (!response.ok) throw new Error(data?.error || "Erreur lors de l'envoi")
 
       setIsSubmitted(true)
+      // Honeypot rempli : le serveur répond succès sans rien envoyer, aucune conversion ne doit partir
+      if (honeypot) return
       // Valeur = prix de l'offre, pour que Google Ads optimise sur la valeur des leads ;
       // coordonnées pour les conversions améliorées, transmises seulement avec le consentement marketing
       const value = offer.value ? { value: offer.value, currency: 'EUR' } : {}
