@@ -22,6 +22,42 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 12,
+    slug: "destiny",
+    client: "Destiny Carnets",
+    category: "Site e-commerce",
+    year: "2026",
+    services: ["Identité visuelle", "Web Design", "E-commerce", "Packaging"],
+    seoTitle: "Destiny Carnets : e-commerce de carnets faits main",
+    seoDescription: "Découvrez le projet Destiny Carnets : identité visuelle, packaging et site e-commerce pour une créatrice de carnets en simili-cuir façonnés à la main.",
+    seoKeywords: [
+      "Destiny Carnets",
+      "site e-commerce carnets faits main",
+      "papeterie artisanale",
+      "identité visuelle papeterie",
+      "Artichaud Studio Destiny"
+    ],
+    description: [
+      "Destiny est l'atelier d'une créatrice qui façonne à la main des carnets de caractère : texturés, un brin grunge et pensés comme de véritables bijoux uniques, accompagnés de charms et de stickers illustrés.",
+      "Notre mission : donner à cet univers une marque et une boutique à sa hauteur. Nous avons dessiné un logotype qui marie une capitale élancée et une signature manuscrite, posé une palette violet nuit et lavande, puis décliné l'identité jusqu'au colis : boîte d'envoi, carte de remerciement et stickers exclusifs, imaginés à chaque collection avec un artiste invité. Le site e-commerce raconte l'atelier autant qu'il vend : boutique de carnets et de papeterie, parcours sur-mesure pour choisir son format, son simili-cuir et sa personnalisation, et un espace actualités pour les pop-up et l'art du journaling. Résultat : une boutique indépendante, pensée mobile d'abord, qui fait de chaque commande une expérience à part entière."
+    ],
+    cover: "/projects/destiny/destinyprojet1.webp",
+    images: [
+      "/projects/destiny/destinyprojet2.webp",
+      "/projects/destiny/destinyprojet4.webp",
+      "/projects/destiny/destinyprojet5.webp",
+      "/projects/destiny/destinyprojet6.webp"
+    ],
+    colors: [
+      { hex: "#281837", name: "Midnight Plum" },
+      { hex: "#241039", name: "Deep Violet" },
+      { hex: "#D1BBD4", name: "Lavender" },
+      { hex: "#F7EBFF", name: "Lilac Mist" }
+    ],
+    sideImage: "/projects/destiny/destinyprojet3.webp",
+    liveUrl: "https://destinycarnets.com"
+  },
+  {
     id: 10,
     slug: "remembraance",
     client: "Remembraance",

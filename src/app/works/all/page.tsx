@@ -11,6 +11,14 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData'
 // --- DONNÉES PROJETS ---
 const allProjects = [
   {
+    id: 12,
+    client: "Destiny Carnets",
+    slogan: "Des carnets faits main, de l'atelier au colis",
+    category: "Brand Identity, Webdesign, E-commerce",
+    image: "/projects/destiny/destinyprojet1.webp",
+    slug: "/works/destiny"
+  },
+  {
     id: 10,
     client: "Remembraance",
     slogan: "Une boutique en ligne pour la mode upcyclée",
