@@ -126,21 +126,21 @@ const ProjectRow = ({ project, setModal, index }: ProjectRowProps) => {
         
         {/* COL 1-5 : SLOGAN */}
         <div className="col-span-8 md:col-span-5">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal text-white transition-all duration-500 group-hover/item:translate-x-2">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal text-white transition-all duration-500 group-hover/item:translate-x-2 group-hover/item:text-[#F70046]">
             {project.slogan}
           </h2>
         </div>
 
         {/* COL 6 : CLIENT */}
         <div className="col-span-4 md:col-span-1">
-          <span className="text-base md:text-lg text-gray-400 font-medium block transition-colors duration-300 group-hover/item:text-white">
+          <span className="text-base md:text-lg text-gray-400 font-medium block transition-colors duration-300 group-hover/item:text-[#F70046]">
             {project.client}
           </span>
         </div>
 
         {/* COL 7-8 : CATÉGORIE */}
         <div className="col-span-4 md:col-span-2 text-right md:text-left">
-          <p className="text-sm md:text-base text-gray-500 font-light transition-colors duration-300 group-hover/item:text-[#D0F800]">
+          <p className="text-sm md:text-base text-gray-500 font-light transition-colors duration-300 group-hover/item:text-[#F70046]">
             {project.category}
           </p>
         </div>
@@ -184,7 +184,7 @@ const Modal = ({ modal, projects }: { modal: { active: boolean; index: number },
       }}
       animate={active ? "open" : "closed"}
       initial="initial"
-      className="fixed top-0 left-0 h-[350px] w-[450px] overflow-hidden pointer-events-none z-50 flex items-center justify-center bg-[#0a0a0a]"
+      className="fixed top-0 left-0 h-[350px] w-[450px] overflow-hidden pointer-events-none z-50 flex items-center justify-center bg-[#30041B]"
     >
       <div 
         style={{ top: index * -100 + "%" }} 
@@ -212,7 +212,7 @@ export default function AllProjectsPage() {
   const [modal, setModal] = useState({ active: false, index: 0 })
 
   return (
-    <main className="w-full bg-[#0a0a0a] min-h-screen text-white pt-[230px] pb-32 relative">
+    <main className="w-full bg-[#30041B] min-h-screen text-white pt-[230px] pb-32 relative">
       
       {/* ================================================
           1. HEADER INTRODUCTION
