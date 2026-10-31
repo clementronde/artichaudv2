@@ -7,7 +7,7 @@ import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Agence Web, Branding & SEO | Artichaud Studio"
+    absolute: "Nos services web, branding & SEO | Artichaud Studio"
   },
   description: "Création de site internet, identité visuelle, branding et SEO. Une agence créative 360 qui réunit tous les métiers de la marque et du web, en remote partout en France.",
   keywords: [

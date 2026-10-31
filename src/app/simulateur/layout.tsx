@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: `Simulateur prix site internet | ${SITE_NAME}`,
+  title: "Simulateur de prix de site internet",
   description:
     "Estimez le budget d'un site vitrine, e-commerce ou projet web sur mesure. Simulateur gratuit par Artichaud Studio.",
   alternates: {

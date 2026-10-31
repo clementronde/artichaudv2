@@ -4,7 +4,7 @@ import { relatedLinkGroups } from "@/components/seo/relatedLinksData";
 import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "FAQ | Questions Fréquentes - Artichaud Studio",
+  title: "Questions fréquentes",
   description: "Toutes les réponses à vos questions sur la création de sites web, le branding et nos services. Tarifs, délais, processus et plus encore.",
   keywords: [
     "faq agence web",

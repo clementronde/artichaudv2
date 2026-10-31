@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact : devis site web & branding",
+  title: "Contact et devis gratuit",
   description:
     "Contactez Artichaud Studio pour cadrer votre projet de site web, branding, webdesign ou SEO. Réponse sous 24h.",
   alternates: {

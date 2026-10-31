@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Tous nos projets | Artichaud Studio',
+  title: 'Tous nos projets',
   description: 'Découvrez tous les projets réalisés par Artichaud Studio : sites web, branding, identité visuelle et refonte de sites.',
   alternates: {
     canonical: `${SITE_URL}/works/all`,

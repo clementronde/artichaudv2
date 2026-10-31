@@ -7,7 +7,7 @@ import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Portfolio : projets web & branding | Artichaud Studio"
+    absolute: "Nos projets web & branding | Artichaud Studio"
   },
   description: "Découvrez nos réalisations : branding, sites web et stratégies digitales pour Charit.io, Disobey, Paradox, Lumyn et autres marques ambitieuses.",
   keywords: [

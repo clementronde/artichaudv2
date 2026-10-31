@@ -68,7 +68,7 @@ export async function generateMetadata(
   } catch (e) {
     console.error("Error generating metadata:", e);
     return {
-      title: 'Artichaud Studio Works'
+      title: 'Projet'
     };
   }
 }

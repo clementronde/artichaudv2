@@ -7,7 +7,7 @@ import { relatedLinkGroups } from '@/components/seo/relatedLinksData';
 import { OG_IMAGE_URL, SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Blog création web & branding | Conseils pour PME',
+  title: 'Le blog : conseils web & branding pour PME',
   description: 'Découvrez nos articles sur le branding, le webdesign, le marketing digital et les tendances du design. Conseils pratiques et retours d\'expérience de nos projets.',
   keywords: [
     'blog branding',

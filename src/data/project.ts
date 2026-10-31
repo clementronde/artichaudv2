@@ -209,7 +209,7 @@ export const projects: Project[] = [
     category: "Identité de marque",
     year: "2023",
     services: ["Naming", "Brand strategy", "Identité visuelle", "Tone of voice"],
-    seoTitle: "Jobmi - Identité de marque pour plateforme emploi",
+    seoTitle: "Jobmi : identité de marque d'une plateforme emploi",
     seoDescription: "Découvrez le projet Jobmi : naming, stratégie de marque, identité visuelle et ton éditorial pour une plateforme emploi moderne, claire et rassurante.",
     seoKeywords: [
       "Jobmi",
