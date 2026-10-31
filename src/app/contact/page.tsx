@@ -800,7 +800,8 @@ export default function ContactPage() {
         content_name: formData.offer || 'formulaire',
         content_category: formData.services.join(', '),
       }, eventId)
-      trackOpenAILead(eventId)
+      // Coordonnées hachées pour OpenAI, seulement avec le consentement marketing
+      trackOpenAILead(eventId, undefined, marketingConsent ? { email: formData.email, phone: formData.phone, name: formData.name } : undefined)
 
       // Scroll vers le haut pour la confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })

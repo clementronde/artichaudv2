@@ -159,7 +159,7 @@ export default function OfferForm({ page, messageOptional = false, onLead }: Off
       })
       onLead?.(userData)
       trackMetaEvent('Lead', { content_name: page.offerId, content_category: offer.services.join(', '), ...value }, eventId)
-      trackOpenAILead(eventId, offer.value)
+      trackOpenAILead(eventId, offer.value, marketingConsent ? { email, phone, name } : undefined)
     } catch (error) {
       setSubmitError(
         error instanceof Error
