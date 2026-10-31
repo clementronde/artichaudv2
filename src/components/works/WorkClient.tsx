@@ -62,7 +62,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
         </div>
 
         <div className="flex items-center gap-3 mt-3">
-          <span className="text-base font-medium text-arti-black group-hover:text-amber-600 transition-colors">
+          <span className="text-base font-medium text-arti-black group-hover:text-[#F70046] transition-colors">
             {project.category}
           </span>
           <span className="text-sm font-light text-gray-400 italic">
