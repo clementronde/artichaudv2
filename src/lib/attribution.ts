@@ -3,7 +3,9 @@
 export const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const
 // Identifiants de clic Google Ads (auto-tagging) : affichés dans l'email de lead pour l'import des conversions hors ligne
 export const CLICK_ID_KEYS = ['gclid', 'gbraid', 'wbraid'] as const
-const ATTRIBUTION_KEYS = [...UTM_KEYS, ...CLICK_ID_KEYS]
+// Identifiant de clic des publicités ChatGPT (OpenAI Ads)
+export const OPENAI_CLICK_ID_KEY = 'oppref'
+const ATTRIBUTION_KEYS = [...UTM_KEYS, ...CLICK_ID_KEYS, OPENAI_CLICK_ID_KEY] as const
 
 export type Attribution = Partial<Record<(typeof ATTRIBUTION_KEYS)[number], string>>
 
@@ -39,8 +41,9 @@ export function getAttribution(): Attribution {
   }
 }
 
-// Régie publicitaire de la visite : la source UTM, sinon Google Ads quand seul l'identifiant de clic est présent
+// Régie publicitaire de la visite : la source UTM, sinon la régie déduite de l'identifiant de clic présent
 export function adSource(attribution: Attribution): string | undefined {
   if (attribution.utm_source) return attribution.utm_source
+  if (attribution[OPENAI_CLICK_ID_KEY]) return 'chatgpt ads'
   return CLICK_ID_KEYS.some((key) => attribution[key]) ? 'google ads' : undefined
 }
