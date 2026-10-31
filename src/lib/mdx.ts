@@ -50,9 +50,13 @@ const fallbackImages = [
   '/projects/yumdeal/yumdealprojet1.avif',
 ];
 
+const publicDir = path.join(root, 'public');
+
+// public/ est exclu des fonctions Vercel (next.config) : sans lui, au rendu à la demande, l'image est supposée présente
 const localImageExists = (image: string) => {
   if (!image || image.startsWith('http')) return true;
-  return fs.existsSync(path.join(root, 'public', image.replace(/^\//, '')));
+  if (!fs.existsSync(publicDir)) return true;
+  return fs.existsSync(path.join(publicDir, image.replace(/^\//, '')));
 };
 
 const resolvePostImage = (image: string, slug: string) => {

@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // Les lectures de content/ via process.cwd() embarquaient tout public/ (~150 Mo) dans chaque fonction ;
+  // public/ est servi par le CDN, les fonctions n'en ont pas besoin
+  outputFileTracingExcludes: {
+    '*': ['public/**/*'],
+  },
   async redirects() {
     return [
       // Page de l'offre Flash retirée : remplacée par la landing générale « site en 7 jours »
