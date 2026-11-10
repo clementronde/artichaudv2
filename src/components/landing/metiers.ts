@@ -1,10 +1,15 @@
 import type { OfferId } from "@/data/offers";
+import type { Ville } from "@/data/villes";
 
 // Contenu des landings métier (restaurant, artisan) : même mise en page et mêmes animations, textes et photos propres à chaque métier.
 // Fichier placé dans components pour que Tailwind voie les classes qu'il contient (pastilles, grille des spécialités)
 
 // Pages servies par MetierLanding : le menu du site y est masqué (Navbarv2) au profit du menu réduit de la landing
 export const LANDING_PATHS = ["/creation-site-internet-restaurant", "/creation-site-internet-artisan", "/creation-site-internet-7-jours"];
+// Landings locales (/creation-site-internet/saint-nazaire…) : même menu réduit ; le hub /creation-site-internet garde le menu du site
+const VILLE_LANDING_PREFIX = "/creation-site-internet/";
+
+export const isLandingPath = (pathname: string) => LANDING_PATHS.includes(pathname) || pathname.startsWith(VILLE_LANDING_PREFIX);
 
 // Icône de chaque pastille du hero (dessins dans MetierLanding)
 export type BadgeIcon = "price" | "ai" | "time" | "booking" | "quote";
@@ -408,4 +413,26 @@ export const express: MetierContent = {
     title: "Votre site internet prêt en 7 jours",
     text: "Parlez-nous de votre activité : on vous rappelle pour un appel découverte de 30 minutes, gratuit et sans engagement.",
   },
+};
+
+// Landing locale : la landing artisan, recentrée sur la ville (titre, constat, spécialités, formulaire suivi par ville)
+export const villeLanding = (ville: Ville): MetierContent => {
+  // Exemple de recherche métier de la ville (« plombier Saint-Nazaire »), à défaut une recherche générique
+  const exemple = ville.requetes.find((r) => !/^(création|agence|site)/.test(r)) ?? `artisan ${ville.name}`;
+  return {
+    ...artisan,
+    whatsappLabel: `offre site internet ${ville.in}`,
+    form: { ...artisan.form, slug: `artisan-${ville.slug}` },
+    hero: { ...artisan.hero, title: `Création de site internet ${ville.in} en 7 jours` },
+    constat: `${ville.in.charAt(0).toUpperCase()}${ville.in.slice(1)} comme ailleurs, on cherche son artisan sur son téléphone avant de décrocher. Votre site est votre vitrine : il doit montrer votre travail, inspirer confiance et faire appeler.`,
+    specialites: artisan.specialites.map((item) =>
+      item.title === "Visible sur Google & les IA"
+        ? { ...item, text: `Référencement local, fiche Google soignée, site rapide : vous sortez quand on tape « ${exemple} », sur Google comme sur ChatGPT.` }
+        : item,
+    ),
+    commander: {
+      title: `Votre site ${ville.in} prêt en 7 jours`,
+      text: `Parlez-nous de votre activité ${ville.in} : on vous rappelle pour un appel découverte de 30 minutes, gratuit et sans engagement.`,
+    },
+  };
 };

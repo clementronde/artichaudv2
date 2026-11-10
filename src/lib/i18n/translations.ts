@@ -175,10 +175,8 @@ Je suis pleinement satisfaite de cette collaboration et recommande Artichaud Stu
       },
       step2: {
         label: "Étape 02",
-        heading: "Quel est votre budget ?",
-        subheading: "Cette indication nous aide à vous proposer des solutions adaptées.",
-        timelineHeading: "Et côté délai ?",
-        timelineSubheading: "Quand souhaitez-vous lancer le projet ?",
+        heading: "Et côté délai ?",
+        subheading: "Quand souhaitez-vous lancer le projet ? Vous pouvez aussi passer cette étape.",
       },
       step3: {
         label: "Étape 03",
@@ -425,10 +423,8 @@ I'm fully satisfied with this collaboration and recommend Artichaud Studio to an
       },
       step2: {
         label: "Step 02",
-        heading: "What is your budget?",
-        subheading: "This helps us tailor the right solutions for you.",
-        timelineHeading: "What about the timeline?",
-        timelineSubheading: "When would you like to kick off the project?",
+        heading: "What about the timeline?",
+        subheading: "When would you like to kick off the project? You can also skip this step.",
       },
       step3: {
         label: "Step 03",

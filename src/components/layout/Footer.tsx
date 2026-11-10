@@ -134,6 +134,13 @@ const Footer: React.FC = () => {
             >
               {t.footer.services.seo}
             </Link>
+            <Link
+              href="/creation-site-internet"
+              suppressHydrationWarning={true}
+              className="text-white/60 hover:text-white transition-colors text-sm"
+            >
+              Création de site en Loire-Atlantique
+            </Link>
 
             {/* --- MENTIONS LÉGALES --- */}
             <Link
