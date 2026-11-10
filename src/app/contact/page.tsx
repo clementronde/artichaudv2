@@ -235,7 +235,8 @@ const Step1Services = ({
   )
 }
 
-const Step2Budget = ({
+// Étape 02 : le délai souhaité (facultatif). Le choix du budget a été retiré du formulaire
+const Step2Timeline = ({
   formData,
   setFormData
 }: {
@@ -243,7 +244,6 @@ const Step2Budget = ({
   setFormData: React.Dispatch<React.SetStateAction<FormData>>
 }) => {
   const { t } = useLocale()
-  const budgets = t.contact.budgets
   const timelines = t.contact.timelines
 
   return (
@@ -266,60 +266,23 @@ const Step2Budget = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {budgets.map((budget, index) => (
-          <SelectCard
-            key={budget.id}
-            selected={formData.budget === budget.id}
-            onClick={() => setFormData(prev => ({ ...prev, budget: budget.id }))}
-            className="p-6"
+      <div className="flex flex-wrap gap-3">
+        {timelines.map((timeline) => (
+          <button
+            key={timeline.id}
+            type="button"
+            onClick={() => setFormData(prev => ({ ...prev, timeline: timeline.id }))}
+            className={`
+              px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
+              ${formData.timeline === timeline.id
+                ? 'bg-arti-black text-white'
+                : 'bg-black/5 text-arti-black/60 hover:bg-black/10'
+              }
+            `}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="flex flex-col gap-2 pr-8"
-            >
-              <span className="text-lg font-medium">{budget.label}</span>
-              <span className={`text-sm font-light transition-colors duration-300 ${
-                formData.budget === budget.id ? 'text-white/60' : 'text-arti-black/40'
-              }`}>
-                {budget.hint}
-              </span>
-            </motion.div>
-          </SelectCard>
+            {timeline.label}
+          </button>
         ))}
-      </div>
-
-      {/* Timeline */}
-      <div className="flex flex-col gap-6 pt-8 border-t border-black/5">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-xl font-medium text-arti-black">
-            {t.contact.step2.timelineHeading}
-          </h3>
-          <p className="text-arti-black/50 font-light">
-            {t.contact.step2.timelineSubheading}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-3">
-          {timelines.map((timeline) => (
-            <button
-              key={timeline.id}
-              type="button"
-              onClick={() => setFormData(prev => ({ ...prev, timeline: timeline.id }))}
-              className={`
-                px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
-                ${formData.timeline === timeline.id
-                  ? 'bg-arti-black text-white'
-                  : 'bg-black/5 text-arti-black/60 hover:bg-black/10'
-                }
-              `}
-            >
-              {timeline.label}
-            </button>
-          ))}
-        </div>
       </div>
     </motion.div>
   )
@@ -466,10 +429,8 @@ const Step3Contact = ({
 const StepConfirmation = ({ formData }: { formData: FormData }) => {
   const { t, locale } = useLocale()
   const services = t.contact.services
-  const budgets = t.contact.budgets
   const timelines = t.contact.timelines
   const selectedServices = services.filter(s => formData.services.includes(s.id))
-  const selectedBudget = budgets.find(b => b.id === formData.budget)
   const selectedTimeline = timelines.find(tl => tl.id === formData.timeline)
   const selectedOffer = isOfferId(formData.offer) ? offers[formData.offer].label[locale] : null
 
@@ -553,14 +514,6 @@ const StepConfirmation = ({ formData }: { formData: FormData }) => {
           <div className="w-full h-px bg-black/5" />
 
           <div className="flex justify-between">
-            <span className="text-arti-black/50 text-sm">{t.contact.confirmation.budget}</span>
-            <span className="text-arti-black text-sm font-medium">
-              {selectedBudget?.label || t.contact.confirmation.notSpecified}
-            </span>
-          </div>
-          <div className="w-full h-px bg-black/5" />
-
-          <div className="flex justify-between">
             <span className="text-arti-black/50 text-sm">{t.contact.confirmation.timeline}</span>
             <span className="text-arti-black text-sm font-medium">
               {selectedTimeline?.label || t.contact.confirmation.notSpecified}
@@ -635,7 +588,7 @@ export default function ContactPage() {
   }, [locale])
 
   const totalSteps = 3
-  const stepNames = ['services', 'budget', 'contact'] as const
+  const stepNames = ['services', 'timeline', 'contact'] as const
   const prevStepRef = useRef<number | null>(null)
   const formStartSentRef = useRef(false)
 
@@ -818,7 +771,6 @@ export default function ContactPage() {
 
   const canProceed = () => {
     if (currentStep === 0) return formData.services.length > 0
-    if (currentStep === 1) return formData.budget !== ''
     if (currentStep === 2) return Boolean(formData.name && formData.email && formData.message && turnstileToken)
     return true
   }
@@ -900,7 +852,7 @@ export default function ContactPage() {
                   />
                 )}
                 {currentStep === 1 && (
-                  <Step2Budget 
+                  <Step2Timeline 
                     key="step2" 
                     formData={formData} 
                     setFormData={setFormData} 
