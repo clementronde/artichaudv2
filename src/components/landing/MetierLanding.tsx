@@ -231,8 +231,8 @@ const Avis = ({ title }: { title: [string, string] }) => {
           {title[1]}
         </h2>
       </div>
-      {/* Un avis par moitié de page, séparés par un filet */}
-      <div className="grid grid-cols-1 gap-12 leading-[1.4] md:grid-cols-2 md:gap-[20px]">
+      {/* Les avis côte à côte (un par colonne), séparés par un filet */}
+      <div className="grid grid-cols-1 gap-12 leading-[1.4] md:grid-cols-3 md:gap-[20px]">
         {items.map((item) => {
           const isLong = item.text.length > maxLength;
           const isExpanded = expanded.includes(item.id);

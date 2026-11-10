@@ -113,6 +113,16 @@ Ce que j'apprécie particulièrement, c'est que leur accompagnement ne s'arrête
 
 Je suis pleinement satisfaite de cette collaboration et recommande Artichaud Studio à tous ceux qui recherchent un site internet professionnel, personnalisé et un accompagnement de qualité !`,
         },
+        {
+          id: 3,
+          name: "Destiny",
+          role: "Créatrice de carnets faits main, Destiny Carnets",
+          text: `J'ai fait appel à Artichaud Studio pour la création de mon site e-commerce Destiny Carnets, une boutique en ligne et une direction artistique dédiée à mes carnets artisanaux faits main.
+
+Ils ont su comprendre mon univers et le retranscrire dans un site web moderne, esthétique et professionnel, tout en mettant en valeur mes créations et en m'accompagnant aussi sur le référencement naturel de ma boutique.
+
+Je recommande Artichaud Studio à tous les créateurs, artisans et entrepreneurs qui souhaitent créer leur boutique en ligne ou développer leur présence sur internet !`,
+        },
       ],
       seeMore: "Voir plus",
       seeLess: "Voir moins",
@@ -360,6 +370,16 @@ I particularly appreciated their attentiveness, availability and attention to de
 What I value most is that their support doesn't stop once the site goes live. They're always available to answer my questions, advise me and help my website evolve. Being able to count on such a responsive and attentive team is a real asset.
 
 I'm fully satisfied with this collaboration and recommend Artichaud Studio to anyone looking for a professional, personalised website and high-quality support!`,
+        },
+        {
+          id: 3,
+          name: "Destiny",
+          role: "Handmade notebook maker, Destiny Carnets",
+          text: `I hired Artichaud Studio to create my e-commerce site Destiny Carnets: an online shop and an art direction dedicated to my handmade artisan notebooks.
+
+They understood my world and translated it into a modern, beautiful and professional website, showcasing my creations while also supporting me with my shop's SEO.
+
+I recommend Artichaud Studio to all creators, craftspeople and entrepreneurs who want to launch their online shop or grow their presence online!`,
         },
       ],
       seeMore: "See more",
