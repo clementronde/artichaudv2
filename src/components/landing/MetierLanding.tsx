@@ -275,7 +275,8 @@ const Avis = ({ title }: { title: [string, string] }) => {
 
 // --- PAGE ---
 
-export default function MetierLanding({ content }: { content: MetierContent }) {
+// `children` : contenu propre à la page (ex. bloc local des landings villes), inséré après les avis
+export default function MetierLanding({ content, children }: { content: MetierContent; children?: React.ReactNode }) {
   const { assets, hero, badges, stats, realisations, specialites, formules, etapes, commander } = content;
   const whatsappLink = whatsappHref(content.whatsappLabel);
 
@@ -559,6 +560,8 @@ export default function MetierLanding({ content }: { content: MetierContent }) {
         </section>
 
         <Avis title={content.avisTitle} />
+
+        {children}
 
         {/* COLLABORATION */}
         {/* Le titre reste visible (sticky) pendant que les étapes s'allument une à une */}

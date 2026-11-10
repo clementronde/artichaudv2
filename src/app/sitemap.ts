@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/data/project'
 import { getAllPosts } from '@/lib/mdx';
+import { villes } from '@/data/villes';
 import { SITE_URL as baseUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic'
@@ -58,6 +59,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: '/creation-site-internet-restaurant', priority: 0.85, changeFreq: 'monthly' as const },
     { route: '/creation-site-internet-artisan', priority: 0.85, changeFreq: 'monthly' as const },
     { route: '/creation-site-internet-7-jours', priority: 0.85, changeFreq: 'monthly' as const },
+    // Hub et landings locales Loire-Atlantique (src/data/villes.ts)
+    { route: '/creation-site-internet', priority: 0.85, changeFreq: 'monthly' as const },
+    ...villes.map((v) => ({ route: `/creation-site-internet/${v.slug}`, priority: 0.8, changeFreq: 'monthly' as const })),
   ].map((page) => ({
     url: `${baseUrl}${page.route}`,
     lastModified,
