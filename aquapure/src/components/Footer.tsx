@@ -33,9 +33,21 @@ export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden bg-bleu-fonce">
       <div className="mx-auto max-w-site">
+        <div className="flex flex-col gap-14 px-5 pt-20 md:px-10 xl:flex-row xl:items-start xl:justify-between xl:gap-10 xl:pt-[106px]">
+        <p
+          data-split
+          className="max-w-[325px] text-[clamp(1.875rem,1.2rem+1.6vw,2.5rem)] leading-none tracking-[-0.06em] text-blanc xl:pl-0.5"
+        >
+          Votre plombier de confiance disponible{" "}
+          {/* Le soulignement s'interrompt de lui-même sous le jambage du « j », comme sur la maquette */}
+          <span className="whitespace-nowrap underline decoration-bleu-fluo decoration-1 underline-offset-[0.1em] [text-decoration-skip-ink:auto]">
+            7j/7.
+          </span>
+        </p>
+
         <div
           data-stagger
-          className="flex flex-col gap-12 px-5 pt-20 sm:flex-row sm:justify-end sm:gap-[clamp(32px,12.4vw,188px)] md:px-10 lg:pt-[114px]"
+          className="flex flex-col gap-12 sm:flex-row sm:justify-end sm:gap-[clamp(32px,6.35vw,96px)] xl:mt-[7px]"
         >
           {COLUMNS.map((col) => (
             <div key={col.title} className="flex w-full justify-between gap-6 sm:w-[245px]">
@@ -60,6 +72,7 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
         </div>
 
         {/* Wordmark géant, rogné en bas comme sur la maquette, qui monte au scroll */}

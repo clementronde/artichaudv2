@@ -1,6 +1,6 @@
 "use client";
 
-import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders } from "@/lib/gsap";
+import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, SPLIT_OFFSET } from "@/lib/gsap";
 
 /**
  * Animations au scroll pilotées par attributs, pour garder les sections lisibles :
@@ -28,10 +28,12 @@ export default function ScrollAnimations() {
           onSplit: (self) => {
             unclipDescenders(self.masks);
             return gsap.from(self.lines, {
-              yPercent: 130,
+              yPercent: SPLIT_OFFSET,
               duration: 1.3,
               stagger: 0.09,
               scrollTrigger: { trigger: el, start, once: true },
+              // Une fois révélé, le titre redevient du texte normal : plus aucun masque ne peut le rogner.
+              onComplete: () => self.revert(),
             });
           },
         });
