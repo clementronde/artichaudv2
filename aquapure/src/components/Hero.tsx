@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
-import { gsap, SplitText, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP, MOTION_OK, unclipDescenders } from "@/lib/gsap";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -23,9 +23,10 @@ export default function Hero() {
 
         // 2. Titre ligne par ligne
         const title = SplitText.create("[data-hero-title]", { type: "lines", mask: "lines" });
+        unclipDescenders(title.masks);
         tl.set("[data-hero-title]", { autoAlpha: 1 }, 0.9).from(
           title.lines,
-          { yPercent: 110, duration: 1.4, stagger: 0.12 },
+          { yPercent: 130, duration: 1.4, stagger: 0.12 },
           0.9,
         );
 

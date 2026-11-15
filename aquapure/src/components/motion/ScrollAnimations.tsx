@@ -1,6 +1,6 @@
 "use client";
 
-import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders } from "@/lib/gsap";
 
 /**
  * Animations au scroll pilotées par attributs, pour garder les sections lisibles :
@@ -25,13 +25,15 @@ export default function ScrollAnimations() {
           type: "lines",
           mask: "lines",
           autoSplit: true,
-          onSplit: (self) =>
-            gsap.from(self.lines, {
-              yPercent: 105,
+          onSplit: (self) => {
+            unclipDescenders(self.masks);
+            return gsap.from(self.lines, {
+              yPercent: 130,
               duration: 1.3,
               stagger: 0.09,
               scrollTrigger: { trigger: el, start, once: true },
-            }),
+            });
+          },
         });
       });
 

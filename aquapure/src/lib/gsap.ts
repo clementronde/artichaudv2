@@ -21,4 +21,12 @@ export const EASE = {
 export const MOTION_OK = "(prefers-reduced-motion: no-preference)";
 export const MOTION_REDUCED = "(prefers-reduced-motion: reduce)";
 
+/**
+ * Les masques de lignes (overflow: clip) coupent les jambages (g, p, j) quand l'interlignage vaut 1.
+ * On agrandit la zone visible vers le bas sans changer la mise en page.
+ */
+export function unclipDescenders(masks: Element[]) {
+  gsap.set(masks, { paddingBottom: "0.2em", marginBottom: "-0.2em" });
+}
+
 export { gsap, ScrollTrigger, SplitText, useGSAP };
