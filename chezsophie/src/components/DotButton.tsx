@@ -3,8 +3,8 @@ import AnchorLink from "@/components/AnchorLink";
 import { clsx } from "@/lib/clsx";
 
 const VARIANTS = {
-  // Bouton du hero : fond vert, pastille et texte crème
-  vert: { box: "border-vert bg-vert text-creme", dot: "bg-creme", hover: "group-hover:text-vert" },
+  // Bouton du hero : fond blanc, pastille et texte verts
+  vert: { box: "border-blanc bg-blanc text-vert", dot: "bg-vert", hover: "group-hover:text-blanc" },
   // Bouton de l'accroche : fond framboise, pastille et texte rose
   framboise: { box: "border-framboise bg-framboise text-rose", dot: "bg-rose", hover: "group-hover:text-framboise" },
 } as const;
