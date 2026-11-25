@@ -15,6 +15,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-sway="2"         balancement continu (amplitude en degrés), comme dans la brise
  *  - data-pop              petite icône qui surgit
  *  - data-sticky-fade      décor d'un titre fixe qui s'efface en fin de section (grand écran)
+ *  - data-stack            pile de cartes collantes : celles du dessous reculent quand la suivante arrive (grand écran)
  */
 export default function ScrollAnimations() {
   useGSAP(() => {
@@ -128,6 +129,62 @@ export default function ScrollAnimations() {
           duration: 1.1,
           ease: "back.out(2.2)",
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        });
+      });
+    });
+
+    // Pile de cartes (data-stack) : le titre fixe (data-stack-title) se libère en même temps que la pile.
+    mm.add("(min-width: 1024px)", () => {
+      const lists = gsap.utils.toArray<HTMLElement>("[data-stack]");
+      const fit = () =>
+        lists.forEach((list) => {
+          const items = Array.from(list.children) as HTMLElement[];
+          const title = list.closest("section")?.querySelector<HTMLElement>("[data-stack-title]");
+          if (!title || items.length < 2) return;
+          const first = parseFloat(getComputedStyle(items[0]).top);
+          const last = items[items.length - 1];
+          title.style.minHeight = `${parseFloat(getComputedStyle(last).top) - first + last.offsetHeight}px`;
+        });
+      fit();
+      ScrollTrigger.addEventListener("refreshInit", fit);
+      return () => {
+        ScrollTrigger.removeEventListener("refreshInit", fit);
+        lists.forEach((list) => list.closest("section")?.querySelector<HTMLElement>("[data-stack-title]")?.style.removeProperty("min-height"));
+      };
+    });
+
+    // Les cartes du dessous reculent (réduites, assombries) à mesure que les suivantes viennent les recouvrir
+    mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
+      gsap.utils.toArray<HTMLElement>("[data-stack]").forEach((list) => {
+        const items = Array.from(list.children) as HTMLElement[];
+        const n = items.length;
+        // Positions naturelles (hors collage) calculées à partir des hauteurs : les éléments collants faussent les mesures
+        const offsets = () => {
+          const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
+          let acc = 0;
+          return items.map((it) => {
+            const o = acc;
+            acc += it.offsetHeight + gap;
+            return o;
+          });
+        };
+        const top = (el: HTMLElement) => parseFloat(getComputedStyle(el).top) || 0;
+        items.slice(0, -1).forEach((item, i) => {
+          const card = item.querySelector("[data-stack-card]");
+          if (!card) return;
+          gsap.fromTo(card, { scale: 1, filter: "brightness(1)" }, {
+            scale: 1 - 0.04 * (n - 1 - i),
+            filter: "brightness(0.8)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: list,
+              // début : la carte suivante touche le bas de celle-ci ; fin : la dernière carte est posée
+              start: () => `top ${top(item) + item.offsetHeight - offsets()[i + 1]}px`,
+              end: () => `top ${top(items[n - 1]) - offsets()[n - 1]}px`,
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
         });
       });
     });

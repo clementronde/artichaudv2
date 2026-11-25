@@ -31,13 +31,17 @@ const ACTIVITIES = [
   },
 ];
 
+/** Les cartes se collent à 140 px du haut (alignées sur le titre fixe), chacune 24 px sous la précédente. */
+const STACK_TOP = 140;
+const STACK_STEP = 24;
+
 export default function Activities() {
   return (
     <section id="activites" className="relative w-full [container-type:inline-size]">
       <div className="container-site relative flex flex-col gap-12 lg:flex-row lg:items-stretch lg:justify-between">
-        {/* Colonne gauche : le titre reste fixe (sticky) pendant que les cartes défilent, la branche fleurie l'accompagne */}
+        {/* Colonne gauche : le titre reste fixe (sticky) pendant que les cartes s'empilent, la branche fleurie l'accompagne */}
         <div className="relative lg:w-[44.04%]">
-          <div className="relative lg:sticky lg:top-[140px]">
+          <div data-stack-title className="relative lg:sticky lg:top-[140px]">
             {/* Branche fleurie, calée sur le bord gauche de la page comme sur la maquette :
                 elle « pousse » au scroll (data-grow) et se balance (data-sway) */}
             <div
@@ -65,23 +69,36 @@ export default function Activities() {
           </div>
         </div>
 
-        <ul data-stagger className="flex w-full flex-col gap-[18px] lg:w-[44.04%]">
-          {ACTIVITIES.map((a) => (
-            <li key={a.title}>
-              <article
-                className={clsx(
-                  "group flex flex-col items-start gap-[13px] rounded-[4px] p-[26px] transition-transform duration-700 ease-expo hover:-translate-y-1.5",
-                  a.card,
-                )}
-              >
-                <span className={clsx("relative block size-8 shrink-0 rounded-[3px] transition-transform duration-700 ease-expo group-hover:-rotate-6 group-hover:scale-110", a.icon)}>
-                  <Image src={a.iconSrc} alt="" width={21} height={21} className="absolute left-[5px] top-[5px]" />
-                </span>
-                <h3 className={clsx("font-serif text-[28px] font-extralight leading-[1.5] lg:text-[32px] lg:leading-[58px]", a.titleColor)}>
-                  {a.title}
-                </h3>
-                <p className={clsx("text-[18px] font-extralight leading-[30px]", a.textColor)}>{a.text}</p>
-              </article>
+        {/* Pile de cartes : chaque carte se colle sous la précédente puis la suivante vient la recouvrir,
+            les cartes du dessous reculent légèrement (data-stack, voir ScrollAnimations) */}
+        <ul data-stack data-stagger className="flex w-full flex-col gap-[18px] lg:w-[44.04%]">
+          {ACTIVITIES.map((a, i) => (
+            <li
+              key={a.title}
+              className="lg:sticky"
+              style={{
+                top: STACK_TOP + i * STACK_STEP,
+                // Marges qui s'annulent dans la mise en page mais font repartir toute la pile d'un bloc en fin de section
+                marginBottom: (ACTIVITIES.length - 1 - i) * STACK_STEP,
+                marginTop: i > 0 ? -(ACTIVITIES.length - i) * STACK_STEP : 0,
+              }}
+            >
+              <div data-stack-card className="origin-top will-change-transform">
+                <article
+                  className={clsx(
+                    "group flex flex-col items-start gap-[13px] rounded-[4px] p-[26px] transition-transform duration-700 ease-expo hover:-translate-y-1.5",
+                    a.card,
+                  )}
+                >
+                  <span className={clsx("relative block size-8 shrink-0 rounded-[3px] transition-transform duration-700 ease-expo group-hover:-rotate-6 group-hover:scale-110", a.icon)}>
+                    <Image src={a.iconSrc} alt="" width={21} height={21} className="absolute left-[5px] top-[5px]" />
+                  </span>
+                  <h3 className={clsx("font-serif text-[28px] font-extralight leading-[1.5] lg:text-[32px] lg:leading-[58px]", a.titleColor)}>
+                    {a.title}
+                  </h3>
+                  <p className={clsx("text-[18px] font-extralight leading-[30px]", a.textColor)}>{a.text}</p>
+                </article>
+              </div>
             </li>
           ))}
         </ul>

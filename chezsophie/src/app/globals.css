@@ -63,7 +63,7 @@ body {
   }
 }
 
-/* Section « La Maison » : sur grand écran, les trois chapitres s'empilent comme des cartes, sur place.
+/* Section « La Maison » : sur grand écran, les trois chapitres s'empilent et défilent sur place.
    Sans JS ou en mouvement réduit, ils restent les uns sous les autres. */
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   .js [data-chapters] {
@@ -74,9 +74,8 @@ body {
     position: absolute;
     inset: 0;
   }
-  /* Les cartes suivantes attendent sous l'écran avant de venir s'empiler */
-  .js [data-chapter]:not(:first-child) {
-    transform: translateY(100%);
+  .js [data-chapter]:not(:first-child) [data-chapter-half] {
+    clip-path: inset(100% 0% 0% 0%);
   }
 }
 

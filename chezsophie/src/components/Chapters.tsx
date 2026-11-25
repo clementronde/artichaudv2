@@ -113,7 +113,7 @@ export default function Chapters() {
         );
       });
 
-      // Grand écran : la section reste épinglée et les chapitres s'empilent comme des cartes au fil du scroll
+      // Grand écran : la section reste épinglée et les chapitres se recouvrent au fil du scroll
       mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
         const section = ref.current!;
         const chapters = gsap.utils.toArray<HTMLElement>("[data-chapter]");
@@ -147,25 +147,21 @@ export default function Chapters() {
         tl.to({}, { duration: 0.45 });
         chapters.slice(1).forEach((ch, i) => {
           const prev = chapters[i];
+          const [left, right] = ch.querySelectorAll<HTMLElement>("[data-chapter-half]");
           const at = tl.duration();
 
-          // Pile de cartes : le chapitre suivant glisse depuis le bas et vient se poser sur le précédent,
-          // qui recule (se réduit, s'arrondit, s'assombrit) sous la nouvelle carte.
-          tl.fromTo(
-            ch,
-            // y: 0 neutralise le translateY(100%) posé en CSS avant hydratation (GSAP le lirait en pixels)
-            { y: 0, yPercent: 100, borderTopLeftRadius: 28, borderTopRightRadius: 28 },
-            { y: 0, yPercent: 0, borderTopLeftRadius: 0, borderTopRightRadius: 0, duration: 1, ease: "power1.inOut" },
-            at,
-          )
-            .to(prev, { scale: 0.88, borderRadius: 24, duration: 1, ease: "power1.inOut" }, at)
-            .to(prev.querySelector("[data-chapter-shade]"), { opacity: 0.5, duration: 1 }, at)
-            .fromTo(ch.querySelector("[data-chapter-img]"), { scale: 1.25, yPercent: -8 }, { scale: 1, yPercent: 0, duration: 1 }, at)
+          // Le texte du chapitre précédent reste visible : il remonte doucement pendant que le panneau suivant le recouvre
+          tl.to(prev.querySelector("[data-chapter-text]"), { y: -80, duration: 1, ease: "power1.in" }, at)
+            .to(prev.querySelector("[data-chapter-img]"), { scale: 1.14, yPercent: -5, duration: 1 }, at)
+            // La photo suivante monte comme un rideau, puis le panneau de couleur la rejoint
+            .fromTo(right, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power3.inOut" }, at)
+            .fromTo(ch.querySelector("[data-chapter-img]"), { scale: 1.35 }, { scale: 1, duration: 1.1, ease: "power2.out" }, at)
+            .fromTo(left, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power3.inOut" }, at + 0.14)
             .fromTo(
               texts(ch),
-              { y: 80, autoAlpha: 0 },
-              { y: 0, autoAlpha: 1, stagger: 0.07, duration: 0.5, ease: "power3.out" },
-              at + 0.55,
+              { y: 90, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, stagger: 0.07, duration: 0.55, ease: "power3.out" },
+              at + 0.5,
             )
             .to({}, { duration: 0.45 });
         });
@@ -203,14 +199,9 @@ export default function Chapters() {
   return (
     // Enveloppe en bloc : l'espace réservé par l'épinglage (pin-spacer) s'y insère proprement
     <div className="w-full">
-    <section id="maison" ref={ref} data-chapters aria-label="La maison, les extérieurs et la ferme" className="relative w-full overflow-hidden bg-creme">
+    <section id="maison" ref={ref} data-chapters aria-label="La maison, les extérieurs et la ferme" className="relative w-full overflow-hidden">
       {CHAPTERS.map((c) => (
-        <article
-          key={c.id}
-          id={c.id}
-          data-chapter
-          className="relative isolate grid w-full grid-cols-1 overflow-hidden lg:h-full lg:min-h-[720px] lg:origin-[50%_35%] lg:grid-cols-2 lg:shadow-[0_-24px_60px_-20px_rgba(0,0,0,0.45)] lg:will-change-transform"
-        >
+        <article key={c.id} id={c.id} data-chapter className="isolate grid w-full grid-cols-1 lg:h-full lg:min-h-[720px] lg:grid-cols-2">
           <div data-chapter-half className={clsx("relative flex items-center", c.bg)}>
             <div
               data-chapter-text
@@ -244,9 +235,6 @@ export default function Chapters() {
               </div>
             )}
           </div>
-
-          {/* Voile qui assombrit la carte quand la suivante vient se poser dessus */}
-          <div data-chapter-shade className="pointer-events-none absolute inset-0 z-30 hidden bg-black opacity-0 lg:block" aria-hidden />
         </article>
       ))}
     </section>
