@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --creme: #fff9f0;
+  --framboise: #25040f;
+  --rose: #f580a0;
+  --vert: #b2a837;
+  --sapin: #202304;
+  --jaune: #fadf99;
+  --bleu: #bfe2fd;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--creme);
+  color: var(--framboise);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--rose);
+  color: var(--framboise);
+}
+
+:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+}
+
+/* Éléments masqués avant hydratation pour éviter le flash, révélés ensuite par GSAP (autoAlpha).
+   Sans JS ou en mouvement réduit, ils restent visibles. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-intro] {
+    visibility: hidden;
+    /* Filet de sécurité : si les scripts ne se chargent pas, le contenu réapparaît de lui-même */
+    animation: intro-failsafe 0s 6s forwards;
+  }
+
+  /* Rideau d'ouverture : n'existe qu'avec JS. Filet de sécurité : il disparaît seul si GSAP ne démarre pas. */
+  .js [data-curtain] {
+    display: flex;
+    animation: curtain-failsafe 0.6s 5s forwards;
+  }
+}
+
+@keyframes intro-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes curtain-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Section « La Maison » : sur grand écran, les trois chapitres s'empilent et défilent sur place.
+   Sans JS ou en mouvement réduit, ils restent les uns sous les autres. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .js [data-chapters] {
+    height: 100svh;
+    min-height: 720px;
+  }
+  .js [data-chapter] {
+    position: absolute;
+    inset: 0;
+  }
+  .js [data-chapter]:not(:first-child) [data-chapter-half] {
+    clip-path: inset(100% 0% 0% 0%);
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 md:px-10 xl:px-[60px];
+  }
+
+  /* Lien avec soulignement qui se dessine au survol */
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-expo;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    @apply origin-left scale-x-100;
+  }
+}

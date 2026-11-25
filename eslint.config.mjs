@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Site client autonome (projet Next séparé)
+    "chezsophie/**",
   ]),
 ]);
 
