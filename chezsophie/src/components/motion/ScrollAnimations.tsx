@@ -14,6 +14,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-grow             illustration qui « pousse » de gauche à droite au scroll (data-grow-right : de droite à gauche)
  *  - data-sway="2"         balancement continu (amplitude en degrés), comme dans la brise
  *  - data-pop              petite icône qui surgit
+ *  - data-sticky-fade      décor d'un titre fixe qui s'efface en fin de section (grand écran)
  */
 export default function ScrollAnimations() {
   useGSAP(() => {
@@ -127,6 +128,20 @@ export default function ScrollAnimations() {
           duration: 1.1,
           ease: "back.out(2.2)",
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        });
+      });
+    });
+
+    // Branche qui accompagne un titre fixe (sticky) : elle s'efface avant de croiser la section suivante
+    mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
+      gsap.utils.toArray<HTMLElement>("[data-sticky-fade]").forEach((el) => {
+        const section = el.closest("section");
+        if (!section) return;
+        gsap.to(el, {
+          autoAlpha: 0,
+          y: -30,
+          ease: "power1.in",
+          scrollTrigger: { trigger: section, start: "top -160px", end: "top -330px", scrub: true },
         });
       });
     });

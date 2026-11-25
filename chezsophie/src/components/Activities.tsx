@@ -33,27 +33,37 @@ const ACTIVITIES = [
 
 export default function Activities() {
   return (
-    <section id="activites" className="relative w-full">
-      {/* Branche fleurie : elle « pousse » depuis le bord gauche au scroll (data-grow) et se balance (data-sway) */}
-      <div className="pointer-events-none absolute left-[-57px] top-[-109px] hidden h-[718.555px] w-[847.309px] lg:block" aria-hidden>
-        <div data-grow className="h-full w-full">
-          <div data-sway="2.2" className="flex h-full w-full items-center justify-center" style={{ transformOrigin: "0% 45%" }}>
-            <div className="flex-none -scale-y-100 rotate-[-62.9deg]">
-              <Image src="/images/fleur-activites.svg" alt="" width={433.671} height={729.884} className="block h-[729.884px] w-[433.671px] max-w-none" />
+    <section id="activites" className="relative w-full [container-type:inline-size]">
+      <div className="container-site relative flex flex-col gap-12 lg:flex-row lg:items-stretch lg:justify-between">
+        {/* Colonne gauche : le titre reste fixe (sticky) pendant que les cartes défilent, la branche fleurie l'accompagne */}
+        <div className="relative lg:w-[44.04%]">
+          <div className="relative lg:sticky lg:top-[140px]">
+            {/* Branche fleurie, calée sur le bord gauche de la page comme sur la maquette :
+                elle « pousse » au scroll (data-grow) et se balance (data-sway) */}
+            <div
+              className="pointer-events-none absolute top-[-109px] hidden h-[718.555px] w-[847.309px] [--g:40px] lg:block xl:[--g:60px]"
+              style={{ left: "calc(-57px - max(var(--g), (100cqw - 1512px) / 2 + var(--g)))" }}
+              aria-hidden
+            >
+              <div data-grow data-sticky-fade className="h-full w-full">
+                <div data-sway="2.2" className="flex h-full w-full items-center justify-center" style={{ transformOrigin: "0% 45%" }}>
+                  <div className="flex-none -scale-y-100 rotate-[-62.9deg]">
+                    <Image src="/images/fleur-activites.svg" alt="" width={433.671} height={729.884} className="block h-[729.884px] w-[433.671px] max-w-none" />
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <h2
+              data-split
+              className="relative font-serif text-[clamp(2.125rem,1.729rem+1.69vw,3.25rem)] font-extralight leading-[1.1154] text-framboise"
+            >
+              Entre patrimoine, gastronomie
+              <br />
+              <em className="italic">&amp;</em> grand air
+            </h2>
           </div>
         </div>
-      </div>
-
-      <div className="container-site relative flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
-        <h2
-          data-split
-          className="font-serif text-[clamp(2.125rem,1.729rem+1.69vw,3.25rem)] font-extralight leading-[1.1154] text-framboise lg:w-[44.04%]"
-        >
-          Entre patrimoine, gastronomie
-          <br />
-          <em className="italic">&amp;</em> grand air
-        </h2>
 
         <ul data-stagger className="flex w-full flex-col gap-[18px] lg:w-[44.04%]">
           {ACTIVITIES.map((a) => (

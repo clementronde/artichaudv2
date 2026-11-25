@@ -124,7 +124,7 @@ export default function Chapters() {
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: () => `+=${(chapters.length - 1) * window.innerHeight * 1.4}`,
+            end: () => `+=${(chapters.length - 1) * window.innerHeight * 1.6}`,
             pin: true,
             // Le parent (<main>) est en flex : ScrollTrigger désactiverait l'espace réservé par défaut.
             pinSpacing: true,
@@ -143,13 +143,15 @@ export default function Chapters() {
           scrollTrigger: { trigger: section, start: "top 60%", once: true },
         });
 
-        tl.to({}, { duration: 0.2 });
+        // Le premier chapitre reste lisible un moment une fois la section épinglée
+        tl.to({}, { duration: 0.45 });
         chapters.slice(1).forEach((ch, i) => {
           const prev = chapters[i];
           const [left, right] = ch.querySelectorAll<HTMLElement>("[data-chapter-half]");
           const at = tl.duration();
 
-          tl.to(texts(prev), { y: -70, autoAlpha: 0, stagger: 0.05, duration: 0.4, ease: "power2.in" }, at)
+          // Le texte du chapitre précédent reste visible : il remonte doucement pendant que le panneau suivant le recouvre
+          tl.to(prev.querySelector("[data-chapter-text]"), { y: -80, duration: 1, ease: "power1.in" }, at)
             .to(prev.querySelector("[data-chapter-img]"), { scale: 1.14, yPercent: -5, duration: 1 }, at)
             // La photo suivante monte comme un rideau, puis le panneau de couleur la rejoint
             .fromTo(right, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power3.inOut" }, at)
@@ -161,7 +163,7 @@ export default function Chapters() {
               { y: 0, autoAlpha: 1, stagger: 0.07, duration: 0.55, ease: "power3.out" },
               at + 0.5,
             )
-            .to({}, { duration: 0.35 });
+            .to({}, { duration: 0.45 });
         });
       });
 

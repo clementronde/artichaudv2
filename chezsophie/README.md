@@ -29,8 +29,8 @@ relatifs (`./images/…`) si l'aperçu n'est pas servi à la racine d'un domaine
 | `Hero` | Hero | Rideau framboise avec le logo, photo qui se dézoome, titre ligne par ligne, parallaxe au scroll |
 | `Intro` | Caption | Le texte se colore mot à mot au fil du scroll |
 | `Gallery` | Carrousel image | Bande infinie qui accélère et suit le sens du scroll |
-| `Chapters` | La Maison / Les extérieurs / La ferme | Section épinglée : les trois chapitres se recouvrent en rideau (empilés sur mobile) |
-| `Activities` | Activités | La branche fleurie « pousse » et se balance, cartes en cascade |
+| `Chapters` | La Maison / Les extérieurs / La ferme | Section épinglée : chaque chapitre reste lisible, puis le suivant monte et le recouvre en rideau (empilés sur mobile) |
+| `Activities` | Activités | Titre fixe (sticky) pendant que les cartes défilent ; la branche fleurie l'accompagne, « pousse », se balance puis s'efface |
 | `Testimonials` | Ce que nos voyageurs en pensent | Bande de cartes qui glisse au scroll, fleur en parallaxe |
 | `Blog` | Nos Actualités | Photos dévoilées de bas en haut, zoom et soulignement au survol |
 | `Footer` | Footer | Paysage en parallaxe, fleurs qui se balancent, logo dévoilé |
