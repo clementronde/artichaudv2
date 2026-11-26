@@ -19,8 +19,8 @@ maj: 2026-11-26
 ## Brief
 
 - **Objectif** : montrer le site AquaPure réalisé par Artichaud — un site d'artisan qui a l'air d'un site de studio.
-- **Diffusion** : Reels / TikTok / LinkedIn (9:16) + plan dans le showreel Artichaud (16:9).
-- **Message** : « Un site d'artisan, fluide et soigné. » — fin sur le logo Artichaud.
+- **Diffusion** : fil Instagram et LinkedIn (4:5) ; réseaux du studio et, pour la version client, ceux d'AquaPure.
+- **Message** : « Un site d'artisan, fluide et soigné. » — fin selon la version (studio ou client).
 - **Matière** : le vrai site (`aquapure/`), filmé en [[Capture déterministe de site]], monté en [[HyperFrames]] (ou [[Remotion]] selon la licence).
 - **Charte** : Satoshi ; bleu foncé `#01292c`, cyan `#3cfff2`, blanc `#fcfcfc` ; courbes `expo.out` / `power3.inOut` (les mêmes que le site).
 
