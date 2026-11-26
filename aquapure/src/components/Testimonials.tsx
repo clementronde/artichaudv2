@@ -30,10 +30,15 @@ export default function Testimonials() {
     <section id="temoignages" className="container-site flex flex-col gap-[54px]">
       <SectionHeading tag="Ce qu’on dit de nous" title="Témoignages" />
 
-      <ul data-stagger className="grid grid-cols-1 gap-2.5 md:grid-cols-3">
+      {/* Desktop : 3 colonnes. Tablette / mobile : carrousel horizontal aimanté, pour éviter des colonnes trop étroites. */}
+      <ul
+        data-stagger
+        aria-label="Avis clients"
+        className="-mx-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-px-5 px-5 pb-2 [scrollbar-width:none] md:-mx-10 md:scroll-px-10 md:px-10 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+      >
         {TESTIMONIALS.map((t) => (
-          <li key={t.name}>
-            <figure className="group relative flex h-full min-h-[420px] flex-col justify-between gap-16 overflow-hidden bg-bleu-fonce px-8 py-[49px] text-gris lg:min-h-[529px] lg:px-[calc((100%-379px)/2)]">
+          <li key={t.name} className="w-[85%] max-w-[471px] shrink-0 snap-start sm:w-[60%] lg:w-auto lg:max-w-none">
+            <figure className="group relative flex h-full min-h-[460px] flex-col justify-between gap-16 overflow-hidden bg-bleu-fonce px-7 py-10 text-gris sm:px-9 lg:min-h-[529px] lg:py-[49px] xl:px-[46px]">
               {/* Filet cyan qui se dessine au survol */}
               <span className="absolute left-0 top-0 h-[3px] w-full origin-left scale-x-0 bg-bleu-fluo transition-transform duration-700 ease-expo group-hover:scale-x-100" aria-hidden />
               <blockquote className="flex flex-col gap-[1.14em] text-card">

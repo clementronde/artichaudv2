@@ -80,6 +80,33 @@ export default function ScrollAnimations() {
         if (img) tl.from(img, { scale: 1.3, duration: 1.8, ease: "expo.out" }, "<0.15");
       });
 
+      // Réalisations : chaque photo monte depuis le bas de l'écran, l'une après l'autre,
+      // en se redressant légèrement, pendant que l'image intérieure se dézoome.
+      gsap.utils.toArray<HTMLElement>("[data-rise-seq]").forEach((list) => {
+        const items = gsap.utils.toArray<HTMLElement>(list.querySelectorAll("[data-rise-item]"));
+        const imgs = items.map((item) => item.querySelector("img")).filter(Boolean);
+        const tl = gsap.timeline({ scrollTrigger: { trigger: list, start: "top 75%", once: true } });
+        tl.fromTo(
+          items,
+          { y: () => window.innerHeight * 0.6, rotate: 4, autoAlpha: 0 },
+          {
+            y: 0,
+            rotate: 0,
+            autoAlpha: 1,
+            duration: 1.6,
+            ease: "expo.out",
+            stagger: 0.28,
+            clearProps: "transform,opacity,visibility",
+          },
+        ).fromTo(
+          imgs,
+          { scale: 1.25 },
+          // clearProps rend la main au zoom CSS du survol
+          { scale: 1, duration: 2, ease: "expo.out", stagger: 0.28, clearProps: "transform" },
+          "<",
+        );
+      });
+
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
         const speed = Number(el.dataset.parallax ?? 0.15);
         gsap.fromTo(

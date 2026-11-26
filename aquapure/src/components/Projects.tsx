@@ -21,13 +21,14 @@ export default function Projects() {
           </div>
         </div>
 
-        <ul className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:block">
+        {/* data-rise-seq : les photos montent du bas de l'écran une par une (voir ScrollAnimations) */}
+        <ul data-rise-seq className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:block">
           {PROJECTS.map((p) => (
             <li key={p.src} className={`relative lg:absolute ${p.pos}`}>
               <div className="h-full">
                 <div data-parallax={p.speed} className="h-full will-change-transform">
                   <figure
-                    data-clip
+                    data-rise-item
                     className={`group relative h-full overflow-hidden rounded-[7px] ${p.aspect} lg:aspect-auto`}
                   >
                     <Image
