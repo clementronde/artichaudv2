@@ -29,6 +29,7 @@ const SHOTS = {
   // 1. Intro du hero, depuis le chargement (rideau, titre ligne par ligne, CTA, badges, nav)
   hero: {
     viewport: FRAME,
+    dpr: 2, // même rendu que le plan bouton (2×) : la coupe hero → bouton ne change pas la netteté
     frames: 200,
   },
 
@@ -53,6 +54,7 @@ const SHOTS = {
   // 1 bis / 2 bis. Mêmes plans d'accroche en 9:16 (Reels), plein cadre
   "hero-9x16": {
     viewport: REEL,
+    dpr: 2,
     frames: 200,
   },
   "bouton-9x16": {

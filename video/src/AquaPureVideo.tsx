@@ -31,7 +31,8 @@ const camHero = (h: number): Cam => (f) => ({ s: tween(f, [60, 180], [1, 1.03]),
 const camBouton = (cta: { x: number; y: number }, targetY: number): Cam => (f) => {
   const k = tween(f, [4, 62], [0, 1], inOut);
   const s0 = 1.03;
-  const drift = tween(f, [62, 120], [0, 0.12], (t) => t); // la caméra ne s'arrête jamais
+  // La dérive démarre avant la fin du zoom : la caméra ne marque jamais d'arrêt
+  const drift = tween(f, [40, 120], [0, 0.16], (t) => t);
   return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: cta.x + (360 - cta.x) * k, qy: cta.y + (targetY - cta.y) * k };
 };
 
