@@ -74,7 +74,8 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 
 ## Livrables Reels 9:16 (v3, 2026-11-26) — format principal
 
-v3 : tous les plans lus à vitesse 1 (plus d'à-coups), raccord hero → bouton exact, section services retirée, vrai scroll sur les réalisations. Contrôle `video/capture/judder.py` : voir le bilan.
+v3 : tous les plans lus à vitesse 1 (plus d'à-coups), raccord hero → bouton identique au pixel, section services retirée, vrai scroll sur les réalisations, plans de scroll capturés en 2× au demi-pixel.
+Contrôle `video/capture/judder.py` sur le rendu final : aucun saut hors des raccords en rideau ; les seules images « immobiles » signalées sont des arrêts réels (section fixée une fois les photos en place, fin du plan mobile).
 
 - `medias/videos/2026-11-26_artichaud_aquapure-9x16-studio.mp4` — fin Artichaud
 - `medias/videos/2026-11-26_artichaud_aquapure-9x16-client.mp4` — fin AquaPure
@@ -96,6 +97,7 @@ v3 : tous les plans lus à vitesse 1 (plus d'à-coups), raccord hero → bouton 
 - Rendu rapide : ~1 min 40 par version.
 
 **À corriger la prochaine fois**
+- **La vidéo a révélé un vrai défaut du site** : les titres animés grandissaient de 12 px pendant leur animation (marges négatives qui fusionnaient entre lignes), ce qui faisait sauter la section fixée de 24 px à son relâchement. Corrigé sur le site. Toujours regarder si un « saut » vient du montage… ou du site.
 - **Ne jamais accélérer / ralentir un plan au montage avec une vitesse non entière** : la v2 avait des à-coups (vus par le client) à cause des lectures ×0,66 / ×0,9 / ×1,12. Régler le rythme à la capture. Contrôle : `video/capture/judder.py`.
 - Vérifier les **temps morts** dès le premier rendu : une caméra qui s'arrête se voit tout de suite (0,7 s figée à la fin du plan bouton en v0 → corrigé par une dérive lente).
 - Prévoir dès le storyboard les zones de **texte provisoire** du site (lorem ipsum) : il a fallu recapturer le plan services et cadrer serré.
