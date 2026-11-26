@@ -1,7 +1,7 @@
 ---
 tags: [projet, video, aquapure]
 client: AquaPure (plombier, Yvelines)
-formats: [4x5]
+formats: [9x16, 4x5]
 duree_cible: 20 s
 statut: livré
 maj: 2026-11-26
@@ -11,7 +11,7 @@ maj: 2026-11-26
 
 ## Décisions (validées le 2026-11-26)
 
-- **Format** : **4:5 uniquement**, 1080 × 1350 (fil Instagram / LinkedIn), ≈ 20 s.
+- **Format** : **9:16 Reels** (1080 × 1920) — format principal, demandé le 2026-11-26 après une première livraison en 4:5. La version 4:5 (1080 × 1350, fil Instagram / LinkedIn) reste disponible. ≈ 22 s.
 - **Son** : pas de musique livrée ; montage **calé sur une grille de 120 BPM** (1 temps = 0,5 s) pour qu'une piste sous licence posée ensuite tombe juste.
 - **Outil** : Artichaud compte 3 personnes ou moins → la licence gratuite de [[Remotion]] s'applique ; choix final entre Remotion et [[HyperFrames]] au moment de la production, selon le rendu.
 - **Fin** : **deux versions** — une pour le studio (logo Artichaud + URL), une pour le client (logo AquaPure + 06 33 10 20 60).
@@ -73,7 +73,14 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 | 17,5 – 19,5 | Footer | Le wordmark géant « AquaPure » monte |
 | 19,5 – 22,5 | Fin | Studio : mascotte Artichaud qui tombe et s'écrase + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
-## Livrables (v1, 2026-11-26)
+## Livrables Reels 9:16 (v2, 2026-11-26) — format principal
+
+- `medias/videos/2026-11-26_artichaud_aquapure-9x16-studio.mp4` — fin Artichaud
+- `medias/videos/2026-11-26_artichaud_aquapure-9x16-client.mp4` — fin AquaPure
+- 1080 × 1920, 60 i/s, 22,5 s, H.264, environ 9 Mo chacune, sans son.
+- **Mise en page Reels** : intro et zoom bouton en plein cadre (site recapturé en 1080 × 1920) ; ensuite, pour chaque section, un titre en haut (« Des survols soignés. », « Un scroll qui raconte. », « Un formulaire vivant. », « Pensé mobile. », « Soigné jusqu'en bas. ») et le plan du site dessous. Tous les textes entre 290 et 1240 px (zones de sécurité : 14 % en haut, 35 % en bas), vérifiés sur images avec les zones superposées.
+
+## Livrables 4:5 (v1, 2026-11-26)
 
 - `medias/videos/2026-11-26_artichaud_aquapure-4x5-studio.mp4` — fin Artichaud (mascotte + « Site réalisé par Artichaud Studio »)
 - `medias/videos/2026-11-26_artichaud_aquapure-4x5-client.mp4` — fin AquaPure (logo + accroche + téléphone)
@@ -92,6 +99,8 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 - Prévoir dès le storyboard les zones de **texte provisoire** du site (lorem ipsum) : il a fallu recapturer le plan services et cadrer serré.
 - Poser une piste son pour valider le rythme : le montage est calé sur 120 BPM mais n'a pas été écouté avec une musique.
 
-**Pistes v2**
-- Version 9:16 (Reels / TikTok) et 16:9 (showreel) à partir des mêmes plans.
+- Confirmer le **format de diffusion** avant de produire : la v1 a été faite en 4:5 sur une réponse ambiguë, il a fallu la décliner en 9:16.
+
+**Pistes**
+- Version 16:9 (showreel) à partir des mêmes plans.
 - Remplacer les textes provisoires du site puis recapturer services / témoignages.

@@ -1,5 +1,5 @@
 /**
- * Plans du site AquaPure pour la vidéo 4:5.
+ * Plans du site AquaPure pour les vidéos 4:5 (fil) et 9:16 (Reels).
  * Usage : node capture/capture.cjs [nom-du-plan ...]   (sans argument : tous les plans)
  * Le site doit tourner : cd ../aquapure && npm run build && npx next start -p 3100
  */
@@ -7,6 +7,7 @@ const { run, ease } = require("./engine.cjs");
 
 const URL = process.env.SITE_URL || "http://localhost:3100";
 const FRAME = { width: 1080, height: 1350 }; // le site rendu nativement en 4:5 (mise en page desktop ≥ 1024 px)
+const REEL = { width: 1080, height: 1920 }; // 9:16 Reels : le hero remplit tout l'écran (100svh)
 
 /** Interpole une trajectoire de curseur entre deux points (courbe douce, léger arc). */
 function path2(a, b, t, arc = 40) {
@@ -34,6 +35,28 @@ const SHOTS = {
     },
     async perFrame(api, i) {
       const from = { x: 820, y: 1000 };
+      const to = { x: this.btn.x + 150, y: this.btn.vy + this.btn.h / 2 + 4 };
+      const p = path2(from, to, clamp01(i / 48), 60);
+      await api.cursor(p.x, p.y);
+    },
+  },
+
+  // 1 bis / 2 bis. Mêmes plans d'accroche en 9:16 (Reels), plein cadre
+  "hero-9x16": {
+    viewport: REEL,
+    frames: 200,
+  },
+  "bouton-9x16": {
+    viewport: REEL,
+    dpr: 2,
+    frames: 130,
+    async setup(api) {
+      await api.cursor(820, 1500);
+      await api.tick(3600);
+      this.btn = await api.rect("[data-hero-cta]");
+    },
+    async perFrame(api, i) {
+      const from = { x: 820, y: 1500 };
       const to = { x: this.btn.x + 150, y: this.btn.vy + this.btn.h / 2 + 4 };
       const p = path2(from, to, clamp01(i / 48), 60);
       await api.cursor(p.x, p.y);

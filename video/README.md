@@ -17,7 +17,7 @@ video/
 │   ├── timeline.ts    ← découpage, calé sur 120 BPM (1 temps = 30 images)
 │   ├── parts.tsx      ← briques : caméra, étiquettes, titres masqués, rideau, navigateur, téléphone
 │   ├── AquaPureVideo.tsx ← le montage + les deux fins
-│   └── Root.tsx       ← compositions AquaPureStudio / AquaPureClient (1080 × 1350)
+│   └── Root.tsx       ← compositions Reels 9:16 (AquaPureReelStudio / AquaPureReelClient) et 4:5 (AquaPureStudio / AquaPureClient)
 └── remotion.config.ts
 ```
 
@@ -36,8 +36,10 @@ NODE_PATH=$(npm root -g) node capture/capture.cjs contact    # un seul plan
 npx remotion studio
 
 # 4. Rendre
-npm run render:studio   # → out/aquapure-4x5-studio.mp4
-npm run render:client   # → out/aquapure-4x5-client.mp4
+npm run render:reel:studio   # Reels 9:16 → out/aquapure-9x16-studio.mp4
+npm run render:reel:client   # Reels 9:16 → out/aquapure-9x16-client.mp4
+npm run render:studio   # 4:5 → out/aquapure-4x5-studio.mp4
+npm run render:client   # 4:5 → out/aquapure-4x5-client.mp4
 ```
 
 `NODE_PATH` sert à trouver Playwright installé globalement ; sur un poste où Playwright est installé dans le projet, il n'est pas nécessaire.
