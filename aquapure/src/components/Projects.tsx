@@ -3,7 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 
 /* Positions reprises de la maquette (cadre 1512 × 855), exprimées en % pour suivre la largeur. */
 const PROJECTS = [
-  { src: "/images/projet-1.jpg", alt: "Réparation d’un siphon de lavabo", pos: "lg:left-[2.65%] lg:top-[16.14%] lg:w-[31.15%] lg:h-[32.75%]", aspect: "aspect-[471/280]", speed: 0.12 },
+  { src: "/images/projet-1.jpg", alt: "Réparation d’un siphon de lavabo", pos: "lg:left-[2.65%] lg:top-[max(calc(16.14%+28px),166px)] lg:w-[31.15%] lg:h-[32.75%]", aspect: "aspect-[471/280]", speed: 0.12 },
   { src: "/images/projet-2.jpg", alt: "Intervention sous un évier", pos: "lg:left-[34.46%] lg:top-[63.74%] lg:w-[31.08%] lg:h-[36.26%]", aspect: "aspect-[470/310]", speed: 0.3 },
   { src: "/images/projet-3.jpg", alt: "Installation d’un robinet de lavabo", pos: "lg:left-[76.92%] lg:top-[14.04%] lg:w-[20.44%] lg:h-[47.72%]", aspect: "aspect-[309/408]", speed: 0.2 },
 ];
