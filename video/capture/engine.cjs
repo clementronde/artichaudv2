@@ -136,6 +136,7 @@ async function captureShot(shot, { url, browser }) {
     await api.tick(step);
   }
 
+  if (shot.done) await shot.done(api);
   await context.close();
   if (errors.length) console.warn(`[${shot.name}] erreurs page :`, errors);
   return outDir;

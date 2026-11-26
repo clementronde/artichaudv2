@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Img, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FONT } from "./brand";
 import { SHOTS, WIPES } from "./timeline";
+import scroll from "./data/realisations-scroll.json";
 import { BrowserCard, Cam, expoOut, inOut, Phone, Shot, SplitTitle, Tag, tween, Wipe } from "./parts";
 
 export type Ending = "studio" | "client";
@@ -34,9 +35,6 @@ const camBouton = (cta: { x: number; y: number }, targetY: number): Cam => (f) =
   return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: cta.x + (360 - cta.x) * k, qy: cta.y + (targetY - cta.y) * k };
 };
 
-// Services : cartes cadrées en haut, la fin de l'accroche (lorem ipsum) reste au-dessus du cadre.
-const camServices: Cam = (f) => ({ s: tween(f, [0, 180], [1.1, 1.14], inOut), fx: W / 2, fy: 460, qx: W / 2, qy: 420 });
-
 // Contact : panneau de droite (titre + formulaire) ; le débord à droite se fond dans le fond bleu foncé.
 const FORM = { x: 810, y: 840 };
 const camContact: Cam = (f) => ({ s: tween(f, [0, 150], [1.44, 1.5], inOut), fx: FORM.x, fy: FORM.y, qx: W / 2, qy: 660 });
@@ -45,6 +43,38 @@ const camContact: Cam = (f) => ({ s: tween(f, [0, 150], [1.44, 1.5], inOut), fx:
 const camFooter: Cam = (f) => ({ s: tween(f, [0, 120], [1.0, 1.04], inOut), fx: W / 2, fy: H, qx: W / 2, qy: H });
 
 // ——— Plans composés ————————————————————————————————————————
+
+/** Barre de défilement de la fenêtre, synchronisée sur le vrai scroll de la capture (src/data/realisations-scroll.json). */
+const ScrollBar: React.FC<{ f: number; height: number }> = ({ f, height }) => {
+  const y = scroll.y[Math.max(0, Math.min(scroll.y.length - 1, Math.round(f)))];
+  const track = height - 16;
+  const thumb = Math.max(60, (scroll.viewport / scroll.docH) * track);
+  const top = 8 + (y / (scroll.docH - scroll.viewport)) * (track - thumb);
+  const pinned = y >= scroll.pinStart && y <= scroll.pinEnd;
+  return (
+    <div style={{ position: "absolute", right: 8, top: 0, bottom: 0, width: 12 }}>
+      <div style={{ position: "absolute", left: 3, right: 3, top: 8, bottom: 8, borderRadius: 4, background: "rgba(1,41,44,.08)" }} />
+      <div style={{ position: "absolute", left: 1, right: 1, top, height: thumb, borderRadius: 6,
+        background: pinned ? C.fluo : "rgba(1,41,44,.45)", boxShadow: pinned ? "0 0 0 2px rgba(1,41,44,.25)" : "none" }} />
+    </div>
+  );
+};
+
+/** Souris dont la molette tourne tant que la page défile. */
+const MouseHint: React.FC<{ f: number }> = ({ f }) => {
+  const i = Math.max(1, Math.min(scroll.y.length - 1, Math.round(f)));
+  const moving = scroll.y[i] - scroll.y[i - 1] > 0.5;
+  const phase = (f % 36) / 36;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 18, fontFamily: FONT.aquapure, fontSize: 32, letterSpacing: "-0.04em", color: C.fluo }}>
+      <div style={{ position: "relative", width: 40, height: 64, borderRadius: 20, border: `3px solid ${C.fluo}` }}>
+        <div style={{ position: "absolute", left: "50%", width: 6, height: 12, marginLeft: -3, borderRadius: 3, background: C.fluo,
+          top: 10 + (moving ? phase * 18 : 0), opacity: moving ? 1 - phase * 0.8 : 1 }} />
+      </div>
+      <span>scroll</span>
+    </div>
+  );
+};
 
 const RealisationsScene: React.FC<{ reel?: boolean }> = ({ reel }) => {
   const f = useCurrentFrame();
@@ -64,7 +94,11 @@ const RealisationsScene: React.FC<{ reel?: boolean }> = ({ reel }) => {
         <BrowserCard width={W - 2 * M} ratio={1512 / 944}>
           <OffthreadVideo src={staticFile(`shots/${sh.src}.mp4`)} trimBefore={sh.trim} playbackRate={sh.rate} muted
             style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <ScrollBar f={f + sh.trim} height={(W - 2 * M) / (1512 / 944)} />
         </BrowserCard>
+      </div>
+      <div style={{ position: "absolute", right: M, top: reel ? 330 : 190, opacity: tween(f, [20, 50], [0, 1]) }}>
+        <MouseHint f={f + sh.trim} />
       </div>
       {/* Légende : en 4:5 seulement (en Reels, elle tomberait sous l'interface d'Instagram) */}
       {!reel && (
@@ -202,10 +236,6 @@ export const AquaPureVideo: React.FC<{ ending: Ending; format?: Format }> = ({ e
           ? <Shot {...s.bouton} src="bouton-9x16" cam={camBouton({ x: 185, y: 1029 }, 900)} />
           : <Shot {...s.bouton} cam={camBouton({ x: 185, y: 744 }, 760)} />}
         <Tag inAt={40} outAt={s.bouton.dur - 4} y={reel ? 1120 : undefined}>Micro-interactions</Tag>
-      </Sequence>
-
-      <Sequence from={s.services.from} durationInFrames={s.services.dur}>
-        {sectioned(["Des survols", "soignés."], <Shot {...s.services} cam={camServices} />, "Survols soignés", s.services.dur)}
       </Sequence>
 
       <Sequence from={s.realisations.from} durationInFrames={s.realisations.dur}>

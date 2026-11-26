@@ -59,26 +59,27 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 - **Code** : dossier `video/` du dépôt (voir son README) — capture déterministe du vrai site (`video/capture/`), montage Remotion (`video/src/`).
 - **Outil retenu** : Remotion 4 (licence gratuite ≤ 3 personnes), Chromium local, export H.264 1080 × 1350, 60 i/s.
 - **Musique** : aucune ; coupes et rideaux posés sur les temps (120 BPM, 1 temps = 30 images). Raccords aux temps 10, 16, 24, 29, 35 et 39.
-- **Durée** : 22,5 s (45 temps).
-- **Montage réel** (diffère un peu du storyboard v0) :
+- **Durée** : 20,5 s (41 temps) depuis la v3.
+- **Montage v3** (retours client : à-coups, section services retirée, vrai effet de scroll) :
 
 | Temps (s) | Plan | Ce qu'on voit |
 |---|---|---|
 | 0 – 3 | Hero | Intro réelle du site (rideau, dézoom, titre ligne par ligne, CTA, badges) |
-| 3 – 5 | Bouton | Zoom ×2 sur le bouton téléphone, le curseur le survole : le carré cyan remplit le bouton. Étiquette « Micro-interactions » |
-| 5 – 8 | Services | Arrivée du scroll sur les 3 cartes, survol de « Rénovation ». Étiquette « Survols soignés » |
-| 8 – 12 | Réalisations | Titre « Un scroll qui raconte. » + fenêtre de navigateur : la séquence pilotée par le scroll |
-| 12 – 14,5 | Contact | Les champs se remplissent (labels qui montent, trait cyan). Étiquette « Formulaire vivant » |
-| 14,5 – 17,5 | Mobile | Téléphone qui monte, intro mobile puis ouverture du menu. Étiquette « Pensé mobile » |
-| 17,5 – 19,5 | Footer | Le wordmark géant « AquaPure » monte |
-| 19,5 – 22,5 | Fin | Studio : mascotte Artichaud qui tombe et s'écrase + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
+| 3 – 5 | Bouton | Zoom ×2 sur le bouton téléphone, le curseur entre et le survole : le carré cyan remplit le bouton. Étiquette « Micro-interactions » |
+| 5 – 10 | Réalisations | « Un scroll qui raconte. » : la page défile (le contact remonte), la section se fixe pendant que les photos montent, puis la page repart. Barre de défilement synchronisée sur le vrai scroll (cyan pendant la section fixée) + souris dont la molette tourne |
+| 10 – 12,5 | Contact | Les champs se remplissent (labels qui montent, trait cyan). « Un formulaire vivant. » |
+| 12,5 – 15,5 | Mobile | Téléphone qui monte, intro mobile puis ouverture du menu. « Pensé mobile. » |
+| 15,5 – 17,5 | Footer | Le wordmark géant « AquaPure » monte. « Soigné jusqu'en bas. » |
+| 17,5 – 20,5 | Fin | Studio : mascotte Artichaud + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
-## Livrables Reels 9:16 (v2, 2026-11-26) — format principal
+## Livrables Reels 9:16 (v3, 2026-11-26) — format principal
+
+v3 : tous les plans lus à vitesse 1 (plus d'à-coups), raccord hero → bouton exact, section services retirée, vrai scroll sur les réalisations. Contrôle `video/capture/judder.py` : voir le bilan.
 
 - `medias/videos/2026-11-26_artichaud_aquapure-9x16-studio.mp4` — fin Artichaud
 - `medias/videos/2026-11-26_artichaud_aquapure-9x16-client.mp4` — fin AquaPure
-- 1080 × 1920, 60 i/s, 22,5 s, H.264, environ 9 Mo chacune, sans son.
-- **Mise en page Reels** : intro et zoom bouton en plein cadre (site recapturé en 1080 × 1920) ; ensuite, pour chaque section, un titre en haut (« Des survols soignés. », « Un scroll qui raconte. », « Un formulaire vivant. », « Pensé mobile. », « Soigné jusqu'en bas. ») et le plan du site dessous. Tous les textes entre 290 et 1240 px (zones de sécurité : 14 % en haut, 35 % en bas), vérifiés sur images avec les zones superposées.
+- 1080 × 1920, 60 i/s, 20,5 s, H.264, sans son.
+- **Mise en page Reels** : intro et zoom bouton en plein cadre (site recapturé en 1080 × 1920) ; ensuite, pour chaque section, un titre en haut (« Un scroll qui raconte. », « Un formulaire vivant. », « Pensé mobile. », « Soigné jusqu'en bas. ») et le plan du site dessous. Tous les textes entre 290 et 1240 px (zones de sécurité : 14 % en haut, 35 % en bas), vérifiés sur images avec les zones superposées.
 
 ## Livrables 4:5 (v1, 2026-11-26)
 
@@ -95,6 +96,7 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 - Rendu rapide : ~1 min 40 par version.
 
 **À corriger la prochaine fois**
+- **Ne jamais accélérer / ralentir un plan au montage avec une vitesse non entière** : la v2 avait des à-coups (vus par le client) à cause des lectures ×0,66 / ×0,9 / ×1,12. Régler le rythme à la capture. Contrôle : `video/capture/judder.py`.
 - Vérifier les **temps morts** dès le premier rendu : une caméra qui s'arrête se voit tout de suite (0,7 s figée à la fin du plan bouton en v0 → corrigé par une dérive lente).
 - Prévoir dès le storyboard les zones de **texte provisoire** du site (lorem ipsum) : il a fallu recapturer le plan services et cadrer serré.
 - Poser une piste son pour valider le rythme : le montage est calé sur 120 BPM mais n'a pas été écouté avec une musique.

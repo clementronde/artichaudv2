@@ -38,5 +38,8 @@ Moteur maison dans `video/capture/engine.cjs` (Playwright, sans dépendance de p
 - **Le site en 1080 × 1350** reste en mise en page desktop (≥ 1024 px) : on obtient des plans 4:5 natifs, sans recadrage.
 - **Ce que la vidéo révèle du site** : le cadre de focus par défaut doublait l'état de focus maison des champs ; corrigé sur le site au passage.
 - Vitesse : environ 15 s pour 200 images en 1080 × 1350 (en 2× pour les plans zoomés).
+- ⚠️ **Jamais de vitesse de lecture non entière au montage** (×0,66, ×1,12…) : le monteur duplique ou saute une image source à intervalles irréguliers → à-coups visibles dans tout mouvement continu (scroll surtout). Le rythme se règle **à la capture** (nombre d'images, durée des déplacements, vitesse de frappe), puis on lit à ×1. Repéré par le client sur la v2 ; corrigé en v3.
+- **Raccord entre deux plans** capturés séparément : démarrer le second exactement au même instant de l'horloge que la fin du premier (ex. hero 180 images = 3 000 ms → plan suivant `tick(3000)`), sinon l'état de la page change à la coupe.
+- **Contrôle automatique** : `video/capture/judder.py <vidéo>` liste les images répétées en plein mouvement et les sauts. Un simple « écart nul entre deux images » ne suffit pas : la compression rend les doublons légèrement différents.
 
 Liens : [[Comparatif des outils]] · [[Principes du motion de maquette]]

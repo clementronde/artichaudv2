@@ -16,6 +16,15 @@ function path2(a, b, t, arc = 40) {
 }
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
+/** Scroll « à la molette » : accélère, garde une vitesse constante, puis freine (profil trapézoïdal). */
+function cruise(t, ramp = 0.12) {
+  t = clamp01(t);
+  const v = 1 / (1 - ramp); // vitesse de croisière pour couvrir 0 → 1
+  if (t < ramp) return (v * t * t) / (2 * ramp);
+  if (t > 1 - ramp) return 1 - (v * (1 - t) * (1 - t)) / (2 * ramp);
+  return v * (t - ramp / 2);
+}
+
 const SHOTS = {
   // 1. Intro du hero, depuis le chargement (rideau, titre ligne par ligne, CTA, badges, nav)
   hero: {
@@ -29,12 +38,12 @@ const SHOTS = {
     dpr: 2,
     frames: 130,
     async setup(api) {
-      await api.cursor(820, 1000);
-      await api.tick(3600); // intro terminée, hors champ
+      await api.cursor(1130, 1250);
+      await api.tick(3000); // exactement la fin du plan hero (180 images = 3 s) : la coupe ne se voit pas
       this.btn = await api.rect("[data-hero-cta]");
     },
     async perFrame(api, i) {
-      const from = { x: 820, y: 1000 };
+      const from = { x: 1130, y: 1250 }; // hors cadre : le curseur entre dans l'image
       const to = { x: this.btn.x + 150, y: this.btn.vy + this.btn.h / 2 + 4 };
       const p = path2(from, to, clamp01(i / 48), 60);
       await api.cursor(p.x, p.y);
@@ -51,12 +60,12 @@ const SHOTS = {
     dpr: 2,
     frames: 130,
     async setup(api) {
-      await api.cursor(820, 1500);
-      await api.tick(3600);
+      await api.cursor(1130, 1700);
+      await api.tick(3000); // raccord exact avec la fin du plan hero-9x16
       this.btn = await api.rect("[data-hero-cta]");
     },
     async perFrame(api, i) {
-      const from = { x: 820, y: 1500 };
+      const from = { x: 1130, y: 1700 }; // hors cadre : le curseur entre dans l'image
       const to = { x: this.btn.x + 150, y: this.btn.vy + this.btn.h / 2 + 4 };
       const p = path2(from, to, clamp01(i / 48), 60);
       await api.cursor(p.x, p.y);
@@ -103,21 +112,30 @@ const SHOTS = {
         const r = sp.getBoundingClientRect();
         return { top: r.top + window.scrollY, h: r.height, secH: s.offsetHeight };
       });
-      this.start = spacer.top + spacer.secH / 2 - 944 / 2 - 260; // un peu avant le pin
-      this.end = spacer.top + spacer.h - spacer.secH - 944 / 2 + spacer.secH / 2 + 40;
+      // La section se fixe quand son centre atteint le centre de l'écran, et le reste sur (spacer − section) px.
+      const pinStart = spacer.top + spacer.secH / 2 - 944 / 2;
+      const pinEnd = pinStart + (spacer.h - spacer.secH);
+      this.start = pinStart - 560; // la page défile d'abord : le contact remonte, la section arrive
+      this.end = pinEnd + 300; // puis repart une fois la séquence finie
+      this.track = { viewport: 944, docH: await api.page.evaluate(() => document.documentElement.scrollHeight), pinStart, pinEnd, y: [] };
       await api.scrollTo(this.start);
       await api.tick(800);
     },
     async perFrame(api, i) {
-      const s = ease.inOutCubic(clamp01(i / 270));
-      await api.scrollTo(this.start + (this.end - this.start) * s);
+      const y = this.start + (this.end - this.start) * cruise(i / (this.frames - 1));
+      this.track.y.push(Math.round(y));
+      await api.scrollTo(y);
+    },
+    // Position de scroll image par image → barre de défilement synchronisée au montage
+    async done() {
+      require("node:fs").writeFileSync(require("node:path").join(__dirname, "..", "src", "data", "realisations-scroll.json"), JSON.stringify(this.track));
     },
   },
 
   // 5. Formulaire de contact : clics et saisie
   contact: {
     viewport: FRAME,
-    frames: 270,
+    frames: 160,
     async setup(api) {
       await api.cursor(-100, -100, false);
       await api.tick(3600);
@@ -136,12 +154,12 @@ const SHOTS = {
       this.plan = [];
       let f = 0, prev = { x: 900, y: 1250 };
       for (const fld of this.fields) {
-        this.plan.push({ type: "move", from: prev, to: fld.at, start: f, end: f + 16 });
-        f += 16;
+        this.plan.push({ type: "move", from: prev, to: fld.at, start: f, end: f + 12 });
+        f += 12;
         this.plan.push({ type: "click", sel: fld.sel, start: f });
-        f += 4;
-        this.plan.push({ type: "type", sel: fld.sel, text: fld.text, start: f, per: 2 });
-        f += fld.text.length * 2 + 8;
+        f += 3;
+        this.plan.push({ type: "type", sel: fld.sel, text: fld.text, start: f, per: 1 });
+        f += fld.text.length + 4;
         prev = fld.at;
       }
       this.typed = new Map();
