@@ -33,5 +33,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "aquapure"]
+  "exclude": ["node_modules", "aquapure", "video"]
 }

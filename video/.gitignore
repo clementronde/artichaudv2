@@ -1,0 +1,4 @@
+node_modules/
+out/
+# Images brutes de capture (les plans encodés en .mp4 dans public/shots/ restent versionnés)
+capture/frames/

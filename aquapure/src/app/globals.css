@@ -40,6 +40,13 @@ body {
   outline-offset: 3px;
 }
 
+/* Les champs du formulaire ont leur propre état de focus (trait cyan épaissi, libellé qui
+   remonte en cyan, contour du message) : pas de cadre en plus. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
 @layer components {
   .container-site {
     @apply mx-auto w-full max-w-site px-5 md:px-10;

@@ -3,7 +3,7 @@ tags: [projet, video, aquapure]
 client: AquaPure (plombier, Yvelines)
 formats: [4x5]
 duree_cible: 20 s
-statut: storyboard
+statut: production
 maj: 2026-11-26
 ---
 
@@ -48,16 +48,30 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 
 9:16 et 16:9 non demandés pour l'instant : l'ossature ci-dessus se décline (plans plus longs et mockup d'appareil en ouverture pour un showreel 16:9).
 
-## Questions ouvertes
+## Points réglés
 
-- Accord du client pour diffuser le site avant sa mise en ligne ?
-- Logo Artichaud : fichier vectoriel à récupérer (SVG) pour le carton de fin.
-- Plans 3 (services) et 6 (mobile) : garder ou remplacer si les vrais textes ne sont pas prêts ?
+- AquaPure est un **client fictif** : pas d'accord de diffusion nécessaire.
+- Logo Artichaud (mascotte rouge) fourni en SVG : `medias/captures/logo-artichaud.svg`.
+- Plans services et mobile gardés ; l'accroche des services (lorem ipsum) reste hors cadre.
 
 ## Production
-- Captures : `medias/captures/aquapure/`
-- Outil : Remotion ou HyperFrames (voir Décisions)
-- Musique : aucune (grille 120 BPM)
+
+- **Code** : dossier `video/` du dépôt (voir son README) — capture déterministe du vrai site (`video/capture/`), montage Remotion (`video/src/`).
+- **Outil retenu** : Remotion 4 (licence gratuite ≤ 3 personnes), Chromium local, export H.264 1080 × 1350, 60 i/s.
+- **Musique** : aucune ; coupes et rideaux posés sur les temps (120 BPM, 1 temps = 30 images). Raccords aux temps 10, 16, 24, 29, 35 et 39.
+- **Durée** : 22,5 s (45 temps).
+- **Montage réel** (diffère un peu du storyboard v0) :
+
+| Temps (s) | Plan | Ce qu'on voit |
+|---|---|---|
+| 0 – 3 | Hero | Intro réelle du site (rideau, dézoom, titre ligne par ligne, CTA, badges) |
+| 3 – 5 | Bouton | Zoom ×2 sur le bouton téléphone, le curseur le survole : le carré cyan remplit le bouton. Étiquette « Micro-interactions » |
+| 5 – 8 | Services | Arrivée du scroll sur les 3 cartes, survol de « Rénovation ». Étiquette « Survols soignés » |
+| 8 – 12 | Réalisations | Titre « Un scroll qui raconte. » + fenêtre de navigateur : la séquence pilotée par le scroll |
+| 12 – 14,5 | Contact | Les champs se remplissent (labels qui montent, trait cyan). Étiquette « Formulaire vivant » |
+| 14,5 – 17,5 | Mobile | Téléphone qui monte, intro mobile puis ouverture du menu. Étiquette « Pensé mobile » |
+| 17,5 – 19,5 | Footer | Le wordmark géant « AquaPure » monte |
+| 19,5 – 22,5 | Fin | Studio : mascotte Artichaud qui tombe et s'écrase + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
 ## Bilan
 _(après livraison)_
