@@ -1,7 +1,7 @@
 ---
 tags: [projet, video, aquapure]
 client: AquaPure (plombier, Yvelines)
-formats: [9x16, 4x5]
+formats: [16x9, 9x16, 4x5]
 duree_cible: 20 s
 statut: livré
 maj: 2026-11-26
@@ -71,6 +71,14 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 | 12,5 – 15,5 | Mobile | Téléphone qui monte, intro mobile puis ouverture du menu. « Pensé mobile. » |
 | 15,5 – 17,5 | Footer | Le wordmark géant « AquaPure » monte. « Soigné jusqu'en bas. » |
 | 17,5 – 20,5 | Fin | Studio : mascotte Artichaud + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
+
+## Livrables 16:9 (2026-11-26) — showreel, YouTube, LinkedIn
+
+- `medias/videos/2026-11-26_artichaud_aquapure-16x9-studio.mp4` — fin Artichaud
+- `medias/videos/2026-11-26_artichaud_aquapure-16x9-client.mp4` — fin AquaPure
+- 1920 × 1080, 60 i/s, 20,5 s, H.264, environ 9,5 Mo chacune, sans son.
+- **Mise en page** : le site est filmé en 1920 × 1080 et montré **en plein cadre** (format natif d'un site desktop) : intro, zoom ×2 sur le bouton avec le titre entier lisible, vrai scroll de « Nos réalisations » en plein écran (barre de défilement et souris en surimpression), formulaire, footer. Mobile : grand titre « Pensé mobile. » à gauche, téléphone à droite. Étiquettes et textes à 96 px des bords (5 %).
+- **Défaut du site révélé et corrigé** : en écran large, le wordmark « AquaPure » de « Nos réalisations » était coupé net au bord de la colonne de 1512 px.
 
 ## Livrables Reels 9:16 (v3, 2026-11-26) — format principal
 

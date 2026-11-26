@@ -16,7 +16,8 @@ video/
 ├── src/
 │   ├── timeline.ts    ← découpage, calé sur 120 BPM (1 temps = 30 images)
 │   ├── parts.tsx      ← briques : caméra, étiquettes, titres masqués, rideau, navigateur, téléphone
-│   ├── AquaPureVideo.tsx ← le montage + les deux fins
+│   ├── AquaPureVideo.tsx ← montage 4:5 et 9:16 + les deux fins
+│   ├── AquaPureWide.tsx  ← montage 16:9 (site en plein cadre)
 │   └── Root.tsx       ← compositions Reels 9:16 (AquaPureReelStudio / AquaPureReelClient) et 4:5 (AquaPureStudio / AquaPureClient)
 └── remotion.config.ts
 ```
@@ -38,6 +39,8 @@ npx remotion studio
 # 4. Rendre
 npm run render:reel:studio   # Reels 9:16 → out/aquapure-9x16-studio.mp4
 npm run render:reel:client   # Reels 9:16 → out/aquapure-9x16-client.mp4
+npm run render:wide:studio   # 16:9 → out/aquapure-16x9-studio.mp4
+npm run render:wide:client   # 16:9 → out/aquapure-16x9-client.mp4
 npm run render:studio   # 4:5 → out/aquapure-4x5-studio.mp4
 npm run render:client   # 4:5 → out/aquapure-4x5-client.mp4
 ```
