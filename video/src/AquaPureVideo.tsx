@@ -20,7 +20,8 @@ const CTA = { x: 185, y: 744 };
 const camBouton: Cam = (f) => {
   const k = tween(f, [4, 62], [0, 1], inOut);
   const s0 = 1.03;
-  return { s: s0 + (2 - s0) * k, fx: CTA.x, fy: CTA.y, qx: CTA.x + (360 - CTA.x) * k, qy: CTA.y + (760 - CTA.y) * k };
+  const drift = tween(f, [62, 120], [0, 0.12], (t) => t); // la caméra ne s'arrête jamais
+  return { s: s0 + (2 - s0) * k + drift, fx: CTA.x, fy: CTA.y, qx: CTA.x + (360 - CTA.x) * k, qy: CTA.y + (760 - CTA.y) * k };
 };
 
 // Services : cartes cadrées en haut, la fin de l'accroche (lorem ipsum) reste au-dessus du cadre.
@@ -47,7 +48,7 @@ const RealisationsScene: React.FC = () => {
       </div>
       <div style={{
         position: "absolute", left: M, top: 450,
-        transform: `translateY(${(1 - enter) * 140 - exitUp * 40}px) scale(${0.94 + 0.06 * enter})`,
+        transform: `translateY(${(1 - enter) * 140 - exitUp * 40}px) scale(${0.94 + 0.06 * enter + tween(f, [56, sh.dur], [0, 0.03], (t) => t)})`,
         transformOrigin: "50% 0%", opacity: enter,
       }}>
         <BrowserCard width={W - 2 * M} ratio={1512 / 944}>
@@ -95,9 +96,10 @@ const EndStudio: React.FC = () => {
   const drop = spring({ frame: f - 8, fps, config: { damping: 11, stiffness: 120, mass: 0.9 } });
   const land = spring({ frame: f - 26, fps, config: { damping: 8, stiffness: 220 } });
   const squash = 1 - 0.12 * Math.sin(Math.min(1, land) * Math.PI); // écrasement à l'atterrissage
+  const idle = f > 70 ? Math.sin(((f - 70) / 60) * Math.PI) * 10 : 0; // la mascotte flotte une fois posée
   return (
-    <AbsoluteFill style={{ background: C.artiBg, alignItems: "center" }}>
-      <div style={{ position: "absolute", top: 150, transform: `translateY(${(1 - drop) * -700}px) scale(${2 - squash}, ${squash})`, transformOrigin: "50% 100%" }}>
+    <AbsoluteFill style={{ background: C.artiBg, alignItems: "center", transform: `scale(${tween(f, [60, 180], [1, 1.025], (t) => t)})` }}>
+      <div style={{ position: "absolute", top: 150, transform: `translateY(${(1 - drop) * -700 - idle}px) scale(${2 - squash}, ${squash})`, transformOrigin: "50% 100%" }}>
         <Img src={staticFile("brand/logo-artichaud.svg")} style={{ height: 460 }} />
       </div>
       <div style={{ position: "absolute", top: 700, left: M, right: M, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
@@ -117,14 +119,18 @@ const EndClient: React.FC = () => {
   const pill = tween(f, [56, 96], [0, 1], expoOut);
   const fill = tween(f, [96, 130], [0, 1], inOut);
   return (
-    <AbsoluteFill style={{ background: C.bleu }}>
-      <div style={{ position: "absolute", left: M, top: 300, clipPath: `inset(0% ${logo}% 0% 0%)` }}>
+    <AbsoluteFill style={{ background: C.bleu, transform: `scale(${tween(f, [40, 180], [1, 1.03], (t) => t)})`, transformOrigin: "0% 50%" }}>
+      {/* Rappel du footer du site : le wordmark géant en filigrane, qui monte */}
+      <Img src={staticFile("brand/wordmark-footer.svg")} style={{
+        position: "absolute", width: 1240, left: -40, top: tween(f, [0, 180], [1140, 1060], expoOut), opacity: 0.08,
+      }} />
+      <div style={{ position: "absolute", left: M, top: 390, clipPath: `inset(0% ${logo}% 0% 0%)` }}>
         <Img src={staticFile("brand/logo-aquapure.svg")} style={{ width: 640 }} />
       </div>
-      <div style={{ position: "absolute", left: M, top: 520 }}>
+      <div style={{ position: "absolute", left: M, top: 610 }}>
         <SplitTitle lines={["Votre plombier de confiance", "dans les Yvelines, 7j/7."]} at={30} size={66} />
       </div>
-      <div style={{ position: "absolute", left: M, top: 760, opacity: pill, transform: `translateY(${(1 - pill) * 40}px)` }}>
+      <div style={{ position: "absolute", left: M, top: 850, opacity: pill, transform: `translateY(${(1 - pill) * 40}px)` }}>
         <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 26, height: 112, padding: "0 46px 0 9px", borderRadius: 8, background: "#023a3e", overflow: "hidden" }}>
           <div style={{ position: "absolute", left: 9, top: 9, bottom: 9, width: `calc(94px + (100% - 112px) * ${fill})`, borderRadius: 5, background: C.fluo }} />
           <div style={{ position: "relative", width: 94, height: 94, display: "flex", alignItems: "center", justifyContent: "center" }}>

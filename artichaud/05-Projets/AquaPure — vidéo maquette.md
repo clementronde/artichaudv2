@@ -3,7 +3,7 @@ tags: [projet, video, aquapure]
 client: AquaPure (plombier, Yvelines)
 formats: [4x5]
 duree_cible: 20 s
-statut: production
+statut: livré
 maj: 2026-11-26
 ---
 
@@ -73,5 +73,25 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 | 17,5 – 19,5 | Footer | Le wordmark géant « AquaPure » monte |
 | 19,5 – 22,5 | Fin | Studio : mascotte Artichaud qui tombe et s'écrase + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
+## Livrables (v1, 2026-11-26)
+
+- `medias/videos/2026-11-26_artichaud_aquapure-4x5-studio.mp4` — fin Artichaud (mascotte + « Site réalisé par Artichaud Studio »)
+- `medias/videos/2026-11-26_artichaud_aquapure-4x5-client.mp4` — fin AquaPure (logo + accroche + téléphone)
+- 1080 × 1350, 60 i/s, 22,5 s, H.264, environ 8 Mo chacune, sans son.
+
 ## Bilan
-_(après livraison)_
+
+**Ce qui a marché**
+- Filmer le **vrai site** en rendu déterministe : intro, survols, scroll piloté et formulaire sont parfaitement fluides (analyse image par image : aucun saut, aucune image dupliquée).
+- Le site en 1080 × 1350 donne des **plans 4:5 natifs** sans recadrage ; seuls quelques plans sont zoomés.
+- Une seule famille de raccords (rideau bleu foncé bordé de cyan) + étiquettes reprises des « tags » du site : la vidéo parle la même langue que le site.
+- Rendu rapide : ~1 min 40 par version.
+
+**À corriger la prochaine fois**
+- Vérifier les **temps morts** dès le premier rendu : une caméra qui s'arrête se voit tout de suite (0,7 s figée à la fin du plan bouton en v0 → corrigé par une dérive lente).
+- Prévoir dès le storyboard les zones de **texte provisoire** du site (lorem ipsum) : il a fallu recapturer le plan services et cadrer serré.
+- Poser une piste son pour valider le rythme : le montage est calé sur 120 BPM mais n'a pas été écouté avec une musique.
+
+**Pistes v2**
+- Version 9:16 (Reels / TikTok) et 16:9 (showreel) à partir des mêmes plans.
+- Remplacer les textes provisoires du site puis recapturer services / témoignages.
