@@ -40,6 +40,14 @@ body {
   outline-offset: 3px;
 }
 
+/* Titres animés ligne par ligne : les masques de lignes utilisent des marges négatives pour ne pas
+   rogner les jambages. flow-root empêche ces marges de « déborder » du titre, sinon le titre grandit
+   de quelques pixels pendant l'animation et la page bouge (saut au relâchement de la section fixée). */
+[data-split],
+[data-hero-title] {
+  display: flow-root;
+}
+
 /* Les champs du formulaire ont leur propre état de focus (trait cyan épaissi, libellé qui
    remonte en cyan, contour du message) : pas de cadre en plus. */
 input:focus-visible,

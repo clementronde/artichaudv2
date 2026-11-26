@@ -16,6 +16,24 @@ function path2(a, b, t, arc = 40) {
 }
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
+/**
+ * Trajectoire de scroll image par image, déjà posée sur la grille du demi-pixel (capture en 2×) :
+ * tant que la page bouge, elle avance d'au moins 0,5 px par image. Sinon, quand le scroll ralentit,
+ * le navigateur arrondit et l'on obtient des marches irrégulières (immobile, +1, immobile…) qui se voient.
+ */
+function scrollPath(from, to, frames, profile) {
+  const out = [];
+  let prev = from;
+  for (let i = 0; i < frames; i++) {
+    let y = Math.round((from + (to - from) * profile(i / (frames - 1))) * 2) / 2;
+    if (i > 0 && y < to && y - prev < 0.5) y = Math.min(to, prev + 0.5);
+    y = Math.min(to, Math.max(prev, y));
+    out.push(y);
+    prev = y;
+  }
+  return out;
+}
+
 /** Scroll « à la molette » : accélère, garde une vitesse constante, puis freine (profil trapézoïdal). */
 function cruise(t, ramp = 0.12) {
   t = clamp01(t);
@@ -74,33 +92,10 @@ const SHOTS = {
     },
   },
 
-  // 3. Descente vers les services puis survol d'une carte
-  services: {
-    viewport: FRAME,
-    frames: 190,
-    async setup(api) {
-      await api.cursor(1200, 1200, false);
-      await api.tick(3600);
-      const ul = await api.rect("#services ul");
-      this.target = ul.y - 170; // cartes en haut de l'écran : l'accroche (lorem ipsum) reste hors champ
-      this.card = ul;
-    },
-    async perFrame(api, i) {
-      const s = ease.inOutQuart(clamp01(i / 80));
-      await api.scrollTo(this.target * s);
-      if (i > 80) {
-        const vy = this.card.y - this.target; // position à l'écran une fois arrivé
-        const from = { x: 980, y: vy + this.card.h + 120 };
-        const to = { x: this.card.x + this.card.w * 0.5, y: vy + this.card.h * 0.45 };
-        const p = path2(from, to, clamp01((i - 80) / 40), 50);
-        await api.cursor(p.x, p.y);
-      }
-    },
-  },
-
   // 4. Réalisations : séquence pilotée par le scroll (rendu « fenêtre de navigateur », 1512 × 944)
   realisations: {
     viewport: { width: 1512, height: 944 },
+    dpr: 2, // positions de scroll au demi-pixel : pas de micro-saccades quand le scroll ralentit
     frames: 300,
     async setup(api) {
       await api.cursor(-100, -100, false);
@@ -124,8 +119,9 @@ const SHOTS = {
       await api.tick(800);
     },
     async perFrame(api, i) {
-      const y = this.start + (this.end - this.start) * cruise(i / (this.frames - 1));
-      this.track.y.push(Math.round(y));
+      if (!this.path) this.path = scrollPath(this.start, this.end, this.frames, (t) => cruise(t));
+      const y = this.path[i];
+      this.track.y.push(y);
       await api.scrollTo(y);
     },
     // Position de scroll image par image → barre de défilement synchronisée au montage
@@ -196,6 +192,7 @@ const SHOTS = {
   // 7. Footer : le wordmark géant monte
   footer: {
     viewport: FRAME,
+    dpr: 2, // positions de scroll au demi-pixel
     frames: 150,
     async setup(api) {
       await api.cursor(-100, -100, false);
@@ -208,8 +205,9 @@ const SHOTS = {
       await api.tick(1500);
     },
     async perFrame(api, i) {
-      const s = ease.inOutCubic(clamp01(i / 110));
-      await api.scrollTo(this.from + (this.to - this.from) * s);
+      // freinage franc, trajectoire au demi-pixel (voir scrollPath), puis immobile
+      if (!this.path) this.path = scrollPath(this.from, this.to, 111, (t) => cruise(t, 0.3));
+      await api.scrollTo(this.path[Math.min(i, 110)]);
     },
   },
 };

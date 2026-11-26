@@ -28,12 +28,15 @@ const camHero = (h: number): Cam => (f) => ({ s: tween(f, [60, 180], [1, 1.03]),
 // Bouton téléphone : zoom ×2 sur le bouton, aligné sur la marge gauche pour garder le titre lisible
 // (même état que la fin du plan hero → la coupe ne se voit pas).
 // Centre du bouton mesuré dans le site : y = 744 en 1080 × 1350, y = 1029 en 1080 × 1920.
-const camBouton = (cta: { x: number; y: number }, targetY: number): Cam => (f) => {
+const camBouton = (cta: { x: number; y: number }, targetY: number, h: number): Cam => (f) => {
   const k = tween(f, [4, 62], [0, 1], inOut);
   const s0 = 1.03;
+  // Raccord exact avec la fin du plan hero (zoom ×1,03 autour du centre) : on part de l'endroit
+  // où le bouton s'affiche à cet instant, pas de sa position dans la page.
+  const q0 = { x: W / 2 + (cta.x - W / 2) * s0, y: h / 2 + (cta.y - h / 2) * s0 };
   // La dérive démarre avant la fin du zoom : la caméra ne marque jamais d'arrêt
   const drift = tween(f, [40, 120], [0, 0.16], (t) => t);
-  return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: cta.x + (360 - cta.x) * k, qy: cta.y + (targetY - cta.y) * k };
+  return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: q0.x + (360 - q0.x) * k, qy: q0.y + (targetY - q0.y) * k };
 };
 
 // Contact : panneau de droite (titre + formulaire) ; le débord à droite se fond dans le fond bleu foncé.
@@ -234,8 +237,8 @@ export const AquaPureVideo: React.FC<{ ending: Ending; format?: Format }> = ({ e
 
       <Sequence from={s.bouton.from} durationInFrames={s.bouton.dur}>
         {reel
-          ? <Shot {...s.bouton} src="bouton-9x16" cam={camBouton({ x: 185, y: 1029 }, 900)} />
-          : <Shot {...s.bouton} cam={camBouton({ x: 185, y: 744 }, 760)} />}
+          ? <Shot {...s.bouton} src="bouton-9x16" cam={camBouton({ x: 185, y: 1029 }, 900, REEL_H)} />
+          : <Shot {...s.bouton} cam={camBouton({ x: 185, y: 744 }, 760, H)} />}
         <Tag inAt={40} outAt={s.bouton.dur - 4} y={reel ? 1120 : undefined}>Micro-interactions</Tag>
       </Sequence>
 
