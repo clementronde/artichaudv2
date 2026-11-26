@@ -23,20 +23,20 @@ const REEL_WINDOW_TOP = 520; // la fenêtre site 1080 × 1350 démarre sous le t
 // ——— Caméras ———————————————————————————————————————————————
 
 // Hero : très légère poussée vers l'avant pendant que l'intro du site se joue.
-const camHero = (h: number): Cam => (f) => ({ s: tween(f, [60, 180], [1, 1.03]), fx: W / 2, fy: h / 2, qx: W / 2, qy: h / 2 });
+export const camHero = (h: number, w = W): Cam => (f) => ({ s: tween(f, [60, 180], [1, 1.03]), fx: w / 2, fy: h / 2, qx: w / 2, qy: h / 2 });
 
 // Bouton téléphone : zoom ×2 sur le bouton, aligné sur la marge gauche pour garder le titre lisible
 // (même état que la fin du plan hero → la coupe ne se voit pas).
 // Centre du bouton mesuré dans le site : y = 744 en 1080 × 1350, y = 1029 en 1080 × 1920.
-const camBouton = (cta: { x: number; y: number }, targetY: number, h: number): Cam => (f) => {
+export const camBouton = (cta: { x: number; y: number }, targetY: number, h: number, w = W, targetX = 360): Cam => (f) => {
   const k = tween(f, [4, 62], [0, 1], inOut);
   const s0 = 1.03;
   // Raccord exact avec la fin du plan hero (zoom ×1,03 autour du centre) : on part de l'endroit
   // où le bouton s'affiche à cet instant, pas de sa position dans la page.
-  const q0 = { x: W / 2 + (cta.x - W / 2) * s0, y: h / 2 + (cta.y - h / 2) * s0 };
+  const q0 = { x: w / 2 + (cta.x - w / 2) * s0, y: h / 2 + (cta.y - h / 2) * s0 };
   // La dérive démarre avant la fin du zoom : la caméra ne marque jamais d'arrêt
   const drift = tween(f, [40, 120], [0, 0.16], (t) => t);
-  return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: q0.x + (360 - q0.x) * k, qy: q0.y + (targetY - q0.y) * k };
+  return { s: s0 + (2 - s0) * k + drift, fx: cta.x, fy: cta.y, qx: q0.x + (targetX - q0.x) * k, qy: q0.y + (targetY - q0.y) * k };
 };
 
 // Contact : panneau de droite (titre + formulaire) ; le débord à droite se fond dans le fond bleu foncé.
@@ -49,14 +49,15 @@ const camFooter: Cam = (f) => ({ s: tween(f, [0, 120], [1.0, 1.04], inOut), fx: 
 // ——— Plans composés ————————————————————————————————————————
 
 /** Barre de défilement de la fenêtre, synchronisée sur le vrai scroll de la capture (src/data/realisations-scroll.json). */
-const ScrollBar: React.FC<{ f: number; height: number }> = ({ f, height }) => {
-  const y = scroll.y[Math.max(0, Math.min(scroll.y.length - 1, Math.round(f)))];
-  const track = height - 16;
-  const thumb = Math.max(60, (scroll.viewport / scroll.docH) * track);
-  const top = 8 + (y / (scroll.docH - scroll.viewport)) * (track - thumb);
-  const pinned = y >= scroll.pinStart && y <= scroll.pinEnd;
+export type ScrollTrack = typeof scroll;
+export const ScrollBar: React.FC<{ f: number; height: number; track?: ScrollTrack; right?: number }> = ({ f, height, track = scroll, right = 8 }) => {
+  const y = track.y[Math.max(0, Math.min(track.y.length - 1, Math.round(f)))];
+  const len = height - 16;
+  const thumb = Math.max(60, (track.viewport / track.docH) * len);
+  const top = 8 + (y / (track.docH - track.viewport)) * (len - thumb);
+  const pinned = y >= track.pinStart && y <= track.pinEnd;
   return (
-    <div style={{ position: "absolute", right: 8, top: 0, bottom: 0, width: 12 }}>
+    <div style={{ position: "absolute", right, top: 0, bottom: 0, width: 12 }}>
       <div style={{ position: "absolute", left: 3, right: 3, top: 8, bottom: 8, borderRadius: 4, background: "rgba(1,41,44,.08)" }} />
       <div style={{ position: "absolute", left: 1, right: 1, top, height: thumb, borderRadius: 6,
         background: pinned ? C.fluo : "rgba(1,41,44,.45)", boxShadow: pinned ? "0 0 0 2px rgba(1,41,44,.25)" : "none" }} />
@@ -65,14 +66,14 @@ const ScrollBar: React.FC<{ f: number; height: number }> = ({ f, height }) => {
 };
 
 /** Souris dont la molette tourne tant que la page défile. */
-const MouseHint: React.FC<{ f: number }> = ({ f }) => {
-  const i = Math.max(1, Math.min(scroll.y.length - 1, Math.round(f)));
-  const moving = scroll.y[i] - scroll.y[i - 1] > 0.5;
+export const MouseHint: React.FC<{ f: number; track?: ScrollTrack; color?: string }> = ({ f, track = scroll, color = C.fluo }) => {
+  const i = Math.max(1, Math.min(track.y.length - 1, Math.round(f)));
+  const moving = track.y[i] - track.y[i - 1] > 0.25;
   const phase = (f % 36) / 36;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 18, fontFamily: FONT.aquapure, fontSize: 32, letterSpacing: "-0.04em", color: C.fluo }}>
-      <div style={{ position: "relative", width: 40, height: 64, borderRadius: 20, border: `3px solid ${C.fluo}` }}>
-        <div style={{ position: "absolute", left: "50%", width: 6, height: 12, marginLeft: -3, borderRadius: 3, background: C.fluo,
+    <div style={{ display: "flex", alignItems: "center", gap: 18, fontFamily: FONT.aquapure, fontSize: 32, letterSpacing: "-0.04em", color }}>
+      <div style={{ position: "relative", width: 40, height: 64, borderRadius: 20, border: `3px solid ${color}` }}>
+        <div style={{ position: "absolute", left: "50%", width: 6, height: 12, marginLeft: -3, borderRadius: 3, background: color,
           top: 10 + (moving ? phase * 18 : 0), opacity: moving ? 1 - phase * 0.8 : 1 }} />
       </div>
       <span>scroll</span>
@@ -146,7 +147,7 @@ const MobileScene: React.FC<{ reel?: boolean }> = ({ reel }) => {
   );
 };
 
-const EndStudio: React.FC<{ y0?: number }> = ({ y0 = 0 }) => {
+export const EndStudio: React.FC<{ y0?: number }> = ({ y0 = 0 }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const drop = spring({ frame: f - 8, fps, config: { damping: 11, stiffness: 120, mass: 0.9 } });
@@ -169,7 +170,7 @@ const EndStudio: React.FC<{ y0?: number }> = ({ y0 = 0 }) => {
   );
 };
 
-const EndClient: React.FC<{ y0?: number }> = ({ y0 = 0 }) => {
+export const EndClient: React.FC<{ y0?: number; x0?: number; wm?: { width: number; top: number } }> = ({ y0 = 0, x0 = M, wm }) => {
   const f = useCurrentFrame();
   const logo = tween(f, [10, 46], [100, 0], inOut);
   const pill = tween(f, [56, 96], [0, 1], expoOut);
@@ -178,15 +179,15 @@ const EndClient: React.FC<{ y0?: number }> = ({ y0 = 0 }) => {
     <AbsoluteFill style={{ background: C.bleu, transform: `scale(${tween(f, [40, 180], [1, 1.03], (t) => t)})`, transformOrigin: "0% 50%" }}>
       {/* Rappel du footer du site : le wordmark géant en filigrane, qui monte */}
       <Img src={staticFile("brand/wordmark-footer.svg")} style={{
-        position: "absolute", width: 1240, left: -40, top: tween(f, [0, 180], [1140, 1060], expoOut) + y0 * 1.6, opacity: 0.08,
+        position: "absolute", width: wm?.width ?? 1240, left: -40, top: tween(f, [0, 180], [80, 0], expoOut) + (wm?.top ?? 1060 + y0 * 1.6), opacity: 0.08,
       }} />
-      <div style={{ position: "absolute", left: M, top: 390 + y0, clipPath: `inset(0% ${logo}% 0% 0%)` }}>
+      <div style={{ position: "absolute", left: x0, top: 390 + y0, clipPath: `inset(0% ${logo}% 0% 0%)` }}>
         <Img src={staticFile("brand/logo-aquapure.svg")} style={{ width: 640 }} />
       </div>
-      <div style={{ position: "absolute", left: M, top: 610 + y0 }}>
+      <div style={{ position: "absolute", left: x0, top: 610 + y0 }}>
         <SplitTitle lines={["Votre plombier de confiance", "dans les Yvelines, 7j/7."]} at={30} size={66} />
       </div>
-      <div style={{ position: "absolute", left: M, top: 850 + y0, opacity: pill, transform: `translateY(${(1 - pill) * 40}px)` }}>
+      <div style={{ position: "absolute", left: x0, top: 850 + y0, opacity: pill, transform: `translateY(${(1 - pill) * 40}px)` }}>
         <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 26, height: 112, padding: "0 46px 0 9px", borderRadius: 8, background: "#023a3e", overflow: "hidden" }}>
           <div style={{ position: "absolute", left: 9, top: 9, bottom: 9, width: `calc(94px + (100% - 112px) * ${fill})`, borderRadius: 5, background: C.fluo }} />
           <div style={{ position: "relative", width: 94, height: 94, display: "flex", alignItems: "center", justifyContent: "center" }}>

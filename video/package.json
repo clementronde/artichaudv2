@@ -9,7 +9,9 @@
     "render:reel:studio": "remotion render AquaPureReelStudio out/aquapure-9x16-studio.mp4",
     "render:reel:client": "remotion render AquaPureReelClient out/aquapure-9x16-client.mp4",
     "render:studio": "remotion render AquaPureStudio out/aquapure-4x5-studio.mp4",
-    "render:client": "remotion render AquaPureClient out/aquapure-4x5-client.mp4"
+    "render:client": "remotion render AquaPureClient out/aquapure-4x5-client.mp4",
+    "render:wide:studio": "remotion render AquaPureWideStudio out/aquapure-16x9-studio.mp4",
+    "render:wide:client": "remotion render AquaPureWideClient out/aquapure-16x9-client.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.547",

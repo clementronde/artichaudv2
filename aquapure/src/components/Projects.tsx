@@ -9,8 +9,10 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
+  // Pas de overflow-x-clip sur la section : le wordmark déborde jusqu'au bord de l'écran (<main> le rogne),
+  // sinon il est coupé net à 1512 px sur grand écran.
   return (
-    <section id="projets" data-projects className="relative mx-auto w-full max-w-site overflow-x-clip">
+    <section id="projets" data-projects className="relative mx-auto w-full max-w-site">
       {/* En desktop, le titre est posé dans le haut du cadre photos, comme sur la maquette (cadre 1512 × 855) */}
       <SectionHeading tag="Projets" title="Nos réalisations" className="relative z-10 px-5 md:px-10 lg:absolute lg:left-0 lg:top-0" />
 
