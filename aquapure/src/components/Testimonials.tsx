@@ -1,26 +1,27 @@
 import SectionHeading from "@/components/SectionHeading";
 
+// AquaPure est un client fictif : avis d'exemple, à remplacer par de vrais avis Google le jour venu.
 const TESTIMONIALS = [
   {
-    name: "Clément Rondepierre",
-    role: "Lorem impsum",
+    name: "Marie D.",
+    role: "Versailles · Fuite sous évier",
     quote: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercice ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "Fuite sous l'évier un dimanche matin : AquaPure était là en moins d'une heure. Diagnostic clair, devis annoncé avant de commencer, et une cuisine laissée plus propre qu'à l'arrivée.",
     ],
   },
   {
-    name: "Charlotte Keleti",
-    role: "Lorem impsum",
+    name: "Thomas L.",
+    role: "Saint-Germain-en-Laye · Salle de bain",
     quote: [
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventer veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit",
+      "Rénovation complète de notre salle de bain en trois semaines, comme prévu. Douche à l'italienne, nouveaux réseaux, finitions impeccables. On recommande les yeux fermés.",
     ],
   },
   {
-    name: "Valérie Dreux",
-    role: "Lorem impsum",
+    name: "Sophie R.",
+    role: "Rambouillet · Chaudière",
     quote: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercice ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Notre chaudière a lâché en plein mois de janvier. Remplacement le lendemain, conseils pour les aides de l'État et un entretien annuel calé dans la foulée.",
+      "Un artisan sérieux, joignable et ponctuel : exactement ce qu'on cherchait.",
     ],
   },
 ];

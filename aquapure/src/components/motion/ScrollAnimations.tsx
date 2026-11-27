@@ -152,6 +152,9 @@ export default function ScrollAnimations() {
           at,
         );
         if (imgs[i]) tl.fromTo(imgs[i], { scale: 1.3 }, { scale: 1, duration: 0.6, ease: "power2.out" }, at);
+        // La légende du chantier glisse depuis le bas de la photo, une fois celle-ci arrivée
+        const caption = item.querySelector("[data-project-caption]");
+        if (caption) tl.fromTo(caption, { yPercent: 140, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.22, ease: "power3.out" }, at + 0.3);
       });
       // Légère dérive de profondeur une fois en place (vitesse propre à chaque photo)
       floats.forEach((el) => {

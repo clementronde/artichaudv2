@@ -13,7 +13,7 @@ export default function Services() {
     <section id="services" className="container-site flex flex-col gap-12 md:gap-[84px]">
       <SectionHeading
         tag="Nos services"
-        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Fuite, salle de bain ou chaudière : un seul artisan pour toute votre plomberie, partout dans les Yvelines."
       />
 
       <ul data-stagger className="grid grid-cols-1 gap-2.5 md:grid-cols-3">

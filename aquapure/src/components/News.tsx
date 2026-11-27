@@ -2,9 +2,9 @@ import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
 
 const ARTICLES = [
-  { title: "Revenir à la source", img: "/images/news-1.jpg", alt: "Serrage d’un siphon à la clé", tags: ["10min", "Hand made"] },
-  { title: "Revenir à la source", img: "/images/projet-3.jpg", alt: "Plombier réglant un mitigeur", tags: ["10min", "Hand made"] },
-  { title: "Revenir à la source", img: "/images/news-3.jpg", alt: "Plombier dans une salle de bain rénovée", tags: ["10min", "Hand made"] },
+  { title: "Fuite d'eau : les bons réflexes", img: "/images/news-1.jpg", alt: "Serrage d’un siphon à la clé", tags: ["4 min", "Conseils"] },
+  { title: "Chauffe-eau : quand le changer ?", img: "/images/projet-3.jpg", alt: "Plombier réglant un mitigeur", tags: ["5 min", "Chauffage"] },
+  { title: "Rénover sa salle de bain", img: "/images/news-3.jpg", alt: "Plombier dans une salle de bain rénovée", tags: ["6 min", "Rénovation"] },
 ];
 
 export default function News() {
