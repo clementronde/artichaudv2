@@ -72,6 +72,17 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 | 15,5 – 17,5 | Footer | Le wordmark géant « AquaPure » monte. « Soigné jusqu'en bas. » |
 | 17,5 – 20,5 | Fin | Studio : mascotte Artichaud + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
+## Livrables 16:9 v3 (2026-11-27) — retours en direct du client
+
+Retours (visionnage commenté) et réponses :
+- *Survol services : la couleur de la carte quittée disparaît d'un coup* → sur le site, le voile cyan se retire maintenant en 1,1 s avec une courbe douce (l'entrée reste vive). Survol des trois cartes une par une, plus lentement.
+- *Fin des réalisations → témoignages : on remonte puis on redescend* → le plan témoignages démarre à la position de scroll exacte où s'arrête celui des réalisations.
+- *Avis clients : rester plus longtemps, vrais textes, étoiles bleues 5/5* → étoiles cyan + « 5/5 » sur chaque avis (site), 4 s à l'écran, survol de chaque avis.
+- *Formulaire : touches de clavier, envoyer, notification, plus long* → les cinq champs remplis, clic sur « Envoyer », notification « Message envoyé au plombier » (ajoutée au site) et zoom dessus ; sons de clavier, de clic et de notification synthétisés (`video/capture/sfx.py`), calés sur les vraies frappes.
+- *Mobile : pas le menu, plutôt le scroll* → la page défile dans le téléphone, « Pensé mobile. » à gauche.
+
+34,5 s, 1920 × 1080, 60 i/s, **avec son** (uniquement pendant le formulaire), ~23 Mo. `judder.py` : 0 saut.
+
 ## Livrables 16:9 v2 (2026-11-27) — retours client
 
 Retours : « transitions trop agressives », « pas de texte sous les réalisations », « la vidéo ne montre pas assez le site ».
