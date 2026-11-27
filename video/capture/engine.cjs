@@ -55,8 +55,16 @@ async function captureShot(shot, { url, browser }) {
   const cssAnims = new Map(); // id -> { start, end }
   cdp.on("Animation.animationStarted", ({ animation }) => {
     const src = animation.source || {};
+    if (process.env.CSS_DEBUG) console.log(`[css] t=${now} start ${animation.id} ${animation.type} ${animation.name} delay=${src.delay} dur=${src.duration}`);
     const total = (src.delay || 0) + (src.duration || 0) * Math.max(1, src.iterations || 1) + (src.endDelay || 0);
     cssAnims.set(animation.id, { start: now, end: now + (Number.isFinite(total) ? total : 1e9) });
+  });
+  // Une transition interrompue (la souris quitte une carte avant la fin du survol) est annulée par le
+  // navigateur et remplacée par une transition inverse : on oublie l'ancienne, sinon on continue à la
+  // repositionner et la carte reste figée dans son état de survol avant de sauter à la fin.
+  cdp.on("Animation.animationCanceled", ({ id }) => {
+    if (process.env.CSS_DEBUG) console.log(`[css] t=${now} cancel ${id}`);
+    cssAnims.delete(id);
   });
 
   await page.goto(url, { waitUntil: "load" });
@@ -117,7 +125,14 @@ async function captureShot(shot, { url, browser }) {
       if (now >= a.end) cssAnims.delete(id); // dernier recalage à la fin, puis on l'oublie
     }
     for (const [t, ids] of groups) {
-      try { await cdp.send("Animation.seekAnimations", { animations: ids, currentTime: t }); } catch { /* animation déjà retirée */ }
+      try {
+        await cdp.send("Animation.seekAnimations", { animations: ids, currentTime: t });
+      } catch {
+        // une animation du lot a disparu : on recale les autres une par une (sans perdre tout le lot)
+        for (const id of ids) {
+          try { await cdp.send("Animation.seekAnimations", { animations: [id], currentTime: t }); } catch { cssAnims.delete(id); }
+        }
+      }
     }
   }
 

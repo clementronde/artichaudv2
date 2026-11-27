@@ -21,6 +21,8 @@ S'ouvre tel quel dans [Obsidian](https://obsidian.md) (« Ouvrir un dossier comm
 | Ajouter une référence | dupliquer [[Fiche référence]] (dans `_modeles/`) |
 | Voir le projet en cours | [[AquaPure — vidéo maquette]] |
 | Vérifier une vidéo avant publication | [[Checklist vidéo]] |
+| Savoir ce qu'on a appris (pièges, solutions) | [[Compétences — vidéo de maquette]] |
+| Produire une nouvelle vidéo de site (commande `/video-maquette`) | [[Skill video-maquette]] |
 
 ## Arborescence
 
@@ -32,6 +34,8 @@ artichaud/
 ├── 03-References-sites/       ← galeries, studios, sites remarquables
 ├── 04-References-videos/      ← exemples de vidéos de maquette / showreels
 ├── 05-Projets/                ← un dossier de travail par vidéo produite
+├── 06-Competences/            ← savoir-faire acquis, projet après projet
+├── 07-Skills/                 ← commandes Claude Code et prompts prêts à l'emploi
 ├── _modeles/                  ← modèles de fiches à dupliquer
 ├── _a-trier.md                ← boîte de réception : coller un lien vite fait
 └── medias/
