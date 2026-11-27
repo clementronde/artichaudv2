@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { BEAT, C } from "./brand";
 import wideScroll from "./data/realisations-16x9-scroll.json";
+import contactSfx from "./data/contact-16x9-sfx.json";
 import { Cam, expoOut, inOut, Phone, Shot, SplitTitle, Tag, tween } from "./parts";
 import { camBouton, camHero, EndClient, EndStudio, Ending, MouseHint, ScrollBar } from "./AquaPureVideo";
 
@@ -22,15 +23,15 @@ const HALF = FADE / 2;
 const T = {
   hero: [0, 6],
   bouton: [6, 10],
-  services: [10, 16],
-  realisations: [16, 26],
-  temoignages: [26, 31],
-  contact: [31, 36],
-  actualites: [36, 45],
-  mobile: [45, 51],
-  fin: [51, 57],
+  services: [10, 19], // survol des trois cartes, une par une
+  realisations: [19, 29],
+  temoignages: [29, 37], // le temps de lire les avis
+  contact: [37, 47], // saisie complète, envoi, notification
+  actualites: [47, 56],
+  mobile: [56, 63],
+  fin: [63, 69],
 } as const;
-export const TOTAL_WIDE = T.fin[1] * BEAT; // 1710 images = 28,5 s
+export const TOTAL_WIDE = T.fin[1] * BEAT; // 2070 images = 34,5 s
 
 /**
  * Fenêtre d'un plan : il commence HALF images avant son temps de départ (en fondu) et se prolonge HALF
@@ -64,9 +65,18 @@ const push = (len: number, amount = 0.025, fy = H / 2): Cam => (f) => {
   return { s, fx: W / 2, fy, qx: W / 2, qy: fy };
 };
 
-// Contact : légère poussée vers le formulaire (colonne de droite).
+// Contact : légère poussée vers le formulaire, puis, après l'envoi, zoom vers la notification
+// (elle s'affiche en bas à droite de l'écran : on zoome en gardant ce coin fixe).
 const FORM = { x: 1440, y: 708 };
-const camContact: Cam = (f) => ({ s: 1 + 0.05 * tween(f, [0, 174], [0, 1], inOut), fx: FORM.x, fy: FORM.y, qx: FORM.x, qy: FORM.y });
+const CORNER = { x: W - 24, y: H - 24 };
+const CONTACT_TRIM = 20; // le plan démarre 20 images après le début de la capture (curseur déjà en route)
+const SUBMIT = (contactSfx.submit ?? 250) - CONTACT_TRIM; // image (dans le plan) du clic sur « Envoyer »
+const camContact: Cam = (f) => {
+  const k = tween(f, [SUBMIT + 2, SUBMIT + 42], [0, 1], inOut);
+  const s0 = 1 + 0.05 * tween(f, [0, SUBMIT], [0, 1], inOut);
+  const p = { x: FORM.x + (CORNER.x - FORM.x) * k, y: FORM.y + (CORNER.y - FORM.y) * k };
+  return { s: s0 + (1.75 - s0) * k, fx: p.x, fy: p.y, qx: p.x, qy: p.y };
+};
 
 // ——— Plans composés ————————————————————————————————————————
 
@@ -85,7 +95,7 @@ const RealisationsWide: React.FC<{ len: number }> = ({ len }) => {
   );
 };
 
-/** Mobile : grand titre à gauche, téléphone à droite. */
+/** Mobile : grand titre à gauche, téléphone à droite dans lequel la page défile. */
 const MobileWide: React.FC<{ len: number }> = ({ len }) => {
   const f = useCurrentFrame();
   const enter = tween(f, [6, 70], [0, 1], expoOut);
@@ -103,7 +113,7 @@ const MobileWide: React.FC<{ len: number }> = ({ len }) => {
         transform: `translateY(${(1 - enter) * 260 + float}px)`, opacity: tween(f, [0, 30], [0, 1]),
       }}>
         <Phone height={960}>
-          <OffthreadVideo src={staticFile("shots/mobile.mp4")} trimBefore={26} muted
+          <OffthreadVideo src={staticFile("shots/mobile-scroll.mp4")} trimBefore={26} muted
             style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </Phone>
       </div>
@@ -111,10 +121,31 @@ const MobileWide: React.FC<{ len: number }> = ({ len }) => {
   );
 };
 
+/** Sons du formulaire, calés sur les vraies frappes de la capture (src/data/contact-16x9-sfx.json). */
+const ContactSounds: React.FC = () => (
+  <>
+    {contactSfx.keys.filter((f) => f >= CONTACT_TRIM).map((f, i) => (
+      <Sequence key={`k${f}`} from={f - CONTACT_TRIM} durationInFrames={8} layout="none">
+        <Audio src={staticFile(`sfx/key-${(i % 4) + 1}.wav`)} volume={0.55 + ((i * 37) % 10) / 40} />
+      </Sequence>
+    ))}
+    {[...contactSfx.clicks, contactSfx.submit].filter((f): f is number => f != null && f >= CONTACT_TRIM).map((f) => (
+      <Sequence key={`c${f}`} from={f - CONTACT_TRIM} durationInFrames={10} layout="none">
+        <Audio src={staticFile("sfx/click.wav")} volume={0.8} />
+      </Sequence>
+    ))}
+    {contactSfx.submit != null && (
+      <Sequence from={SUBMIT + 8} durationInFrames={60} layout="none">
+        <Audio src={staticFile("sfx/notif.wav")} volume={0.7} />
+      </Sequence>
+    )}
+  </>
+);
+
 /** Un plan du site en plein cadre, avec son étiquette. */
-const SitePlan: React.FC<{ src: string; len: number; cam?: Cam; tag?: string; tagOut?: number }> = ({ src, len, cam, tag, tagOut }) => (
+const SitePlan: React.FC<{ src: string; len: number; cam?: Cam; tag?: string; tagOut?: number; trim?: number }> = ({ src, len, cam, tag, tagOut, trim = 0 }) => (
   <AbsoluteFill>
-    <Shot src={src} trim={0} rate={1} cam={cam ?? push(len)} />
+    <Shot src={src} trim={trim} rate={1} cam={cam ?? push(len)} />
     {tag && <Tag inAt={30} outAt={tagOut ?? len - 34} x={M} y={TAG_Y}>{tag}</Tag>}
   </AbsoluteFill>
 );
@@ -155,11 +186,12 @@ export const AquaPureWide: React.FC<{ ending: Ending }> = ({ ending }) => {
       </Sequence>
 
       <Sequence {...sp.temoignages}>
-        <FadeIn><SitePlan src="temoignages-16x9" len={sp.temoignages.durationInFrames} tag="Avis clients" /></FadeIn>
+        <FadeIn><SitePlan src="temoignages-16x9" len={sp.temoignages.durationInFrames} tag="Avis clients 5/5" /></FadeIn>
       </Sequence>
 
       <Sequence {...sp.contact}>
-        <FadeIn><SitePlan src="contact-16x9" len={sp.contact.durationInFrames} cam={camContact} tag="Formulaire vivant" /></FadeIn>
+        <FadeIn><SitePlan src="contact-16x9" trim={CONTACT_TRIM} len={sp.contact.durationInFrames} cam={camContact} tag="Formulaire vivant" tagOut={SUBMIT} /></FadeIn>
+        <ContactSounds />
       </Sequence>
 
       <Sequence {...sp.actualites}>

@@ -21,10 +21,10 @@ export default function Services() {
           <li key={s.title}>
             <AnchorLink
               href="#contact"
-              className="group relative flex h-[380px] items-center justify-center overflow-hidden bg-gris transition-colors duration-700 ease-expo hover:bg-[#e8eded] md:h-[min(484px,32vw)] md:min-h-[400px]"
+              className="group relative flex h-[380px] items-center justify-center overflow-hidden bg-gris transition-colors duration-[1100ms] ease-[cubic-bezier(0.45,0,0.25,1)] hover:bg-[#e8eded] hover:duration-700 hover:ease-expo md:h-[min(484px,32vw)] md:min-h-[400px]"
             >
-              {/* Voile cyan qui monte depuis le bas */}
-              <span className="absolute inset-x-0 bottom-0 h-0 bg-bleu-fluo/10 transition-[height] duration-700 ease-expo group-hover:h-full" aria-hidden />
+              {/* Voile cyan qui monte au survol ; il redescend plus lentement et en douceur quand la souris part */}
+              <span className="absolute inset-x-0 bottom-0 h-0 bg-bleu-fluo/10 transition-[height] duration-[1100ms] ease-[cubic-bezier(0.45,0,0.25,1)] group-hover:h-full group-hover:duration-700 group-hover:ease-expo" aria-hidden />
 
               <span className="absolute right-[28px] top-[28px] size-[38px] transition-transform duration-700 ease-expo group-hover:rotate-90">
                 <Image src="/images/service-plus.svg" alt="" width={38} height={38} />

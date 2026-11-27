@@ -107,16 +107,21 @@ function realisations(viewport, dataFile, frames = 300) {
 }
 
 /** Formulaire de contact : clics et saisie (rythme final, lecture à vitesse 1). */
-function contact(viewport, cursorFrom, frames = 160) {
+function contact(viewport, cursorFrom, frames = 160, opts = {}) {
   return {
     viewport,
     frames,
     async setup(api) {
+      // Pas de vraie réception des messages en local : on simule la réponse du serveur (succès)
+      await api.page.route("**/api/contact", (r) => r.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' }));
       await api.cursor(-100, -100, false);
       await api.tick(3600);
       const c = await api.rect("#contact");
       for (let y = 0; y <= c.y; y += 300) { await api.scrollTo(y); await api.tick(50); }
       this.top = c.y + c.h - viewport.height;
+      // un peu plus bas puis retour, comme un visiteur : le bouton « Envoyer » (révélé à 85 % de l'écran) apparaît
+      await api.scrollTo(this.top + 220);
+      await api.tick(1500);
       await api.scrollTo(this.top);
       await api.tick(2500); // révélations de la section terminées
       const r = async (sel) => { const b = await api.rect(sel); return { x: b.x + 30, y: b.y - this.top + b.h / 2 }; };
@@ -124,6 +129,7 @@ function contact(viewport, cursorFrom, frames = 160) {
         { sel: 'input[name="prenom"]', text: "Marie", at: await r('input[name="prenom"]') },
         { sel: 'input[name="nom"]', text: "Durand", at: await r('input[name="nom"]') },
         { sel: 'input[name="email"]', text: "marie.durand@mail.fr", at: await r('input[name="email"]') },
+        ...(opts.full ? [{ sel: 'input[name="adresse"]', text: "12 rue de la Paroisse, Versailles", at: await r('input[name="adresse"]') }] : []),
         { sel: 'textarea[name="message"]', text: "Fuite sous l'évier, dispo samedi ?", at: await r('textarea[name="message"]') },
       ];
       this.plan = [];
@@ -134,9 +140,20 @@ function contact(viewport, cursorFrom, frames = 160) {
         this.plan.push({ type: "click", sel: fld.sel, start: f });
         f += 3;
         this.plan.push({ type: "type", sel: fld.sel, text: fld.text, start: f, per: 1 });
-        f += fld.text.length + 4;
+        f += fld.text.length * (opts.per ?? 1) + 4;
         prev = fld.at;
       }
+      if (opts.full) {
+        // puis le curseur va sur « Envoyer » et clique : notification « Message envoyé au plombier »
+        const btn = await r('form button[type="submit"]');
+        const at = { x: btn.x + 30, y: btn.y };
+        this.plan.push({ type: "move", from: prev, to: at, start: f + 8, end: f + 30 });
+        this.plan.push({ type: "submit", start: f + 34 });
+      }
+      this.sfx = { keys: [], clicks: [], submit: null };
+    },
+    async done() {
+      if (opts.sfxFile) require("node:fs").writeFileSync(require("node:path").join(__dirname, "..", "src", "data", opts.sfxFile), JSON.stringify(this.sfx));
     },
     async perFrame(api, i) {
       for (const step of this.plan) {
@@ -144,10 +161,20 @@ function contact(viewport, cursorFrom, frames = 160) {
           const p = path2(step.from, step.to, (i - step.start) / (step.end - step.start), 30);
           await api.cursor(p.x, p.y);
         }
-        if (step.type === "click" && i === step.start) await api.page.click(step.sel, { position: { x: 20, y: 14 } });
+        if (step.type === "click" && i === step.start) {
+          await api.page.click(step.sel, { position: { x: 20, y: 14 } });
+          this.sfx.clicks.push(i);
+        }
         if (step.type === "type" && i >= step.start && (i - step.start) % step.per === 0) {
           const n = (i - step.start) / step.per;
-          if (n < step.text.length) await api.page.keyboard.type(step.text[n]);
+          if (n < step.text.length) {
+            await api.page.keyboard.type(step.text[n]);
+            if (step.text[n] !== " ") this.sfx.keys.push(i);
+          }
+        }
+        if (step.type === "submit" && i === step.start) {
+          await api.page.click('form button[type="submit"]');
+          this.sfx.submit = i;
         }
       }
     },
@@ -195,7 +222,7 @@ function visit(viewport, { start, steps }) {
       await api.cursor(viewport.width + 80, viewport.height - 120, false);
       await api.tick(3600);
       const docY = async (sel) => (await api.rect(sel)).y;
-      const startY = Math.max(0, (await docY(start.sel)) - start.offset);
+      const startY = start.y ?? Math.max(0, (await docY(start.sel)) - start.offset);
       // descente progressive : les animations au-dessus se déclenchent comme pour un vrai visiteur
       for (let y = 0; y <= startY; y += 300) { await api.scrollTo(y); await api.tick(50); }
       await api.scrollTo(startY);
@@ -254,21 +281,24 @@ const SHOTS = {
   "services-16x9": visit(WIDE, {
     start: { sel: "#services", offset: 760 },
     steps: [
-      { scroll: "#services", offset: 110, frames: 84 },
-      { hover: "#services li:nth-child(2) a", frames: 78, move: 34, ay: 0.42 },
-      { hover: "#services li:nth-child(3) a", frames: 52, move: 26, ay: 0.42 },
+      { scroll: "#services", offset: 110, frames: 76 },
+      { hover: "#services li:nth-child(1) a", frames: 72, move: 34, ay: 0.42 },
+      { hover: "#services li:nth-child(2) a", frames: 72, move: 34, ay: 0.42 },
+      { hover: "#services li:nth-child(3) a", frames: 80, move: 34, ay: 0.42 },
     ],
   }),
   "realisations-16x9": realisations(WIDE, "realisations-16x9-scroll.json", 330),
+  // Les témoignages démarrent là où le scroll des réalisations s'arrête (pendant le fondu) : pas de « remontée »
   "temoignages-16x9": visit(WIDE, {
-    start: { sel: "#temoignages", offset: 700 },
+    start: { y: require("../src/data/realisations-16x9-scroll.json").y[312] },
     steps: [
-      { scroll: "#temoignages", offset: 110, frames: 84 },
-      { hover: "#temoignages li:nth-child(2) figure", frames: 70, move: 34, ay: 0.55 },
-      { hold: 30 },
+      { scroll: "#temoignages", offset: 110, frames: 70 },
+      { hover: "#temoignages li:nth-child(1) figure", frames: 66, move: 32, ay: 0.6 },
+      { hover: "#temoignages li:nth-child(2) figure", frames: 66, move: 32, ay: 0.6 },
+      { hover: "#temoignages li:nth-child(3) figure", frames: 66, move: 32, ay: 0.6 },
     ],
   }),
-  "contact-16x9": contact(WIDE, { x: 1500, y: 1150 }, 180),
+  "contact-16x9": contact(WIDE, { x: 1500, y: 1150 }, 350, { full: true, sfxFile: "contact-16x9-sfx.json" }),
   "actualites-16x9": visit(WIDE, {
     start: { sel: "#actualites", offset: 640 },
     steps: [
@@ -278,6 +308,24 @@ const SHOTS = {
       { hold: 44 },
     ],
   }),
+
+  // Mobile qui défile (16:9) : intro, puis la page descend jusqu'aux cartes services
+  "mobile-scroll": {
+    viewport: { width: 390, height: 844 },
+    dpr: 2,
+    mobile: true,
+    frames: 270,
+    async setup(api) {
+      await api.cursor(-100, -100, false);
+      // sur mobile, l'ordre est hero → services → contact → réalisations : on s'arrête sur les cartes services
+      const cards = await api.rect("#services ul");
+      this.path = scrollPath(0, cards.y + cards.h - 844 + 40, 170, (t) => cruise(t, 0.25));
+    },
+    async perFrame(api, i) {
+      // 90 images d'intro, puis on descend dans la page
+      if (i >= 90) await api.scrollTo(this.path[Math.min(i - 90, this.path.length - 1)]);
+    },
+  },
 
   // ——— Commun : mobile, affiché dans un téléphone au montage ———
   mobile: {
