@@ -46,11 +46,11 @@ function cruise(t, ramp = 0.12) {
 }
 
 /** Survol du bouton téléphone, enchaîné exactement sur la fin du plan hero (3 s). */
-function bouton(viewport, from) {
+function bouton(viewport, from, frames = 130) {
   return {
     viewport,
     dpr: 2, // capturé en 2× pour le zoom caméra au montage (et même rendu que le hero)
-    frames: 130,
+    frames,
     async setup(api) {
       await api.cursor(from.x, from.y);
       await api.tick(3000); // exactement la fin du plan hero (180 images = 3 s) : la coupe ne se voit pas
@@ -66,11 +66,11 @@ function bouton(viewport, from) {
 }
 
 /** Réalisations : vrai scroll avant / pendant / après la section fixée, position enregistrée image par image. */
-function realisations(viewport, dataFile) {
+function realisations(viewport, dataFile, frames = 300) {
   return {
     viewport,
-    dpr: 2, // positions de scroll au demi-pixel : pas de micro-saccades quand le scroll ralentit
-    frames: 300,
+    dpr: 2, // capture fine : le scroll reste net et régulier
+    frames,
     async setup(api) {
       await api.cursor(-100, -100, false);
       await api.tick(3600);
@@ -107,10 +107,10 @@ function realisations(viewport, dataFile) {
 }
 
 /** Formulaire de contact : clics et saisie (rythme final, lecture à vitesse 1). */
-function contact(viewport, cursorFrom) {
+function contact(viewport, cursorFrom, frames = 160) {
   return {
     viewport,
-    frames: 160,
+    frames,
     async setup(api) {
       await api.cursor(-100, -100, false);
       await api.tick(3600);
@@ -178,6 +178,59 @@ function footer(viewport, back) {
   };
 }
 
+/**
+ * Visite d'une portion de page : une suite d'étapes « scroll jusqu'à », « survol de », « pause ».
+ *   { scroll: "#sel", offset, frames }  → la page défile jusqu'à ce que le haut de #sel soit à `offset` px du haut
+ *   { hover: "#sel", frames, move }     → le curseur entre (ou se déplace) et survole le centre de #sel
+ *   { hold: frames }
+ * La première étape `start` fixe la position de départ (sans animation).
+ */
+function visit(viewport, { start, steps }) {
+  const frames = steps.reduce((n, st) => n + (st.frames || st.hold || 0), 0);
+  return {
+    viewport,
+    dpr: 2,
+    frames,
+    async setup(api) {
+      await api.cursor(viewport.width + 80, viewport.height - 120, false);
+      await api.tick(3600);
+      const docY = async (sel) => (await api.rect(sel)).y;
+      const startY = Math.max(0, (await docY(start.sel)) - start.offset);
+      // descente progressive : les animations au-dessus se déclenchent comme pour un vrai visiteur
+      for (let y = 0; y <= startY; y += 300) { await api.scrollTo(y); await api.tick(50); }
+      await api.scrollTo(startY);
+      await api.tick(1200);
+      // Plan image par image : position de scroll + position du curseur (coordonnées écran)
+      this.plan = [];
+      let y = startY;
+      let cur = { x: viewport.width + 80, y: viewport.height - 120 };
+      for (const st of steps) {
+        if (st.scroll) {
+          const max = await api.page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+          const to = Math.min(max, Math.max(0, (await docY(st.scroll)) - st.offset)); // bas de page : on s'arrête au maximum
+          const path = scrollPath(y, to, st.frames, (t) => cruise(t, st.ramp ?? 0.25));
+          for (const py of path) this.plan.push({ y: py, cur });
+          y = path[path.length - 1];
+        } else if (st.hover) {
+          const r = await api.rect(st.hover);
+          const target = { x: r.x + r.w * (st.ax ?? 0.5), y: r.y - y + r.h * (st.ay ?? 0.5) };
+          const move = st.move ?? 36;
+          for (let i = 0; i < st.frames; i++) this.plan.push({ y, cur: path2(cur, target, clamp01(i / move), 50) });
+          cur = target;
+        } else if (st.hold) {
+          for (let i = 0; i < st.hold; i++) this.plan.push({ y, cur });
+        }
+      }
+    },
+    async perFrame(api, i) {
+      const p = this.plan[Math.min(i, this.plan.length - 1)];
+      await api.scrollTo(p.y);
+      const visible = p.cur.x < viewport.width + 40;
+      await api.cursor(p.cur.x, p.cur.y, visible);
+    },
+  };
+}
+
 const WIDE = { width: 1920, height: 1080 }; // 16:9 : le format natif d'un site desktop, plein cadre
 
 const SHOTS = {
@@ -195,11 +248,36 @@ const SHOTS = {
   "bouton-9x16": bouton(REEL, { x: 1130, y: 1700 }),
 
   // ——— 16:9 (showreel, YouTube, LinkedIn) : tout en plein cadre ———
+  // (plans allongés de 24 images : 12 de chaque côté pour les fondus du montage)
   "hero-16x9": { viewport: WIDE, dpr: 2, frames: 200 },
-  "bouton-16x9": bouton(WIDE, { x: 2000, y: 1000 }),
-  "realisations-16x9": realisations(WIDE, "realisations-16x9-scroll.json"),
-  "contact-16x9": contact(WIDE, { x: 1500, y: 1150 }),
-  "footer-16x9": footer(WIDE, 520),
+  "bouton-16x9": bouton(WIDE, { x: 2000, y: 1000 }, 150),
+  "services-16x9": visit(WIDE, {
+    start: { sel: "#services", offset: 760 },
+    steps: [
+      { scroll: "#services", offset: 110, frames: 84 },
+      { hover: "#services li:nth-child(2) a", frames: 78, move: 34, ay: 0.42 },
+      { hover: "#services li:nth-child(3) a", frames: 52, move: 26, ay: 0.42 },
+    ],
+  }),
+  "realisations-16x9": realisations(WIDE, "realisations-16x9-scroll.json", 330),
+  "temoignages-16x9": visit(WIDE, {
+    start: { sel: "#temoignages", offset: 700 },
+    steps: [
+      { scroll: "#temoignages", offset: 110, frames: 84 },
+      { hover: "#temoignages li:nth-child(2) figure", frames: 70, move: 34, ay: 0.55 },
+      { hold: 30 },
+    ],
+  }),
+  "contact-16x9": contact(WIDE, { x: 1500, y: 1150 }, 180),
+  "actualites-16x9": visit(WIDE, {
+    start: { sel: "#actualites", offset: 640 },
+    steps: [
+      { scroll: "#actualites", offset: 110, frames: 72 },
+      { hover: "#actualites li:nth-child(2) article", frames: 84, move: 34, ay: 0.32 },
+      { scroll: "footer", offset: -40, frames: 100, ramp: 0.3 },
+      { hold: 44 },
+    ],
+  }),
 
   // ——— Commun : mobile, affiché dans un téléphone au montage ———
   mobile: {

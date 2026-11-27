@@ -1,72 +1,109 @@
 import React from "react";
 import { AbsoluteFill, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
-import { C } from "./brand";
-import { SHOTS, WIPES } from "./timeline";
+import { BEAT, C } from "./brand";
 import wideScroll from "./data/realisations-16x9-scroll.json";
-import { Cam, expoOut, inOut, Phone, Shot, SplitTitle, Tag, tween, Wipe } from "./parts";
+import { Cam, expoOut, inOut, Phone, Shot, SplitTitle, Tag, tween } from "./parts";
 import { camBouton, camHero, EndClient, EndStudio, Ending, MouseHint, ScrollBar } from "./AquaPureVideo";
 
 /**
  * Format 16:9 (1920 × 1080) — showreel, YouTube, LinkedIn.
- * C'est le format natif d'un site desktop : le site est filmé en 1920 × 1080 et montré en plein cadre
- * (pas de fenêtre ni de recadrage). Marges de sécurité des textes : 96 px (5 %).
+ * Le site est filmé en 1920 × 1080 et montré en plein cadre. Les plans s'enchaînent en fondus doux
+ * (0,4 s, léger dézoom du plan entrant) ; l'intro → bouton reste une coupe invisible (même image).
+ * Marges de sécurité des textes : 96 px (5 %).
  */
 const W = 1920;
 const H = 1080;
 const M = 96;
 const TAG_Y = H - M - 58;
+const FADE = 24; // durée du fondu (images) : le plan entrant démarre 12 images avant le temps, le sortant finit 12 après
+const HALF = FADE / 2;
+
+/** Découpage 16:9, en temps (1 temps = 30 images à 120 BPM). Les captures ont 12 images de marge de chaque côté. */
+const T = {
+  hero: [0, 6],
+  bouton: [6, 10],
+  services: [10, 16],
+  realisations: [16, 26],
+  temoignages: [26, 31],
+  contact: [31, 36],
+  actualites: [36, 45],
+  mobile: [45, 51],
+  fin: [51, 57],
+} as const;
+export const TOTAL_WIDE = T.fin[1] * BEAT; // 1710 images = 28,5 s
+
+/**
+ * Fenêtre d'un plan : il commence HALF images avant son temps de départ (en fondu) et se prolonge HALF
+ * images après son temps de fin (pendant que le suivant apparaît par-dessus).
+ */
+const span = ([a, b]: readonly [number, number], fadeIn = true) => {
+  const from = a * BEAT - (fadeIn && a > 0 ? HALF : 0);
+  const to = b * BEAT + HALF;
+  return { from, durationInFrames: to - from };
+};
+
+/** Fondu doux d'entrée : opacité + très léger dézoom (1,02 → 1). */
+const FadeIn: React.FC<{ children: React.ReactNode; on?: boolean }> = ({ children, on = true }) => {
+  const f = useCurrentFrame();
+  if (!on) return <AbsoluteFill>{children}</AbsoluteFill>;
+  const o = tween(f, [0, FADE], [0, 1], inOut);
+  const s = tween(f, [0, FADE + 20], [1.02, 1], expoOut);
+  return <AbsoluteFill style={{ opacity: o, transform: `scale(${s})` }}>{children}</AbsoluteFill>;
+};
+
+// ——— Caméras ———————————————————————————————————————————————
 
 // Centre du bouton téléphone mesuré dans le site en 1920 × 1080 (contenu centré dans 1512 px).
 const CTA = { x: 359, y: 615 };
 // Zoom ×2 : le titre entier reste lisible à gauche (il fait 791 px → 1582 px à l'écran).
 const camBoutonWide = camBouton(CTA, 560, H, W, 434);
 
-// Contact : légère poussée vers le formulaire (colonne de droite).
-const FORM = { x: 1440, y: 708 };
-const camContact: Cam = (f) => {
-  const k = tween(f, [0, 150], [0, 1], inOut);
-  return { s: 1 + 0.06 * k, fx: FORM.x, fy: FORM.y, qx: FORM.x, qy: FORM.y };
+/** Très lente poussée continue (la caméra ne s'arrête jamais). */
+const push = (len: number, amount = 0.025, fy = H / 2): Cam => (f) => {
+  const s = 1 + amount * (f / len);
+  return { s, fx: W / 2, fy, qx: W / 2, qy: fy };
 };
 
-// Footer : cadré par le bas pendant que le wordmark monte.
-const camFooter: Cam = (f) => ({ s: tween(f, [0, 120], [1, 1.03], inOut), fx: W / 2, fy: H, qx: W / 2, qy: H });
+// Contact : légère poussée vers le formulaire (colonne de droite).
+const FORM = { x: 1440, y: 708 };
+const camContact: Cam = (f) => ({ s: 1 + 0.05 * tween(f, [0, 174], [0, 1], inOut), fx: FORM.x, fy: FORM.y, qx: FORM.x, qy: FORM.y });
+
+// ——— Plans composés ————————————————————————————————————————
 
 /** « Un scroll qui raconte » : la vraie page qui défile, en plein écran, barre de défilement et souris en surimpression. */
-const RealisationsWide: React.FC = () => {
+const RealisationsWide: React.FC<{ len: number }> = ({ len }) => {
   const f = useCurrentFrame();
-  const sh = SHOTS.realisations;
   return (
     <AbsoluteFill>
-      <Shot src="realisations-16x9" trim={sh.trim} rate={1} />
-      <ScrollBar f={f + sh.trim} height={H} track={wideScroll} right={10} />
-      <div style={{ position: "absolute", right: M, bottom: M, opacity: tween(f, [20, 50], [0, 1]) }}>
-        <MouseHint f={f + sh.trim} track={wideScroll} color={C.bleu} />
+      <Shot src="realisations-16x9" trim={0} rate={1} />
+      <ScrollBar f={f} height={H} track={wideScroll} right={10} />
+      <div style={{ position: "absolute", right: M, bottom: M, opacity: tween(f, [30, 60], [0, 1]) }}>
+        <MouseHint f={f} track={wideScroll} color={C.bleu} />
       </div>
-      <Tag inAt={14} outAt={sh.dur - 16} x={M} y={TAG_Y}>Un scroll qui raconte</Tag>
+      <Tag inAt={30} outAt={len - 34} x={M} y={TAG_Y}>Un scroll qui raconte</Tag>
     </AbsoluteFill>
   );
 };
 
 /** Mobile : grand titre à gauche, téléphone à droite. */
-const MobileWide: React.FC = () => {
+const MobileWide: React.FC<{ len: number }> = ({ len }) => {
   const f = useCurrentFrame();
-  const sh = SHOTS.mobile;
-  const enter = tween(f, [4, 60], [0, 1], expoOut);
+  const enter = tween(f, [6, 70], [0, 1], expoOut);
   const float = Math.sin((f / 60) * Math.PI) * 6;
   return (
     <AbsoluteFill style={{ background: C.bleu }}>
       <Img src={staticFile("brand/wordmark-footer.svg")} style={{
-        position: "absolute", width: 2400, top: 520, left: tween(f, [0, sh.dur], [-80, -420], inOut), opacity: 0.06,
+        position: "absolute", width: 2400, top: 520, left: tween(f, [0, len], [-80, -420], inOut), opacity: 0.06,
       }} />
       <div style={{ position: "absolute", left: 200, top: 360 }}>
-        <SplitTitle lines={["Pensé", "mobile."]} at={12} size={150} />
+        <SplitTitle lines={["Pensé", "mobile."]} at={16} size={150} />
       </div>
       <div style={{
         position: "absolute", left: 1160, top: 60,
-        transform: `translateY(${(1 - enter) * 600 + float}px) rotate(${(1 - enter) * 7}deg)`,
+        transform: `translateY(${(1 - enter) * 260 + float}px)`, opacity: tween(f, [0, 30], [0, 1]),
       }}>
         <Phone height={960}>
-          <OffthreadVideo src={staticFile(`shots/${sh.src}.mp4`)} trimBefore={sh.trim} playbackRate={sh.rate} muted
+          <OffthreadVideo src={staticFile("shots/mobile.mp4")} trimBefore={26} muted
             style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </Phone>
       </div>
@@ -74,45 +111,73 @@ const MobileWide: React.FC = () => {
   );
 };
 
+/** Un plan du site en plein cadre, avec son étiquette. */
+const SitePlan: React.FC<{ src: string; len: number; cam?: Cam; tag?: string; tagOut?: number }> = ({ src, len, cam, tag, tagOut }) => (
+  <AbsoluteFill>
+    <Shot src={src} trim={0} rate={1} cam={cam ?? push(len)} />
+    {tag && <Tag inAt={30} outAt={tagOut ?? len - 34} x={M} y={TAG_Y}>{tag}</Tag>}
+  </AbsoluteFill>
+);
+
+// ——— Montage ————————————————————————————————————————————————
+
 export const AquaPureWide: React.FC<{ ending: Ending }> = ({ ending }) => {
-  const s = SHOTS;
+  const sp = {
+    hero: span(T.hero),
+    bouton: span(T.bouton, false), // coupe invisible : même image que la fin de l'intro
+    services: span(T.services),
+    realisations: span(T.realisations),
+    temoignages: span(T.temoignages),
+    contact: span(T.contact),
+    actualites: span(T.actualites),
+    mobile: span(T.mobile),
+    fin: span(T.fin),
+  };
+  // L'intro s'arrête pile au temps 6 (la coupe vers le bouton est franche et invisible).
+  const hero = { from: 0, durationInFrames: T.hero[1] * BEAT };
   return (
     <AbsoluteFill style={{ background: C.bleu }}>
-      <Sequence from={s.hero.from} durationInFrames={s.hero.dur}>
-        <Shot {...s.hero} src="hero-16x9" cam={camHero(H, W)} />
+      <Sequence {...hero}>
+        <Shot src="hero-16x9" trim={0} rate={1} cam={camHero(H, W)} />
       </Sequence>
 
-      <Sequence from={s.bouton.from} durationInFrames={s.bouton.dur}>
-        <Shot {...s.bouton} src="bouton-16x9" cam={camBoutonWide} />
-        <Tag inAt={40} outAt={s.bouton.dur - 4} x={M} y={TAG_Y}>Micro-interactions</Tag>
+      <Sequence {...sp.bouton}>
+        <Shot src="bouton-16x9" trim={0} rate={1} cam={camBoutonWide} />
+        <Tag inAt={40} outAt={sp.bouton.durationInFrames - 24} x={M} y={TAG_Y}>Micro-interactions</Tag>
       </Sequence>
 
-      <Sequence from={s.realisations.from} durationInFrames={s.realisations.dur}>
-        <RealisationsWide />
+      <Sequence {...sp.services}>
+        <FadeIn><SitePlan src="services-16x9" len={sp.services.durationInFrames} tag="Trois métiers, un artisan" /></FadeIn>
       </Sequence>
 
-      <Sequence from={s.contact.from} durationInFrames={s.contact.dur}>
-        <Shot {...s.contact} src="contact-16x9" cam={camContact} />
-        <Tag inAt={16} outAt={s.contact.dur - 16} x={M} y={TAG_Y}>Formulaire vivant</Tag>
+      <Sequence {...sp.realisations}>
+        <FadeIn><RealisationsWide len={sp.realisations.durationInFrames} /></FadeIn>
       </Sequence>
 
-      <Sequence from={s.mobile.from} durationInFrames={s.mobile.dur}>
-        <MobileWide />
+      <Sequence {...sp.temoignages}>
+        <FadeIn><SitePlan src="temoignages-16x9" len={sp.temoignages.durationInFrames} tag="Avis clients" /></FadeIn>
       </Sequence>
 
-      <Sequence from={s.footer.from} durationInFrames={s.footer.dur}>
-        <Shot {...s.footer} src="footer-16x9" cam={camFooter} />
+      <Sequence {...sp.contact}>
+        <FadeIn><SitePlan src="contact-16x9" len={sp.contact.durationInFrames} cam={camContact} tag="Formulaire vivant" /></FadeIn>
       </Sequence>
 
-      <Sequence from={s.fin.from} durationInFrames={s.fin.dur}>
-        {ending === "studio"
-          ? <EndStudio y0={-70} />
-          : <EndClient x0={200} y0={-150} wm={{ width: 2100, top: 690 }} />}
+      <Sequence {...sp.actualites}>
+        {/* l'étiquette sort avant la descente vers le footer (elle recouvrirait son accroche) */}
+        <FadeIn><SitePlan src="actualites-16x9" len={sp.actualites.durationInFrames} tag="Conseils & actualités" tagOut={146} /></FadeIn>
       </Sequence>
 
-      {WIPES.map((at, i) => (
-        <Wipe key={at} at={at} color={i === WIPES.length - 1 && ending === "studio" ? C.artiBg : C.bleu} />
-      ))}
+      <Sequence {...sp.mobile}>
+        <FadeIn><MobileWide len={sp.mobile.durationInFrames} /></FadeIn>
+      </Sequence>
+
+      <Sequence {...sp.fin}>
+        <FadeIn>
+          {ending === "studio"
+            ? <EndStudio y0={-70} />
+            : <EndClient x0={200} y0={-150} wm={{ width: 2100, top: 690 }} />}
+        </FadeIn>
+      </Sequence>
     </AbsoluteFill>
   );
 };
