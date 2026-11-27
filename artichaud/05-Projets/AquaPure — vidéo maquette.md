@@ -72,7 +72,16 @@ Cadre 4:5 : le site (pensé en 16:10) ne remplit pas la hauteur → plans recadr
 | 15,5 – 17,5 | Footer | Le wordmark géant « AquaPure » monte. « Soigné jusqu'en bas. » |
 | 17,5 – 20,5 | Fin | Studio : mascotte Artichaud + « Site réalisé par Artichaud Studio » / Client : logo AquaPure + accroche + bouton téléphone |
 
-## Livrables 16:9 (2026-11-26) — showreel, YouTube, LinkedIn
+## Livrables 16:9 v2 (2026-11-27) — retours client
+
+Retours : « transitions trop agressives », « pas de texte sous les réalisations », « la vidéo ne montre pas assez le site ».
+- **Fondus doux** (0,4 s, léger dézoom du plan entrant) à la place des rideaux ; coupe invisible conservée intro → bouton.
+- **Plus de site** : le lorem ipsum a été remplacé sur le site (accroche services, 3 avis d'exemple, 3 articles conseils), ce qui permet de filmer services, témoignages et actualités.
+- **Légendes des réalisations** sur le site : n°, chantier, ville ; elles glissent depuis le bas de chaque photo au rythme du scroll.
+- Déroulé (28,5 s) : intro 0–3 · bouton 3–5 · services 5–8 · réalisations 8–13 · témoignages 13–15,5 · formulaire 15,5–18 · actualités + footer 18–22,5 · mobile 22,5–25,5 · fin 25,5–28,5.
+- 1920 × 1080, 60 i/s, ~18 Mo chacune (mêmes noms de fichiers que la v1, remplacés). `judder.py` : 0 saut ; arrêts signalés = pauses naturelles entre deux gestes.
+
+## Livrables 16:9 v1 (2026-11-26, remplacée) — showreel, YouTube, LinkedIn
 
 - `medias/videos/2026-11-26_artichaud_aquapure-16x9-studio.mp4` — fin Artichaud
 - `medias/videos/2026-11-26_artichaud_aquapure-16x9-client.mp4` — fin AquaPure
