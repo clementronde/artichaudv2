@@ -5,7 +5,7 @@ import { NAV_LINKS, RESERVE_HREF, SITE } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="w-full px-3 pb-3 md:px-[30px] md:pb-[30px]">
-      <div className="relative mx-auto max-w-[1452px] overflow-hidden bg-charbon px-5 pb-0 pt-14 font-mono text-[16px] font-normal uppercase leading-[21px] text-blue md:px-10 lg:h-[624px] lg:px-0 lg:py-[70px] lg:text-[18px] lg:leading-[23px]">
+      <div className="relative mx-auto max-w-[1452px] overflow-hidden bg-charbon px-5 pb-8 pt-14 font-mono text-[16px] font-normal uppercase leading-[21px] text-blue md:px-10 lg:h-[684px] lg:px-0 lg:py-[70px] xl:h-[740px] lg:text-[18px] lg:leading-[23px]">
         {/* Ligne 1 : accroche, navigation, réseaux (colonnes de la maquette : 60 · 459 · 163 · 303 · 8 · 303 · 156) */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,60fr)_minmax(0,459fr)_minmax(0,163fr)_minmax(0,303fr)_minmax(0,8fr)_minmax(0,303fr)_minmax(0,156fr)] lg:gap-0">
           <p className="md:col-span-2 lg:col-span-1 lg:col-start-2">
@@ -63,9 +63,9 @@ export default function Footer() {
           </AnchorLink>
         </div>
 
-        {/* Logo bleu pivoté, coupé par le bas de la carte comme dans Figma */}
-        <div className="relative mt-10 h-[150px] md:h-[200px] lg:absolute lg:left-0 lg:top-[418px] lg:mt-0 lg:h-[275.194px] lg:w-[453.301px]">
-          <div data-grow className="absolute left-[-8px] top-0 flex h-[275.194px] w-[453.301px] origin-top-left scale-[0.7] items-center justify-center md:scale-[0.85] lg:left-0 lg:scale-[0.8] xl:scale-100">
+        {/* Logo bleu pivoté, en entier (retour client : la maquette le coupait par le bas de la carte) */}
+        <div className="relative mt-10 h-[193px] md:h-[234px] lg:absolute lg:left-0 lg:top-[418px] lg:mt-0 lg:h-[275.194px] lg:w-[453.301px]">
+          <div data-write className="absolute left-0 top-0 flex h-[275.194px] w-[453.301px] origin-top-left scale-[0.7] items-center justify-center md:scale-[0.85] lg:scale-[0.8] xl:scale-100">
             <Image src="/images/logo-bleu.svg" alt="" width={443} height={257} className="block max-w-none rotate-[-2.38deg]" />
           </div>
         </div>

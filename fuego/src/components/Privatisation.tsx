@@ -17,6 +17,7 @@ const SLOTS = [
   { x: 0.6, y: 0.26, rotation: 5.93, z: 1 },
 ];
 const slotOf = (card: number, active: number) => (card - active + PHOTOS.length) % PHOTOS.length;
+const pose = (s: (typeof SLOTS)[number]) => ({ x: s.x, y: s.y, rotation: s.rotation });
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Privatisation() {
@@ -31,7 +32,7 @@ export default function Privatisation() {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const els = cards.current.filter(Boolean) as HTMLDivElement[];
-        els.forEach((el, i) => gsap.set(el, { x: SLOTS[i].x, y: SLOTS[i].y, rotation: SLOTS[i].rotation }));
+        els.forEach((el, i) => gsap.set(el, pose(SLOTS[i])));
         gsap.from([...els].reverse(), {
           y: "-=180",
           rotation: (i) => (i % 2 ? -16 : 18),
@@ -50,31 +51,34 @@ export default function Privatisation() {
     (dir: 1 | -1) => {
       if (busy.current) return;
       const next = (active + dir + PHOTOS.length) % PHOTOS.length;
-      const els = cards.current;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      // Carte qui change de face : celle du dessus part derrière (suivant) ou celle du dessous revient devant (précédent)
-      const mover = dir === 1 ? active : next;
-      els.forEach((el, i) => {
-        if (!el) return;
-        const s = SLOTS[slotOf(i, next)];
-        if (reduced) {
-          gsap.set(el, { x: s.x, y: s.y, rotation: s.rotation, zIndex: s.z });
-          return;
-        }
-        if (i === mover) {
-          busy.current = true;
-          const w = el.offsetWidth;
-          gsap
-            .timeline({ onComplete: () => void (busy.current = false) })
-            .to(el, { x: dir * w * 0.78, y: -w * 0.08, rotation: dir * 14, duration: 0.45, ease: "power2.in" })
-            .set(el, { zIndex: s.z })
-            .to(el, { x: s.x, y: s.y, rotation: s.rotation, duration: 0.8, ease: "expo.out" });
-        } else {
-          gsap.set(el, { zIndex: s.z });
-          gsap.to(el, { x: s.x, y: s.y, rotation: s.rotation, duration: 0.9, delay: 0.2, ease: "expo.out" });
-        }
-      });
+      const els = cards.current.filter(Boolean) as HTMLDivElement[];
+      const slot = (i: number) => SLOTS[slotOf(i, next)];
       setActive(next);
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        els.forEach((el, i) => gsap.set(el, { ...pose(slot(i)), zIndex: slot(i).z }));
+        return;
+      }
+
+      // Suivant : la photo du dessus sort de la pile en restant au-dessus, passe dessous, puis revient se glisser derrière.
+      // Précédent : la photo du dessous sort de derrière la pile, passe au-dessus, puis se pose devant.
+      busy.current = true;
+      const mover = dir === 1 ? active : next;
+      const card = els[mover];
+      const w = card.offsetWidth;
+      const tl = gsap.timeline({ defaults: { ease: "power3.inOut" }, onComplete: () => void (busy.current = false) });
+
+      tl.set(card, { zIndex: dir === 1 ? 10 : 0 }, 0)
+        .to(card, { x: dir * w * 0.82, y: -w * 0.12, rotation: dir * 10, duration: 0.65 }, 0)
+        .set(card, { zIndex: dir === 1 ? 0 : 10 }, 0.65)
+        .to(card, { ...pose(slot(mover)), duration: 0.85 }, 0.65)
+        .set(card, { zIndex: slot(mover).z });
+
+      // Les deux autres avancent (ou reculent) d'un cran pendant que la photo est sortie
+      els.forEach((el, i) => {
+        if (i === mover) return;
+        tl.set(el, { zIndex: slot(i).z }, 0).to(el, { ...pose(slot(i)), duration: 0.8, ease: "expo.out" }, 0.4);
+      });
     },
     [active],
   );
@@ -114,7 +118,7 @@ export default function Privatisation() {
                 ref={(el) => {
                   cards.current[i] = el;
                 }}
-                className="absolute inset-0 flex flex-col bg-cream pb-[calc(91px*var(--s))] pl-[calc(12px*var(--s))] pr-[calc(11px*var(--s))] pt-[calc(14px*var(--s))] [filter:drop-shadow(0px_4px_7.4px_rgba(0,0,0,0.16))]"
+                className="absolute inset-0 flex flex-col bg-cream will-change-transform pb-[calc(91px*var(--s))] pl-[calc(12px*var(--s))] pr-[calc(11px*var(--s))] pt-[calc(14px*var(--s))] [filter:drop-shadow(0px_4px_7.4px_rgba(0,0,0,0.16))]"
                 style={{ transform: `translate(${s.x}px, ${s.y}px) rotate(${s.rotation}deg)`, zIndex: s.z }}
                 aria-hidden={slotOf(i, active) !== 0}
               >

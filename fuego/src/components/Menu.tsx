@@ -86,21 +86,23 @@ export default function Menu() {
                 style={{ "--x": u(d.x), "--y": u(d.y), "--w": u(d.w) } as React.CSSProperties}
               >
                 <article data-parallax-lg={d.speed} className="group flex flex-col gap-[26px]">
-                  <div
-                    data-clip
-                    className={clsx(
-                      "relative overflow-hidden border-[0.5px] border-cream",
-                      d.w === 614 ? "aspect-[614/559]" : "aspect-[458/559]",
-                    )}
-                  >
-                    <Image
-                      src={d.src}
-                      alt={d.alt}
-                      fill
-                      sizes={d.w === 614 ? "(min-width: 1024px) 41vw, (min-width: 768px) 614px, 100vw" : "(min-width: 1024px) 31vw, (min-width: 768px) 50vw, 100vw"}
-                      className="object-cover transition-transform duration-[900ms] ease-expo group-hover:scale-[1.06]"
-                      style={d.position ? { objectPosition: d.position } : undefined}
-                    />
+                  {/* Cadre blanc de 0,5 px (le « rectangle » de la maquette) ; la photo occupe l'intérieur du cadre, comme dans Figma.
+                      À l'apparition, le cadre monte de bas en haut, suivi d'un aplat crème puis de la photo (data-layer). */}
+                  <div data-layer className={clsx("relative", d.w === 614 ? "aspect-[614/559]" : "aspect-[458/559]")}>
+                    <span data-layer-frame className="pointer-events-none absolute inset-0 border-[0.5px] border-cream" aria-hidden />
+                    <div className="absolute inset-[0.5px] overflow-hidden">
+                      <span data-layer-fill className="absolute inset-0 bg-cream" aria-hidden />
+                      <div data-layer-img className="absolute inset-0 overflow-hidden">
+                        <Image
+                          src={d.src}
+                          alt={d.alt}
+                          fill
+                          sizes={d.w === 614 ? "(min-width: 1024px) 41vw, (min-width: 768px) 614px, 100vw" : "(min-width: 1024px) 31vw, (min-width: 768px) 50vw, 100vw"}
+                          className="object-cover transition-transform duration-[900ms] ease-expo group-hover:scale-[1.06]"
+                          style={d.position ? { objectPosition: d.position } : undefined}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="flex flex-col items-start gap-4">
                     <div className="flex w-full items-start justify-between gap-6 font-mono text-[16px] font-normal uppercase leading-[26px]">

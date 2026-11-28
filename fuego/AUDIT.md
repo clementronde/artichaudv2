@@ -144,3 +144,11 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
 - Liens sans cible : « voir le menu », « en savoir plus », « organiser un événement », « lire plus », Instagram, Facebook,
   « Réserver » (dirigé vers le bloc horaires / contact en attendant l'outil de réservation).
 - Bouton crème « Réserver » en Google Sans Flex posé hors page (x 2067) : reste de la maquette Chez Sophie, ignoré.
+
+## Retours client (après la première version)
+
+1. Footer : logo affiché en entier (la carte passe de 624 à 740 px ; Figma le coupait par le bas) ; il s'écrit en une fois à
+   l'arrivée au lieu de suivre le scroll (en bas de page, la révélation s'arrêtait vers 15 %).
+2. Privatisation : le polaroïd de devant sort de la pile en restant au-dessus, passe dessous puis revient se glisser
+   derrière (« précédent » : celui du dessous sort de derrière et se pose devant).
+3. Menu : le cadre blanc monte d'abord de bas en haut, un aplat crème puis la photo le suivent comme des calques (plus de zoom).

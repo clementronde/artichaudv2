@@ -14,6 +14,10 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-scale-in         photo pleine largeur qui se dézoome jusqu'à son cadrage Figma quand la section atteint le haut
  *  - data-drift="-90"      glissement horizontal (px) au scroll, à partir de 768 px
  *  - data-grow             illustration qui « pousse » de gauche à droite au scroll (data-grow-right : de droite à gauche)
+ *  - data-write          logo qui « s'écrit » de gauche à droite à son arrivée, en une fois (pas lié au scroll :
+ *                          en bas de page, une animation scrubbée ne peut pas aller jusqu'au bout)
+ *  - data-layer            image de carte qui apparaît de bas en haut comme un calque : le cadre blanc
+ *                          (data-layer-frame) monte d'abord, un aplat crème (data-layer-fill) puis la photo (data-layer-img) le suivent
  *  - data-sway="2"         balancement continu (amplitude en degrés), comme dans la brise
  *  - data-pop              petite icône qui surgit
  *  - data-sticky-fade      décor d'un titre fixe qui s'efface en fin de section (grand écran)
@@ -113,6 +117,35 @@ export default function ScrollAnimations() {
             scrollTrigger: { trigger: el.parentElement ?? el, start: "top 85%", end: "top 25%", scrub: 0.8 },
           },
         );
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-write]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(-10% 100% -10% 0%)" },
+          {
+            clipPath: "inset(-10% 0% -10% 0%)",
+            duration: 1.8,
+            ease: "power2.inOut",
+            clearProps: "clipPath",
+            scrollTrigger: { trigger: el, start: "top 95%", once: true },
+          },
+        );
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-layer]").forEach((el) => {
+        const hidden = "inset(100% 0% 0% 0%)";
+        const shown = "inset(0% 0% 0% 0%)";
+        const layers = ["[data-layer-frame]", "[data-layer-fill]", "[data-layer-img]"].map((q) => el.querySelector(q));
+        const tl = gsap.timeline({
+          defaults: { ease: "expo.inOut", duration: 1.25 },
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        });
+        layers.forEach((layer, i) => {
+          if (layer) tl.fromTo(layer, { clipPath: hidden }, { clipPath: shown, clearProps: "clipPath" }, [0, 0.12, 0.34][i]);
+        });
+        // L'aplat crème ne sert qu'à l'animation : on le retire pour qu'aucun liseré ne subsiste autour de la photo
+        if (layers[1]) tl.set(layers[1], { autoAlpha: 0 });
       });
 
       gsap.utils.toArray<HTMLElement>("[data-sway]").forEach((el) => {
