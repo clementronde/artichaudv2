@@ -1,11 +1,13 @@
 ---
-tags: [accueil, motion, vault]
-maj: 2026-11-26
+tags: [accueil, motion, integration, vault]
+maj: 2026-11-28
 ---
 
 # Vault Motion — Artichaud
 
 Base de références pour un exercice précis : **transformer une maquette ou un site en vidéo animée** (réseaux sociaux, showreel du studio). On y range des exemples de vidéos, des sites dont le motion design est remarquable, les outils pour produire ces vidéos, et la méthode qu'on applique.
+
+Il sert aussi au second métier du studio : **intégrer au pixel près une maquette Figma en site vitrine** (audit, animations, SEO, comparaison chiffrée avec Figma), avec la commande `/artichaud-maquette`.
 
 S'ouvre tel quel dans [Obsidian](https://obsidian.md) (« Ouvrir un dossier comme coffre » → `artichaud/`), mais tout est en Markdown simple, lisible partout.
 
@@ -23,20 +25,27 @@ S'ouvre tel quel dans [Obsidian](https://obsidian.md) (« Ouvrir un dossier comm
 | Vérifier une vidéo avant publication | [[Checklist vidéo]] |
 | Savoir ce qu'on a appris (pièges, solutions) | [[Compétences — vidéo de maquette]] |
 | Produire une nouvelle vidéo de site (commande `/video-maquette`) | [[Skill video-maquette]] |
+| Intégrer une maquette Figma au pixel près (commande `/artichaud-maquette`) | [[Skill artichaud-maquette]] |
+| Auditer une maquette avant de coder (polices, grille, couleurs…) | [[Audit de maquette]] |
+| Choisir les animations d'un site client | [[Animations de site vitrine]] |
+| Faire la critique SEO d'un site vitrine | [[Critique SEO d'un site vitrine]] |
+| Vérifier un site contre Figma, le mettre en ligne | [[Comparaison pixel avec Figma]], [[Aperçu en ligne d'un site]] |
+| Savoir ce qu'on a appris en intégration | [[Compétences — intégration pixel perfect]] |
+| Voir un site intégré de référence | [[Chez Sophie — site gîte]] |
 
 ## Arborescence
 
 ```
 artichaud/
 ├── README.md                  ← cette page
-├── 01-Methode/                ← principes, formats, checklist
-├── 02-Outils/                 ← Remotion, HyperFrames, capture, no-code…
+├── 01-Methode/                ← principes, formats, checklist, audit, animations, SEO
+├── 02-Outils/                 ← Remotion, HyperFrames, capture, comparaison Figma, aperçu…
 ├── 03-References-sites/       ← galeries, studios, sites remarquables
 ├── 04-References-videos/      ← exemples de vidéos de maquette / showreels
-├── 05-Projets/                ← un dossier de travail par vidéo produite
+├── 05-Projets/                ← une fiche par vidéo ou site produit
 ├── 06-Competences/            ← savoir-faire acquis, projet après projet
 ├── 07-Skills/                 ← commandes Claude Code et prompts prêts à l'emploi
-├── _modeles/                  ← modèles de fiches à dupliquer
+├── _modeles/                  ← modèles de fiches (référence, projet vidéo, audit de maquette)
 ├── _a-trier.md                ← boîte de réception : coller un lien vite fait
 └── medias/
     ├── videos/                ← exemples vidéo (voir medias/README.md)
