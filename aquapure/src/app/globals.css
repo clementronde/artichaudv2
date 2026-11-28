@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blanc: #fcfcfc;
+  --gris: #f0f0f0;
+  --bleu-fonce: #01292c;
+  --bleu-fluo: #3cfff2;
+  --violet: #241039;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--blanc);
+  color: var(--bleu-fonce);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--bleu-fluo);
+  color: var(--bleu-fonce);
+}
+
+/* Les éléments de l'intro sont masqués avant hydratation pour éviter le flash,
+   puis GSAP les révèle (autoAlpha). Sans JS ou en mouvement réduit, ils restent visibles. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-intro] {
+    visibility: hidden;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--bleu-fluo);
+  outline-offset: 3px;
+}
+
+/* Titres animés ligne par ligne : les masques de lignes utilisent des marges négatives pour ne pas
+   rogner les jambages. flow-root empêche ces marges de « déborder » du titre, sinon le titre grandit
+   de quelques pixels pendant l'animation et la page bouge (saut au relâchement de la section fixée). */
+[data-split],
+[data-hero-title] {
+  display: flow-root;
+}
+
+/* Les champs du formulaire ont leur propre état de focus (trait cyan épaissi, libellé qui
+   remonte en cyan, contour du message) : pas de cadre en plus. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 md:px-10;
+  }
+
+  /* Lien avec soulignement qui se dessine au survol */
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-expo;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    @apply origin-left scale-x-100;
+  }
+}

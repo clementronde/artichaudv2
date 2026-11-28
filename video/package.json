@@ -1,0 +1,26 @@
+{
+  "name": "artichaud-video",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "capture": "node capture/capture.cjs",
+    "render:reel:studio": "remotion render AquaPureReelStudio out/aquapure-9x16-studio.mp4",
+    "render:reel:client": "remotion render AquaPureReelClient out/aquapure-9x16-client.mp4",
+    "render:studio": "remotion render AquaPureStudio out/aquapure-4x5-studio.mp4",
+    "render:client": "remotion render AquaPureClient out/aquapure-4x5-client.mp4",
+    "render:wide:studio": "remotion render AquaPureWideStudio out/aquapure-16x9-studio.mp4",
+    "render:wide:client": "remotion render AquaPureWideClient out/aquapure-16x9-client.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.547",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "remotion": "^4.0.547"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "typescript": "^5.9.3"
+  }
+}

@@ -13,7 +13,9 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     // Site client autonome (projet Next séparé)
-    "chezsophie/**",
+    "aquapure/**",
+    // Projet vidéo Remotion (séparé)
+    "video/**",
   ]),
 ]);
 
