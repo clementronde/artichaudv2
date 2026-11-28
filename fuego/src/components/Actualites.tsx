@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import ArrowPair from "@/components/ArrowPair";
+import FiligraneDessine from "@/components/FiligraneDessine";
 
 // Articles de la maquette : trois fois le même titre et aucune page derrière (à fournir par le client)
 const POSTS = [
@@ -66,24 +67,21 @@ export default function Actualites() {
   return (
     <section id="actualites" className="relative w-full">
       {/* Second filigrane : déborde sur les horaires et le footer, au-dessus des sections */}
-      <Image loading="eager"
-        src="/images/filigrane-bas.svg"
-        alt=""
-        aria-hidden
-        width={568}
-        height={1391}
-        data-parallax="0.08"
-        className="pointer-events-none absolute left-0 top-[-471.186px] z-10 h-auto w-[min(568px,80vw)] max-w-none select-none"
-      />
+      {/* … dessiné trait par trait au scroll (data-draw) */}
+      <div data-parallax="0.08" className="pointer-events-none absolute left-0 top-[-471.186px] z-10 w-[min(568px,80vw)] select-none">
+        <FiligraneDessine className="block h-auto w-full" />
+      </div>
 
       <div className="container-site grid gap-y-8 lg:grid-cols-[minmax(0,303fr)_minmax(0,164fr)_minmax(0,925fr)] lg:gap-y-[45px]">
-        <p className="label lg:max-w-[303px] lg:pt-[11px]">Découvrez les dernières actualités</p>
+        <p data-fade className="label lg:max-w-[303px] lg:pt-[11px]">Découvrez les dernières actualités</p>
         <h2 data-split className="title-xl max-w-[614px] lg:col-start-3">
           Suivez toutes les actualités de Fuego
         </h2>
 
         <div className="flex min-w-0 flex-col items-start gap-4 lg:col-start-3">
-          <ArrowPair onPrev={() => go(-1)} onNext={() => go(1)} label="Article" />
+          <div data-fade data-delay="0.2">
+            <ArrowPair onPrev={() => go(-1)} onNext={() => go(1)} label="Article" />
+          </div>
           <div
             className="w-full overflow-hidden"
             onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
@@ -102,7 +100,7 @@ export default function Actualites() {
                   <li key={`${p}-${clone ? "b" : "a"}`} className="w-[78vw] max-w-[303px] shrink-0 md:w-[303px]" aria-hidden={clone || undefined}>
                     <article className="group flex flex-col gap-4">
                       <a href="#actualites" tabIndex={clone ? -1 : undefined} className="block" aria-label={clone ? undefined : `${post.title} — lire l'article`}>
-                        <div data-clip className="relative aspect-[303/413] overflow-hidden">
+                        <div data-clip data-delay={(k % POSTS.length) * 0.1} className="relative aspect-[303/413] overflow-hidden">
                           <Image loading="eager"
                             src={post.src}
                             alt={clone ? "" : post.alt}
@@ -112,7 +110,7 @@ export default function Actualites() {
                           />
                         </div>
                       </a>
-                      <div className="flex flex-col items-start gap-4 font-mono text-[16px] font-normal uppercase leading-[26px]">
+                      <div data-fade data-delay={0.25 + (k % POSTS.length) * 0.1} className="flex flex-col items-start gap-4 font-mono text-[16px] font-normal uppercase leading-[26px]">
                         {clone ? <p>{post.title}</p> : <h3>{post.title}</h3>}
                         <a href="#actualites" tabIndex={clone ? -1 : undefined} className="link-figma">
                           Lire plus

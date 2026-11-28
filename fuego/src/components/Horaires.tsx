@@ -17,7 +17,7 @@ export default function Horaires() {
 
       <div className="container-site relative -mt-16 lg:mt-0 lg:h-full">
         <div
-          data-fade
+          data-panel
           className="relative border-[0.5px] border-cream bg-burgundy px-6 py-12 text-cream sm:px-[53.5px] lg:absolute lg:right-[60px] lg:top-[59.3px] lg:h-[669px] lg:w-[459px] lg:py-0"
         >
           <h2 id="horaires-titre" className="sr-only">
@@ -26,7 +26,7 @@ export default function Horaires() {
           <div className="mx-auto flex max-w-[351px] flex-col items-center gap-10 lg:absolute lg:left-[53.5px] lg:top-[76.5px] lg:h-[516px] lg:w-[351px] lg:justify-between lg:gap-0">
             <dl className="flex w-full flex-col gap-[18px] text-[16px] uppercase leading-[28px] sm:text-[18px]">
               {HOURS.map((h) => (
-                <div key={h.label} className="flex items-center justify-between gap-4 whitespace-nowrap">
+                <div key={h.label} data-row className="flex items-center justify-between gap-4 whitespace-nowrap">
                   <dt className="font-bold">{h.label}</dt>
                   <dd className="font-normal">
                     {h.opens} - {h.closes}
@@ -34,15 +34,15 @@ export default function Horaires() {
                 </div>
               ))}
             </dl>
-            <Image loading="eager" src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
-            <div className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
+            <Image loading="eager" data-line src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
+            <div data-item className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
               <h3 className="w-full font-bold">Adresse</h3>
               <p className="w-full font-normal">
                 {SITE.address.street} {SITE.address.postalCode} {SITE.address.city}
               </p>
             </div>
-            <Image loading="eager" src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
-            <div className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
+            <Image loading="eager" data-line src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
+            <div data-item className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
               <h3 className="w-full font-bold">Contact</h3>
               <div className="flex w-full flex-col gap-[10px] font-normal">
                 <a href={`mailto:${SITE.email}`} className="link-underline mx-auto">

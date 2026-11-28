@@ -168,3 +168,13 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
    immédiat, et le rideau d'ouverture reste baissé, avec une barre de progression, jusqu'à ce que toutes les images soient
    téléchargées et décodées (37 / 37 au lever du rideau ; 2,5 s à 30 Mbit/s, 3,9 s à 10 Mbit/s, 9,8 s à 3 Mbit/s ; attente
    bornée à 8 s après le démarrage des scripts).
+8. Série de retours sur les animations :
+   - apparitions un peu plus tardives (photos à 15 % d'entrée dans l'écran) ;
+   - menu : titre bloqué à l'écran (sticky, ≥ 1024 px) pendant que les cartes montent petit à petit au fil du scroll, cadre
+     blanc puis photo de bas en haut ; cartes opaques pour passer proprement devant le titre ;
+   - privatisation : section épinglée (≥ 1024 px), le défilement fait glisser les trois photos 01 → 02 → 03 (réversible),
+     flèches, clic et clavier font défiler jusqu'à l'étape ; en mobile, pile manipulable au doigt ;
+   - avis : cartes en éventail, texte mot à mot, fond de la carte active en calque qui monte, défilement automatique ;
+     horaires : panneau dévoilé, lignes, filets tracés ; actualités : cartes et textes en cascade ; footer : carte qui monte,
+     colonnes en cascade ;
+   - logo en filigrane des actualités dessiné trait par trait au scroll (SVG intégré à la page), puis rempli.

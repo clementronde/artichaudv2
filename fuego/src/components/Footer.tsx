@@ -5,9 +5,9 @@ import { NAV_LINKS, RESERVE_HREF, SITE } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="w-full px-3 pb-3 md:px-[30px] md:pb-[30px]">
-      <div className="relative mx-auto max-w-[1452px] overflow-hidden bg-charbon px-5 pb-8 pt-14 font-mono text-[16px] font-normal uppercase leading-[21px] text-blue md:px-10 lg:h-[684px] lg:px-0 lg:py-[70px] xl:h-[740px] lg:text-[18px] lg:leading-[23px]">
+      <div data-rise-card className="relative mx-auto max-w-[1452px] overflow-hidden bg-charbon px-5 pb-8 pt-14 font-mono text-[16px] font-normal uppercase leading-[21px] text-blue md:px-10 lg:h-[684px] lg:px-0 lg:py-[70px] xl:h-[740px] lg:text-[18px] lg:leading-[23px]">
         {/* Ligne 1 : accroche, navigation, réseaux (colonnes de la maquette : 60 · 459 · 163 · 303 · 8 · 303 · 156) */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,60fr)_minmax(0,459fr)_minmax(0,163fr)_minmax(0,303fr)_minmax(0,8fr)_minmax(0,303fr)_minmax(0,156fr)] lg:gap-0">
+        <div data-stagger className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,60fr)_minmax(0,459fr)_minmax(0,163fr)_minmax(0,303fr)_minmax(0,8fr)_minmax(0,303fr)_minmax(0,156fr)] lg:gap-0">
           <p className="md:col-span-2 lg:col-span-1 lg:col-start-2">
             L&apos;alliance du bois, de la flamme et des produits de saison. Une adresse conviviale pour savourer l&apos;instant autour
             d&apos;une cuisine authentique.
@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
 
         {/* Ligne 2 : contact et réservation (371 · 303 · 311 · 156 · 311) */}
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:mt-[92px] lg:grid-cols-[minmax(0,371fr)_minmax(0,303fr)_minmax(0,311fr)_minmax(0,156fr)_minmax(0,311fr)] lg:gap-0">
+        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-2 lg:mt-[92px] lg:grid-cols-[minmax(0,371fr)_minmax(0,303fr)_minmax(0,311fr)_minmax(0,156fr)_minmax(0,311fr)] lg:gap-0">
           <p className="lg:col-start-2">Contact</p>
           <address className="flex flex-col gap-3 not-italic lg:gap-5">
             <p>

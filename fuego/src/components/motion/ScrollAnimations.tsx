@@ -8,7 +8,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-words            texte qui se « colore » mot à mot au fil du scroll
  *  - data-fade             apparition en fondu + montée (data-delay optionnel)
  *  - data-stagger          les enfants directs apparaissent en cascade
- *  - data-clip             image dévoilée de bas en haut dès son entrée à l'écran (data-delay optionnel), photo qui se dézoome
+ *  - data-clip             image dévoilée de bas en haut quand elle est entrée de 15 % dans l'écran (data-delay optionnel)
  *  - data-parallax="0.2"   décalage vertical proportionnel au scroll
  *  - data-parallax-lg="0.1" idem, seulement à partir de 1024 px (cartes en quinconce)
  *  - data-scale-in         photo pleine largeur qui se dézoome jusqu'à son cadrage Figma quand la section atteint le haut
@@ -16,8 +16,13 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-grow             illustration qui « pousse » de gauche à droite au scroll (data-grow-right : de droite à gauche)
  *  - data-write          logo qui « s'écrit » de gauche à droite à son arrivée, en une fois (pas lié au scroll :
  *                          en bas de page, une animation scrubbée ne peut pas aller jusqu'au bout)
- *  - data-layer            image de carte qui apparaît de bas en haut comme un calque : le cadre blanc
- *                          (data-layer-frame) monte d'abord, un aplat crème (data-layer-fill) puis la photo (data-layer-img) le suivent
+ *  - data-rise             carte du menu qui monte petit à petit au scroll ; son data-layer apparaît de bas en haut comme
+ *                          des calques : cadre blanc (data-layer-frame), aplat crème (data-layer-fill), photo (data-layer-img)
+ *  - data-cards            cartes (enfants directs) qui montent en éventail
+ *  - data-words-in         texte qui apparaît mot à mot, une fois
+ *  - data-panel            panneau dévoilé de bas en haut, puis ses data-row, data-line (filets tracés) et data-item
+ *  - data-draw             tracé SVG (filigrane) dessiné au scroll, puis rempli
+ *  - data-rise-card        bloc qui monte à mesure qu'on arrive (footer)
  *  - data-sway="2"         balancement continu (amplitude en degrés), comme dans la brise
  *  - data-pop              petite icône qui surgit
  *  - data-sticky-fade      décor d'un titre fixe qui s'efface en fin de section (grand écran)
@@ -29,6 +34,9 @@ export default function ScrollAnimations() {
 
     mm.add(MOTION_OK, () => {
       const start = "top 85%";
+      // Masques de dévoilement de bas en haut
+      const hidden = "inset(100% 0% 0% 0%)";
+      const shown = "inset(0% 0% 0% 0%)";
 
       gsap.utils.toArray<HTMLElement>("[data-split]").forEach((el) => {
         SplitText.create(el, {
@@ -83,9 +91,9 @@ export default function ScrollAnimations() {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-clip]").forEach((el) => {
-        // Démarre dès que le haut de l'image entre à l'écran ; courbe rapide au début pour que la photo se voie tout de suite
+        // Démarre quand l'image est entrée de 15 % dans l'écran ; courbe rapide au début
         const img = el.querySelector("img");
-        const tl = gsap.timeline({ delay: Number(el.dataset.delay ?? 0), scrollTrigger: { trigger: el, start: "top bottom", once: true } });
+        const tl = gsap.timeline({ delay: Number(el.dataset.delay ?? 0), scrollTrigger: { trigger: el, start: "top 85%", once: true } });
         tl.fromTo(
           el,
           { clipPath: "inset(100% 0% 0% 0%)" },
@@ -134,20 +142,84 @@ export default function ScrollAnimations() {
         );
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-layer]").forEach((el) => {
-        const hidden = "inset(100% 0% 0% 0%)";
-        const shown = "inset(0% 0% 0% 0%)";
-        const layers = ["[data-layer-frame]", "[data-layer-fill]", "[data-layer-img]"].map((q) => el.querySelector(q));
-        // Dès que la carte entre à l'écran : cadre, aplat puis photo, rapprochés pour que la photo se voie tout de suite
+      // Cartes du menu (data-rise + data-layer) : au fil du scroll, la carte monte petit à petit ; son cadre blanc apparaît de
+      // bas en haut, suivi d'un aplat crème puis de la photo, comme des calques. Lié au défilement (scrub), réversible.
+      gsap.utils.toArray<HTMLElement>("[data-rise]").forEach((card) => {
+        const layer = card.querySelector<HTMLElement>("[data-layer]");
+        const trigger = card.parentElement ?? card; // l'élément qui ne bouge pas
+        const [frame, fill, img] = ["[data-layer-frame]", "[data-layer-fill]", "[data-layer-img]"].map((q) => layer?.querySelector(q));
         const tl = gsap.timeline({
-          defaults: { ease: "expo.out", duration: 0.9 },
-          scrollTrigger: { trigger: el, start: "top bottom", once: true },
+          defaults: { ease: "power1.out" },
+          scrollTrigger: { trigger, start: "top 92%", end: "top 38%", scrub: 0.8, invalidateOnRefresh: true },
         });
-        layers.forEach((layer, i) => {
-          if (layer) tl.fromTo(layer, { clipPath: hidden }, { clipPath: shown, clearProps: "clipPath" }, [0, 0.05, 0.12][i]);
+        tl.fromTo(
+          card,
+          { y: () => (window.innerWidth >= 1024 ? 180 : 80) },
+          { y: 0, duration: 1, ease: "power2.out", modifiers: { y: (v: string) => `${Math.round(parseFloat(v))}px` } },
+          0,
+        );
+        if (frame) tl.fromTo(frame, { clipPath: hidden }, { clipPath: shown, duration: 0.5 }, 0.02);
+        if (fill) tl.fromTo(fill, { clipPath: hidden, autoAlpha: 1 }, { clipPath: shown, duration: 0.5 }, 0.14).set(fill, { autoAlpha: 0 }, 0.97);
+        if (img) tl.fromTo(img, { clipPath: hidden }, { clipPath: shown, duration: 0.6 }, 0.3);
+      });
+
+      // Cartes d'avis : elles montent en éventail, l'une après l'autre
+      gsap.utils.toArray<HTMLElement>("[data-cards]").forEach((list) => {
+        gsap.from(list.children, {
+          y: 110,
+          rotation: (i: number) => (i - 1) * 3,
+          autoAlpha: 0,
+          duration: 1.3,
+          stagger: 0.14,
+          ease: "expo.out",
+          scrollTrigger: { trigger: list, start: "top 85%", once: true },
         });
-        // L'aplat crème ne sert qu'à l'animation : on le retire pour qu'aucun liseré ne subsiste autour de la photo
-        if (layers[1]) tl.set(layers[1], { autoAlpha: 0 });
+      });
+
+      // Texte qui apparaît mot à mot, une fois (data-delay optionnel)
+      gsap.utils.toArray<HTMLElement>("[data-words-in]").forEach((el) => {
+        const split = SplitText.create(el, { type: "words" });
+        gsap.from(split.words, {
+          autoAlpha: 0,
+          y: 10,
+          duration: 0.7,
+          stagger: 0.018,
+          ease: "power2.out",
+          delay: Number(el.dataset.delay ?? 0),
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          onComplete: () => split.revert(),
+        });
+      });
+
+      // Panneau des horaires : il se dévoile de bas en haut, puis ses lignes glissent, les filets se tracent, le reste monte
+      gsap.utils.toArray<HTMLElement>("[data-panel]").forEach((panel) => {
+        gsap
+          .timeline({ scrollTrigger: { trigger: panel, start: "top 78%", once: true } })
+          .fromTo(panel, { clipPath: hidden }, { clipPath: shown, duration: 1.1, ease: "expo.inOut", clearProps: "clipPath" })
+          .from(panel.querySelectorAll("[data-row]"), { x: -28, autoAlpha: 0, duration: 0.8, stagger: 0.08, ease: "expo.out" }, 0.55)
+          .from(panel.querySelectorAll("[data-line]"), { scaleX: 0, duration: 0.9, stagger: 0.15, ease: "expo.inOut" }, 0.75)
+          .from(panel.querySelectorAll("[data-item]"), { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.07, ease: "expo.out" }, 0.9);
+      });
+
+      // Filigrane dessiné : le contour du logo se trace au fil du scroll, puis le remplissage apparaît (réversible)
+      gsap.utils.toArray<SVGPathElement>("[data-draw]").forEach((path) => {
+        const len = Math.ceil(path.getTotalLength());
+        const trigger = path.closest("section") ?? path;
+        gsap.set(path, { attr: { stroke: "#4C020C", "stroke-width": 1.8 }, strokeOpacity: 0.42, strokeDasharray: len, strokeDashoffset: len, fillOpacity: 0 });
+        gsap
+          .timeline({ scrollTrigger: { trigger, start: "top 92%", end: "top 15%", scrub: 1 } })
+          .to(path, { strokeDashoffset: 0, duration: 1, ease: "none" }, 0)
+          .to(path, { fillOpacity: 0.04, duration: 0.25, ease: "power1.out" }, 0.82)
+          .to(path, { strokeOpacity: 0, duration: 0.2, ease: "power1.in" }, 0.92);
+      });
+
+      // Carte du footer : elle monte à mesure qu'on arrive en bas de page
+      gsap.utils.toArray<HTMLElement>("[data-rise-card]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 90 },
+          { y: 0, ease: "power2.out", modifiers: { y: (v: string) => `${Math.round(parseFloat(v))}px` }, scrollTrigger: { trigger: el.parentElement ?? el, start: "top bottom", end: "top 55%", scrub: 0.6 } },
+        );
       });
 
       gsap.utils.toArray<HTMLElement>("[data-sway]").forEach((el) => {

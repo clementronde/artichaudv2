@@ -2,7 +2,8 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { gsap, Draggable, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { gsap, Draggable, ScrollTrigger, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { useLenis } from "@/components/motion/SmoothScroll";
 
 const PHOTOS = [
   { src: "/images/salle-bougies.jpg", alt: "La salle de Fuego entre deux rideaux, bougies allumées au premier plan" },
@@ -22,6 +23,14 @@ const pose = (s: (typeof SLOTS)[number]) => ({ x: s.x, y: s.y, rotation: s.rotat
 const pad = (n: number) => String(n).padStart(2, "0");
 const isReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Mode scroll (≥ 1024 px) : la section reste bloquée à l'écran et le défilement fait glisser les photos. Timeline (en
+// secondes) : pause sur 01, mélange, pause sur 02, mélange, pause sur 03. LABELS = milieu de chaque pause.
+const HOLD = 0.35;
+const STEP = 1;
+const stepAt = (k: number) => HOLD + k * (STEP + HOLD);
+const LABELS = [HOLD / 2, stepAt(0) + STEP + HOLD / 2, stepAt(1) + STEP + HOLD / 2];
+const indexAt = (t: number) => (t < stepAt(0) + STEP / 2 ? 0 : t < stepAt(1) + STEP / 2 ? 1 : 2);
+
 export default function Privatisation() {
   const ref = useRef<HTMLElement>(null);
   const cards = useRef<(HTMLDivElement | null)[]>([]);
@@ -30,6 +39,30 @@ export default function Privatisation() {
   const busy = useRef(false);
   const [active, setActive] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
+  const [scrollActive, setScrollActive] = useState(false);
+  const scrollMode = useRef<{ st: ScrollTrigger; tl: gsap.core.Timeline } | null>(null);
+  const lenis = useLenis();
+  const lenisRef = useRef(lenis);
+  lenisRef.current = lenis;
+
+  const setIndex = (i: number) => {
+    if (activeRef.current === i) return;
+    setDir(i > activeRef.current ? 1 : -1);
+    activeRef.current = i;
+    setActive(i);
+  };
+  // En mode scroll, flèches, clic et clavier font défiler la page jusqu'à l'étape voulue
+  const scrollToStep = (i: number) => {
+    const m = scrollMode.current;
+    if (!m) return;
+    const y = m.st.start + (LABELS[i] / m.tl.duration()) * (m.st.end - m.st.start);
+    if (lenisRef.current) lenisRef.current.scrollTo(y, { duration: 1.4 });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
+  const go = (step: 1 | -1) => {
+    if (scrollMode.current) scrollToStep(Math.max(0, Math.min(N - 1, activeRef.current + step)));
+    else shuffle(step);
+  };
 
   const all = () => cards.current.filter(Boolean) as HTMLDivElement[];
   // Seule la photo du dessus se saisit ; aucune pendant un mélange
@@ -109,11 +142,63 @@ export default function Privatisation() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add(MOTION_OK, () => {
+      mm.add({ scroll: `(min-width: 1024px) and ${MOTION_OK}`, touch: `(max-width: 1023.98px) and ${MOTION_OK}` }, (ctx) => {
         const els = all();
-        els.forEach((el, i) => gsap.set(el, pose(SLOTS[i])));
+        const scroll = Boolean(ctx.conditions?.scroll);
+        els.forEach((el, i) => gsap.set(el, { ...pose(SLOTS[i]), zIndex: SLOTS[i].z, scale: 1, "--lift": 0 }));
+        activeRef.current = 0;
+        setActive(0);
 
-        // Arrivée : les polaroïds tombent sur la table, celui du dessous d'abord
+        if (scroll) {
+          // Entrée : la pile monte et apparaît
+          gsap.from("[data-polaroids]", { y: 70, autoAlpha: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: "[data-polaroids]", start: "top 85%", once: true } });
+
+          // Mélanges liés au défilement : la photo du dessus est soulevée, glisse sur le côté (droite puis gauche), passe
+          // sous la pile et se range derrière, pendant que les deux autres avancent d'un cran
+          const tl = gsap.timeline({ paused: true });
+          const w = () => els[0].offsetWidth;
+          [0, 1].forEach((k) => {
+            const side = k === 0 ? 1 : -1;
+            const at = stepAt(k);
+            const mover = els[k];
+            const next = els[(k + 1) % N];
+            const back = els[(k + 2) % N];
+            tl.set(mover, { zIndex: 10 }, at)
+              .set(next, { zIndex: 3 }, at)
+              .set(back, { zIndex: 2 }, at)
+              .to(mover, { scale: 1.045, "--lift": 1, rotation: -2 * side, duration: 0.16, ease: "power2.out" }, at)
+              .to(mover, { x: () => side * w() * 0.98, rotation: side * 16, duration: 0.36, ease: "power2.out" }, at + 0.12)
+              .to(mover, { y: () => -w() * 0.15, duration: 0.36, ease: "sine.out" }, at + 0.12)
+              .set(mover, { zIndex: 0 }, at + 0.5)
+              .to(mover, { ...pose(SLOTS[2]), scale: 1, "--lift": 0, duration: 0.5, ease: "power2.inOut" }, at + 0.5)
+              .set(mover, { zIndex: 1 }, at + STEP)
+              .to(next, { ...pose(SLOTS[0]), duration: 0.5, ease: "power2.out" }, at + 0.4)
+              .to(back, { ...pose(SLOTS[1]), duration: 0.5, ease: "power2.out" }, at + 0.46);
+          });
+          tl.to({}, { duration: HOLD }, stepAt(1) + STEP);
+
+          // La section est enveloppée dans un bloc (parent flex : sinon l'espace de l'épinglage n'est pas réservé)
+          const section = ref.current!;
+          const st = ScrollTrigger.create({
+            trigger: section,
+            pin: section,
+            pinSpacing: true,
+            animation: tl,
+            scrub: 0.6,
+            // Section plus haute que l'écran : on la bloque quand son bas atteint le bas de l'écran (pile et compteur visibles)
+            start: () => (section.offsetHeight > window.innerHeight ? "bottom bottom" : "top top"),
+            end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
+            onUpdate: () => setIndex(indexAt(tl.time())),
+          });
+          scrollMode.current = { st, tl };
+          setScrollActive(true);
+          return () => {
+            scrollMode.current = null;
+            setScrollActive(false);
+          };
+        }
+
+        // Mode tactile (< 1024 px) : les polaroïds tombent sur la table, puis on les mélange au doigt ou avec les flèches
         gsap.from([...els].reverse(), {
           y: "-=180",
           rotation: (i) => (i % 2 ? -16 : 18),
@@ -121,10 +206,10 @@ export default function Privatisation() {
           duration: 1.1,
           stagger: 0.1,
           ease: "expo.out",
-          scrollTrigger: { trigger: "[data-polaroids]", start: "top bottom", once: true },
+          scrollTrigger: { trigger: "[data-polaroids]", start: "top 85%", once: true },
         });
 
-        // La photo du dessus se saisit : on la jette d'un côté ou de l'autre pour l'envoyer derrière, ou on clique dessus
+        // La photo du dessus se saisit : on la jette d'un côté ou de l'autre pour l'envoyer derrière, ou on touche dessus
         drags.current = els.map((el) => {
           let samples: [number, number][] = [];
           return Draggable.create(el, {
@@ -172,7 +257,7 @@ export default function Privatisation() {
 
   // Au survol de la pile, la photo du dessus se soulève légèrement pour inviter à la prendre
   const hover = (on: boolean) => {
-    if (busy.current || isReduced()) return;
+    if (busy.current || isReduced() || scrollMode.current) return;
     const top = cards.current[activeRef.current];
     if (!top || drags.current[activeRef.current]?.isPressed) return;
     gsap.to(top, {
@@ -185,90 +270,93 @@ export default function Privatisation() {
   };
 
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === "ArrowRight") shuffle(1);
-    else if (e.key === "ArrowLeft") shuffle(-1);
+    if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
     else return;
     e.preventDefault();
   };
 
   return (
-    <section ref={ref} id="privatisation" className="relative w-full scroll-mt-10 overflow-hidden bg-blue lg:h-[1147px]">
-      <div className="container-site relative h-full pb-20 pt-20 lg:pb-0 lg:pt-[106px]">
-        <div className="flex max-w-[925px] flex-col gap-8">
-          <h2 data-split className="title-xl max-w-[771px]">
-            Un cadre élégant pour tous vos moments de partage
-          </h2>
-          <div className="flex flex-col items-start gap-6">
-            <p className="body-text">
-              Que ce soit pour un dîner en tête-à-tête, un déjeuner d&apos;affaires ou une grande tablée entre amis, notre salle allie
-              intimité et convivialité. Vous organisez un anniversaire ou un événement privé ? <em className="italic">Fuego</em>{" "}
-              propose également des formules sur mesure pour vos repas de groupe.
+    <div>
+      <section ref={ref} id="privatisation" className="relative w-full scroll-mt-10 overflow-hidden bg-blue lg:h-[1147px]">
+        <div className="container-site relative h-full pb-20 pt-20 lg:pb-0 lg:pt-[106px]">
+          <div className="flex max-w-[925px] flex-col gap-8">
+            <h2 data-split className="title-xl max-w-[771px]">
+              Un cadre élégant pour tous vos moments de partage
+            </h2>
+            <div className="flex flex-col items-start gap-6">
+              <p className="body-text">
+                Que ce soit pour un dîner en tête-à-tête, un déjeuner d&apos;affaires ou une grande tablée entre amis, notre salle allie
+                intimité et convivialité. Vous organisez un anniversaire ou un événement privé ? <em className="italic">Fuego</em>{" "}
+                propose également des formules sur mesure pour vos repas de groupe.
+              </p>
+              <a href="#reserver" className="link-figma">
+                Organiser un événement
+              </a>
+            </div>
+          </div>
+
+          {/* Pile de polaroïds : 459 × 539 à 1512 px, réduite en mobile */}
+          <div
+            data-polaroids
+            tabIndex={0}
+            onKeyDown={onKey}
+            onClick={() => scrollMode.current && go(1)}
+            onPointerEnter={(e) => e.pointerType === "mouse" && hover(true)}
+            onPointerLeave={(e) => e.pointerType === "mouse" && hover(false)}
+            className="relative mx-auto mt-16 h-[calc(539px*var(--s))] w-[calc(459px*var(--s))] touch-pan-y select-none outline-offset-8 [--s:0.68] sm:[--s:0.85] lg:absolute lg:left-[calc(50%-229.5px)] lg:top-[467px] lg:mt-0 lg:[--s:1] xl:left-[calc(862.5/1512*100%-229.5px)]"
+            role="group"
+            aria-roledescription="carrousel"
+            aria-label="Photos de la salle : glisser la photo du dessus, cliquer dessus ou utiliser les flèches du clavier"
+          >
+            {PHOTOS.map((p, i) => {
+              const s = SLOTS[slotOf(i, 0)];
+              return (
+                <div
+                  key={p.src}
+                  ref={(el) => {
+                    cards.current[i] = el;
+                  }}
+                  className="polaroid absolute inset-0 flex flex-col bg-cream will-change-transform pb-[calc(91px*var(--s))] pl-[calc(12px*var(--s))] pr-[calc(11px*var(--s))] pt-[calc(14px*var(--s))]"
+                  style={{ transform: `translate(${s.x}px, ${s.y}px) rotate(${s.rotation}deg)`, zIndex: s.z }}
+                  aria-hidden={slotOf(i, active) !== 0}
+                >
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image loading="eager"
+                      src={p.src}
+                      alt={p.alt}
+                      fill
+                      draggable={false}
+                      sizes="(min-width: 1024px) 436px, 300px"
+                      className="pointer-events-none object-cover"
+                      style={i === 0 ? { objectPosition: "50% 62%" } : undefined}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-12 flex items-center justify-center gap-[10px] lg:absolute lg:right-[60px] lg:top-[1002px] lg:mt-0">
+            <button type="button" onClick={() => go(-1)} disabled={scrollActive && active === 0} className="size-[41px] transition-[transform,opacity] duration-500 ease-expo hover:-translate-x-1 disabled:opacity-30 disabled:hover:translate-x-0" aria-label="Photo précédente">
+              <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block" />
+            </button>
+            <p className="flex font-mono text-[14px] font-normal uppercase leading-[28px] tabular-nums" aria-live="polite">
+              <span className="sr-only">Photo </span>
+              {/* Le numéro défile verticalement, dans le sens du mélange */}
+              <span className="relative block h-[28px] overflow-hidden">
+                <span key={active} data-dir={dir} className="counter-roll block">
+                  {pad(active + 1)}
+                </span>
+              </span>
+              /{pad(N)}
             </p>
-            <a href="#reserver" className="link-figma">
-              Organiser un événement
-            </a>
+            <button type="button" onClick={() => go(1)} disabled={scrollActive && active === N - 1} className="size-[41px] transition-[transform,opacity] duration-500 ease-expo hover:translate-x-1 disabled:opacity-30 disabled:hover:translate-x-0" aria-label="Photo suivante">
+              <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block -scale-x-100" />
+            </button>
           </div>
         </div>
-
-        {/* Pile de polaroïds : 459 × 539 à 1512 px, réduite en mobile */}
-        <div
-          data-polaroids
-          tabIndex={0}
-          onKeyDown={onKey}
-          onPointerEnter={(e) => e.pointerType === "mouse" && hover(true)}
-          onPointerLeave={(e) => e.pointerType === "mouse" && hover(false)}
-          className="relative mx-auto mt-16 h-[calc(539px*var(--s))] w-[calc(459px*var(--s))] touch-pan-y select-none outline-offset-8 [--s:0.68] sm:[--s:0.85] lg:absolute lg:left-[calc(50%-229.5px)] lg:top-[467px] lg:mt-0 lg:[--s:1] xl:left-[calc(862.5/1512*100%-229.5px)]"
-          role="group"
-          aria-roledescription="carrousel"
-          aria-label="Photos de la salle : glisser la photo du dessus, cliquer dessus ou utiliser les flèches du clavier"
-        >
-          {PHOTOS.map((p, i) => {
-            const s = SLOTS[slotOf(i, 0)];
-            return (
-              <div
-                key={p.src}
-                ref={(el) => {
-                  cards.current[i] = el;
-                }}
-                className="polaroid absolute inset-0 flex flex-col bg-cream will-change-transform pb-[calc(91px*var(--s))] pl-[calc(12px*var(--s))] pr-[calc(11px*var(--s))] pt-[calc(14px*var(--s))]"
-                style={{ transform: `translate(${s.x}px, ${s.y}px) rotate(${s.rotation}deg)`, zIndex: s.z }}
-                aria-hidden={slotOf(i, active) !== 0}
-              >
-                <div className="relative h-full w-full overflow-hidden">
-                  <Image loading="eager"
-                    src={p.src}
-                    alt={p.alt}
-                    fill
-                    draggable={false}
-                    sizes="(min-width: 1024px) 436px, 300px"
-                    className="pointer-events-none object-cover"
-                    style={i === 0 ? { objectPosition: "50% 62%" } : undefined}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 flex items-center justify-center gap-[10px] lg:absolute lg:right-[60px] lg:top-[1002px] lg:mt-0">
-          <button type="button" onClick={() => shuffle(-1)} className="size-[41px] transition-transform duration-500 ease-expo hover:-translate-x-1" aria-label="Photo précédente">
-            <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block" />
-          </button>
-          <p className="flex font-mono text-[14px] font-normal uppercase leading-[28px] tabular-nums" aria-live="polite">
-            <span className="sr-only">Photo </span>
-            {/* Le numéro défile verticalement, dans le sens du mélange */}
-            <span className="relative block h-[28px] overflow-hidden">
-              <span key={active} data-dir={dir} className="counter-roll block">
-                {pad(active + 1)}
-              </span>
-            </span>
-            /{pad(N)}
-          </p>
-          <button type="button" onClick={() => shuffle(1)} className="size-[41px] transition-transform duration-500 ease-expo hover:translate-x-1" aria-label="Photo suivante">
-            <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block -scale-x-100" />
-          </button>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

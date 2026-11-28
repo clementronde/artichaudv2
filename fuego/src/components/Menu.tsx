@@ -10,7 +10,6 @@ type Dish = {
   x: number;
   y: number;
   w: 458 | 614;
-  speed: number;
   position?: string;
 };
 
@@ -24,7 +23,6 @@ const DISHES: Dish[] = [
     x: 837,
     y: 96,
     w: 458,
-    speed: 0.1,
     position: "50% 100%",
   },
   {
@@ -35,7 +33,6 @@ const DISHES: Dish[] = [
     x: 60,
     y: 607,
     w: 458,
-    speed: -0.06,
     position: "50% 100%",
   },
   {
@@ -46,7 +43,6 @@ const DISHES: Dish[] = [
     x: 678,
     y: 1128,
     w: 614,
-    speed: 0.08,
   },
   {
     name: "Dentelle dorée, meringue craquante & caramel ambré",
@@ -56,7 +52,6 @@ const DISHES: Dish[] = [
     x: 220,
     y: 1915,
     w: 458,
-    speed: -0.05,
   },
 ];
 
@@ -68,11 +63,15 @@ export default function Menu() {
     <section id="carte" className="w-full scroll-mt-10 bg-charbon text-cream">
       <div className="mx-auto max-w-site [container-type:inline-size]">
         <div className="relative px-5 pb-24 pt-20 md:px-10 lg:h-[calc(100cqw*2660/1512+120px)] lg:p-0">
-          <div className="flex flex-col gap-4 lg:absolute lg:left-[calc(100cqw*60/1512)] lg:top-[calc(100cqw*96/1512)] lg:w-[calc(100cqw*614/1512)]">
-            <p className="label">Menu</p>
-            <h2 data-split className="title-xl">
-              Nos incontournables de la saison
-            </h2>
+          {/* Titre : à partir de 1024 px, il reste bloqué à l'écran pendant toute la section (sticky) et les cartes montent
+              par-dessus. Le cadre absolu court de sa position Figma (y 96) jusqu'au bas de la dernière carte. */}
+          <div className="lg:absolute lg:bottom-[calc(100cqw*186/1512)] lg:left-[calc(100cqw*60/1512)] lg:top-[calc(100cqw*96/1512)] lg:w-[calc(100cqw*614/1512)]">
+            <div className="flex flex-col gap-4 lg:sticky lg:top-[120px]">
+              <p className="label">Menu</p>
+              <h2 data-split className="title-xl">
+                Nos incontournables de la saison
+              </h2>
+            </div>
           </div>
 
           <ul className="mt-14 grid gap-x-6 gap-y-16 md:grid-cols-2 lg:mt-0 lg:block">
@@ -85,7 +84,8 @@ export default function Menu() {
                 )}
                 style={{ "--x": u(d.x), "--y": u(d.y), "--w": u(d.w) } as React.CSSProperties}
               >
-                <article data-parallax-lg={d.speed} className="group flex flex-col gap-[26px]">
+                {/* data-rise : la carte monte petit à petit au fil du scroll, son cadre puis sa photo apparaissent de bas en haut */}
+                <article data-rise className="group flex flex-col gap-[26px] bg-charbon">
                   {/* Cadre blanc fin (le « rectangle » de la maquette), posé AU-DESSUS de la photo pour être identique sur les quatre
                       côtés de chaque carte. À l'apparition, le cadre monte de bas en haut, suivi d'un aplat crème puis de la photo. */}
                   <div data-layer className={clsx("relative", d.w === 614 ? "aspect-[614/559]" : "aspect-[458/559]")}>
