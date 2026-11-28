@@ -67,7 +67,7 @@ export default function Actualites() {
   return (
     <section id="actualites" className="relative w-full">
       {/* Second filigrane : déborde sur les horaires et le footer, au-dessus des sections */}
-      {/* … dessiné trait par trait au scroll (data-draw) */}
+      {/* … peint au pinceau au fil du scroll (data-paint, voir FiligraneDessine) */}
       <div data-parallax="0.08" className="pointer-events-none absolute left-0 top-[-471.186px] z-10 w-[min(568px,80vw)] select-none">
         <FiligraneDessine className="block h-auto w-full" />
       </div>

@@ -21,7 +21,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-cards            cartes (enfants directs) qui montent en éventail
  *  - data-words-in         texte qui apparaît mot à mot, une fois
  *  - data-panel            panneau dévoilé de bas en haut, puis ses data-row, data-line (filets tracés) et data-item
- *  - data-draw             tracé SVG (filigrane) dessiné au scroll, puis rempli
+ *  - data-paint            logo SVG peint au pinceau au scroll (masque de traits data-paint-stroke), puis la peinture sèche
  *  - data-rise-card        bloc qui monte à mesure qu'on arrive (footer)
  *  - data-sway="2"         balancement continu (amplitude en degrés), comme dans la brise
  *  - data-pop              petite icône qui surgit
@@ -201,16 +201,26 @@ export default function ScrollAnimations() {
           .from(panel.querySelectorAll("[data-item]"), { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.07, ease: "expo.out" }, 0.9);
       });
 
-      // Filigrane dessiné : le contour du logo se trace au fil du scroll, puis le remplissage apparaît (réversible)
-      gsap.utils.toArray<SVGPathElement>("[data-draw]").forEach((path) => {
-        const len = Math.ceil(path.getTotalLength());
-        const trigger = path.closest("section") ?? path;
-        gsap.set(path, { attr: { stroke: "#4C020C", "stroke-width": 1.8 }, strokeOpacity: 0.42, strokeDasharray: len, strokeDashoffset: len, fillOpacity: 0 });
-        gsap
-          .timeline({ scrollTrigger: { trigger, start: "top 92%", end: "top 15%", scrub: 1 } })
-          .to(path, { strokeDashoffset: 0, duration: 1, ease: "none" }, 0)
-          .to(path, { fillOpacity: 0.04, duration: 0.25, ease: "power1.out" }, 0.82)
-          .to(path, { strokeOpacity: 0, duration: 0.2, ease: "power1.in" }, 0.92);
+      // Filigrane peint au pinceau, au fil du scroll : les traits du masque se dessinent (le logo apparaît « humide », plus
+      // foncé), puis la peinture sèche jusqu'aux 4 % de la maquette et le masque est retiré (rendu final identique à Figma)
+      gsap.utils.toArray<SVGPathElement>("[data-paint]").forEach((logo) => {
+        const svg = logo.ownerSVGElement;
+        if (!svg) return;
+        const strokes = Array.from(svg.querySelectorAll<SVGPathElement>("[data-paint-stroke]"));
+        strokes.forEach((st) => {
+          const len = Math.ceil(st.getTotalLength());
+          gsap.set(st, { strokeDasharray: len, strokeDashoffset: len });
+        });
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: svg.closest("section") ?? svg, start: "top 95%", end: "top 5%", scrub: 1.2 },
+        });
+        tl.set(logo, { attr: { mask: `url(#${logo.dataset.paint})` }, fillOpacity: 0.2 }, 0);
+        strokes.forEach((st) =>
+          tl.to(st, { strokeDashoffset: 0, duration: Number(st.dataset.duration), ease: st.dataset.ease }, Number(st.dataset.at)),
+        );
+        // Séchage une fois TOUS les traits peints (pas seulement le dernier ajouté)
+        const painted = tl.duration();
+        tl.to(logo, { fillOpacity: 0.04, duration: 0.7, ease: "power2.inOut" }, painted + 0.1).set(logo, { attr: { mask: "none" } });
       });
 
       // Carte du footer : elle monte à mesure qu'on arrive en bas de page

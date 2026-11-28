@@ -178,3 +178,7 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
      horaires : panneau dévoilé, lignes, filets tracés ; actualités : cartes et textes en cascade ; footer : carte qui monte,
      colonnes en cascade ;
    - logo en filigrane des actualités dessiné trait par trait au scroll (SVG intégré à la page), puis rempli.
+9. « L'effet peinture ne marche pas » → le tracé du contour (fil de 1,8 px à 42 %) était presque invisible et ne ressemblait pas
+   à de la peinture. Remplacé par la technique de référence pour la calligraphie : le logo plein est révélé par un masque de
+   traits épais qui suivent la ligne médiane du geste (calculée automatiquement depuis la forme), au bord irrégulier de pinceau
+   sec ; peinture « humide » à 20 % qui sèche jusqu'aux 4 % de la maquette, puis masque retiré.
