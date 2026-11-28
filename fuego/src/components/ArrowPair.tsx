@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function ArrowPair({ onPrev, onNext, label }: { onPrev: () => void; onNext: () => void; label: string }) {
   return (
     <div className="relative h-0 w-[62px] shrink-0">
-      <Image src="/images/fleches.svg" alt="" width={63} height={7.36396} className="pointer-events-none absolute left-[-0.5px] top-[-3.68px] block max-w-none" />
+      <Image loading="eager" src="/images/fleches.svg" alt="" width={63} height={7.36396} className="pointer-events-none absolute left-[-0.5px] top-[-3.68px] block max-w-none" />
       <button
         type="button"
         onClick={onPrev}

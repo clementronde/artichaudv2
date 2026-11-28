@@ -40,6 +40,12 @@ body {
   }
 }
 
+/* Les scripts ont démarré et pilotent l'ouverture (attente du chargement des images comprise) : filets de sécurité coupés */
+.intro-run [data-curtain],
+.intro-run [data-intro] {
+  animation: none !important;
+}
+
 /* Rideau déjà vu dans la session : il n'apparaît plus, la page s'ouvre directement */
 .intro-vue [data-curtain] {
   display: none !important;

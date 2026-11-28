@@ -66,7 +66,7 @@ export default function Footer() {
         {/* Logo bleu pivoté, en entier (retour client : la maquette le coupait par le bas de la carte) */}
         <div className="relative mt-10 h-[193px] md:h-[234px] lg:absolute lg:left-0 lg:top-[418px] lg:mt-0 lg:h-[275.194px] lg:w-[453.301px]">
           <div data-write className="absolute left-0 top-0 flex h-[275.194px] w-[453.301px] origin-top-left scale-[0.7] items-center justify-center md:scale-[0.85] lg:scale-[0.8] xl:scale-100">
-            <Image src="/images/logo-bleu.svg" alt="" width={443} height={257} className="block max-w-none rotate-[-2.38deg]" />
+            <Image loading="eager" src="/images/logo-bleu.svg" alt="" width={443} height={257} className="block max-w-none rotate-[-2.38deg]" />
           </div>
         </div>
       </div>

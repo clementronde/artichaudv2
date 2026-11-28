@@ -5,7 +5,7 @@ export default function Horaires() {
   return (
     <section id="reserver" className="relative w-full scroll-mt-10 lg:h-[789px]" aria-labelledby="horaires-titre">
       <div data-scale-in className="relative h-[68vw] max-h-[560px] min-h-[300px] w-full overflow-hidden lg:absolute lg:inset-0 lg:h-auto lg:max-h-none">
-        <Image
+        <Image loading="eager"
           src="/images/cuisine-comptoir.jpg"
           alt="Le comptoir de la cuisine ouverte de Fuego, suspensions en cuivre et bocaux d'épices"
           fill
@@ -34,14 +34,14 @@ export default function Horaires() {
                 </div>
               ))}
             </dl>
-            <Image src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
+            <Image loading="eager" src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
             <div className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
               <h3 className="w-full font-bold">Adresse</h3>
               <p className="w-full font-normal">
                 {SITE.address.street} {SITE.address.postalCode} {SITE.address.city}
               </p>
             </div>
-            <Image src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
+            <Image loading="eager" src="/images/filet.svg" alt="" width={351} height={0.5} className="block h-[0.5px] w-full" />
             <div className="flex w-[230px] flex-col items-center gap-[18px] text-center text-[16px] uppercase leading-[28px] sm:text-[18px]">
               <h3 className="w-full font-bold">Contact</h3>
               <div className="flex w-full flex-col gap-[10px] font-normal">

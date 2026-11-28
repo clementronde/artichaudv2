@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { gsap, SplitText, useGSAP, MOTION_OK, unclipDescenders, SPLIT_OFFSET } from "@/lib/gsap";
+import { waitForImages } from "@/lib/images";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -11,22 +12,46 @@ export default function Hero() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        const root = document.documentElement;
+        // Le site pilote lui-même l'ouverture : on coupe les filets de sécurité CSS (globals.css)
+        root.classList.add("intro-run");
         // Rideau seulement à la première visite de la session (classe posée dans le <head>, voir layout.tsx)
-        const first = !document.documentElement.classList.contains("intro-vue");
-        const c = first ? 0.75 : 0;
+        const first = !root.classList.contains("intro-vue");
+        const c = first ? 0.15 : 0;
+        const tl = gsap.timeline({ paused: true, defaults: { ease: "expo.out" } });
+        // La nav entre quand le rideau se lève
+        tl.call(() => void window.dispatchEvent(new Event("fuego:revealed")), [], c);
 
-        // 1. Rideau bordeaux : le logo s'écrit de gauche à droite, puis le rideau se lève
         if (first) {
-          tl.fromTo("[data-curtain-logo]", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "power2.inOut" }, 0.1)
-            .to("[data-curtain-logo]", { yPercent: -40, autoAlpha: 0, duration: 0.4, ease: "power3.in" }, 0.6)
-            .to("[data-curtain]", { yPercent: -100, duration: 0.85, ease: "expo.inOut" }, 0.7)
+          // 1. Rideau bordeaux : le logo s'écrit pendant que TOUTES les images du site se chargent (barre de progression),
+          //    puis le rideau se lève sur un site entièrement chargé
+          gsap.fromTo("[data-curtain-logo]", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: "power2.inOut", delay: 0.1 });
+          const bar = document.querySelector<HTMLElement>("[data-curtain-bar]");
+          const pct = document.querySelector<HTMLElement>("[data-curtain-pct]");
+          const shown = { v: 0 };
+          const minTime = new Promise((r) => setTimeout(r, 900));
+          const loaded = waitForImages((ratio) =>
+            gsap.to(shown, {
+              v: ratio,
+              duration: 0.35,
+              ease: "power2.out",
+              overwrite: true,
+              onUpdate: () => {
+                if (bar) bar.style.transform = `scaleX(${shown.v})`;
+                if (pct) pct.textContent = `${Math.round(shown.v * 100)} %`;
+              },
+            }),
+          );
+          Promise.all([loaded, minTime]).then(() => gsap.delayedCall(0.4, () => tl.play()));
+          tl.to("[data-curtain-logo], [data-curtain-progress]", { yPercent: -40, autoAlpha: 0, duration: 0.4, ease: "power3.in", stagger: 0.05 }, 0)
+            .to("[data-curtain]", { yPercent: -100, duration: 0.85, ease: "expo.inOut" }, 0.1)
             .set("[data-curtain]", { display: "none" });
           try {
             sessionStorage.setItem("fuego-intro", "1");
           } catch {}
         } else {
-          tl.set("[data-curtain]", { display: "none" });
+          tl.set("[data-curtain]", { display: "none" }, 0);
+          tl.play();
         }
 
         // 2. La photo du chef se dézoome lentement
@@ -115,8 +140,17 @@ export default function Hero() {
       </div>
 
       {/* Rideau d'ouverture (affiché uniquement avec JS, voir globals.css) */}
-      <div data-curtain className="fixed inset-0 z-[60] hidden items-center justify-center bg-burgundy" aria-hidden>
+      <div data-curtain className="fixed inset-0 z-[60] hidden flex-col items-center justify-center gap-10 bg-burgundy" aria-hidden>
         <Image data-curtain-logo src="/images/logo.svg" alt="" width={443} height={257} priority className="h-auto w-[260px] md:w-[340px]" />
+        {/* Chargement réel de toutes les images du site */}
+        <div data-curtain-progress className="flex w-[200px] items-center gap-4 font-mono text-[12px] uppercase leading-none text-cream/80">
+          <span className="relative h-px flex-1 bg-cream/25">
+            <span data-curtain-bar className="absolute inset-0 origin-left scale-x-0 bg-cream" />
+          </span>
+          <span data-curtain-pct className="w-[4ch] text-right tabular-nums">
+            0 %
+          </span>
+        </div>
       </div>
     </section>
   );

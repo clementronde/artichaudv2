@@ -163,3 +163,8 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
    1,2 à 1,5 s, et le dévoilement de bas en haut montre en dernier le haut de l'image, celui qu'on voit d'abord en descendant.
    Désormais elles démarrent dès l'entrée à l'écran avec une courbe rapide au début : photo à moitié visible en 0,15–0,25 s,
    entière en 0,6–0,7 s (mesuré à 10 Mbit/s). Ouverture du hero resserrée, et sans rideau aux visites suivantes de la session.
+7. « Les images ne se chargent pas toutes, il faut qu'à l'arrivée du site elles soient toutes chargées » → 32 images sur 37
+   étaient en chargement différé (10 seulement chargées 3 s après l'arrivée, sans défiler). Toutes passent en chargement
+   immédiat, et le rideau d'ouverture reste baissé, avec une barre de progression, jusqu'à ce que toutes les images soient
+   téléchargées et décodées (37 / 37 au lever du rideau ; 2,5 s à 30 Mbit/s, 3,9 s à 10 Mbit/s, 9,8 s à 3 Mbit/s ; attente
+   bornée à 8 s après le démarrage des scripts).

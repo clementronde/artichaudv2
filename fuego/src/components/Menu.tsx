@@ -92,7 +92,7 @@ export default function Menu() {
                     <div className="absolute inset-0 overflow-hidden">
                       <span data-layer-fill className="absolute inset-0 bg-cream" aria-hidden />
                       <div data-layer-img className="absolute inset-0 overflow-hidden">
-                        <Image
+                        <Image loading="eager"
                           src={d.src}
                           alt={d.alt}
                           fill

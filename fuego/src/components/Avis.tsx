@@ -64,8 +64,8 @@ export default function Avis() {
                   )}
                 >
                   <span className="relative block h-[12.6985px] w-[80px]" data-pop>
-                    <Image src="/images/etoiles-charbon.svg" alt="" width={80} height={12.6985} className={clsx("absolute inset-0 transition-opacity duration-500", on && "opacity-0")} />
-                    <Image src="/images/etoiles-bleu.svg" alt="" width={80} height={12.6985} className={clsx("absolute inset-0 transition-opacity duration-500", !on && "opacity-0")} />
+                    <Image loading="eager" src="/images/etoiles-charbon.svg" alt="" width={80} height={12.6985} className={clsx("absolute inset-0 transition-opacity duration-500", on && "opacity-0")} />
+                    <Image loading="eager" src="/images/etoiles-bleu.svg" alt="" width={80} height={12.6985} className={clsx("absolute inset-0 transition-opacity duration-500", !on && "opacity-0")} />
                     <span className="sr-only">Note : 5 sur 5</span>
                   </span>
                   <blockquote className="w-full font-mono text-[16px] font-light leading-[26px]">{r.text}</blockquote>

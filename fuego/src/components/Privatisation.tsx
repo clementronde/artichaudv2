@@ -235,7 +235,7 @@ export default function Privatisation() {
                 aria-hidden={slotOf(i, active) !== 0}
               >
                 <div className="relative h-full w-full overflow-hidden">
-                  <Image
+                  <Image loading="eager"
                     src={p.src}
                     alt={p.alt}
                     fill
@@ -252,7 +252,7 @@ export default function Privatisation() {
 
         <div className="mt-12 flex items-center justify-center gap-[10px] lg:absolute lg:right-[60px] lg:top-[1002px] lg:mt-0">
           <button type="button" onClick={() => shuffle(-1)} className="size-[41px] transition-transform duration-500 ease-expo hover:-translate-x-1" aria-label="Photo précédente">
-            <Image src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block" />
+            <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block" />
           </button>
           <p className="flex font-mono text-[14px] font-normal uppercase leading-[28px] tabular-nums" aria-live="polite">
             <span className="sr-only">Photo </span>
@@ -265,7 +265,7 @@ export default function Privatisation() {
             /{pad(N)}
           </p>
           <button type="button" onClick={() => shuffle(1)} className="size-[41px] transition-transform duration-500 ease-expo hover:translate-x-1" aria-label="Photo suivante">
-            <Image src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block -scale-x-100" />
+            <Image loading="eager" src="/images/fleche-carre.svg" alt="" width={41} height={41} className="block -scale-x-100" />
           </button>
         </div>
       </div>

@@ -66,7 +66,7 @@ export default function Actualites() {
   return (
     <section id="actualites" className="relative w-full">
       {/* Second filigrane : déborde sur les horaires et le footer, au-dessus des sections */}
-      <Image
+      <Image loading="eager"
         src="/images/filigrane-bas.svg"
         alt=""
         aria-hidden
@@ -103,7 +103,7 @@ export default function Actualites() {
                     <article className="group flex flex-col gap-4">
                       <a href="#actualites" tabIndex={clone ? -1 : undefined} className="block" aria-label={clone ? undefined : `${post.title} — lire l'article`}>
                         <div data-clip className="relative aspect-[303/413] overflow-hidden">
-                          <Image
+                          <Image loading="eager"
                             src={post.src}
                             alt={clone ? "" : post.alt}
                             fill

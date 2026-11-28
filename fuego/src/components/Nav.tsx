@@ -43,10 +43,23 @@ export default function Nav() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        // Entrée juste après le lever de rideau du hero
-        const d = document.documentElement.classList.contains("intro-vue") ? 0.1 : 1;
-        gsap.fromTo("[data-nav-logo]", { y: -24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, delay: d });
-        gsap.fromTo("[data-nav-link]", { y: -18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.06, delay: d + 0.1 });
+        // Entrée quand le rideau se lève (événement envoyé par le hero), au plus tard après 9 s.
+        // Éléments passés directement : l'événement part d'une animation du hero, où un sélecteur texte serait cherché
+        // dans la section du hero et ne trouverait rien.
+        const logo = ref.current!.querySelectorAll("[data-nav-logo]");
+        const links = ref.current!.querySelectorAll("[data-nav-link]");
+        gsap.set([...logo, ...links], { autoAlpha: 0 });
+        const enter = () => {
+          gsap.fromTo(logo, { y: -24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, delay: 0.2 });
+          gsap.fromTo(links, { y: -18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.06, delay: 0.3 });
+        };
+        const fallback = gsap.delayedCall(9, enter);
+        const onReveal = () => {
+          fallback.kill();
+          enter();
+        };
+        window.addEventListener("fuego:revealed", onReveal, { once: true });
+        return () => window.removeEventListener("fuego:revealed", onReveal);
       });
 
       // Après le hero : barre charbon compacte, masquée en descendant, réaffichée en remontant

@@ -10,7 +10,7 @@ export default function Esprit() {
   return (
     <section id="esprit" className="relative w-full scroll-mt-24">
       {/* Grand logo en filigrane, ancré au bord gauche de la page, au-dessus des sections (comme dans Figma) */}
-      <Image
+      <Image loading="eager"
         src="/images/filigrane-haut.svg"
         alt=""
         aria-hidden
@@ -40,7 +40,7 @@ export default function Esprit() {
           {PHOTOS.map((p, i) => (
             <li key={p.src} className="w-[72vw] max-w-[303px] shrink-0 snap-start md:w-auto md:max-w-none">
               <div data-clip data-delay={i * 0.07} className="relative aspect-[303/413] overflow-hidden">
-                <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 303px, (min-width: 768px) 33vw, 72vw" className="object-cover" />
+                <Image loading="eager" src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 303px, (min-width: 768px) 33vw, 72vw" className="object-cover" />
               </div>
             </li>
           ))}
