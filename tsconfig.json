@@ -33,5 +33,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "chezsophie"]
+  "exclude": ["node_modules", "chezsophie", "fuego"]
 }
