@@ -118,10 +118,10 @@ export default function Privatisation() {
           y: "-=180",
           rotation: (i) => (i % 2 ? -16 : 18),
           autoAlpha: 0,
-          duration: 1.4,
-          stagger: 0.16,
+          duration: 1.1,
+          stagger: 0.1,
           ease: "expo.out",
-          scrollTrigger: { trigger: "[data-polaroids]", start: "top 80%", once: true },
+          scrollTrigger: { trigger: "[data-polaroids]", start: "top bottom", once: true },
         });
 
         // La photo du dessus se saisit : on la jette d'un côté ou de l'autre pour l'envoyer derrière, ou on clique dessus

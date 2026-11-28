@@ -40,6 +40,11 @@ body {
   }
 }
 
+/* Rideau déjà vu dans la session : il n'apparaît plus, la page s'ouvre directement */
+.intro-vue [data-curtain] {
+  display: none !important;
+}
+
 @keyframes intro-failsafe {
   to {
     visibility: visible;

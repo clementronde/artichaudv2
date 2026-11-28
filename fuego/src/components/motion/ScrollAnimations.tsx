@@ -8,7 +8,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP, MOTION_OK, unclipDescenders, S
  *  - data-words            texte qui se « colore » mot à mot au fil du scroll
  *  - data-fade             apparition en fondu + montée (data-delay optionnel)
  *  - data-stagger          les enfants directs apparaissent en cascade
- *  - data-clip             image dévoilée de bas en haut (clip-path), photo qui se dézoome
+ *  - data-clip             image dévoilée de bas en haut dès son entrée à l'écran (data-delay optionnel), photo qui se dézoome
  *  - data-parallax="0.2"   décalage vertical proportionnel au scroll
  *  - data-parallax-lg="0.1" idem, seulement à partir de 1024 px (cartes en quinconce)
  *  - data-scale-in         photo pleine largeur qui se dézoome jusqu'à son cadrage Figma quand la section atteint le haut
@@ -83,14 +83,15 @@ export default function ScrollAnimations() {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-clip]").forEach((el) => {
+        // Démarre dès que le haut de l'image entre à l'écran ; courbe rapide au début pour que la photo se voie tout de suite
         const img = el.querySelector("img");
-        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+        const tl = gsap.timeline({ delay: Number(el.dataset.delay ?? 0), scrollTrigger: { trigger: el, start: "top bottom", once: true } });
         tl.fromTo(
           el,
           { clipPath: "inset(100% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.inOut", clearProps: "clipPath" },
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "expo.out", clearProps: "clipPath" },
         );
-        if (img && el.offsetHeight > 200) tl.from(img, { scale: 1.3, duration: 1.8, ease: "expo.out" }, "<0.15");
+        if (img && el.offsetHeight > 200) tl.from(img, { scale: 1.15, duration: 1.3, ease: "expo.out" }, 0);
       });
 
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
@@ -137,12 +138,13 @@ export default function ScrollAnimations() {
         const hidden = "inset(100% 0% 0% 0%)";
         const shown = "inset(0% 0% 0% 0%)";
         const layers = ["[data-layer-frame]", "[data-layer-fill]", "[data-layer-img]"].map((q) => el.querySelector(q));
+        // Dès que la carte entre à l'écran : cadre, aplat puis photo, rapprochés pour que la photo se voie tout de suite
         const tl = gsap.timeline({
-          defaults: { ease: "expo.inOut", duration: 1.25 },
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          defaults: { ease: "expo.out", duration: 0.9 },
+          scrollTrigger: { trigger: el, start: "top bottom", once: true },
         });
         layers.forEach((layer, i) => {
-          if (layer) tl.fromTo(layer, { clipPath: hidden }, { clipPath: shown, clearProps: "clipPath" }, [0, 0.12, 0.34][i]);
+          if (layer) tl.fromTo(layer, { clipPath: hidden }, { clipPath: shown, clearProps: "clipPath" }, [0, 0.05, 0.12][i]);
         });
         // L'aplat crème ne sert qu'à l'animation : on le retire pour qu'aucun liseré ne subsiste autour de la photo
         if (layers[1]) tl.set(layers[1], { autoAlpha: 0 });

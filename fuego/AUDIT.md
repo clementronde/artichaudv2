@@ -158,3 +158,8 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
 5. Polaroïds : la photo se soulève (ombre qui s'allonge) avant d'être lancée en arc, se range derrière ; « précédent » la
    repose devant avec un léger rebond ; on peut la jeter à la souris ou au doigt, cliquer dessus, utiliser les flèches du
    clavier ; elle se soulève au survol ; le compteur défile.
+6. « Pourquoi les images ne se voient pas directement ? » → ce n'était pas le chargement (toutes les images sont téléchargées
+   avant d'arriver à l'écran) mais les animations : elles attendaient que la photo soit entrée de 10 à 20 % puis duraient
+   1,2 à 1,5 s, et le dévoilement de bas en haut montre en dernier le haut de l'image, celui qu'on voit d'abord en descendant.
+   Désormais elles démarrent dès l'entrée à l'écran avec une courbe rapide au début : photo à moitié visible en 0,15–0,25 s,
+   entière en 0,6–0,7 s (mesuré à 10 Mbit/s). Ouverture du hero resserrée, et sans rideau aux visites suivantes de la session.

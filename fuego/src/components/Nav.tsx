@@ -44,8 +44,9 @@ export default function Nav() {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         // Entrée juste après le lever de rideau du hero
-        gsap.fromTo("[data-nav-logo]", { y: -24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.3, delay: 1.5 });
-        gsap.fromTo("[data-nav-link]", { y: -18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.07, delay: 1.65 });
+        const d = document.documentElement.classList.contains("intro-vue") ? 0.1 : 1;
+        gsap.fromTo("[data-nav-logo]", { y: -24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, delay: d });
+        gsap.fromTo("[data-nav-link]", { y: -18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.06, delay: d + 0.1 });
       });
 
       // Après le hero : barre charbon compacte, masquée en descendant, réaffichée en remontant

@@ -12,32 +12,43 @@ export default function Hero() {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        // Rideau seulement à la première visite de la session (classe posée dans le <head>, voir layout.tsx)
+        const first = !document.documentElement.classList.contains("intro-vue");
+        const c = first ? 0.75 : 0;
 
         // 1. Rideau bordeaux : le logo s'écrit de gauche à droite, puis le rideau se lève
-        tl.fromTo("[data-curtain-logo]", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power2.inOut" }, 0.1)
-          .to("[data-curtain-logo]", { yPercent: -40, autoAlpha: 0, duration: 0.6, ease: "power3.in" }, 0.9)
-          .to("[data-curtain]", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, 1.0)
-          .set("[data-curtain]", { display: "none" })
-          // 2. La photo du chef se dézoome lentement
-          .fromTo("[data-hero-img]", { scale: 1.25 }, { scale: 1, duration: 3, ease: "expo.out" }, 1.0)
+        if (first) {
+          tl.fromTo("[data-curtain-logo]", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "power2.inOut" }, 0.1)
+            .to("[data-curtain-logo]", { yPercent: -40, autoAlpha: 0, duration: 0.4, ease: "power3.in" }, 0.6)
+            .to("[data-curtain]", { yPercent: -100, duration: 0.85, ease: "expo.inOut" }, 0.7)
+            .set("[data-curtain]", { display: "none" });
+          try {
+            sessionStorage.setItem("fuego-intro", "1");
+          } catch {}
+        } else {
+          tl.set("[data-curtain]", { display: "none" });
+        }
+
+        // 2. La photo du chef se dézoome lentement
+        tl.fromTo("[data-hero-img]", { scale: 1.2 }, { scale: 1, duration: 2.4, ease: "expo.out" }, c)
           // 3. La salle se dévoile de bas en haut, puis le logo s'écrit par-dessus
-          .set("[data-hero-room], [data-hero-logo]", { autoAlpha: 1 }, 1.35)
-          .fromTo("[data-hero-room]", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "expo.inOut", clearProps: "clipPath" }, 1.35)
-          .fromTo("[data-hero-room] img", { scale: 1.3 }, { scale: 1, duration: 1.8 }, 1.5)
+          .set("[data-hero-room], [data-hero-logo]", { autoAlpha: 1 }, c + 0.15)
+          .fromTo("[data-hero-room]", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, clearProps: "clipPath" }, c + 0.15)
+          .fromTo("[data-hero-room] img", { scale: 1.2 }, { scale: 1, duration: 1.4 }, c + 0.15)
           .fromTo(
             "[data-hero-logo]",
             { clipPath: "inset(-10% 100% -10% 0%)" },
-            { clipPath: "inset(-10% 0% -10% 0%)", duration: 1.4, ease: "power2.inOut", clearProps: "clipPath" },
-            1.85,
+            { clipPath: "inset(-10% 0% -10% 0%)", duration: 1, ease: "power2.inOut", clearProps: "clipPath" },
+            c + 0.4,
           );
 
         // 4. Accroche ligne par ligne
         const tagline = SplitText.create("[data-hero-tagline]", { type: "lines", mask: "lines" });
         unclipDescenders(tagline.masks);
-        tl.set("[data-hero-tagline]", { autoAlpha: 1 }, 2.3).from(
+        tl.set("[data-hero-tagline]", { autoAlpha: 1 }, c + 0.75).from(
           tagline.lines,
-          { yPercent: SPLIT_OFFSET, duration: 1.3, stagger: 0.08, onComplete: () => tagline.revert() },
-          2.3,
+          { yPercent: SPLIT_OFFSET, duration: 1.1, stagger: 0.08, onComplete: () => tagline.revert() },
+          c + 0.75,
         );
 
         // Au scroll : la photo du chef glisse plus lentement que la page

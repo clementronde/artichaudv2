@@ -29,8 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={fontVariables} suppressHydrationWarning>
       <head>
-        {/* Active le masquage pré-animation uniquement quand JS est disponible */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Active le masquage pré-animation uniquement quand JS est disponible ; « intro-vue » : rideau déjà vu dans la session */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');try{if(sessionStorage.getItem('fuego-intro'))document.documentElement.classList.add('intro-vue')}catch(e){}",
+          }}
+        />
         <JsonLd />
       </head>
       <body className="font-mono">

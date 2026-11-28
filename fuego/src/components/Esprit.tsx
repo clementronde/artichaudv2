@@ -35,12 +35,11 @@ export default function Esprit() {
         </div>
 
         <ul
-          data-stagger
           className="scroll-strip -mx-5 mt-10 flex snap-x snap-mandatory scroll-px-5 gap-2 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:col-start-2 lg:mt-[110px]"
         >
-          {PHOTOS.map((p) => (
+          {PHOTOS.map((p, i) => (
             <li key={p.src} className="w-[72vw] max-w-[303px] shrink-0 snap-start md:w-auto md:max-w-none">
-              <div data-clip className="relative aspect-[303/413] overflow-hidden">
+              <div data-clip data-delay={i * 0.07} className="relative aspect-[303/413] overflow-hidden">
                 <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 303px, (min-width: 768px) 33vw, 72vw" className="object-cover" />
               </div>
             </li>
