@@ -242,13 +242,15 @@ export default function ScrollAnimations() {
     mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
       gsap.utils.toArray<HTMLElement>("[data-parallax-lg]").forEach((el) => {
         const speed = Number(el.dataset.parallaxLg ?? 0.1);
+        // Décalage en pixels entiers : un déplacement fractionnaire floute les filets horizontaux des cadres
         gsap.fromTo(
           el,
-          { yPercent: -speed * 50 },
+          { y: () => (-speed * el.offsetHeight) / 2 },
           {
-            yPercent: speed * 50,
+            y: () => (speed * el.offsetHeight) / 2,
             ease: "none",
-            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true },
+            modifiers: { y: (v: string) => `${Math.round(parseFloat(v))}px` },
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
           },
         );
       });

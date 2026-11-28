@@ -80,17 +80,16 @@ export default function Menu() {
               <li
                 key={d.name}
                 className={clsx(
-                  "lg:absolute lg:left-[var(--x)] lg:top-[var(--y)] lg:w-[var(--w)]",
-                  d.w === 614 && "md:col-span-2 md:mx-auto md:w-[min(100%,614px)] lg:mx-0",
+                  "dish lg:absolute",
+                  d.w === 614 && "md:col-span-2 md:max-lg:mx-auto md:max-lg:w-[min(100%,614px)]",
                 )}
                 style={{ "--x": u(d.x), "--y": u(d.y), "--w": u(d.w) } as React.CSSProperties}
               >
                 <article data-parallax-lg={d.speed} className="group flex flex-col gap-[26px]">
-                  {/* Cadre blanc de 0,5 px (le « rectangle » de la maquette) ; la photo occupe l'intérieur du cadre, comme dans Figma.
-                      À l'apparition, le cadre monte de bas en haut, suivi d'un aplat crème puis de la photo (data-layer). */}
+                  {/* Cadre blanc fin (le « rectangle » de la maquette), posé AU-DESSUS de la photo pour être identique sur les quatre
+                      côtés de chaque carte. À l'apparition, le cadre monte de bas en haut, suivi d'un aplat crème puis de la photo. */}
                   <div data-layer className={clsx("relative", d.w === 614 ? "aspect-[614/559]" : "aspect-[458/559]")}>
-                    <span data-layer-frame className="pointer-events-none absolute inset-0 border-[0.5px] border-cream" aria-hidden />
-                    <div className="absolute inset-[0.5px] overflow-hidden">
+                    <div className="absolute inset-0 overflow-hidden">
                       <span data-layer-fill className="absolute inset-0 bg-cream" aria-hidden />
                       <div data-layer-img className="absolute inset-0 overflow-hidden">
                         <Image
@@ -103,6 +102,7 @@ export default function Menu() {
                         />
                       </div>
                     </div>
+                    <span data-layer-frame className="hairline pointer-events-none absolute inset-0 z-10" aria-hidden />
                   </div>
                   <div className="flex flex-col items-start gap-4">
                     <div className="flex w-full items-start justify-between gap-6 font-mono text-[16px] font-normal uppercase leading-[26px]">

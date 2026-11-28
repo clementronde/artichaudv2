@@ -3,10 +3,11 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { Draggable } from "gsap/Draggable";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+  gsap.registerPlugin(ScrollTrigger, SplitText, Draggable, useGSAP);
   gsap.defaults({ ease: "expo.out", duration: 1.2 });
 }
 
@@ -32,4 +33,4 @@ export function unclipDescenders(masks: Element[]) {
 
 export const SPLIT_OFFSET = 145;
 
-export { gsap, ScrollTrigger, SplitText, useGSAP };
+export { gsap, ScrollTrigger, SplitText, Draggable, useGSAP };

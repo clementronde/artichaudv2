@@ -152,3 +152,9 @@ Titres : `clamp(40px, 33.404px + 1.759vw, 60px)` (60 px atteint à 1512).
 2. Privatisation : le polaroïd de devant sort de la pile en restant au-dessus, passe dessous puis revient se glisser
    derrière (« précédent » : celui du dessous sort de derrière et se pose devant).
 3. Menu : le cadre blanc monte d'abord de bas en haut, un aplat crème puis la photo le suivent comme des calques (plus de zoom).
+4. Menu : contour différent d'une carte à l'autre → la photo, posée par-dessus le cadre avec un retrait de 0,5 px arrondi au
+   pixel, masquait les bords bas et droit selon la position de la carte. Cadre tracé au-dessus de la photo (1 px crème à 55 %
+   sur écran standard, 0,5 px sur écran Retina), positions et parallaxe arrondies au pixel. Écart Figma du menu : 0,30 %.
+5. Polaroïds : la photo se soulève (ombre qui s'allonge) avant d'être lancée en arc, se range derrière ; « précédent » la
+   repose devant avec un léger rebond ; on peut la jeter à la souris ou au doigt, cliquer dessus, utiliser les flèches du
+   clavier ; elle se soulève au survol ; le compteur défile.

@@ -46,6 +46,18 @@ body {
   }
 }
 
+@keyframes counter-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes counter-in-down {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
 @keyframes curtain-failsafe {
   to {
     opacity: 0;
@@ -99,6 +111,57 @@ body {
   .link-underline:hover::after,
   .link-underline:focus-visible::after {
     @apply origin-left scale-x-100;
+  }
+
+  /* Filet de 0,5 px de la maquette : un pixel crème à 55 % sur écran standard (rendu de Figma), un vrai demi-pixel sur
+     écran haute densité. Tracé par-dessus l'image pour être identique sur les quatre côtés. */
+  .hairline {
+    border: 1px solid rgb(255 254 246 / 0.55);
+  }
+  @media (min-resolution: 2dppx) {
+    .hairline {
+      border-width: 0.5px;
+      border-color: #fffef6;
+    }
+  }
+
+  /* Cartes du menu en quinconce (≥ 1024 px) : positions de la maquette en unités de conteneur, arrondies au pixel entier
+     quand le navigateur sait le faire, pour que les filets tombent tous sur un pixel. */
+  @media (min-width: 1024px) {
+    .dish {
+      left: var(--x);
+      top: var(--y);
+      width: var(--w);
+    }
+    @supports (width: round(1.5px, 1px)) {
+      .dish {
+        left: round(var(--x), 1px);
+        top: round(var(--y), 1px);
+        width: round(var(--w), 1px);
+      }
+    }
+  }
+
+  /* Polaroïd : l'ombre suit la hauteur à laquelle on soulève la photo (--lift de 0 à 1, animé par GSAP).
+     Au repos : drop-shadow(0 4px 7.4px rgb(0 0 0 / 16 %)) de la maquette. */
+  .polaroid {
+    --lift: 0;
+    filter: drop-shadow(
+      0 calc(4px + 20px * var(--lift)) calc(7.4px + 22px * var(--lift)) rgb(0 0 0 / calc(0.16 + 0.1 * var(--lift)))
+    );
+  }
+
+  /* Compteur 01/03 : le numéro entre par le bas (suivant) ou par le haut (précédent) */
+  .counter-roll {
+    animation: counter-in 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
+  }
+  .counter-roll[data-dir="-1"] {
+    animation-name: counter-in-down;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .counter-roll {
+      animation: none;
+    }
   }
 
   /* Bande horizontale défilante (mobile) sans barre visible */
